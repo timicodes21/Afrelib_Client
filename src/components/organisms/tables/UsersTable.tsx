@@ -148,7 +148,7 @@ const UsersTable: React.FC<IProps> = ({ users, loading }) => {
                       <TableCell align="center">
                         <Box className="d-flex items-center justify-between">
                           <Box>
-                            <AuthButton size="small" notFullWidth>
+                            <AuthButton type="button" size="small" notFullWidth>
                               Login
                             </AuthButton>
                           </Box>

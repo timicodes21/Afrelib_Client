@@ -1,14 +1,14 @@
 import { ISelect } from "@/types";
 import { Typography, Box } from "@mui/material";
 import React, { ReactNode } from "react";
-import Select, { ActionMeta, SingleValue } from "react-select";
+import Select, { ActionMeta, GroupBase, SingleValue } from "react-select";
 
 interface IProps {
   label: string;
   icon?: ReactNode;
   blackLabel?: boolean;
   smallLabel?: boolean;
-  options: ISelect[];
+  options: readonly (string | number | GroupBase<string | number>)[];
   background?: string;
   onChange:
     | ((
