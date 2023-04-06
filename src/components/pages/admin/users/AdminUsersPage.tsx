@@ -3,19 +3,38 @@ import PageHeader from "@/components/molecules/headers/PageHeader";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import UsersTable from "@/components/organisms/tables/UsersTable";
 import Wrapper from "@/components/templates/Wrapper";
-import { allUsers } from "@/data/dashboard";
-import { useAdminUsers } from "@/hooks/admin/useAdminUsers";
+import { useAdminUsers, useGetAllUsers } from "@/hooks/admin/useAdminUsers";
 import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import AddUser from "./AddUser";
 import { useGetRoles, useModal } from "@/hooks/utility";
 import { getRoles } from "@/api/roles";
+import TableOptionsButton from "@/components/atoms/buttons/TableOptionsButton";
 
 const AdminUsersPage = () => {
-  const { activeTab, setActiveTab, activeTabStyle, inActiveTabStyle } =
-    useAdminUsers();
+  const {
+    activeTab,
+    setActiveTab,
+    activeTabStyle,
+    inActiveTabStyle,
+    selectedRole,
+    setSelectedRole,
+    open,
+    setOpen,
+    openModal,
+    closeModal,
+  } = useAdminUsers();
 
-  const { open, setOpen, openModal, closeModal } = useModal();
+  const {
+    allUsers,
+    status,
+    isLoading,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useGetAllUsers();
+
+  console.log("all users", allUsers);
 
   return (
     <Wrapper>
@@ -56,8 +75,33 @@ const AdminUsersPage = () => {
           </TransparentBlueButton>
         </Box>
       </Box>
+      <Box className="d-flex items-center" sx={{ mt: 2 }}>
+        <TableOptionsButton
+          active={selectedRole === "Student"}
+          onClick={() => setSelectedRole("Student")}
+        >
+          Students
+        </TableOptionsButton>
+        <TableOptionsButton
+          ml
+          active={selectedRole === "Mentor"}
+          onClick={() => setSelectedRole("Mentor")}
+        >
+          Mentors
+        </TableOptionsButton>{" "}
+        <TableOptionsButton
+          ml
+          active={selectedRole === "Panelist"}
+          onClick={() => setSelectedRole("Panelist")}
+        >
+          Panelists
+        </TableOptionsButton>
+      </Box>
       <Box sx={{ mt: 2 }}>
-        <UsersTable loading={false} users={allUsers} />
+        <UsersTable
+          loading={isLoading}
+          users={allUsers?.filter(item => item?.role_name === selectedRole)}
+        />
       </Box>
       <CustomModal
         open={open}

@@ -30,10 +30,12 @@ export const ADMIN_USER = "/admin/dashboard/users";
 export const ADMIN_LOGIN_API = "/admin/signin";
 export const GET_ROLES_API = "/roles";
 export const CREATE_USER_API = "/admin/user/create";
+export const GET_ALL_USERS_API = (page: number) => `users?page=${page}`;
 export const LOGIN_USER_API = "/user/signin";
 
 export const queryKeys = {
   getRoles: "getRoles",
+  getAllUsers: "getAllUsers",
 };
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

@@ -56,3 +56,19 @@ export interface ICreateUserResponse {
   id: number;
   role_name: string;
 }
+
+export interface IGetAllUsersResponse {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  email_verified_at?: any;
+  role_id: string;
+  school_name: string;
+  leadership_points: number;
+  badges: number;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  role_name: string;
+}

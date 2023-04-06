@@ -11,12 +11,13 @@ import { Box, LinearProgress, Typography } from "@mui/material";
 import { usersTableColumns } from "@/data/dashboard";
 import { useTable } from "@/hooks/utility";
 import Image from "next/image";
-import { IUSer } from "@/types";
 import { FiMoreVertical } from "react-icons/fi";
 import AuthButton from "@/components/atoms/buttons/AuthButton";
+import { IGetAllUsersResponse } from "@/types/apiResponses";
+import ActiveInActiveBdge from "@/components/atoms/badges/ActiveInActiveBdge";
 
 interface IProps {
-  users: IUSer[];
+  users: IGetAllUsersResponse[];
   loading?: boolean;
 }
 
@@ -64,7 +65,7 @@ const UsersTable: React.FC<IProps> = ({ users, loading }) => {
           </TableHead>
 
           <TableBody>
-            {users.length === 0 && (
+            {!loading && users.length === 0 && (
               <Box className="d-flex justify-center items-center">
                 <Image
                   src="/assets/icons/empty_icon.svg"
@@ -86,7 +87,7 @@ const UsersTable: React.FC<IProps> = ({ users, loading }) => {
                           className="font-10 font-500"
                           sx={{ color: "secondary.main" }}
                         >
-                          {item.firstName}
+                          {item.first_name}
                         </Typography>
                       </TableCell>
                       <TableCell align="left">
@@ -94,7 +95,7 @@ const UsersTable: React.FC<IProps> = ({ users, loading }) => {
                           className="font-10 font-500"
                           sx={{ color: "secondary.main" }}
                         >
-                          {item.lastName}
+                          {item.last_name}
                         </Typography>
                       </TableCell>
                       <TableCell align="left">
@@ -110,7 +111,7 @@ const UsersTable: React.FC<IProps> = ({ users, loading }) => {
                           className="font-10 font-500"
                           sx={{ color: "secondary.main" }}
                         >
-                          {item.dateOfBirth}
+                          Date of birth
                         </Typography>
                       </TableCell>
                       <TableCell align="center">
@@ -118,7 +119,7 @@ const UsersTable: React.FC<IProps> = ({ users, loading }) => {
                           className="font-10 font-500"
                           sx={{ color: "secondary.main" }}
                         >
-                          {item.points}
+                          {item.leadership_points}
                         </Typography>
                       </TableCell>
                       <TableCell align="center">
@@ -130,19 +131,18 @@ const UsersTable: React.FC<IProps> = ({ users, loading }) => {
                         </Typography>
                       </TableCell>
                       <TableCell align="center">
-                        <Typography
-                          className="font-10 font-500"
-                          sx={{ color: "secondary.main" }}
+                        <ActiveInActiveBdge
+                          type={item.status.toLocaleLowerCase()}
                         >
                           {item.status}
-                        </Typography>
+                        </ActiveInActiveBdge>
                       </TableCell>
                       <TableCell align="center">
                         <Typography
                           className="font-10 font-500"
                           sx={{ color: "secondary.main" }}
                         >
-                          {item.school}
+                          {item.school_name}
                         </Typography>
                       </TableCell>
                       <TableCell align="center">

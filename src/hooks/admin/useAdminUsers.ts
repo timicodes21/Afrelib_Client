@@ -2,17 +2,66 @@ import { useState } from "react";
 import { z, string } from "zod";
 import { SubmitHandler } from "react-hook-form/dist/types";
 import { AddUserFormValues } from "@/types/formValues";
-import { useMutation } from "@tanstack/react-query";
-import { createUser } from "@/api/users";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { createUser, getAllusers } from "@/api/users";
 import { ICreateUserRequest } from "@/types/apiRequests";
-import { ICreateUserResponse } from "@/types/apiResponses";
+import {
+  ICreateUserResponse,
+  IGetAllUsersResponse,
+} from "@/types/apiResponses";
+import { queryClient, queryKeys } from "@/data/constants";
+import { useModal } from "../utility";
 
 const useCreateUser = () => {
   return useMutation(createUser);
 };
 
+export const useGetAllUsers = () => {
+  const getUsers = async (pageNo: 1) => {
+    let response = await getAllusers(pageNo);
+    return response;
+  };
+
+  const {
+    data,
+    status,
+    isLoading,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery(
+    [queryKeys.getAllUsers],
+    ({ pageParam = 1 }) => getUsers(pageParam),
+    {
+      getNextPageParam: (lastPage, pages) => {
+        // console.log("lastpage", lastPage, "pages", pages);
+        return lastPage?.length !== 0 ? pages.length + 1 : null;
+      },
+    },
+  );
+
+  const allUsers: IGetAllUsersResponse[] = [];
+  Array.isArray(data?.pages) &&
+    data?.pages?.map(page =>
+      page?.map((el: IGetAllUsersResponse) => allUsers.push(el)),
+    );
+
+  return {
+    allUsers,
+    status,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  };
+};
+
 export const useAdminUsers = () => {
   const [activeTab, setActiveTab] = useState<"admin" | "users">("users");
+  const { open, setOpen, openModal, closeModal } = useModal();
+  const [selectedRole, setSelectedRole] = useState<
+    "Student" | "Mentor" | "Panelist"
+  >("Student");
 
   const activeTabStyle = {
     boxShadow:
@@ -38,7 +87,10 @@ export const useAdminUsers = () => {
 
   const { mutate, isLoading } = useCreateUser();
 
-  const onSuccess = (data: ICreateUserResponse | string) => {};
+  const onSuccess = (data: ICreateUserResponse | string) => {
+    queryClient.invalidateQueries([queryKeys.getAllUsers]);
+    closeModal();
+  };
 
   const onError = () => {};
 
@@ -63,5 +115,11 @@ export const useAdminUsers = () => {
     onSubmit,
     schema,
     isLoading,
+    selectedRole,
+    setSelectedRole,
+    open,
+    setOpen,
+    openModal,
+    closeModal,
   };
 };
