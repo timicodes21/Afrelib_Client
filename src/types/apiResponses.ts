@@ -67,7 +67,7 @@ export interface IGetAllUsersResponse {
   school_name: string;
   leadership_points: number;
   badges: number;
-  status: string;
+  status: "active" | "inactive";
   created_at: string;
   updated_at: string;
   role_name: string;
