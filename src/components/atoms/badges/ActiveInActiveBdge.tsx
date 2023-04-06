@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React, { ReactNode } from "react";
 
 interface IProps {
-  type: "active" | "inactive";
+  type: string;
   children?: ReactNode;
 }
 
