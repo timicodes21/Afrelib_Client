@@ -1,11 +1,12 @@
 import { Button } from "@mui/material";
 import React, { ReactNode } from "react";
 
-interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface IProps {
   children?: ReactNode;
+  type: "button" | "submit" | "reset" | undefined;
 }
 
-const TransparentBlueButton: React.FC<IProps> = ({ children, ...props }) => {
+const TransparentBlueButton: React.FC<IProps> = ({ children, type }) => {
   return (
     <Button
       sx={{
@@ -17,7 +18,7 @@ const TransparentBlueButton: React.FC<IProps> = ({ children, ...props }) => {
       variant="outlined"
       className="font-16 font-600"
       size="large"
-      {...props}
+      type={type}
     >
       {children}
     </Button>

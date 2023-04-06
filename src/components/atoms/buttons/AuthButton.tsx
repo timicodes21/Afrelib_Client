@@ -1,11 +1,12 @@
 import { Button, CircularProgress } from "@mui/material";
 import React, { ReactNode } from "react";
 
-interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface IProps {
   children?: ReactNode;
   notFullWidth?: boolean;
   size?: "large" | "small" | "medium";
   loading?: boolean;
+  type: "button" | "submit" | "reset" | undefined;
 }
 
 const AuthButton: React.FC<IProps> = ({
@@ -13,7 +14,7 @@ const AuthButton: React.FC<IProps> = ({
   notFullWidth,
   size,
   loading,
-  ...props
+  type,
 }) => {
   return (
     <Button
@@ -27,7 +28,7 @@ const AuthButton: React.FC<IProps> = ({
       variant="contained"
       className={`${size === "small" ? "font-12" : "font-16"} font-700`}
       size={size ? size : "large"}
-      {...props}
+      type={type}
     >
       {loading ? (
         <CircularProgress sx={{ color: "#FFF" }} size={25} />
