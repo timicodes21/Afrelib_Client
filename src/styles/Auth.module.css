@@ -1,0 +1,85 @@
+.rightBackground {
+  background: linear-gradient(to right, #1488cc, #2b32b2);
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.leftBackground {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.roleCardContainer {
+  border-radius: 4px;
+  box-shadow: 0px 8px 10px rgba(4, 70, 122, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer !important;
+  transition: 0.5s;
+}
+
+.roleCardContainer:hover {
+  transform: scale(1.01);
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 2px;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+
+.inputContainer input {
+  width: 100%;
+  outline: none !important;
+  border: none !important;
+  color: inherit;
+  color: #000;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.rememberContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputContainer input::placeholder {
+  color: #848f9f;
+  font-size: 12px;
+}
+
+.checkContainer {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .leftBackground {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.authPatternBackground {
+  background: linear-gradient(to right, #1488cc, #2b32b2),
+    url("../../public/assets/images/background_pattern.svg");
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
