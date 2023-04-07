@@ -4,9 +4,14 @@ import React, { ReactNode } from "react";
 interface IProps {
   children?: ReactNode;
   type: "button" | "submit" | "reset" | undefined;
+  onClick: () => void;
 }
 
-const TransparentBlueButton: React.FC<IProps> = ({ children, type }) => {
+const TransparentBlueButton: React.FC<IProps> = ({
+  children,
+  type,
+  onClick,
+}) => {
   return (
     <Button
       sx={{
@@ -19,6 +24,7 @@ const TransparentBlueButton: React.FC<IProps> = ({ children, type }) => {
       className="font-16 font-600"
       size="large"
       type={type}
+      onClick={onClick}
     >
       {children}
     </Button>

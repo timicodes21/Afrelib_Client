@@ -7,6 +7,7 @@ interface IProps {
   size?: "large" | "small" | "medium";
   loading?: boolean;
   type: "button" | "submit" | "reset" | undefined;
+  onClick: () => void;
 }
 
 const AuthButton: React.FC<IProps> = ({
@@ -15,6 +16,7 @@ const AuthButton: React.FC<IProps> = ({
   size,
   loading,
   type,
+  onClick,
 }) => {
   return (
     <Button
@@ -29,6 +31,7 @@ const AuthButton: React.FC<IProps> = ({
       className={`${size === "small" ? "font-12" : "font-16"} font-700`}
       size={size ? size : "large"}
       type={type}
+      onClick={onClick}
     >
       {loading ? (
         <CircularProgress sx={{ color: "#FFF" }} size={25} />

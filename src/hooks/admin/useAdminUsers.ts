@@ -58,7 +58,7 @@ export const useGetAllUsers = () => {
 
 export const useAdminUsers = () => {
   const [activeTab, setActiveTab] = useState<"admin" | "users">("users");
-  const { open, setOpen, openModal, closeModal } = useModal();
+
   const [selectedRole, setSelectedRole] = useState<
     "Student" | "Mentor" | "Panelist"
   >("Student");
@@ -89,7 +89,6 @@ export const useAdminUsers = () => {
 
   const onSuccess = (data: ICreateUserResponse | string) => {
     queryClient.invalidateQueries([queryKeys.getAllUsers]);
-    closeModal();
   };
 
   const onError = () => {};
@@ -117,9 +116,5 @@ export const useAdminUsers = () => {
     isLoading,
     selectedRole,
     setSelectedRole,
-    open,
-    setOpen,
-    openModal,
-    closeModal,
   };
 };

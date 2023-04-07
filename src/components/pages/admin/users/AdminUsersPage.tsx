@@ -19,11 +19,9 @@ const AdminUsersPage = () => {
     inActiveTabStyle,
     selectedRole,
     setSelectedRole,
-    open,
-    setOpen,
-    openModal,
-    closeModal,
   } = useAdminUsers();
+
+  const { open, setOpen, openModal, closeModal } = useModal();
 
   const {
     allUsers,
@@ -70,7 +68,7 @@ const AdminUsersPage = () => {
           </Box>
         </Box>
         <Box>
-          <TransparentBlueButton onClick={openModal}>
+          <TransparentBlueButton type="button" onClick={openModal}>
             Add User
           </TransparentBlueButton>
         </Box>
