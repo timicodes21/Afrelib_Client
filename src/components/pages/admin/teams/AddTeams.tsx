@@ -7,10 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AuthInput from "@/components/atoms/inputFields/AuthInput";
 import CustomSelect from "@/components/atoms/inputFields/CustomSelect";
 import AuthButton from "@/components/atoms/buttons/AuthButton";
-import { useFilterUsersForSelect, useGetRoles } from "@/hooks/utility";
+import { useFilterUsersForSelect } from "@/hooks/utility";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
 import { useAdminTeams } from "@/hooks/admin/useAdminTeams";
+import CustomMultiSelect from "@/components/atoms/inputFields/CustomMultiSelect";
 
 interface IProps {
   handleClose: () => void;
@@ -69,7 +70,6 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
                 background="#F3F5F6"
                 placeholder="Select Mentor"
                 isLoading={isLoading}
-                isMulti={false}
               />
               {errors?.mentor && (
                 <InputErrorText>{errors?.mentor?.message ?? ""}</InputErrorText>
@@ -77,7 +77,7 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <CustomSelect
+              <CustomMultiSelect
                 label="Select Students(s)"
                 smallLabel
                 onChange={e => {
@@ -92,7 +92,6 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
                 background="#F3F5F6"
                 placeholder="Select type"
                 isLoading={isLoading}
-                isMulti
               />
               {errors?.students && (
                 <InputErrorText>

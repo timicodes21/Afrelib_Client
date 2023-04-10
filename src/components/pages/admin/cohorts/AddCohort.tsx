@@ -11,6 +11,7 @@ import { useFilterUsersForSelect, useGetRoles } from "@/hooks/utility";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
 import { useAdminCohort } from "@/hooks/admin/useAdminCohort";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
+import CustomMultiSelect from "@/components/atoms/inputFields/CustomMultiSelect";
 
 interface IProps {
   handleClose: () => void;
@@ -54,7 +55,7 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container sx={{ mt: 3 }} spacing={2}>
             <Grid item xs={12} md={6}>
-              <CustomSelect
+              <CustomMultiSelect
                 label="Select Mentor(s)"
                 smallLabel
                 onChange={e => {
@@ -69,7 +70,6 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                 background="#F3F5F6"
                 placeholder="Select type"
                 isLoading={isLoading}
-                isMulti
               />
               {errors?.mentors && (
                 <InputErrorText>
@@ -79,7 +79,7 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <CustomSelect
+              <CustomMultiSelect
                 label="Select Panelists(s)"
                 smallLabel
                 onChange={e => {
@@ -96,7 +96,6 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                 background="#F3F5F6"
                 placeholder="Select type"
                 isLoading={isLoading}
-                isMulti
               />
               {errors?.panelists && (
                 <InputErrorText>
@@ -106,7 +105,7 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <CustomSelect
+              <CustomMultiSelect
                 label="Select Team(s)"
                 smallLabel
                 onChange={e => {
@@ -123,7 +122,6 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                 background="#F3F5F6"
                 placeholder="Select Team"
                 isLoading={isLoading}
-                isMulti
               />
               {errors?.teams && (
                 <InputErrorText>{errors?.teams?.message ?? ""}</InputErrorText>
