@@ -55,7 +55,12 @@ Click the Add New button to create one..."
         allCohorts.length !== 0 &&
         allCohorts.map((item, index) => (
           <Box sx={{ mt: 2 }} key={index}>
-            <CohortsContainer header={item?.cohort_name}>
+            <CohortsContainer
+              header={item?.cohort_name}
+              onDelete={() => {}}
+              onEdit={() => {}}
+              onAssign={() => {}}
+            >
               <Box></Box>
             </CohortsContainer>
           </Box>

@@ -584,3 +584,23 @@ export const allUsers: IUSer[] = [
     school: "Loral Secondary School",
   },
 ];
+
+interface Option {
+  name: string;
+  src: string;
+}
+
+export const cohortOptions: Option[] = [
+  {
+    name: "Edit Teams",
+    src: "/assets/icons/edit_icon.svg",
+  },
+  {
+    name: "Assign Panelists",
+    src: "/assets/icons/assign_icon.svg",
+  },
+  {
+    name: "Delete Cohort",
+    src: "/assets/icons/delete_icon.svg",
+  },
+];

@@ -1,14 +1,37 @@
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
-import { Box, Grid, Typography } from "@mui/material";
+import CohortOptionsList from "@/components/molecules/lists/CohortOptionsList";
+import { Box, Grid, Popover, Typography } from "@mui/material";
 import React, { ReactNode } from "react";
 import { FiMoreVertical } from "react-icons/fi";
 
 interface IProps {
   header: string;
   children: ReactNode;
+  onEdit: () => void;
+  onAssign: () => void;
+  onDelete: () => void;
 }
 
-const CohortsContainer: React.FC<IProps> = ({ header, children }) => {
+const CohortsContainer: React.FC<IProps> = ({
+  header,
+  children,
+  onEdit,
+  onAssign,
+  onDelete,
+}) => {
+  const [anchorEl, setAnchorEl] = React.useState<SVGElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<SVGElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
   return (
     <Box
       sx={{
@@ -26,10 +49,30 @@ const CohortsContainer: React.FC<IProps> = ({ header, children }) => {
         >
           {header}
         </Typography>
-        <FiMoreVertical
-          style={{ color: "#353F50" }}
-          className="font-18 font-500 pointer"
-        />
+        <Box>
+          <FiMoreVertical
+            style={{ color: "#353F50" }}
+            className="font-18 font-500 pointer"
+            aria-describedby={id}
+            onClick={handleClick}
+          />
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+          >
+            <CohortOptionsList
+              onEdit={onEdit}
+              onAssign={onAssign}
+              onDelete={onDelete}
+            />
+          </Popover>
+        </Box>
       </Box>
       <Box>
         <Grid container spacing={2} sx={{ mt: 1 }}>

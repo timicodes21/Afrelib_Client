@@ -38,6 +38,17 @@
   display: none;
 }
 
+.optionWrapper {
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.optionWrapper:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
 @media screen and (max-width: 992px) {
   .mobileIconContainer {
     display: block;
