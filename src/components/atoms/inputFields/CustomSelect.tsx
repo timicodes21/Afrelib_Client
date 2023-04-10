@@ -1,7 +1,7 @@
 import { ISelect } from "@/types";
 import { Typography, Box } from "@mui/material";
 import React, { ReactNode } from "react";
-import Select, { ActionMeta, GroupBase, SingleValue } from "react-select";
+import Select, { SingleValue, MultiValue } from "react-select";
 
 interface Option {
   value: string | number;
@@ -18,7 +18,7 @@ interface IProps {
   background?: string;
   options: Option[];
   value?: ValueType;
-  onChange: (value: ValueType) => void;
+  onChange: (value: MultiValue<Option> | SingleValue<Option>) => void;
   placeholder: string;
   isLoading?: boolean;
   isMulti?: boolean;

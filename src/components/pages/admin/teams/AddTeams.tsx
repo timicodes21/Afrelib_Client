@@ -69,6 +69,7 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
                 background="#F3F5F6"
                 placeholder="Select Mentor"
                 isLoading={isLoading}
+                isMulti={false}
               />
               {errors?.mentor && (
                 <InputErrorText>{errors?.mentor?.message ?? ""}</InputErrorText>
