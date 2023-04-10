@@ -145,7 +145,11 @@ const AdminLoginPage = () => {
               </Box>
             </Box>
             <Box sx={{ mt: { xs: 3, md: 5 } }}>
-              <AuthButton type="submit" loading={isLoadingAdmin}>
+              <AuthButton
+                type="submit"
+                loading={isLoadingAdmin}
+                onClick={() => {}}
+              >
                 Login
               </AuthButton>
             </Box>

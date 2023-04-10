@@ -123,7 +123,7 @@ const LoginPage = () => {
             </Box>
           </Box>
           <Box sx={{ mt: 2 }}>
-            <AuthButton type="submit" loading={isLoading}>
+            <AuthButton type="submit" loading={isLoading} onClick={() => {}}>
               Login
             </AuthButton>
           </Box>
