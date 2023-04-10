@@ -41,7 +41,8 @@ export const useGetAllUsers = () => {
   );
 
   const allUsers: IGetAllUsersResponse[] = [];
-  Array.isArray(data?.pages) &&
+  data?.pages &&
+    Array.isArray(data?.pages) &&
     data?.pages?.map(page =>
       page?.map((el: IGetAllUsersResponse) => allUsers.push(el)),
     );

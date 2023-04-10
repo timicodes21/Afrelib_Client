@@ -1,8 +1,10 @@
+import { allUsers } from "./../data/dashboard";
 import { getRoles } from "@/api/roles";
 import { queryKeys } from "@/data/constants";
 import { IRole } from "@/types/apiResponses";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useGetAllUsers } from "./admin/useAdminUsers";
 
 const usePasswordShow = () => {
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
@@ -72,4 +74,38 @@ export const useGetRoles = () => {
     });
 
   return { data, status, isFetching, rolesSelect };
+};
+
+export const useFilterUsersForSelect = () => {
+  const { allUsers, isLoading } = useGetAllUsers();
+
+  const allMentors =
+    !isLoading &&
+    Array.isArray(allUsers) &&
+    allUsers
+      .filter(item => {
+        return item?.role_name === "Mentor";
+      })
+      .map(item => {
+        return {
+          label: `${item?.first_name} ${item?.last_name}`,
+          value: item?.id,
+        };
+      });
+
+  const allPanelists =
+    !isLoading &&
+    Array.isArray(allUsers) &&
+    allUsers
+      .filter(item => {
+        return item?.role_name === "Panelist";
+      })
+      .map(item => {
+        return {
+          label: `${item?.first_name} ${item?.last_name}`,
+          value: item?.id,
+        };
+      });
+
+  return { isLoading, allMentors, allPanelists };
 };

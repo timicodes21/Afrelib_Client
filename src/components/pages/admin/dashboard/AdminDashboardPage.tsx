@@ -13,9 +13,15 @@ import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";
 import AddItemCard from "@/components/molecules/cards/AddItemCard";
 import TeamSubmissions from "../../dashboard/TeamSubmissions";
 import { useGlobalContext } from "@/contexts/GlobalContext";
+import WeeklyProgressContainer from "@/components/organisms/progress/WeeklyProgressContainer";
+import UsersTable from "@/components/organisms/tables/UsersTable";
+import { useGetAllUsers } from "@/hooks/admin/useAdminUsers";
 
 const AdminDashboardPage = () => {
   const { userDetails } = useGlobalContext();
+
+  const { allUsers, isLoading } = useGetAllUsers();
+
   return (
     <Wrapper>
       <PageHeader headerText="Dashboard" />
@@ -39,6 +45,9 @@ const AdminDashboardPage = () => {
                   onClick={() => {}}
                   smallHeader
                 />
+                <Box>
+                  <WeeklyProgressContainer />
+                </Box>
                 <Box sx={{ mt: 2 }}>
                   <TeamSubmissions submissions={messages} noStyles />
                 </Box>
@@ -134,7 +143,7 @@ const AdminDashboardPage = () => {
             onClick={() => {}}
             hideViewAll
           />
-          <ResourcesTable loading={false} resources={resources} />
+          <UsersTable users={allUsers} loading={isLoading} />
         </Box>
       </PageFlexLayout>
     </Wrapper>

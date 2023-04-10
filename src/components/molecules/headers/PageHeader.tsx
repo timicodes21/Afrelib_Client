@@ -10,9 +10,14 @@ import CustomDrawer from "../../organisms/drawer/CustomDrawer";
 import { useDrawer } from "@/hooks/utility";
 import { Box } from "@mui/material";
 import { BiMenuAltRight } from "react-icons/bi";
-import { bottomDashboardLinks, dashboardLinks } from "@/data/dashboard";
+import {
+  adminDashboardLinks,
+  bottomDashboardLinks,
+  dashboardLinks,
+} from "@/data/dashboard";
 import LinkWrapper from "../wrappers/LinkWrapper";
 import { GrClose } from "react-icons/gr";
+import { useRouter } from "next/router";
 
 interface IProps {
   headerText: string;
@@ -26,6 +31,15 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
     closeDrawer,
   } = useDrawer();
   const { open, setOpen, openModal, closeModal } = useModal();
+
+  const router = useRouter();
+
+  const links = router.pathname.startsWith("/admin")
+    ? adminDashboardLinks
+    : dashboardLinks;
+
+  // The navbar links for mobile appears here
+
   return (
     <div>
       <div className={styles.pageHeaderContainer}>
@@ -74,7 +88,7 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
                 onClick={closeDrawer}
               />
             </Box>
-            {dashboardLinks.map((item, index) => (
+            {links.map((item, index) => (
               <LinkWrapper
                 key={index}
                 link={item?.link}

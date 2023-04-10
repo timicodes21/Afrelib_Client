@@ -21,6 +21,7 @@ interface IProps {
   onChange: (value: ValueType) => void;
   placeholder: string;
   isLoading?: boolean;
+  isMulti?: boolean;
 }
 
 const CustomSelect: React.FC<IProps> = ({
@@ -33,6 +34,7 @@ const CustomSelect: React.FC<IProps> = ({
   placeholder,
   isLoading,
   value,
+  isMulti,
 }) => {
   return (
     <>
@@ -69,6 +71,7 @@ const CustomSelect: React.FC<IProps> = ({
               };
             },
           }}
+          isMulti={isMulti}
           isLoading={isLoading}
         />
       </Box>

@@ -11,4 +11,14 @@ export interface ICreateUserRequest {
   school_name: string;
 }
 
+export interface ICreateCohortRequest {
+  cohort_name: string;
+  cohort_description: string;
+  start_date: string;
+  end_date: string;
+  mentorIds: number[];
+  panelistIds: number[];
+  teamIds: any[];
+}
+
 export interface IUserLoginRequest extends IAdminLoginRequest {}

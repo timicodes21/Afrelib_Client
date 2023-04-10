@@ -6,6 +6,7 @@ import {
   ADMIN_DASHBOARD,
   ADMIN_GROUPCHATS,
   ADMIN_PROJECTS,
+  ADMIN_TEAMS,
   ADMIN_USER,
   CLASSROOM,
   DASHBOARD,
@@ -71,6 +72,12 @@ export const adminDashboardLinks: ILink[] = [
   {
     name: "Cohorts",
     link: ADMIN_COHORTS,
+    icon: "/assets/icons/cohorts_icon.svg",
+    activeIcon: "/assets/icons/cohorts_icon_active.svg",
+  },
+  {
+    name: "Teams",
+    link: ADMIN_TEAMS,
     icon: "/assets/icons/cohorts_icon.svg",
     activeIcon: "/assets/icons/cohorts_icon_active.svg",
   },

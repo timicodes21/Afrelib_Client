@@ -48,6 +48,16 @@
   border-radius: 4px;
 }
 
+.inputContainer textarea {
+  width: 100%;
+  outline: none !important;
+  border: none !important;
+  color: inherit;
+  color: #000;
+  padding: 10px;
+  border-radius: 4px;
+}
+
 .rememberContainer {
   display: flex;
   justify-content: space-between;
