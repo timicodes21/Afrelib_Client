@@ -5,6 +5,7 @@ import { IRole } from "@/types/apiResponses";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useGetAllUsers } from "./admin/useAdminUsers";
+import { useGetAllCohorts } from "./admin/useAdminCohort";
 
 const usePasswordShow = () => {
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
@@ -122,4 +123,20 @@ export const useFilterUsersForSelect = () => {
       });
 
   return { isLoading, allMentors, allPanelists, allStudents };
+};
+
+export const useCohortsUsersForSelect = () => {
+  const { allCohorts, isLoading } = useGetAllCohorts();
+
+  const cohortsSelect =
+    !isLoading &&
+    Array.isArray(allCohorts) &&
+    allCohorts.map(item => {
+      return {
+        label: item?.cohort_name,
+        value: item?.cohort_id,
+      };
+    });
+
+  return { isLoading, allCohorts, cohortsSelect };
 };

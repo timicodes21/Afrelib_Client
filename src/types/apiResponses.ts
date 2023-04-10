@@ -113,3 +113,24 @@ export interface IGetCohortsResponse {
   created_at: string;
   updated_at: string;
 }
+
+export interface IGetTeamsResponse {
+  id: number;
+  team_id: string;
+  team_name: string;
+  team_description: string;
+  is_deleted: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ITeamRespons {
+  team_id: string;
+  team_name: string;
+  team_description: string;
+  updated_at: string;
+  created_at: string;
+  id: number;
+  students: User[];
+  mentor: User;
+}

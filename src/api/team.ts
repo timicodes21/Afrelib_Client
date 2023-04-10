@@ -1,11 +1,14 @@
-import { CREATE_COHORT_API, GET_TEAMS_API } from "@/data/constants";
+import { CREATE_TEAM_API, GET_TEAMS_API } from "@/data/constants";
 import { coreHttpClient } from "@/service/httpClients";
 import { ICreateTeamRequest } from "@/types/apiRequests";
 import { toast } from "react-hot-toast";
 
-export const createTeam = async (body: ICreateTeamRequest) => {
+export const createTeam = async (
+  body: ICreateTeamRequest,
+  cohortId: string,
+) => {
   try {
-    const response = await coreHttpClient.post(CREATE_COHORT_API, body);
+    const response = await coreHttpClient.post(CREATE_TEAM_API(cohortId), body);
     console.log("create COHORT response", response);
     const {
       status,

@@ -49,7 +49,7 @@ export const CREATE_COHORT_API = "/cohort";
 export const GET_COHORTS_API = (page: number) => `cohorts?page=${page}`;
 
 //teams
-export const CREATE_TEAM_API = "/cohort";
+export const CREATE_TEAM_API = (cohortId: string) => `/cohort/${cohortId}/team`;
 export const GET_TEAMS_API = (page: number) => `teams?page=${page}`;
 
 export const queryKeys = {

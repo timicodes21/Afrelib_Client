@@ -70,6 +70,7 @@ const CustomMultiSelect: React.FC<IProps> = ({
             },
           }}
           isLoading={isLoading}
+          isMulti
         />
       </Box>
     </>

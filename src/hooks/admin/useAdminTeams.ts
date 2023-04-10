@@ -5,15 +5,12 @@ import { AddTeamFormValues } from "@/types/formValues";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import {
   ICreateCohortResponse,
-  IGetCohortsResponse,
+  IGetTeamsResponse,
+  ITeamRespons,
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
 import { createTeam, getTeams } from "@/api/team";
 import { ICreateTeamRequest } from "@/types/apiRequests";
-
-const useCreateTeam = () => {
-  return useMutation(createTeam);
-};
 
 export const useGetAllTeams = () => {
   const getAllTeams = async (pageNo: 1) => {
@@ -39,11 +36,11 @@ export const useGetAllTeams = () => {
     },
   );
 
-  const allTeams: IGetCohortsResponse[] = [];
+  const allTeams: IGetTeamsResponse[] = [];
   data?.pages &&
     Array.isArray(data?.pages) &&
     data?.pages?.map(page =>
-      page?.map((el: IGetCohortsResponse) => allTeams.push(el)),
+      page?.map((el: IGetTeamsResponse) => allTeams.push(el)),
     );
 
   return {
@@ -57,23 +54,23 @@ export const useGetAllTeams = () => {
 };
 
 export const useAdminTeams = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const schema = z.object({
     name: string(),
     description: string(),
     students: number().array(),
     mentor: number(),
+    cohort: string(),
   });
 
-  const { mutate, isLoading } = useCreateTeam();
-
-  const onSuccess = (data: ICreateCohortResponse | string) => {
-    console.log("on success data cohorts", data);
+  const onSuccess = (data: ITeamRespons | string) => {
+    console.log("on success data teams", data);
     queryClient.invalidateQueries([queryKeys.getTeams]);
   };
 
   const onError = () => {};
 
-  const onSubmit: SubmitHandler<AddTeamFormValues> = data => {
+  const onSubmit: SubmitHandler<AddTeamFormValues> = async data => {
     console.log("data form cohort", data);
 
     const formData: ICreateTeamRequest = {
@@ -83,8 +80,18 @@ export const useAdminTeams = () => {
       mentorId: data?.mentor,
     };
 
-    mutate(formData, { onSuccess, onError });
+    setIsLoading(true);
+
+    const response = await createTeam(formData, data?.cohort);
+
+    if (response?.teamId) {
+      onSuccess(response);
+    } else {
+      onError();
+    }
+
+    setIsLoading(false);
   };
 
-  return { schema, onSubmit };
+  return { schema, onSubmit, isLoading };
 };

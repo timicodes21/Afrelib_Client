@@ -7,7 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AuthInput from "@/components/atoms/inputFields/AuthInput";
 import CustomSelect from "@/components/atoms/inputFields/CustomSelect";
 import AuthButton from "@/components/atoms/buttons/AuthButton";
-import { useFilterUsersForSelect } from "@/hooks/utility";
+import {
+  useCohortsUsersForSelect,
+  useFilterUsersForSelect,
+} from "@/hooks/utility";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
 import { useAdminTeams } from "@/hooks/admin/useAdminTeams";
@@ -18,7 +21,7 @@ interface IProps {
 }
 
 const AddTeams: React.FC<IProps> = ({ handleClose }) => {
-  const { schema, onSubmit } = useAdminTeams();
+  const { schema, onSubmit, isLoading: isLoadingSubmit } = useAdminTeams();
   const {
     control,
     handleSubmit,
@@ -35,6 +38,8 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
   console.log("errors", errors);
 
   const { allMentors, isLoading, allStudents } = useFilterUsersForSelect();
+  const { cohortsSelect, isLoading: isLoadingCohorts } =
+    useCohortsUsersForSelect();
 
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
@@ -54,6 +59,30 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container sx={{ mt: 3 }} spacing={2}>
+            <Grid item xs={12} md={6}>
+              <CustomSelect
+                label="Select Cohort"
+                smallLabel
+                onChange={e => {
+                  console.log("select event", e);
+                  setValue(
+                    "cohort",
+                    typeof e?.value === "string" ? e.value : "",
+                  );
+                }}
+                blackLabel
+                options={
+                  cohortsSelect ? cohortsSelect : [{ label: "", value: "" }]
+                }
+                background="#F3F5F6"
+                placeholder="Select Cohort"
+                isLoading={isLoadingCohorts}
+              />
+              {errors?.mentor && (
+                <InputErrorText>{errors?.mentor?.message ?? ""}</InputErrorText>
+              )}
+            </Grid>
+
             <Grid item xs={12} md={6}>
               <CustomSelect
                 label="Select Mentor"
@@ -148,7 +177,11 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
           </Grid>
           <Box sx={{ mt: { xs: 2, md: 4 } }} className="d-flex justify-center">
             <Box sx={{ width: "327px" }}>
-              <AuthButton type="submit" onClick={() => {}} loading={false}>
+              <AuthButton
+                type="submit"
+                onClick={() => {}}
+                loading={isLoadingSubmit}
+              >
                 Create Team
               </AuthButton>
             </Box>

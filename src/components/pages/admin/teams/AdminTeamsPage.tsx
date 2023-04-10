@@ -2,14 +2,13 @@ import TransparentBlueButton from "@/components/atoms/buttons/TransparentBlueBut
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import Wrapper from "@/components/templates/Wrapper";
-import { Box, Grid, LinearProgress, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Box, LinearProgress } from "@mui/material";
+import React from "react";
 import { useModal } from "@/hooks/utility";
-import CohortsContainer from "@/components/organisms/containers/CohortsContainer";
-import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import AddTeams from "./AddTeams";
 import EmptyPage from "@/components/templates/EmptyPage";
 import { useGetAllTeams } from "@/hooks/admin/useAdminTeams";
+import TeamsContainer from "@/components/organisms/containers/TeamsContainer";
 
 const AdminTeamsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
@@ -55,9 +54,12 @@ Click the Add New button to create one..."
         allTeams.length !== 0 &&
         allTeams.map((item, index) => (
           <Box sx={{ mt: 2 }} key={index}>
-            <CohortsContainer header={item?.cohort_name}>
+            <TeamsContainer
+              header={item?.team_name}
+              description={item?.team_description}
+            >
               <Box></Box>
-            </CohortsContainer>
+            </TeamsContainer>
           </Box>
         ))}
 
