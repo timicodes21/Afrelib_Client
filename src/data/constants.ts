@@ -25,6 +25,10 @@ export const SUPPORT = "/dashboard/support";
 // admin links
 export const ADMIN_DASHBOARD = "/admin/dashboard";
 export const ADMIN_USER = "/admin/dashboard/users";
+export const ADMIN_COHORTS = "/admin/dashboard/cohorts";
+export const ADMIN_PROJECTS = "/admin/dashboard/projects";
+export const ADMIN_GROUPCHATS = "/admin/dashboard/groupchats";
+export const ADMIN_ACCOUNTS_SETTINGS = "/admin/dashboard/accounts_settings";
 
 // Api Url's
 export const ADMIN_LOGIN_API = "/admin/signin";

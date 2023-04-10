@@ -1,7 +1,11 @@
 import { INotification, IResources } from "@/types/dashboard";
 import {
   ACCOUNTS_SETTINGS,
+  ADMIN_ACCOUNTS_SETTINGS,
+  ADMIN_COHORTS,
   ADMIN_DASHBOARD,
+  ADMIN_GROUPCHATS,
+  ADMIN_PROJECTS,
   ADMIN_USER,
   CLASSROOM,
   DASHBOARD,
@@ -56,13 +60,37 @@ export const adminDashboardLinks: ILink[] = [
     name: "Dashboard",
     link: ADMIN_DASHBOARD,
     icon: "/assets/icons/dashboard_icon.svg",
-    activeIcon: "/assets/icons/dashboard_icon.svg",
+    activeIcon: "/assets/icons/dashboard_icon_active.svg",
   },
   {
     name: "Users",
     link: ADMIN_USER,
     icon: "/assets/icons/users_icon.svg",
     activeIcon: "/assets/icons/users_icon_active.svg",
+  },
+  {
+    name: "Cohorts",
+    link: ADMIN_COHORTS,
+    icon: "/assets/icons/cohorts_icon.svg",
+    activeIcon: "/assets/icons/cohorts_icon_active.svg",
+  },
+  {
+    name: "Projects",
+    link: ADMIN_PROJECTS,
+    icon: "/assets/icons/projects_icon.svg",
+    activeIcon: "/assets/icons/projects_icon_active.svg",
+  },
+  {
+    name: "Group Chats",
+    link: ADMIN_GROUPCHATS,
+    icon: "/assets/icons/groupchats_icon.svg",
+    activeIcon: "/assets/icons/groupchats_icon_active.svg",
+  },
+  {
+    name: "Account & Settings",
+    link: ADMIN_ACCOUNTS_SETTINGS,
+    icon: "/assets/icons/account_icon.svg",
+    activeIcon: "/assets/icons/account_icon_active.svg",
   },
 ];
 
