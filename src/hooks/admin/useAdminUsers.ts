@@ -58,6 +58,9 @@ export const useGetAllUsers = () => {
 
 export const useAdminUsers = () => {
   const [activeTab, setActiveTab] = useState<"admin" | "users">("users");
+  const [statusOptions, setStatusOptions] = useState<
+    "disabled" | "active" | ""
+  >("");
 
   const [selectedRole, setSelectedRole] = useState<
     "Student" | "Mentor" | "Panelist"
@@ -116,5 +119,7 @@ export const useAdminUsers = () => {
     isLoading,
     selectedRole,
     setSelectedRole,
+    statusOptions,
+    setStatusOptions,
   };
 };

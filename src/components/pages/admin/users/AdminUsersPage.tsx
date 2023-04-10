@@ -9,7 +9,9 @@ import React, { useState } from "react";
 import AddUser from "./AddUser";
 import { useGetRoles, useModal } from "@/hooks/utility";
 import { getRoles } from "@/api/roles";
-import TableOptionsButton from "@/components/atoms/buttons/TableOptionsButton";
+import TableOptionsButton, {
+  TableOptionsButton2,
+} from "@/components/atoms/buttons/TableOptionsButton";
 
 const AdminUsersPage = () => {
   const {
@@ -19,6 +21,8 @@ const AdminUsersPage = () => {
     inActiveTabStyle,
     selectedRole,
     setSelectedRole,
+    statusOptions,
+    setStatusOptions,
   } = useAdminUsers();
 
   const { open, setOpen, openModal, closeModal } = useModal();
@@ -73,32 +77,67 @@ const AdminUsersPage = () => {
           </TransparentBlueButton>
         </Box>
       </Box>
-      <Box className="d-flex items-center" sx={{ mt: 2 }}>
-        <TableOptionsButton
-          active={selectedRole === "Student"}
-          onClick={() => setSelectedRole("Student")}
-        >
-          Students
-        </TableOptionsButton>
-        <TableOptionsButton
-          ml
-          active={selectedRole === "Mentor"}
-          onClick={() => setSelectedRole("Mentor")}
-        >
-          Mentors
-        </TableOptionsButton>{" "}
-        <TableOptionsButton
-          ml
-          active={selectedRole === "Panelist"}
-          onClick={() => setSelectedRole("Panelist")}
-        >
-          Panelists
-        </TableOptionsButton>
+      <Box
+        className="items-center"
+        sx={{
+          mt: 2,
+          display: { xs: "block", md: "flex" },
+          justifyContent: "space-between",
+        }}
+      >
+        <Box className="d-flex items-center">
+          <TableOptionsButton
+            active={selectedRole === "Student"}
+            onClick={() => setSelectedRole("Student")}
+          >
+            Students
+          </TableOptionsButton>
+          <TableOptionsButton
+            ml
+            active={selectedRole === "Mentor"}
+            onClick={() => setSelectedRole("Mentor")}
+          >
+            Mentors
+          </TableOptionsButton>{" "}
+          <TableOptionsButton
+            ml
+            active={selectedRole === "Panelist"}
+            onClick={() => setSelectedRole("Panelist")}
+          >
+            Panelists
+          </TableOptionsButton>
+        </Box>
+        <Box className="d-flex items-center" sx={{ mt: { xs: 2, md: 0 } }}>
+          <TableOptionsButton2
+            active={statusOptions === ""}
+            onClick={() => setStatusOptions("")}
+          >
+            All
+          </TableOptionsButton2>
+          <TableOptionsButton2
+            ml
+            active={statusOptions === "active"}
+            onClick={() => setStatusOptions("active")}
+          >
+            Active
+          </TableOptionsButton2>{" "}
+          <TableOptionsButton2
+            ml
+            active={statusOptions === "disabled"}
+            onClick={() => setStatusOptions("disabled")}
+          >
+            Disabled
+          </TableOptionsButton2>
+        </Box>
       </Box>
       <Box sx={{ mt: 2 }}>
         <UsersTable
           loading={isLoading}
-          users={allUsers?.filter(item => item?.role_name === selectedRole)}
+          users={allUsers?.filter(
+            item =>
+              item?.role_name === selectedRole &&
+              item?.status?.startsWith(statusOptions),
+          )}
         />
       </Box>
       <CustomModal

@@ -17,7 +17,7 @@ export interface IUSer {
   dateOfBirth: string;
   points: number;
   badges: number;
-  status: "active" | "inactive";
+  status: string;
   school: string;
 }
 

@@ -60,14 +60,20 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
               <CustomSelect
                 label="User Type"
                 smallLabel
-                onChange={(e: ISelect) => {
+                onChange={e => {
                   console.log("select event", e);
-                  setValue("userType", e?.value.toString());
+                  setValue(
+                    "userType",
+                    typeof e?.value === "string" || typeof e?.value === "number"
+                      ? e?.value.toString()
+                      : "",
+                  );
                 }}
                 blackLabel
-                options={rolesSelect ?? [{ label: "", value: "" }]}
+                options={rolesSelect ? rolesSelect : [{ label: "", value: "" }]}
                 background="#F3F5F6"
                 placeholder="Select type"
+                isLoading={isFetching}
               />
               {errors?.userType && (
                 <InputErrorText>
@@ -203,7 +209,7 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
           </Grid>
           <Box sx={{ mt: { xs: 2, md: 4 } }} className="d-flex justify-center">
             <Box sx={{ width: "327px" }}>
-              <AuthButton type="submit" loading={isLoading}>
+              <AuthButton type="submit" loading={isLoading} onClick={() => {}}>
                 Create User
               </AuthButton>
             </Box>

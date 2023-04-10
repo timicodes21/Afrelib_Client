@@ -3,20 +3,24 @@ import { Typography, Box } from "@mui/material";
 import React, { ReactNode } from "react";
 import Select, { ActionMeta, GroupBase, SingleValue } from "react-select";
 
+interface Option {
+  value: string | number;
+  label: string;
+}
+
+type ValueType = Option | null;
+
 interface IProps {
   label: string;
   icon?: ReactNode;
   blackLabel?: boolean;
   smallLabel?: boolean;
-  options: readonly (string | number | GroupBase<string | number>)[];
   background?: string;
-  onChange:
-    | ((
-        newValue: SingleValue<string | number>,
-        actionMeta: ActionMeta<string | number>,
-      ) => void)
-    | undefined;
+  options: Option[];
+  value?: ValueType;
+  onChange: (value: ValueType) => void;
   placeholder: string;
+  isLoading?: boolean;
 }
 
 const CustomSelect: React.FC<IProps> = ({
@@ -27,6 +31,8 @@ const CustomSelect: React.FC<IProps> = ({
   background,
   onChange,
   placeholder,
+  isLoading,
+  value,
 }) => {
   return (
     <>
@@ -46,6 +52,7 @@ const CustomSelect: React.FC<IProps> = ({
       >
         <Select
           options={options}
+          value={value}
           onChange={onChange}
           placeholder={placeholder}
           styles={{
@@ -62,6 +69,7 @@ const CustomSelect: React.FC<IProps> = ({
               };
             },
           }}
+          isLoading={isLoading}
         />
       </Box>
     </>

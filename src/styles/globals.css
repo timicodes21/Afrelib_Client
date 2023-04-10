@@ -5,6 +5,7 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Font sizes */
@@ -199,7 +200,7 @@ a {
 /* width */
 .MuiTableContainer-root::-webkit-scrollbar {
   width: 3px;
-  height: 2px;
+  height: 5px;
 }
 
 /* Track */
