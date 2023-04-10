@@ -7,11 +7,11 @@ import React, { useState } from "react";
 import { useModal } from "@/hooks/utility";
 import CohortsContainer from "@/components/organisms/containers/CohortsContainer";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
-import AddCohort from "./AddCohort";
+import AddTeams from "./AddTeams";
 import { useGetAllCohorts } from "@/hooks/admin/useAdminCohort";
 import EmptyPage from "@/components/templates/EmptyPage";
 
-const AdminCohortsPage = () => {
+const AdminTeamsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
 
   const {
@@ -25,7 +25,7 @@ const AdminCohortsPage = () => {
 
   return (
     <Wrapper>
-      <PageHeader headerText="Cohorts" />
+      <PageHeader headerText="Teams" />
 
       <Box className="d-flex justify-end" sx={{ mt: 2 }}>
         <TransparentBlueButton type="button" onClick={openModal}>
@@ -67,10 +67,10 @@ Click the Add New button to create one..."
         width="1000px"
         closeOnOverlayClick={false}
       >
-        <AddCohort handleClose={closeModal} />
+        <AddTeams handleClose={closeModal} />
       </CustomModal>
     </Wrapper>
   );
 };
 
-export default AdminCohortsPage;
+export default AdminTeamsPage;

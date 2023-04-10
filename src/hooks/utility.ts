@@ -107,5 +107,19 @@ export const useFilterUsersForSelect = () => {
         };
       });
 
-  return { isLoading, allMentors, allPanelists };
+  const allStudents =
+    !isLoading &&
+    Array.isArray(allUsers) &&
+    allUsers
+      .filter(item => {
+        return item?.role_name === "Student";
+      })
+      .map(item => {
+        return {
+          label: `${item?.first_name} ${item?.last_name}`,
+          value: item?.id,
+        };
+      });
+
+  return { isLoading, allMentors, allPanelists, allStudents };
 };

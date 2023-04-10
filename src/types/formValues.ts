@@ -20,3 +20,10 @@ export type AddCohortFormValues = {
   panelists: number[];
   teams: [];
 };
+
+export type AddTeamFormValues = {
+  name: string;
+  description: string;
+  students: number[];
+  mentor: number;
+};

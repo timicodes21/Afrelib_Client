@@ -22,3 +22,10 @@ export interface ICreateCohortRequest {
 }
 
 export interface IUserLoginRequest extends IAdminLoginRequest {}
+
+export interface ICreateTeamRequest {
+  team_name: string;
+  team_description: string;
+  studentIds: number[];
+  mentorId: number;
+}

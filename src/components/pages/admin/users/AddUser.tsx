@@ -81,38 +81,6 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
                 </InputErrorText>
               )}
             </Grid>
-            {/* <Grid item xs={12} md={6} lg={3}>
-              <Controller
-                control={control}
-                name="cohort"
-                render={({ field: { onChange, value, onBlur } }) => (
-                  <CustomSelect
-                    label="Cohort"
-                    smallLabel
-                    blackLabel
-                    options={rolesSelect}
-                    background="#F3F5F6"
-                    placeholder="Cohort"
-                  />
-                )}
-              />
-            </Grid> */}
-            {/* <Grid item xs={12} md={6} lg={3}>
-              <Controller
-                control={control}
-                name="dateOfBirth"
-                render={({ field: { onChange, value, onBlur } }) => (
-                  <CustomSelect
-                    label="Date of Birth"
-                    smallLabel
-                    blackLabel
-                    options={[{ label: "hello", value: 1 }]}
-                    background="#F3F5F6"
-                    placeholder="dob"
-                  />
-                )}
-              />
-            </Grid> */}
 
             <Grid item xs={12} md={6}>
               <Controller
@@ -181,7 +149,7 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
                 </InputErrorText>
               )}
             </Grid>
-            {userType === "P97t0IFwLbKg" && (
+            {userType === "6y8hXnL5xl1l" && (
               <Grid item xs={12} md={6}>
                 <Controller
                   control={control}
