@@ -149,7 +149,7 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
           <Box sx={{ mt: { xs: 2, md: 4 } }} className="d-flex justify-center">
             <Box sx={{ width: "327px" }}>
               <AuthButton type="submit" onClick={() => {}} loading={false}>
-                Create Cohort
+                Create Team
               </AuthButton>
             </Box>
           </Box>

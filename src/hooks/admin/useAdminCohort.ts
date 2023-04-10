@@ -16,7 +16,7 @@ const useCreateCohort = () => {
 };
 
 export const useGetAllCohorts = () => {
-  const getUsers = async (pageNo: 1) => {
+  const getAllCohorts = async (pageNo: 1) => {
     let response = await getCohorts(pageNo);
     return response;
   };
@@ -30,7 +30,7 @@ export const useGetAllCohorts = () => {
     fetchNextPage,
   } = useInfiniteQuery(
     [queryKeys.getCohorts],
-    ({ pageParam = 1 }) => getUsers(pageParam),
+    ({ pageParam = 1 }) => getAllCohorts(pageParam),
     {
       getNextPageParam: (lastPage, pages) => {
         // console.log("lastpage", lastPage, "pages", pages);

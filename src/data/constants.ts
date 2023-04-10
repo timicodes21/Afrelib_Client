@@ -48,10 +48,15 @@ export const LOGIN_USER_API = "/user/signin";
 export const CREATE_COHORT_API = "/cohort";
 export const GET_COHORTS_API = (page: number) => `cohorts?page=${page}`;
 
+//teams
+export const CREATE_TEAM_API = "/cohort";
+export const GET_TEAMS_API = (page: number) => `teams?page=${page}`;
+
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
   getCohorts: "getCohorts",
+  getTeams: "getTeams",
 };
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

@@ -8,20 +8,20 @@ import { useModal } from "@/hooks/utility";
 import CohortsContainer from "@/components/organisms/containers/CohortsContainer";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import AddTeams from "./AddTeams";
-import { useGetAllCohorts } from "@/hooks/admin/useAdminCohort";
 import EmptyPage from "@/components/templates/EmptyPage";
+import { useGetAllTeams } from "@/hooks/admin/useAdminTeams";
 
 const AdminTeamsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
 
   const {
-    allCohorts,
+    allTeams,
     status,
     isLoading,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGetAllCohorts();
+  } = useGetAllTeams();
 
   return (
     <Wrapper>
@@ -34,11 +34,11 @@ const AdminTeamsPage = () => {
       </Box>
 
       {!isLoading &&
-        allCohorts &&
-        Array.isArray(allCohorts) &&
-        allCohorts.length === 0 && (
+        allTeams &&
+        Array.isArray(allTeams) &&
+        allTeams.length === 0 && (
           <EmptyPage
-            text="There are no cohorts yet. 
+            text="There are no teams yet. 
 Click the Add New button to create one..."
           />
         )}
@@ -50,10 +50,10 @@ Click the Add New button to create one..."
       )}
 
       {!isLoading &&
-        allCohorts &&
-        Array.isArray(allCohorts) &&
-        allCohorts.length !== 0 &&
-        allCohorts.map((item, index) => (
+        allTeams &&
+        Array.isArray(allTeams) &&
+        allTeams.length !== 0 &&
+        allTeams.map((item, index) => (
           <Box sx={{ mt: 2 }} key={index}>
             <CohortsContainer header={item?.cohort_name}>
               <Box></Box>
