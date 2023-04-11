@@ -62,6 +62,7 @@ export interface IGetAllUsersResponse {
   first_name: string;
   last_name: string;
   email: string;
+  date_of_birth: string;
   email_verified_at?: any;
   role_id: string;
   school_name: string;

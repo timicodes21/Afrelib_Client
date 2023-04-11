@@ -39,7 +39,6 @@ export const getCohorts = async (page: number) => {
     const { status, data } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
-        toast.success("All Cohorts");
         return data?.data;
       } else {
         toast.error(data?.message);

@@ -9,6 +9,7 @@ export interface ICreateUserRequest {
   email: string;
   role_id: string;
   school_name: string;
+  date_of_birth: string;
 }
 
 export interface ICreateCohortRequest {

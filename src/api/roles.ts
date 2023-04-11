@@ -9,7 +9,6 @@ export const getRoles = async () => {
     const { status, data } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
-        toast.success("Roles Loaded successfully");
         return data;
       } else {
         toast.error("Roles not Loaded");

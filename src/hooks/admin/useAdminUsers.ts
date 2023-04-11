@@ -87,6 +87,7 @@ export const useAdminUsers = () => {
     lastName: string(),
     school: string().optional(),
     userType: string(),
+    dob: string(),
   });
 
   const { mutate, isLoading } = useCreateUser();
@@ -105,6 +106,7 @@ export const useAdminUsers = () => {
       email: data?.email,
       school_name: data?.school,
       role_id: data?.userType,
+      date_of_birth: data?.dob,
     };
 
     mutate(formData, { onSuccess, onError });

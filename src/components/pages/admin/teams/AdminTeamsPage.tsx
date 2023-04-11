@@ -7,11 +7,18 @@ import React from "react";
 import { useModal } from "@/hooks/utility";
 import AddTeams from "./AddTeams";
 import EmptyPage from "@/components/templates/EmptyPage";
-import { useGetAllTeams } from "@/hooks/admin/useAdminTeams";
+import { useAdminTeams, useGetAllTeams } from "@/hooks/admin/useAdminTeams";
 import TeamsContainer from "@/components/organisms/containers/TeamsContainer";
+import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
 
 const AdminTeamsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
+  const {
+    open: openDelete,
+    setOpen: setOpenDelete,
+    openModal: openDeleteModal,
+    closeModal: closeDeleteModal,
+  } = useModal();
 
   const {
     allTeams,
@@ -21,6 +28,8 @@ const AdminTeamsPage = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useGetAllTeams();
+
+  const { onSubmitDelete, isLoadingDelete, team, setTeam } = useAdminTeams();
 
   return (
     <Wrapper>
@@ -59,6 +68,12 @@ Click the Add New button to create one..."
               description={item?.team_description}
               students={item?.students}
               mentorName={`${item?.mentor?.first_name} ${item?.mentor?.last_name}`}
+              onDelete={() => {
+                setTeam(item);
+                openDeleteModal();
+              }}
+              onEdit={() => {}}
+              onAssign={() => {}}
             >
               <Box></Box>
             </TeamsContainer>
@@ -73,6 +88,22 @@ Click the Add New button to create one..."
         showCloseIcon={false}
       >
         <AddTeams handleClose={closeModal} />
+      </CustomModal>
+      <CustomModal
+        open={openDelete}
+        setOpen={setOpenDelete}
+        maxWidth="350px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <DeleteWrapper
+          text={`Are you sure you want to delete ${team?.team_name ?? ""}`}
+          onDelete={onSubmitDelete}
+          onCancel={closeDeleteModal}
+          deleteBtnText="Yes, Disable"
+          cancelBtnText="No, Cancel"
+          loading={isLoadingDelete}
+        />
       </CustomModal>
     </Wrapper>
   );

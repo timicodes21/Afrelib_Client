@@ -132,7 +132,7 @@ const UsersTable: React.FC<IProps> = ({ users, loading }) => {
                               className="font-10 font-500"
                               sx={{ color: "secondary.main" }}
                             >
-                              Date of birth
+                              {item?.date_of_birth ?? ""}
                             </Typography>
                           </TableCell>
                           <TableCell align="center">

@@ -60,6 +60,28 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container sx={{ mt: 3 }} spacing={2}>
             <Grid item xs={12} md={6}>
+              <Controller
+                control={control}
+                name="name"
+                render={({ field: { onChange, value, onBlur } }) => (
+                  <AuthInput
+                    label="Team Name"
+                    type="text"
+                    placeholder="Name"
+                    value={value}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    blackLabel
+                    smallLabel
+                  />
+                )}
+              />
+              {errors?.name && (
+                <InputErrorText>{errors?.name?.message ?? ""}</InputErrorText>
+              )}
+            </Grid>
+
+            <Grid item xs={12} md={6}>
               <CustomSelect
                 label="Select Cohort"
                 smallLabel
@@ -78,8 +100,8 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
                 placeholder="Select Cohort"
                 isLoading={isLoadingCohorts}
               />
-              {errors?.mentor && (
-                <InputErrorText>{errors?.mentor?.message ?? ""}</InputErrorText>
+              {errors?.cohort && (
+                <InputErrorText>{errors?.cohort?.message ?? ""}</InputErrorText>
               )}
             </Grid>
 
@@ -126,28 +148,6 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
                 <InputErrorText>
                   {errors?.students?.message ?? ""}
                 </InputErrorText>
-              )}
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Controller
-                control={control}
-                name="name"
-                render={({ field: { onChange, value, onBlur } }) => (
-                  <AuthInput
-                    label="Team Name"
-                    type="text"
-                    placeholder="Name"
-                    value={value}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    blackLabel
-                    smallLabel
-                  />
-                )}
-              />
-              {errors?.name && (
-                <InputErrorText>{errors?.name?.message ?? ""}</InputErrorText>
               )}
             </Grid>
 

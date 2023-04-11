@@ -70,14 +70,14 @@ export const adminDashboardLinks: ILink[] = [
     activeIcon: "/assets/icons/users_icon_active.svg",
   },
   {
-    name: "Cohorts",
-    link: ADMIN_COHORTS,
+    name: "Teams",
+    link: ADMIN_TEAMS,
     icon: "/assets/icons/cohorts_icon.svg",
     activeIcon: "/assets/icons/cohorts_icon_active.svg",
   },
   {
-    name: "Teams",
-    link: ADMIN_TEAMS,
+    name: "Cohorts",
+    link: ADMIN_COHORTS,
     icon: "/assets/icons/cohorts_icon.svg",
     activeIcon: "/assets/icons/cohorts_icon_active.svg",
   },
@@ -592,7 +592,7 @@ interface Option {
 
 export const cohortOptions: Option[] = [
   {
-    name: "Edit Teams",
+    name: "Edit Cohort",
     src: "/assets/icons/edit_icon.svg",
   },
   {
@@ -601,6 +601,17 @@ export const cohortOptions: Option[] = [
   },
   {
     name: "Delete Cohort",
+    src: "/assets/icons/delete_icon.svg",
+  },
+];
+
+export const teamOptions: Option[] = [
+  {
+    name: "Assign Mentor",
+    src: "/assets/icons/assign_icon.svg",
+  },
+  {
+    name: "Delete Team",
     src: "/assets/icons/delete_icon.svg",
   },
 ];

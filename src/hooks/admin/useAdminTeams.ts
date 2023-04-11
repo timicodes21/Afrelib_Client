@@ -9,7 +9,7 @@ import {
   ITeamRespons,
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
-import { createTeam, getTeams } from "@/api/team";
+import { createTeam, deleteTeam, getTeams } from "@/api/team";
 import { ICreateTeamRequest } from "@/types/apiRequests";
 
 export const useGetAllTeams = () => {
@@ -55,6 +55,9 @@ export const useGetAllTeams = () => {
 
 export const useAdminTeams = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+  const [team, setTeam] = useState<IGetTeamsResponse>();
+
   const schema = z.object({
     name: string(),
     description: string(),
@@ -62,6 +65,11 @@ export const useAdminTeams = () => {
     mentor: number(),
     cohort: string(),
   });
+
+  const onSuccessDelete = (data: string) => {
+    console.log("on success delete cohorts", data);
+    queryClient.invalidateQueries([queryKeys.getTeams]);
+  };
 
   const onSuccess = (data: ITeamRespons | string) => {
     console.log("on success data teams", data);
@@ -93,5 +101,25 @@ export const useAdminTeams = () => {
     setIsLoading(false);
   };
 
-  return { schema, onSubmit, isLoading };
+  const onSubmitDelete = async () => {
+    setIsLoadingDelete(true);
+
+    const response = await deleteTeam(team?.id ?? 0);
+
+    response === "Team Deleted Successfully"
+      ? onSuccessDelete(response)
+      : () => {};
+
+    setIsLoadingDelete(false);
+  };
+
+  return {
+    schema,
+    onSubmit,
+    isLoading,
+    onSubmitDelete,
+    isLoadingDelete,
+    team,
+    setTeam,
+  };
 };

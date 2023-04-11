@@ -149,6 +149,27 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
                 </InputErrorText>
               )}
             </Grid>
+            <Grid item xs={12} md={6}>
+              <Controller
+                control={control}
+                name="dob"
+                render={({ field: { onChange, value, onBlur } }) => (
+                  <AuthInput
+                    label="Date of Birth"
+                    type="date"
+                    placeholder="Date of Birth"
+                    value={value}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    blackLabel
+                    smallLabel
+                  />
+                )}
+              />
+              {errors?.dob && (
+                <InputErrorText>{errors?.dob?.message ?? ""}</InputErrorText>
+              )}
+            </Grid>
             {userType === "6y8hXnL5xl1l" && (
               <Grid item xs={12} md={6}>
                 <Controller

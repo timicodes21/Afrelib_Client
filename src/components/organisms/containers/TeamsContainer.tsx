@@ -1,5 +1,6 @@
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
-import { Box, Grid, Typography } from "@mui/material";
+import TeamOptionsList from "@/components/molecules/lists/TeamOptionsList";
+import { Box, Grid, Popover, Typography } from "@mui/material";
 import React, { ReactNode } from "react";
 import { FiMoreVertical } from "react-icons/fi";
 
@@ -9,6 +10,9 @@ interface IProps {
   children: ReactNode;
   mentorName?: string;
   students: number;
+  onEdit: () => void;
+  onAssign: () => void;
+  onDelete: () => void;
 }
 
 const TeamsContainer: React.FC<IProps> = ({
@@ -17,7 +21,22 @@ const TeamsContainer: React.FC<IProps> = ({
   description,
   mentorName,
   students,
+  onEdit,
+  onAssign,
+  onDelete,
 }) => {
+  const [anchorEl, setAnchorEl] = React.useState<SVGElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<SVGElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
   return (
     <Box
       sx={{
@@ -35,10 +54,38 @@ const TeamsContainer: React.FC<IProps> = ({
         >
           {header}
         </Typography>
-        <FiMoreVertical
-          style={{ color: "#353F50" }}
-          className="font-18 font-500 pointer"
-        />
+        <Box>
+          <FiMoreVertical
+            style={{ color: "#353F50" }}
+            className="font-18 font-500 pointer"
+            onClick={handleClick}
+          />
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+          >
+            <TeamOptionsList
+              onEdit={() => {
+                handleClose();
+                onEdit();
+              }}
+              onAssign={() => {
+                handleClose();
+                onAssign();
+              }}
+              onDelete={() => {
+                handleClose();
+                onDelete();
+              }}
+            />
+          </Popover>
+        </Box>
       </Box>
       <Box className="d-flex justify-between items-center">
         <Typography
@@ -53,7 +100,7 @@ const TeamsContainer: React.FC<IProps> = ({
           className="font-12 font-400"
           sx={{ color: "secodary.light" }}
         >
-          {description}
+          Description: {description}
         </Typography>
       </Box>
 

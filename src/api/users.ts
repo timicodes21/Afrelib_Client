@@ -63,7 +63,6 @@ export const getAllusers = async (page: number) => {
     const { status, data } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
-        toast.success("All Users");
         return data?.data;
       } else {
         toast.error(data?.message);

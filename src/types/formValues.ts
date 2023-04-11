@@ -9,6 +9,7 @@ export type AddUserFormValues = {
   lastName: string;
   school: string;
   userType: string;
+  dob: string;
 };
 
 export type AddCohortFormValues = {
