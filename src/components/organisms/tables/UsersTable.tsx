@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Box, LinearProgress, Typography } from "@mui/material";
+import { Box, LinearProgress, Popover, Typography } from "@mui/material";
 import { usersTableColumns } from "@/data/dashboard";
 import { useTable } from "@/hooks/utility";
 import Image from "next/image";
@@ -15,15 +15,30 @@ import { FiMoreVertical } from "react-icons/fi";
 import AuthButton from "@/components/atoms/buttons/AuthButton";
 import { IGetAllUsersResponse } from "@/types/apiResponses";
 import ActiveInActiveBdge from "@/components/atoms/badges/ActiveInActiveBdge";
+import UsersOptionsList from "@/components/molecules/lists/UsersOptionsList";
 
 interface IProps {
   users: IGetAllUsersResponse[];
   loading?: boolean;
+  onDelete: (id: number) => void;
 }
 
-const UsersTable: React.FC<IProps> = ({ users, loading }) => {
+const UsersTable: React.FC<IProps> = ({ users, loading, onDelete }) => {
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage } =
     useTable();
+
+  const [anchorEl, setAnchorEl] = React.useState<SVGElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<SVGElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <Paper
@@ -182,7 +197,25 @@ const UsersTable: React.FC<IProps> = ({ users, loading }) => {
                                 <FiMoreVertical
                                   style={{ color: "#353F50" }}
                                   className="font-16 pointer"
+                                  onClick={handleClick}
                                 />
+                                <Popover
+                                  id={id}
+                                  open={open}
+                                  anchorEl={anchorEl}
+                                  onClose={handleClose}
+                                  anchorOrigin={{
+                                    vertical: "bottom",
+                                    horizontal: "right",
+                                  }}
+                                >
+                                  <UsersOptionsList
+                                    onDelete={() => {
+                                      handleClose();
+                                      onDelete(item?.id);
+                                    }}
+                                  />
+                                </Popover>
                               </Box>
                             </Box>
                           </TableCell>

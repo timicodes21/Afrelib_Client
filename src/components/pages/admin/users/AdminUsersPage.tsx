@@ -138,6 +138,7 @@ const AdminUsersPage = () => {
               item?.role_name === selectedRole &&
               item?.status?.startsWith(statusOptions),
           )}
+          onDelete={id => console.log("userId", id)}
         />
       </Box>
       <CustomModal
