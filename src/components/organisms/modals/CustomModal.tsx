@@ -50,6 +50,7 @@ const CustomModal: React.FC<IProps> = ({
       maxWidth: maxWidth ?? "1000px",
     },
   };
+
   return (
     <Modal
       open={open}

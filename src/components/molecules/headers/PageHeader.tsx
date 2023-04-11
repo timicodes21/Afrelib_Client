@@ -18,6 +18,9 @@ import {
 import LinkWrapper from "../wrappers/LinkWrapper";
 import { GrClose } from "react-icons/gr";
 import { useRouter } from "next/router";
+import DeleteWrapper from "../wrappers/DeleteWrapper";
+import { clearLocalStorage } from "@/utils/helpers";
+import { LOGIN } from "@/data/constants";
 
 interface IProps {
   headerText: string;
@@ -31,6 +34,13 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
     closeDrawer,
   } = useDrawer();
   const { open, setOpen, openModal, closeModal } = useModal();
+
+  const {
+    openModal: openLogoutModal,
+    closeModal: closeLogoutModal,
+    open: logoutOpen,
+    setOpen: setLogoutOpen,
+  } = useModal();
 
   const router = useRouter();
 
@@ -74,6 +84,23 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
           </Box>
         </div>
       </div>
+      <CustomModal
+        open={logoutOpen}
+        setOpen={setLogoutOpen}
+        showCloseIcon
+        maxWidth="320px"
+      >
+        <DeleteWrapper
+          text="Are you sure you want to log out?"
+          onCancel={closeLogoutModal}
+          onDelete={() => {
+            clearLocalStorage();
+            router.push(LOGIN);
+          }}
+          deleteBtnText="Yes"
+          cancelBtnText="No"
+        />
+      </CustomModal>
       <CustomModal open={open} setOpen={setOpen} showCloseIcon={false}>
         <NotificationPage />
       </CustomModal>
@@ -105,6 +132,14 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
                 link={item?.link}
                 src={item.icon}
                 activeSrc={item.activeIcon}
+                onClick={
+                  item?.name === "Logout"
+                    ? () => {
+                        closeDrawer();
+                        openLogoutModal();
+                      }
+                    : () => {}
+                }
               >
                 {item.name}
               </LinkWrapper>

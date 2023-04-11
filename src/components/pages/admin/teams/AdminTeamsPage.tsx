@@ -58,6 +58,7 @@ Click the Add New button to create one..."
               header={item?.team_name}
               description={item?.team_description}
               students={item?.students}
+              mentorName={`${item?.mentor?.first_name} ${item?.mentor?.last_name}`}
             >
               <Box></Box>
             </TeamsContainer>

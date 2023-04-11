@@ -13,9 +13,16 @@ interface IProps {
   link: string;
   src: string;
   activeSrc: string;
+  onClick?: () => void;
 }
 
-const LinkWrapper: React.FC<IProps> = ({ children, link, src, activeSrc }) => {
+const LinkWrapper: React.FC<IProps> = ({
+  children,
+  link,
+  src,
+  activeSrc,
+  onClick,
+}) => {
   const { pathname } = useRouter();
   return (
     <Link
@@ -27,6 +34,7 @@ const LinkWrapper: React.FC<IProps> = ({ children, link, src, activeSrc }) => {
             ? "linear-gradient(90deg, rgba(20, 136, 204, 0.88) 0%, #2B32B2 100%)"
             : "",
       }}
+      onClick={onClick ? onClick : () => {}}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Image

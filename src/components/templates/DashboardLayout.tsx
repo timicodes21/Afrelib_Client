@@ -9,6 +9,11 @@ import {
 import LinkWrapper from "../molecules/wrappers/LinkWrapper";
 import { useRouter } from "next/router";
 import { useProtectedRoute } from "@/hooks/useProtectedRoute";
+import { useModal } from "@/hooks/utility";
+import CustomModal from "../organisms/modals/CustomModal";
+import DeleteWrapper from "../molecules/wrappers/DeleteWrapper";
+import { LOGIN } from "@/data/constants";
+import { clearLocalStorage } from "@/utils/helpers";
 
 interface IProps {
   children: ReactNode;
@@ -24,6 +29,8 @@ const DashboardLayout: React.FC<IProps> = ({ children }) => {
   console.log("pathname", router.pathname);
 
   useProtectedRoute();
+
+  const { openModal, closeModal, open, setOpen } = useModal();
 
   return (
     <div className={styles.container}>
@@ -58,11 +65,29 @@ const DashboardLayout: React.FC<IProps> = ({ children }) => {
                 link={item?.link}
                 src={item.icon}
                 activeSrc={item.activeIcon}
+                onClick={item?.name === "Logout" ? openModal : () => {}}
               >
                 {item.name}
               </LinkWrapper>
             ))}
           </div>
+          <CustomModal
+            open={open}
+            setOpen={setOpen}
+            showCloseIcon
+            maxWidth="320px"
+          >
+            <DeleteWrapper
+              text="Are you sure you want to log out?"
+              onCancel={closeModal}
+              onDelete={() => {
+                clearLocalStorage();
+                router.push(LOGIN);
+              }}
+              deleteBtnText="Yes"
+              cancelBtnText="No"
+            />
+          </CustomModal>
         </div>
       </div>
       <div className={styles.outlet}>{children}</div>

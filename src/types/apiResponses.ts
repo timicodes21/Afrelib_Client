@@ -128,6 +128,7 @@ export interface IGetTeamsResponse {
   created_at: string;
   updated_at: string;
   students: number;
+  mentor: User;
 }
 
 export interface ITeamRespons {
