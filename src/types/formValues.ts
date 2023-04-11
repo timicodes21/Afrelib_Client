@@ -18,7 +18,7 @@ export type AddCohortFormValues = {
   endDate: string;
   mentors: number[];
   panelists: number[];
-  teams: [];
+  teams: number[];
 };
 
 export type AddTeamFormValues = {
