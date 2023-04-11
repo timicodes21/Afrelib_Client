@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useGetAllUsers } from "./admin/useAdminUsers";
 import { useGetAllCohorts } from "./admin/useAdminCohort";
+import { useGetAllTeams } from "./admin/useAdminTeams";
+import { Allerta } from "next/font/google";
 
 const usePasswordShow = () => {
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
@@ -139,4 +141,20 @@ export const useCohortsUsersForSelect = () => {
     });
 
   return { isLoading, allCohorts, cohortsSelect };
+};
+
+export const useTeamsForSelect = () => {
+  const { allTeams, isLoading } = useGetAllTeams();
+
+  const teamSelect =
+    !isLoading &&
+    Array.isArray(allTeams) &&
+    allTeams.map(item => {
+      return {
+        label: item?.team_name,
+        value: item?.id,
+      };
+    });
+
+  return { isLoading, teamSelect };
 };

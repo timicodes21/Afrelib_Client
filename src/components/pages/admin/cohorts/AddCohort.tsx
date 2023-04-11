@@ -7,7 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AuthInput from "@/components/atoms/inputFields/AuthInput";
 import CustomSelect from "@/components/atoms/inputFields/CustomSelect";
 import AuthButton from "@/components/atoms/buttons/AuthButton";
-import { useFilterUsersForSelect, useGetRoles } from "@/hooks/utility";
+import {
+  useFilterUsersForSelect,
+  useGetRoles,
+  useTeamsForSelect,
+} from "@/hooks/utility";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
 import { useAdminCohort } from "@/hooks/admin/useAdminCohort";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
@@ -34,7 +38,12 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
 
   console.log("errors", errors);
 
+  const panelists = watch("panelists");
+
+  console.log("panelists", panelists);
+
   const { allMentors, allPanelists, isLoading } = useFilterUsersForSelect();
+  const { teamSelect, isLoading: isLoadingTeams } = useTeamsForSelect();
 
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
@@ -86,7 +95,7 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                   console.log("select event", e);
                   setValue(
                     "panelists",
-                    Array.isArray(e) ? e.map(item => item?.value) : [],
+                    Array.isArray(e) ? e.map(item => Number(item?.value)) : [],
                   );
                 }}
                 blackLabel
@@ -111,17 +120,15 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                 onChange={e => {
                   console.log("select event", e);
                   setValue(
-                    "panelists",
+                    "teams",
                     Array.isArray(e) ? e.map(item => item?.value) : [],
                   );
                 }}
                 blackLabel
-                options={
-                  allPanelists ? allPanelists : [{ label: "", value: "" }]
-                }
+                options={teamSelect ? teamSelect : [{ label: "", value: "" }]}
                 background="#F3F5F6"
                 placeholder="Select Team"
-                isLoading={isLoading}
+                isLoading={isLoadingTeams}
               />
               {errors?.teams && (
                 <InputErrorText>{errors?.teams?.message ?? ""}</InputErrorText>

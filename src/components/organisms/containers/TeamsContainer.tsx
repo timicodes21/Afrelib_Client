@@ -8,6 +8,7 @@ interface IProps {
   description: string;
   children: ReactNode;
   mentorName?: string;
+  students: number;
 }
 
 const TeamsContainer: React.FC<IProps> = ({
@@ -15,6 +16,7 @@ const TeamsContainer: React.FC<IProps> = ({
   children,
   description,
   mentorName,
+  students,
 }) => {
   return (
     <Box
@@ -60,7 +62,7 @@ const TeamsContainer: React.FC<IProps> = ({
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#DEF1FF"
-              value="12"
+              value={students.toString()}
               textColor="#0072C7"
               title="No. of Members"
               height="70px"

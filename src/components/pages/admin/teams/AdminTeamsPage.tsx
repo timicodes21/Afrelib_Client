@@ -57,6 +57,7 @@ Click the Add New button to create one..."
             <TeamsContainer
               header={item?.team_name}
               description={item?.team_description}
+              students={item?.students}
             >
               <Box></Box>
             </TeamsContainer>

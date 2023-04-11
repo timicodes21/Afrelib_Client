@@ -127,6 +127,7 @@ export interface IGetTeamsResponse {
   is_deleted: number;
   created_at: string;
   updated_at: string;
+  students: number;
 }
 
 export interface ITeamRespons {

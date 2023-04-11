@@ -8,6 +8,7 @@ import {
 } from "@/data/dashboard";
 import LinkWrapper from "../molecules/wrappers/LinkWrapper";
 import { useRouter } from "next/router";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
 interface IProps {
   children: ReactNode;
@@ -21,6 +22,8 @@ const DashboardLayout: React.FC<IProps> = ({ children }) => {
     : dashboardLinks;
 
   console.log("pathname", router.pathname);
+
+  useProtectedRoute();
 
   return (
     <div className={styles.container}>

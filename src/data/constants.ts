@@ -21,6 +21,7 @@ export const MESSAGES = "/dashboard/messages";
 export const RESOURCES = "/dashboard/resources";
 export const ACCOUNTS_SETTINGS = "/dashboard/accounts_settings";
 export const SUPPORT = "/dashboard/support";
+export const LOGIN = "/login";
 
 // admin links
 export const ADMIN_DASHBOARD = "/admin/dashboard";
@@ -30,6 +31,7 @@ export const ADMIN_TEAMS = "/admin/dashboard/teams";
 export const ADMIN_PROJECTS = "/admin/dashboard/projects";
 export const ADMIN_GROUPCHATS = "/admin/dashboard/groupchats";
 export const ADMIN_ACCOUNTS_SETTINGS = "/admin/dashboard/accounts_settings";
+export const ADMIN_LOGIN = "/admin/login";
 
 // Api Url's
 
