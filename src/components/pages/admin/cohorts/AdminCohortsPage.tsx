@@ -2,17 +2,23 @@ import TransparentBlueButton from "@/components/atoms/buttons/TransparentBlueBut
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import Wrapper from "@/components/templates/Wrapper";
-import { Box, Grid, LinearProgress, Typography } from "@mui/material";
+import { Box, LinearProgress } from "@mui/material";
 import React, { useState } from "react";
 import { useModal } from "@/hooks/utility";
 import CohortsContainer from "@/components/organisms/containers/CohortsContainer";
-import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import AddCohort from "./AddCohort";
-import { useGetAllCohorts } from "@/hooks/admin/useAdminCohort";
+import { useAdminCohort, useGetAllCohorts } from "@/hooks/admin/useAdminCohort";
 import EmptyPage from "@/components/templates/EmptyPage";
+import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
 
 const AdminCohortsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
+  const {
+    open: openDelete,
+    setOpen: setOpenDelete,
+    openModal: openDeleteModal,
+    closeModal: closeDeleteModal,
+  } = useModal();
 
   const {
     allCohorts,
@@ -22,6 +28,9 @@ const AdminCohortsPage = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useGetAllCohorts();
+
+  const { isLoadingDelete, onSubmitDelete, setCohort, cohort } =
+    useAdminCohort();
 
   return (
     <Wrapper>
@@ -57,7 +66,10 @@ Click the Add New button to create one..."
           <Box sx={{ mt: 2 }} key={index}>
             <CohortsContainer
               header={item?.cohort_name}
-              onDelete={() => {}}
+              onDelete={() => {
+                setCohort(item);
+                openDeleteModal();
+              }}
               onEdit={() => {}}
               onAssign={() => {}}
             >
@@ -71,8 +83,25 @@ Click the Add New button to create one..."
         setOpen={setOpen}
         width="1000px"
         closeOnOverlayClick={false}
+        showCloseIcon={false}
       >
         <AddCohort handleClose={closeModal} />
+      </CustomModal>
+      <CustomModal
+        open={openDelete}
+        setOpen={setOpenDelete}
+        maxWidth="350px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <DeleteWrapper
+          text={`Are you sure you want to delete ${cohort?.cohort_name ?? ""}`}
+          onDelete={onSubmitDelete}
+          onCancel={closeDeleteModal}
+          deleteBtnText="Yes, Disable"
+          cancelBtnText="No, Cancel"
+          loading={isLoadingDelete}
+        />
       </CustomModal>
     </Wrapper>
   );

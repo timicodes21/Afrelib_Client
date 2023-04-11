@@ -143,6 +143,7 @@ const AdminUsersPage = () => {
       <CustomModal
         open={open}
         setOpen={setOpen}
+        showCloseIcon={false}
         width="1000px"
         closeOnOverlayClick={false}
       >

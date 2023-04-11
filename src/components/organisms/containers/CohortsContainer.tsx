@@ -67,9 +67,18 @@ const CohortsContainer: React.FC<IProps> = ({
             }}
           >
             <CohortOptionsList
-              onEdit={onEdit}
-              onAssign={onAssign}
-              onDelete={onDelete}
+              onEdit={() => {
+                handleClose();
+                onEdit();
+              }}
+              onAssign={() => {
+                handleClose();
+                onAssign();
+              }}
+              onDelete={() => {
+                handleClose();
+                onDelete();
+              }}
             />
           </Popover>
         </Box>

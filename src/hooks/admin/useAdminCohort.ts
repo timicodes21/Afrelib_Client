@@ -3,7 +3,7 @@ import { z, string, number } from "zod";
 import { SubmitHandler } from "react-hook-form/dist/types";
 import { AddCohortFormValues } from "@/types/formValues";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { createCohort, getCohorts } from "@/api/cohorts";
+import { createCohort, deleteCohort, getCohorts } from "@/api/cohorts";
 import {
   ICreateCohortResponse,
   IGetCohortsResponse,
@@ -57,6 +57,9 @@ export const useGetAllCohorts = () => {
 };
 
 export const useAdminCohort = () => {
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+  const [cohort, setCohort] = useState<IGetCohortsResponse>();
+
   const schema = z.object({
     name: string(),
     description: string(),
@@ -68,6 +71,11 @@ export const useAdminCohort = () => {
   });
 
   const { mutate, isLoading } = useCreateCohort();
+
+  const onSuccessDelete = (data: string) => {
+    console.log("on success delete cohorts", data);
+    queryClient.invalidateQueries([queryKeys.getCohorts]);
+  };
 
   const onSuccess = (data: ICreateCohortResponse | string) => {
     console.log("on success data cohorts", data);
@@ -92,5 +100,27 @@ export const useAdminCohort = () => {
     mutate(formData, { onSuccess, onError });
   };
 
-  return { schema, onSubmit, isLoading };
+  const onSubmitDelete = async () => {
+    setIsLoadingDelete(true);
+
+    const response = await deleteCohort(cohort?.cohort_id ?? "");
+
+    response === "Cohort Deleted Successfully"
+      ? onSuccessDelete(response)
+      : () => {};
+
+    setIsLoadingDelete(false);
+  };
+
+  const onDeleteCohort = () => {};
+
+  return {
+    schema,
+    onSubmit,
+    isLoading,
+    isLoadingDelete,
+    onSubmitDelete,
+    setCohort,
+    cohort,
+  };
 };

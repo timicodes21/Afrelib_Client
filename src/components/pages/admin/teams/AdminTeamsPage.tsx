@@ -68,6 +68,7 @@ Click the Add New button to create one..."
         setOpen={setOpen}
         width="1000px"
         closeOnOverlayClick={false}
+        showCloseIcon={false}
       >
         <AddTeams handleClose={closeModal} />
       </CustomModal>

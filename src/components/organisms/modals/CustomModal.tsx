@@ -10,6 +10,7 @@ interface IProps {
   width?: string;
   maxWidth?: string;
   closeOnOverlayClick?: boolean;
+  showCloseIcon?: boolean;
 }
 
 const CustomModal: React.FC<IProps> = ({
@@ -19,6 +20,7 @@ const CustomModal: React.FC<IProps> = ({
   width,
   maxWidth,
   closeOnOverlayClick,
+  showCloseIcon,
 }) => {
   const customModalStyle = {
     "@media (min-width: 1024px)": {
@@ -53,7 +55,7 @@ const CustomModal: React.FC<IProps> = ({
       open={open}
       onClose={() => setOpen(false)}
       center
-      showCloseIcon={false}
+      showCloseIcon={showCloseIcon ?? false}
       styles={customModalStyle}
       closeOnOverlayClick={closeOnOverlayClick}
     >

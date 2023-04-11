@@ -74,7 +74,7 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
           </Box>
         </div>
       </div>
-      <CustomModal open={open} setOpen={setOpen}>
+      <CustomModal open={open} setOpen={setOpen} showCloseIcon={false}>
         <NotificationPage />
       </CustomModal>
       {/* Tab and Mobile Screens Drawer */}

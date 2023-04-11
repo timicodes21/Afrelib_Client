@@ -46,6 +46,7 @@ export const LOGIN_USER_API = "/user/signin";
 
 //Cohorts
 export const CREATE_COHORT_API = "/cohort";
+export const DELETE_COHORT_API = (cohortId: string) => `/cohort/${cohortId}`;
 export const GET_COHORTS_API = (page: number) => `cohorts?page=${page}`;
 
 //teams

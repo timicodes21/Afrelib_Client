@@ -35,7 +35,7 @@ const AuthLayout: React.FC<IProps> = ({
           />
           <Box>
             <Image
-              src="/assets/images/auth_image.svg"
+              src="/assets/images/auth_background.gif"
               height={400}
               width={400}
               loading="lazy"
