@@ -66,6 +66,8 @@ const AuthLayout: React.FC<IProps> = ({
           sx={{
             px: { xs: 2, md: 4, lg: 7 },
             justifyContent: "center",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           <Image
