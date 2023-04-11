@@ -65,6 +65,7 @@ const AuthLayout: React.FC<IProps> = ({
           className={styles.rightBackground}
           sx={{
             px: { xs: 2, md: 4, lg: 7 },
+            justifyContent: "center",
           }}
         >
           <Image
