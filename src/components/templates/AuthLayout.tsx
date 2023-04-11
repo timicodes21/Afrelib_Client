@@ -24,7 +24,7 @@ const AuthLayout: React.FC<IProps> = ({
           xs={12}
           md={6}
           className={styles.leftBackground}
-          sx={{ p: { xs: 2, md: 3 } }}
+          sx={{ p: { xs: 2, md: 3 }, flexDirection: "column" }}
         >
           <Image
             src="/assets/icons/logo.svg"
