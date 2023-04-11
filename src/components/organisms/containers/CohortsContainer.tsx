@@ -10,6 +10,10 @@ interface IProps {
   onEdit: () => void;
   onAssign: () => void;
   onDelete: () => void;
+  teams: number;
+  students: number;
+  panelists: number;
+  mentors: number;
 }
 
 const CohortsContainer: React.FC<IProps> = ({
@@ -18,6 +22,10 @@ const CohortsContainer: React.FC<IProps> = ({
   onEdit,
   onAssign,
   onDelete,
+  teams,
+  students,
+  mentors,
+  panelists,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<SVGElement | null>(null);
 
@@ -88,7 +96,7 @@ const CohortsContainer: React.FC<IProps> = ({
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#DEF1FF"
-              value="12"
+              value={teams.toString()}
               textColor="#0072C7"
               title="No. of Teams"
               height="70px"
@@ -97,7 +105,7 @@ const CohortsContainer: React.FC<IProps> = ({
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#EFE3FF"
-              value="80"
+              value={students.toString()}
               textColor="#5C0BC9"
               title="No. of Students"
               height="70px"
@@ -106,7 +114,7 @@ const CohortsContainer: React.FC<IProps> = ({
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#FFF9E3"
-              value="12"
+              value={mentors.toString()}
               textColor="#E4B300"
               title="No. of Mentors"
               height="70px"
@@ -115,7 +123,7 @@ const CohortsContainer: React.FC<IProps> = ({
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#E3FFF7"
-              value="5"
+              value={panelists.toString()}
               textColor="#02C08A"
               title="No. of Panelists"
               height="70px"

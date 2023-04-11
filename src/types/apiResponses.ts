@@ -110,8 +110,13 @@ export interface IGetCohortsResponse {
   cohort_description: string;
   start_date: string;
   end_date: string;
+  status: string;
   created_at: string;
   updated_at: string;
+  mentors: number;
+  panelists: number;
+  teams: number;
+  students: number;
 }
 
 export interface IGetTeamsResponse {

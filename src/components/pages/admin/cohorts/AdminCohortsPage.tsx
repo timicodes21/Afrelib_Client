@@ -72,6 +72,10 @@ Click the Add New button to create one..."
               }}
               onEdit={() => {}}
               onAssign={() => {}}
+              mentors={item?.mentors}
+              panelists={item?.panelists}
+              students={item?.students}
+              teams={item?.teams}
             >
               <Box></Box>
             </CohortsContainer>
