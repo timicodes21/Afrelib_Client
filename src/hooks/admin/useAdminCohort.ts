@@ -4,6 +4,7 @@ import { SubmitHandler } from "react-hook-form/dist/types";
 import {
   AddCohortFormValues,
   AssignPanelistsFormValues,
+  UpdateCohortFormValues,
 } from "@/types/formValues";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import {
@@ -11,6 +12,7 @@ import {
   createCohort,
   deleteCohort,
   getCohorts,
+  updateCohort,
 } from "@/api/cohorts";
 import {
   ICreateCohortResponse,
@@ -19,6 +21,7 @@ import {
 import {
   IAssignPanelistsRequest,
   ICreateCohortRequest,
+  IUpdateCohorRequest,
 } from "@/types/apiRequests";
 import { queryClient, queryKeys } from "@/data/constants";
 
@@ -70,10 +73,12 @@ export const useGetAllCohorts = () => {
 export const useAdminCohort = () => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [cohort, setCohort] = useState<IGetCohortsResponse>();
-  const [option, setOption] = useState<"addCohort" | "assignPanelists">(
-    "addCohort",
-  );
+  const [option, setOption] = useState<
+    "addCohort" | "assignPanelists" | "updateCohort"
+  >("addCohort");
+  const [panelistIds, setPanelistIds] = useState<number[]>([]);
 
+  // Schemas for React Hook form
   const schema = z.object({
     name: string(),
     description: string(),
@@ -88,12 +93,13 @@ export const useAdminCohort = () => {
     panelist_ids: number().array().optional(),
   });
 
-  const { mutate, isLoading } = useCreateCohort();
+  const schemaUpdate = z.object({
+    name: string(),
+    description: string(),
+  });
 
-  const onSuccessDelete = (data: string) => {
-    console.log("on success delete cohorts", data);
-    queryClient.invalidateQueries([queryKeys.getCohorts]);
-  };
+  // Create cohort submit function
+  const { mutate, isLoading } = useCreateCohort();
 
   const onSuccess = (data: ICreateCohortResponse | string) => {
     console.log("on success data cohorts", data);
@@ -118,6 +124,12 @@ export const useAdminCohort = () => {
     mutate(formData, { onSuccess, onError });
   };
 
+  // Delete cohort submit function
+  const onSuccessDelete = (data: string) => {
+    console.log("on success delete cohorts", data);
+    queryClient.invalidateQueries([queryKeys.getCohorts]);
+  };
+
   const onSubmitDelete = async () => {
     setIsLoadingDelete(true);
 
@@ -130,6 +142,7 @@ export const useAdminCohort = () => {
     setIsLoadingDelete(false);
   };
 
+  // Assign cohort submit function
   const { mutate: mutateAssign, isLoading: isLoadingAssign } = useMutation({
     mutationFn: ({
       cohortId,
@@ -155,6 +168,29 @@ export const useAdminCohort = () => {
     );
   };
 
+  // Update cohort submit function
+  const { mutate: mutateUpdate, isLoading: isLoadingUpdate } = useMutation({
+    mutationFn: ({
+      cohortId,
+      body,
+    }: {
+      cohortId: string;
+      body: IUpdateCohorRequest;
+    }) => updateCohort(cohortId, body),
+  });
+
+  const onSubmitUpdate = (data: UpdateCohortFormValues, cohortId: string) => {
+    const formData: IUpdateCohorRequest = {
+      cohort_name: data?.name,
+      cohort_description: data?.description,
+    };
+
+    mutateUpdate(
+      { cohortId: cohortId ?? "", body: formData },
+      { onSuccess: onSuccessAssign, onError },
+    );
+  };
+
   return {
     schema,
     onSubmit,
@@ -168,5 +204,10 @@ export const useAdminCohort = () => {
     schemaAssign,
     onSubmitAssign,
     isLoadingAssign,
+    panelistIds,
+    setPanelistIds,
+    schemaUpdate,
+    onSubmitUpdate,
+    isLoadingUpdate,
   };
 };

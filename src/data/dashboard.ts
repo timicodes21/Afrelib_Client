@@ -592,9 +592,10 @@ interface Option {
 
 export const cohortOptions: Option[] = [
   {
-    name: "Edit Cohort",
+    name: "Update Cohort",
     src: "/assets/icons/edit_icon.svg",
   },
+
   {
     name: "Assign Panelists",
     src: "/assets/icons/assign_icon.svg",
@@ -602,6 +603,10 @@ export const cohortOptions: Option[] = [
   {
     name: "Delete Cohort",
     src: "/assets/icons/delete_icon.svg",
+  },
+  {
+    name: "Edit Cohort",
+    src: "/assets/icons/edit_icon.svg",
   },
 ];
 

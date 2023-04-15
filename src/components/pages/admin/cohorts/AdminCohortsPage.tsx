@@ -3,7 +3,7 @@ import PageHeader from "@/components/molecules/headers/PageHeader";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import Wrapper from "@/components/templates/Wrapper";
 import { Box, LinearProgress } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useModal } from "@/hooks/utility";
 import CohortsContainer from "@/components/organisms/containers/CohortsContainer";
 import AddCohort from "./AddCohort";
@@ -11,6 +11,7 @@ import { useAdminCohort, useGetAllCohorts } from "@/hooks/admin/useAdminCohort";
 import EmptyPage from "@/components/templates/EmptyPage";
 import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
 import AssignPanelists from "./AssignPanelist";
+import UpdateCohort from "./UpdateCohort";
 
 const AdminCohortsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
@@ -89,6 +90,11 @@ Click the Add New button to create one..."
                 setOption("assignPanelists");
                 openModal();
               }}
+              onUpdate={() => {
+                setCohort(item);
+                setOption("updateCohort");
+                openModal();
+              }}
               mentors={item?.mentors}
               panelists={item?.panelists}
               students={item?.students}
@@ -114,10 +120,14 @@ Click the Add New button to create one..."
             cohortId={cohort?.cohort_id ?? ""}
             cohortName={cohort?.cohort_name ?? ""}
           />
+        ) : option === "updateCohort" ? (
+          <UpdateCohort
+            handleClose={closeModal}
+            cohortId={cohort?.cohort_id ?? ""}
+          />
         ) : (
           <></>
         )}
-        <AddCohort handleClose={closeModal} />
       </CustomModal>
       <CustomModal
         open={openDelete}

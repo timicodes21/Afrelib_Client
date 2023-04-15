@@ -1,20 +1,20 @@
 import { cohortOptions } from "@/data/dashboard";
-import { Box, Typography } from "@mui/material";
-import Image from "next/image";
+import { Box } from "@mui/material";
 import React from "react";
-import styles from "@/styles/Molecules.module.css";
 import OptionItem from "./OptionItem";
 
 interface IProps {
   onEdit: () => void;
   onAssign: () => void;
   onDelete: () => void;
+  onUpdate: () => void;
 }
 
 const CohortOptionsList: React.FC<IProps> = ({
   onEdit,
   onAssign,
   onDelete,
+  onUpdate,
 }) => {
   return (
     <Box
@@ -24,7 +24,7 @@ const CohortOptionsList: React.FC<IProps> = ({
           "0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
       }}
     >
-      <OptionItem src={cohortOptions[0]?.src} onClick={onEdit}>
+      <OptionItem src={cohortOptions[0]?.src} onClick={onUpdate}>
         {cohortOptions[0].name}
       </OptionItem>
       <OptionItem src={cohortOptions[1]?.src} onClick={onAssign}>

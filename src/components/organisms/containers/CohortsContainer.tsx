@@ -10,6 +10,7 @@ interface IProps {
   onEdit: () => void;
   onAssign: () => void;
   onDelete: () => void;
+  onUpdate: () => void;
   teams: number;
   students: number;
   panelists: number;
@@ -26,6 +27,7 @@ const CohortsContainer: React.FC<IProps> = ({
   students,
   mentors,
   panelists,
+  onUpdate,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<SVGElement | null>(null);
 
@@ -86,6 +88,10 @@ const CohortsContainer: React.FC<IProps> = ({
               onDelete={() => {
                 handleClose();
                 onDelete();
+              }}
+              onUpdate={() => {
+                handleClose();
+                onUpdate();
               }}
             />
           </Popover>

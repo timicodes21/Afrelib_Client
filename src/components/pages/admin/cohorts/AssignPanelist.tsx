@@ -28,22 +28,13 @@ const AssignPanelists: React.FC<IProps> = ({
 }) => {
   const { allPanelists, isLoading } = useFilterUsersForSelect();
 
-  const { schemaAssign, onSubmitAssign, isLoadingAssign } = useAdminCohort();
-
   const {
-    control,
-    handleSubmit,
-    getValues,
-    setValue,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm<AssignPanelistsFormValues>({
-    mode: "onBlur",
-    resolver: zodResolver(schemaAssign),
-  });
-
-  watch("panelist_ids");
+    schemaAssign,
+    onSubmitAssign,
+    isLoadingAssign,
+    panelistIds,
+    setPanelistIds,
+  } = useAdminCohort();
 
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
@@ -74,25 +65,21 @@ const AssignPanelists: React.FC<IProps> = ({
                 onChange={e => {
                   console.log("event", e?.target?.checked);
                   if (e?.target?.checked) {
-                    setValue("panelist_ids", [
-                      ...getValues("panelist_ids"),
-                      item?.value,
-                    ]);
+                    setPanelistIds([...panelistIds, item?.value]);
                   } else {
-                    setValue("panelist_ids", [
-                      ...getValues("panelist_ids").filter(
-                        id => id !== item?.value,
-                      ),
-                    ]);
+                    const filtered = panelistIds.filter(
+                      id => id !== item?.value,
+                    );
+                    setPanelistIds(filtered);
                   }
                 }}
-                checked={getValues("panelist_ids")?.includes(item?.value)}
+                checked={panelistIds.includes(item?.value)}
               >
                 {item?.label}
               </CheckboxWithLabel>
             </Box>
           ))}
-        {errors?.panelist_ids && (
+        {panelistIds.length === 0 && (
           <InputErrorText>Please select panelists</InputErrorText>
         )}
       </Box>
@@ -100,13 +87,13 @@ const AssignPanelists: React.FC<IProps> = ({
       <Box sx={{ mt: 5 }} className="d-flex justify-center">
         <AuthButton
           onClick={() => {
-            onSubmitAssign(cohortId, getValues("panelist_ids"));
+            panelistIds.length > 0 && onSubmitAssign(cohortId, panelistIds);
           }}
           type="button"
           notFullWidth
           loading={isLoadingAssign}
         >
-          Assign to Team
+          Assign to Cohort
         </AuthButton>
       </Box>
     </Box>

@@ -52,6 +52,7 @@ export const DELETE_COHORT_API = (cohortId: string) => `/cohort/${cohortId}`;
 export const GET_COHORTS_API = (page: number) => `cohorts?page=${page}`;
 export const ASSIGN_PANELISTS_API = (cohortId: string) =>
   `/cohort/${cohortId}/panelist/add`;
+export const UPDATE_COHORT_API = (cohortId: string) => `/cohort/${cohortId}`;
 
 //teams
 export const CREATE_TEAM_API = (cohortId: string) => `/cohort/${cohortId}/team`;

@@ -38,3 +38,8 @@ export interface IUpdateMentorRequest {
 export interface IAssignPanelistsRequest {
   panelist_ids: number[];
 }
+
+export interface IUpdateCohorRequest {
+  cohort_name: string;
+  cohort_description: string;
+}

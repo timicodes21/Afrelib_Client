@@ -3,11 +3,13 @@ import {
   CREATE_COHORT_API,
   DELETE_COHORT_API,
   GET_COHORTS_API,
+  UPDATE_COHORT_API,
 } from "@/data/constants";
 import { coreHttpClient } from "@/service/httpClients";
 import {
   IAssignPanelistsRequest,
   ICreateCohortRequest,
+  IUpdateCohorRequest,
 } from "@/types/apiRequests";
 import { toast } from "react-hot-toast";
 
@@ -89,6 +91,37 @@ export const assignPanelist = async (
   try {
     const response = await coreHttpClient.put(
       ASSIGN_PANELISTS_API(cohortId),
+      body,
+    );
+
+    const {
+      status,
+      data: { message },
+    } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(message);
+        return message;
+      } else {
+        toast.error(message);
+        return message;
+      }
+  } catch (err: any) {
+    console.log("error", err);
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const updateCohort = async (
+  cohortId: string,
+  body: IUpdateCohorRequest,
+) => {
+  try {
+    const response = await coreHttpClient.put(
+      UPDATE_COHORT_API(cohortId),
       body,
     );
 

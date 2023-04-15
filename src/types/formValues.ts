@@ -22,6 +22,11 @@ export type AddCohortFormValues = {
   teams: number[];
 };
 
+export type UpdateCohortFormValues = {
+  name: string;
+  description: string;
+};
+
 export type AddTeamFormValues = {
   name: string;
   description: string;
