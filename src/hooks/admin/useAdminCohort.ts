@@ -56,8 +56,11 @@ export const useGetAllCohorts = () => {
   const allCohorts: IGetCohortsResponse[] = [];
   data?.pages &&
     Array.isArray(data?.pages) &&
-    data?.pages?.map(page =>
-      page?.map((el: IGetCohortsResponse) => allCohorts.push(el)),
+    data?.pages?.map(
+      page =>
+        page &&
+        Array.isArray(page) &&
+        page?.map((el: IGetCohortsResponse) => allCohorts.push(el)),
     );
 
   return {
