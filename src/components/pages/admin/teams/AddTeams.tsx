@@ -15,6 +15,7 @@ import InputErrorText from "@/components/atoms/texts/InputErrorText";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
 import { useAdminTeams } from "@/hooks/admin/useAdminTeams";
 import CustomMultiSelect from "@/components/atoms/inputFields/CustomMultiSelect";
+import HeaderAndCloseButton from "@/components/molecules/headers/HeaderAndCloseButton";
 
 interface IProps {
   handleClose: () => void;
@@ -43,19 +44,7 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
 
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
-      <Box className="d-flex justify-between items-center">
-        <Typography
-          sx={{ color: "secondary.main" }}
-          className="font-20 font-500"
-        >
-          Add Team
-        </Typography>
-        <GrClose
-          style={{ color: "#353F50" }}
-          className="pointer font-16 font-700"
-          onClick={handleClose}
-        />
-      </Box>
+      <HeaderAndCloseButton header="Add Team" onClick={handleClose} />
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container sx={{ mt: 3 }} spacing={2}>

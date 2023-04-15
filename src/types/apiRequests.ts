@@ -30,3 +30,11 @@ export interface ICreateTeamRequest {
   studentIds: number[];
   mentorId: number;
 }
+
+export interface IUpdateMentorRequest {
+  mentorId: number;
+}
+
+export interface IAssignPanelistsRequest {
+  panelist_ids: number[];
+}

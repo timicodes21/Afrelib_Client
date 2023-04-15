@@ -29,3 +29,11 @@ export type AddTeamFormValues = {
   mentor: number;
   cohort: string;
 };
+
+export type AddMentorFormValues = {
+  mentorId: number;
+};
+
+export type AssignPanelistsFormValues = {
+  panelist_ids: number[];
+};

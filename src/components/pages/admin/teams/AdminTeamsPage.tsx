@@ -7,17 +7,31 @@ import React from "react";
 import { useModal } from "@/hooks/utility";
 import AddTeams from "./AddTeams";
 import EmptyPage from "@/components/templates/EmptyPage";
-import { useAdminTeams, useGetAllTeams } from "@/hooks/admin/useAdminTeams";
+import {
+  useAdminTeams,
+  useGetAllTeams,
+  useGetSingleTeam,
+} from "@/hooks/admin/useAdminTeams";
 import TeamsContainer from "@/components/organisms/containers/TeamsContainer";
 import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
+import StudentsList from "@/components/molecules/lists/StudentsList";
+import AddMentor from "./AddMentor";
 
 const AdminTeamsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
+
   const {
     open: openDelete,
     setOpen: setOpenDelete,
     openModal: openDeleteModal,
     closeModal: closeDeleteModal,
+  } = useModal();
+
+  const {
+    open: openStudents,
+    setOpen: setOpenStudents,
+    openModal: openStudentsModal,
+    closeModal: closeStudentsModal,
   } = useModal();
 
   const {
@@ -29,14 +43,29 @@ const AdminTeamsPage = () => {
     isFetchingNextPage,
   } = useGetAllTeams();
 
-  const { onSubmitDelete, isLoadingDelete, team, setTeam } = useAdminTeams();
+  const { onSubmitDelete, isLoadingDelete, team, setTeam, option, setOption } =
+    useAdminTeams();
+
+  const {
+    data,
+    status: statusGetSingle,
+    isFetching,
+  } = useGetSingleTeam(team?.id ?? 0, openStudents);
+
+  console.log("team in admin teams page", team);
 
   return (
     <Wrapper>
       <PageHeader headerText="Teams" />
 
       <Box className="d-flex justify-end" sx={{ mt: 2 }}>
-        <TransparentBlueButton type="button" onClick={openModal}>
+        <TransparentBlueButton
+          type="button"
+          onClick={() => {
+            setOption("addTeam");
+            openModal();
+          }}
+        >
           Create New
         </TransparentBlueButton>
       </Box>
@@ -72,8 +101,16 @@ Click the Add New button to create one..."
                 setTeam(item);
                 openDeleteModal();
               }}
-              onEdit={() => {}}
+              onEdit={() => {
+                setTeam(item);
+                setOption("addMentor");
+                openModal();
+              }}
               onAssign={() => {}}
+              onClickStudents={() => {
+                setTeam(item);
+                openStudentsModal();
+              }}
             >
               <Box></Box>
             </TeamsContainer>
@@ -87,7 +124,17 @@ Click the Add New button to create one..."
         closeOnOverlayClick={false}
         showCloseIcon={false}
       >
-        <AddTeams handleClose={closeModal} />
+        {option === "addTeam" ? (
+          <AddTeams handleClose={closeModal} />
+        ) : option === "addMentor" ? (
+          <AddMentor
+            handleClose={closeModal}
+            teamName={team?.team_name ?? ""}
+            teamId={team?.id ?? 0}
+          />
+        ) : (
+          <></>
+        )}
       </CustomModal>
       <CustomModal
         open={openDelete}
@@ -103,6 +150,19 @@ Click the Add New button to create one..."
           deleteBtnText="Yes, Disable"
           cancelBtnText="No, Cancel"
           loading={isLoadingDelete}
+        />
+      </CustomModal>
+      <CustomModal
+        open={openStudents}
+        setOpen={setOpenStudents}
+        maxWidth="550px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <StudentsList
+          students={data?.students ?? []}
+          header="List of Students"
+          loading={isFetching}
         />
       </CustomModal>
     </Wrapper>

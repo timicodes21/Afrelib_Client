@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import DeleteWrapper from "../wrappers/DeleteWrapper";
 import { clearLocalStorage } from "@/utils/helpers";
 import { LOGIN } from "@/data/constants";
+import SearchInput from "@/components/atoms/inputFields/SearchInput";
 
 interface IProps {
   headerText: string;
@@ -61,10 +62,7 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
         </Typography>
 
         <div className={styles.pageHeaderRightContainer}>
-          <div className={styles.searchIconWrapper}>
-            <FiSearch className="font-18" style={{ color: "#66A3D3" }} />
-            <input type="text" placeholder="Search" />
-          </div>
+          <SearchInput placeholder="Search" />
           <div style={{ marginLeft: "20px" }}>
             <Image
               src="/assets/icons/notification_icon.svg"

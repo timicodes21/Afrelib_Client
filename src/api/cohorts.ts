@@ -1,10 +1,14 @@
 import {
+  ASSIGN_PANELISTS_API,
   CREATE_COHORT_API,
   DELETE_COHORT_API,
   GET_COHORTS_API,
 } from "@/data/constants";
 import { coreHttpClient } from "@/service/httpClients";
-import { ICreateCohortRequest } from "@/types/apiRequests";
+import {
+  IAssignPanelistsRequest,
+  ICreateCohortRequest,
+} from "@/types/apiRequests";
 import { toast } from "react-hot-toast";
 
 export const createCohort = async (body: ICreateCohortRequest) => {
@@ -57,6 +61,37 @@ export const deleteCohort = async (cohortId: string) => {
   try {
     const response = await coreHttpClient.delete(DELETE_COHORT_API(cohortId));
     console.log("DELETE COHORT response", response);
+    const {
+      status,
+      data: { message },
+    } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(message);
+        return message;
+      } else {
+        toast.error(message);
+        return message;
+      }
+  } catch (err: any) {
+    console.log("error", err);
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const assignPanelist = async (
+  cohortId: string,
+  body: IAssignPanelistsRequest,
+) => {
+  try {
+    const response = await coreHttpClient.put(
+      ASSIGN_PANELISTS_API(cohortId),
+      body,
+    );
+
     const {
       status,
       data: { message },

@@ -20,10 +20,16 @@ import UsersOptionsList from "@/components/molecules/lists/UsersOptionsList";
 interface IProps {
   users: IGetAllUsersResponse[];
   loading?: boolean;
-  onDelete: (id: number) => void;
+  onDisableEnable: (id: number) => void;
+  onResetPassword: (id: number) => void;
 }
 
-const UsersTable: React.FC<IProps> = ({ users, loading, onDelete }) => {
+const UsersTable: React.FC<IProps> = ({
+  users,
+  loading,
+  onDisableEnable,
+  onResetPassword,
+}) => {
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage } =
     useTable();
 
@@ -208,11 +214,19 @@ const UsersTable: React.FC<IProps> = ({ users, loading, onDelete }) => {
                                     vertical: "bottom",
                                     horizontal: "right",
                                   }}
+                                  sx={{
+                                    boxShadow:
+                                      "0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                                  }}
                                 >
                                   <UsersOptionsList
-                                    onDelete={() => {
+                                    onDisableEnable={() => {
                                       handleClose();
-                                      onDelete(item?.id);
+                                      onDisableEnable(item?.id);
+                                    }}
+                                    onReset={() => {
+                                      handleClose();
+                                      onResetPassword(item?.id);
                                     }}
                                   />
                                 </Popover>

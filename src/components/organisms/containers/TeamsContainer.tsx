@@ -13,6 +13,7 @@ interface IProps {
   onEdit: () => void;
   onAssign: () => void;
   onDelete: () => void;
+  onClickStudents: () => void;
 }
 
 const TeamsContainer: React.FC<IProps> = ({
@@ -24,6 +25,7 @@ const TeamsContainer: React.FC<IProps> = ({
   onEdit,
   onAssign,
   onDelete,
+  onClickStudents,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<SVGElement | null>(null);
 
@@ -113,6 +115,7 @@ const TeamsContainer: React.FC<IProps> = ({
               textColor="#0072C7"
               title="No. of Members"
               height="70px"
+              onClick={onClickStudents}
             />
           </Grid>
         </Grid>

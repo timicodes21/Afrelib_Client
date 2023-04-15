@@ -1,16 +1,28 @@
 import { useState } from "react";
 import { z, string, number } from "zod";
 import { SubmitHandler } from "react-hook-form/dist/types";
-import { AddTeamFormValues } from "@/types/formValues";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { AddMentorFormValues, AddTeamFormValues } from "@/types/formValues";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import {
   ICreateCohortResponse,
+  IGetSingleTeamResponse,
   IGetTeamsResponse,
   ITeamRespons,
+  IUpdateMentorResponse,
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
-import { createTeam, deleteTeam, getTeams } from "@/api/team";
-import { ICreateTeamRequest } from "@/types/apiRequests";
+import {
+  createTeam,
+  deleteTeam,
+  getSingleTeam,
+  getTeams,
+  updateTeamMentor,
+} from "@/api/team";
+import { ICreateTeamRequest, IUpdateMentorRequest } from "@/types/apiRequests";
+
+// const useUpdateTeamMentor = () => {
+//   return useMutation(updateTeamMentor);
+// };
 
 export const useGetAllTeams = () => {
   const getAllTeams = async (pageNo: 1) => {
@@ -39,8 +51,11 @@ export const useGetAllTeams = () => {
   const allTeams: IGetTeamsResponse[] = [];
   data?.pages &&
     Array.isArray(data?.pages) &&
-    data?.pages?.map(page =>
-      page?.map((el: IGetTeamsResponse) => allTeams.push(el)),
+    data?.pages?.map(
+      page =>
+        page &&
+        Array.isArray(data?.pages) &&
+        page?.map((el: IGetTeamsResponse) => allTeams.push(el)),
     );
 
   return {
@@ -53,10 +68,23 @@ export const useGetAllTeams = () => {
   };
 };
 
+export const useGetSingleTeam = (teamId: number, enabled: boolean) => {
+  const { data, isFetching, status } = useQuery<IGetSingleTeamResponse>(
+    [queryKeys.getSingleTeam],
+    () => getSingleTeam(teamId),
+    {
+      enabled,
+    },
+  );
+
+  return { data, isFetching, status };
+};
+
 export const useAdminTeams = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [team, setTeam] = useState<IGetTeamsResponse>();
+  const [option, setOption] = useState<"addTeam" | "addMentor">("addTeam");
 
   const schema = z.object({
     name: string(),
@@ -64,6 +92,12 @@ export const useAdminTeams = () => {
     students: number().array(),
     mentor: number(),
     cohort: string(),
+  });
+
+  const schemaUpdateMentor = z.object({
+    mentorId: number({ invalid_type_error: "Please select a mentor" }).min(1, {
+      message: "Please select a mentor",
+    }),
   });
 
   const onSuccessDelete = (data: string) => {
@@ -113,6 +147,35 @@ export const useAdminTeams = () => {
     setIsLoadingDelete(false);
   };
 
+  const { mutate, isLoading: isLoadingMentor } = useMutation({
+    mutationFn: ({
+      teamId,
+      body,
+    }: {
+      teamId: number;
+      body: IUpdateMentorRequest;
+    }) => updateTeamMentor(teamId, body),
+  });
+
+  const onSuccessUpdate = (data: IUpdateMentorResponse | string) => {
+    queryClient.invalidateQueries([queryKeys.getTeams]);
+  };
+
+  const validateMentorForm: SubmitHandler<AddMentorFormValues> = data => {
+    return;
+  };
+
+  const onSubmitUpdateMentor = (teamId: number, mentorId: number) => {
+    const formData: IUpdateMentorRequest = {
+      mentorId: mentorId,
+    };
+
+    mutate(
+      { teamId: teamId ?? 0, body: formData },
+      { onSuccess: onSuccessUpdate, onError },
+    );
+  };
+
   return {
     schema,
     onSubmit,
@@ -121,5 +184,11 @@ export const useAdminTeams = () => {
     isLoadingDelete,
     team,
     setTeam,
+    option,
+    setOption,
+    schemaUpdateMentor,
+    onSubmitUpdateMentor,
+    isLoadingMentor,
+    validateMentorForm,
   };
 };

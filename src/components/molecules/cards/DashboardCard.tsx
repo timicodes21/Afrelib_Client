@@ -11,6 +11,7 @@ interface IProps {
   value2?: string;
   leadershipCard?: boolean;
   height?: string;
+  onClick?: () => void;
 }
 
 const DashboardCard: React.FC<IProps> = ({
@@ -21,6 +22,7 @@ const DashboardCard: React.FC<IProps> = ({
   leadershipCard,
   value2,
   height,
+  onClick,
 }) => {
   return (
     <Box
@@ -31,7 +33,9 @@ const DashboardCard: React.FC<IProps> = ({
         background,
         p: 2,
         height: height ?? "120px",
+        cursor: "pointer",
       }}
+      onClick={onClick ? onClick : () => {}}
       className={styles.dashboardCard}
     >
       <Typography className="font-14 font-500" sx={{ color: "secondary.A100" }}>

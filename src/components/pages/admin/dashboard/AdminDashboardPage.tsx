@@ -143,7 +143,12 @@ const AdminDashboardPage = () => {
             onClick={() => {}}
             hideViewAll
           />
-          <UsersTable users={allUsers} loading={isLoading} />
+          <UsersTable
+            users={allUsers}
+            loading={isLoading}
+            onDisableEnable={id => console.log("userId", id)}
+            onResetPassword={id => console.log("userId", id)}
+          />
         </Box>
       </PageFlexLayout>
     </Wrapper>

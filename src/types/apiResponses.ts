@@ -74,7 +74,7 @@ export interface IGetAllUsersResponse {
   role_name: string;
 }
 
-interface User {
+export interface User {
   id: number;
   first_name: string;
   last_name: string;
@@ -140,5 +140,26 @@ export interface ITeamRespons {
   created_at: string;
   id: number;
   students: User[];
+  mentor: User;
+}
+
+export interface IGetSingleTeamResponse {
+  id: number;
+  team_id: string;
+  team_name: string;
+  team_description: string;
+  created_at: string;
+  updated_at: string;
+  students: User[];
+  mentor: User;
+}
+
+export interface IUpdateMentorResponse {
+  id: number;
+  team_id: string;
+  team_name: string;
+  team_description: string;
+  created_at: string;
+  updated_at: string;
   mentor: User;
 }

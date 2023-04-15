@@ -1,8 +1,7 @@
 import { teamOptions } from "@/data/dashboard";
-import { Box, Typography } from "@mui/material";
-import Image from "next/image";
+import { Box } from "@mui/material";
 import React from "react";
-import styles from "@/styles/Molecules.module.css";
+import OptionItem from "./OptionItem";
 
 interface IProps {
   onEdit: () => void;
@@ -19,32 +18,12 @@ const TeamOptionsList: React.FC<IProps> = ({ onEdit, onAssign, onDelete }) => {
           "0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
       }}
     >
-      <Box
-        className={styles.optionWrapper}
-        sx={{ padding: "10px 8px" }}
-        onClick={onEdit}
-      >
-        <Image width={22} height={22} alt="icon" src={teamOptions[0]?.src} />
-        <Typography
-          sx={{ color: "secondary.main", paddingLeft: "8px" }}
-          className="font-12 font-500"
-        >
-          {teamOptions[0].name}
-        </Typography>
-      </Box>
-      <Box
-        className={styles.optionWrapper}
-        sx={{ padding: "10px 8px" }}
-        onClick={onDelete}
-      >
-        <Image width={22} height={22} alt="icon" src={teamOptions[1]?.src} />
-        <Typography
-          sx={{ color: "secondary.main", paddingLeft: "8px" }}
-          className="font-12 font-500"
-        >
-          {teamOptions[1].name}
-        </Typography>
-      </Box>{" "}
+      <OptionItem src={teamOptions[0]?.src} onClick={onEdit}>
+        {teamOptions[0].name}
+      </OptionItem>
+      <OptionItem src={teamOptions[1]?.src} onClick={onDelete}>
+        {teamOptions[1].name}
+      </OptionItem>
     </Box>
   );
 };

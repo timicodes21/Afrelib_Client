@@ -1,40 +1,39 @@
-import { cohortOptions } from "@/data/dashboard";
-import { Box, Typography } from "@mui/material";
-import Image from "next/image";
+import { Box } from "@mui/material";
 import React from "react";
-import styles from "@/styles/Molecules.module.css";
+import OptionItem from "./OptionItem";
 
 interface IProps {
-  onDelete: () => void;
+  onReset: () => void;
+  isUserEnabled?: boolean;
+  onDisableEnable: () => void;
 }
 
-const UsersOptionsList: React.FC<IProps> = ({ onDelete }) => {
+const UsersOptionsList: React.FC<IProps> = ({
+  onReset,
+  isUserEnabled,
+  onDisableEnable,
+}) => {
   return (
     <Box
       sx={{
         borderRadius: "8px",
         boxShadow:
-          "0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06) !important",
+          "0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
       }}
     >
-      <Box
-        className={styles.optionWrapper}
-        sx={{ padding: "10px 8px" }}
-        onClick={onDelete}
+      <OptionItem onClick={onReset} src="/assets/icons/reset_icon.svg">
+        Reset Password
+      </OptionItem>
+      <OptionItem
+        onClick={onDisableEnable}
+        src={
+          isUserEnabled
+            ? "/assets/icons/disable_icon.svg"
+            : "/assets/icons/enable_icon.svg"
+        }
       >
-        <Image
-          width={22}
-          height={22}
-          alt="icon"
-          src="/assets/icons/delete_icon.svg"
-        />
-        <Typography
-          sx={{ color: "secondary.main", paddingLeft: "8px" }}
-          className="font-12 font-500"
-        >
-          Delete User
-        </Typography>
-      </Box>
+        {isUserEnabled ? "Disable User" : "Enable User"}
+      </OptionItem>
     </Box>
   );
 };

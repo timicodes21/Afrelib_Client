@@ -10,6 +10,7 @@ import AddCohort from "./AddCohort";
 import { useAdminCohort, useGetAllCohorts } from "@/hooks/admin/useAdminCohort";
 import EmptyPage from "@/components/templates/EmptyPage";
 import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
+import AssignPanelists from "./AssignPanelist";
 
 const AdminCohortsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
@@ -29,15 +30,27 @@ const AdminCohortsPage = () => {
     isFetchingNextPage,
   } = useGetAllCohorts();
 
-  const { isLoadingDelete, onSubmitDelete, setCohort, cohort } =
-    useAdminCohort();
+  const {
+    isLoadingDelete,
+    onSubmitDelete,
+    setCohort,
+    cohort,
+    option,
+    setOption,
+  } = useAdminCohort();
 
   return (
     <Wrapper>
       <PageHeader headerText="Cohorts" />
 
       <Box className="d-flex justify-end" sx={{ mt: 2 }}>
-        <TransparentBlueButton type="button" onClick={openModal}>
+        <TransparentBlueButton
+          type="button"
+          onClick={() => {
+            setOption("addCohort");
+            openModal();
+          }}
+        >
           Create New
         </TransparentBlueButton>
       </Box>
@@ -71,7 +84,11 @@ Click the Add New button to create one..."
                 openDeleteModal();
               }}
               onEdit={() => {}}
-              onAssign={() => {}}
+              onAssign={() => {
+                setCohort(item);
+                setOption("assignPanelists");
+                openModal();
+              }}
               mentors={item?.mentors}
               panelists={item?.panelists}
               students={item?.students}
@@ -89,6 +106,17 @@ Click the Add New button to create one..."
         closeOnOverlayClick={false}
         showCloseIcon={false}
       >
+        {option === "addCohort" ? (
+          <AddCohort handleClose={closeModal} />
+        ) : option === "assignPanelists" ? (
+          <AssignPanelists
+            handleClose={closeModal}
+            cohortId={cohort?.cohort_id ?? ""}
+            cohortName={cohort?.cohort_name ?? ""}
+          />
+        ) : (
+          <></>
+        )}
         <AddCohort handleClose={closeModal} />
       </CustomModal>
       <CustomModal

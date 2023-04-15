@@ -50,17 +50,22 @@ export const LOGIN_USER_API = "/user/signin";
 export const CREATE_COHORT_API = "/cohort";
 export const DELETE_COHORT_API = (cohortId: string) => `/cohort/${cohortId}`;
 export const GET_COHORTS_API = (page: number) => `cohorts?page=${page}`;
+export const ASSIGN_PANELISTS_API = (cohortId: string) =>
+  `/cohort/${cohortId}/panelist/add`;
 
 //teams
 export const CREATE_TEAM_API = (cohortId: string) => `/cohort/${cohortId}/team`;
 export const GET_TEAMS_API = (page: number) => `teams?page=${page}`;
+export const GET_SINGLE_TEAM_API = (teamId: number) => `/team/${teamId}`;
 export const DELETE_TEAM_API = (teamId: number) => `/team/${teamId}`;
+export const UPDATE_TEAM_MENTOR = (teamId: number) => `/team/${teamId}/mentor`;
 
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
   getCohorts: "getCohorts",
   getTeams: "getTeams",
+  getSingleTeam: "getSingleTeam",
 };
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

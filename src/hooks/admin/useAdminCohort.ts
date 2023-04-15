@@ -1,14 +1,25 @@
 import { useState } from "react";
 import { z, string, number } from "zod";
 import { SubmitHandler } from "react-hook-form/dist/types";
-import { AddCohortFormValues } from "@/types/formValues";
+import {
+  AddCohortFormValues,
+  AssignPanelistsFormValues,
+} from "@/types/formValues";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { createCohort, deleteCohort, getCohorts } from "@/api/cohorts";
+import {
+  assignPanelist,
+  createCohort,
+  deleteCohort,
+  getCohorts,
+} from "@/api/cohorts";
 import {
   ICreateCohortResponse,
   IGetCohortsResponse,
 } from "@/types/apiResponses";
-import { ICreateCohortRequest } from "@/types/apiRequests";
+import {
+  IAssignPanelistsRequest,
+  ICreateCohortRequest,
+} from "@/types/apiRequests";
 import { queryClient, queryKeys } from "@/data/constants";
 
 const useCreateCohort = () => {
@@ -59,6 +70,9 @@ export const useGetAllCohorts = () => {
 export const useAdminCohort = () => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [cohort, setCohort] = useState<IGetCohortsResponse>();
+  const [option, setOption] = useState<"addCohort" | "assignPanelists">(
+    "addCohort",
+  );
 
   const schema = z.object({
     name: string(),
@@ -68,6 +82,10 @@ export const useAdminCohort = () => {
     mentors: number().array(),
     panelists: number().array(),
     teams: number().array().optional(),
+  });
+
+  const schemaAssign = z.object({
+    panelist_ids: number().array().optional(),
   });
 
   const { mutate, isLoading } = useCreateCohort();
@@ -112,7 +130,30 @@ export const useAdminCohort = () => {
     setIsLoadingDelete(false);
   };
 
-  const onDeleteCohort = () => {};
+  const { mutate: mutateAssign, isLoading: isLoadingAssign } = useMutation({
+    mutationFn: ({
+      cohortId,
+      body,
+    }: {
+      cohortId: string;
+      body: IAssignPanelistsRequest;
+    }) => assignPanelist(cohortId, body),
+  });
+
+  const onSuccessAssign = (data: string) => {
+    queryClient.invalidateQueries([queryKeys.getCohorts]);
+  };
+
+  const onSubmitAssign = (cohortId: string, panelistsIds: number[]) => {
+    const formData: IAssignPanelistsRequest = {
+      panelist_ids: panelistsIds,
+    };
+
+    mutateAssign(
+      { cohortId: cohortId ?? "", body: formData },
+      { onSuccess: onSuccessAssign, onError },
+    );
+  };
 
   return {
     schema,
@@ -122,5 +163,10 @@ export const useAdminCohort = () => {
     onSubmitDelete,
     setCohort,
     cohort,
+    option,
+    setOption,
+    schemaAssign,
+    onSubmitAssign,
+    isLoadingAssign,
   };
 };
