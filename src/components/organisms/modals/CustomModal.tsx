@@ -22,32 +22,34 @@ const CustomModal: React.FC<IProps> = ({
   showCloseIcon,
 }) => {
   const customModalStyle = {
-    "@media (min-width: 1024px)": {
-      modalContent: {
-        width: width ?? "500px",
-        maxWidth: maxWidth ?? "1000px",
-      },
-    },
-    "@media (max-width: 1024px)": {
-      modalContent: {
-        width: width ?? "500px",
-        maxWidth: maxWidth ?? "1000px",
-      },
-    },
-    "@media (max-width: 768px)": {
-      modalContent: {
-        maxWidth: "90%",
-      },
-    },
-    "@media (min-width: 450px)": {
-      modalContent: {
-        width: "70%",
-      },
-    },
     modal: {
       width: width ?? "500px",
       maxWidth: maxWidth ?? "1000px",
     },
+    // modalContainer: {
+    //   "@media (min-width: 1024px)": {
+    //     modalContent: {
+    //       width: width ?? "500px",
+    //       maxWidth: maxWidth ?? "1000px",
+    //     },
+    //   },
+    //   "@media (max-width: 1024px)": {
+    //     modalContent: {
+    //       width: width ?? "500px",
+    //       maxWidth: maxWidth ?? "1000px",
+    //     },
+    //   },
+    //   "@media (max-width: 768px)": {
+    //     modalContent: {
+    //       maxWidth: "90%",
+    //     },
+    //   },
+    //   "@media (min-width: 450px)": {
+    //     modalContent: {
+    //       width: "70%",
+    //     },
+    //   },
+    // },
   };
 
   return (

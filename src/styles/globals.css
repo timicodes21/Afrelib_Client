@@ -228,3 +228,21 @@ a {
   box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.15),
     0px 1px 2px rgba(16, 24, 40, 0.1);
 }
+
+@media screen and (max-width: 1100px) {
+  .react-responsive-modal-modal {
+    width: 950px !important;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .react-responsive-modal-modal {
+    width: 700px !important;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .react-responsive-modal-modal {
+    width: 350px !important;
+  }
+}
