@@ -99,7 +99,12 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
           cancelBtnText="No"
         />
       </CustomModal>
-      <CustomModal open={open} setOpen={setOpen} showCloseIcon={false}>
+      <CustomModal
+        open={open}
+        setOpen={setOpen}
+        showCloseIcon={false}
+        width="700px"
+      >
         <NotificationPage />
       </CustomModal>
       {/* Tab and Mobile Screens Drawer */}
