@@ -11,3 +11,11 @@ export interface IResources {
   resource: string;
   sharedBy: string;
 }
+
+export interface IStudents {
+  first_name: string;
+  last_name: string;
+  date_of_birth: string;
+  school_name: string;
+  leadership_points: string;
+}
