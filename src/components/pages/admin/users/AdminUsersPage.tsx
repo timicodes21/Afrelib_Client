@@ -35,6 +35,8 @@ const AdminUsersPage = () => {
 
   console.log("all users", allUsers);
 
+  const { open, setOpen, closeModal, openModal } = useModal();
+
   return (
     <Wrapper>
       <PageHeader headerText="Users" />
