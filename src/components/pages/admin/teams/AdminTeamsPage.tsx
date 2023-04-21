@@ -32,7 +32,6 @@ const AdminTeamsPage = () => {
     open: openStudents,
     setOpen: setOpenStudents,
     openModal: openStudentsModal,
-    closeModal: closeStudentsModal,
   } = useModal();
 
   const {
@@ -160,11 +159,6 @@ Click the Add New button to create one..."
         closeOnOverlayClick={false}
         showCloseIcon
       >
-        {/* <StudentsList
-          students={data?.students ?? []}
-          header="List of Students"
-          loading={isFetching}
-        /> */}
         <Box sx={{ p: 5 }}>
           <StudentsTable students={data?.students ?? []} loading={isFetching} />
         </Box>

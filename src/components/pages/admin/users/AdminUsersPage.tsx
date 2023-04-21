@@ -7,8 +7,7 @@ import { useAdminUsers, useGetAllUsers } from "@/hooks/admin/useAdminUsers";
 import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import AddUser from "./AddUser";
-import { useGetRoles, useModal } from "@/hooks/utility";
-import { getRoles } from "@/api/roles";
+import { useModal } from "@/hooks/utility";
 import TableOptionsButton, {
   TableOptionsButton2,
 } from "@/components/atoms/buttons/TableOptionsButton";
@@ -25,8 +24,6 @@ const AdminUsersPage = () => {
     setStatusOptions,
   } = useAdminUsers();
 
-  const { open, setOpen, openModal, closeModal } = useModal();
-
   const {
     allUsers,
     status,
@@ -37,6 +34,8 @@ const AdminUsersPage = () => {
   } = useGetAllUsers();
 
   console.log("all users", allUsers);
+
+  const { open, setOpen, closeModal, openModal } = useModal();
 
   return (
     <Wrapper>

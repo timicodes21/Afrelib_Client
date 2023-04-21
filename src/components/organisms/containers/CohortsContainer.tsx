@@ -15,6 +15,10 @@ interface IProps {
   students: number;
   panelists: number;
   mentors: number;
+  viewTeams: () => void;
+  viewStudents: () => void;
+  viewMentors: () => void;
+  viewPanelists: () => void;
 }
 
 const CohortsContainer: React.FC<IProps> = ({
@@ -28,6 +32,10 @@ const CohortsContainer: React.FC<IProps> = ({
   mentors,
   panelists,
   onUpdate,
+  viewMentors,
+  viewTeams,
+  viewPanelists,
+  viewStudents,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<SVGElement | null>(null);
 
@@ -106,6 +114,7 @@ const CohortsContainer: React.FC<IProps> = ({
               textColor="#0072C7"
               title="No. of Teams"
               height="70px"
+              onClick={viewTeams}
             />
           </Grid>
           <Grid item xs={6} md={3}>
@@ -115,6 +124,7 @@ const CohortsContainer: React.FC<IProps> = ({
               textColor="#5C0BC9"
               title="No. of Students"
               height="70px"
+              onClick={viewStudents}
             />
           </Grid>
           <Grid item xs={6} md={3}>
@@ -124,6 +134,7 @@ const CohortsContainer: React.FC<IProps> = ({
               textColor="#E4B300"
               title="No. of Mentors"
               height="70px"
+              onClick={viewMentors}
             />
           </Grid>{" "}
           <Grid item xs={6} md={3}>
@@ -133,6 +144,7 @@ const CohortsContainer: React.FC<IProps> = ({
               textColor="#02C08A"
               title="No. of Panelists"
               height="70px"
+              onClick={viewPanelists}
             />
           </Grid>
         </Grid>

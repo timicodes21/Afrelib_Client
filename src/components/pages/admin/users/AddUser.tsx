@@ -163,6 +163,7 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
                     onChange={onChange}
                     blackLabel
                     smallLabel
+                    max="2010-01-01"
                   />
                 )}
               />
