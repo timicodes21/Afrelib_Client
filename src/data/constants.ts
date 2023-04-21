@@ -45,6 +45,7 @@ export const GET_ROLES_API = "/roles";
 export const CREATE_USER_API = "/admin/user/create";
 export const GET_ALL_USERS_API = (page: number) => `users?page=${page}`;
 export const LOGIN_USER_API = "/user/signin";
+export const GET_STUDENTS_NOT_IN_TEAM = "/students/unmatched";
 
 //Cohorts
 export const CREATE_COHORT_API = "/cohort";
@@ -53,6 +54,8 @@ export const GET_COHORTS_API = (page: number) => `cohorts?page=${page}`;
 export const ASSIGN_PANELISTS_API = (cohortId: string) =>
   `/cohort/${cohortId}/panelist/add`;
 export const UPDATE_COHORT_API = (cohortId: string) => `/cohort/${cohortId}`;
+export const GET_SINGLE_COHORT_API = (cohortId: string) =>
+  `/cohort/${cohortId}`;
 
 //teams
 export const CREATE_TEAM_API = (cohortId: string) => `/cohort/${cohortId}/team`;
@@ -67,6 +70,8 @@ export const queryKeys = {
   getCohorts: "getCohorts",
   getTeams: "getTeams",
   getSingleTeam: "getSingleTeam",
+  getSingleCohort: "getSingleCohort",
+  getStudentsNotInTeam: "getStudentsNotInTeam",
 };
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

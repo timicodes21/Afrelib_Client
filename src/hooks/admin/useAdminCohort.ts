@@ -6,17 +6,19 @@ import {
   AssignPanelistsFormValues,
   UpdateCohortFormValues,
 } from "@/types/formValues";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import {
   assignPanelist,
   createCohort,
   deleteCohort,
   getCohorts,
+  getSingleCohort,
   updateCohort,
 } from "@/api/cohorts";
 import {
   ICreateCohortResponse,
   IGetCohortsResponse,
+  IGetSingleCohortResponse,
 } from "@/types/apiResponses";
 import {
   IAssignPanelistsRequest,
@@ -24,6 +26,7 @@ import {
   IUpdateCohorRequest,
 } from "@/types/apiRequests";
 import { queryClient, queryKeys } from "@/data/constants";
+import { getSingleTeam } from "@/api/team";
 
 const useCreateCohort = () => {
   return useMutation(createCohort);
@@ -73,12 +76,28 @@ export const useGetAllCohorts = () => {
   };
 };
 
+export const useGetSingleCohort = (cohortId: string, enabled: boolean) => {
+  const { data, isFetching, status } = useQuery<IGetSingleCohortResponse>(
+    [queryKeys.getSingleCohort],
+    () => getSingleCohort(cohortId),
+    {
+      enabled,
+    },
+  );
+
+  return { data, isFetching, status };
+};
+
 export const useAdminCohort = () => {
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const [cohort, setCohort] = useState<IGetCohortsResponse>();
+  // Options of which item to display when modal is opened
   const [option, setOption] = useState<
     "addCohort" | "assignPanelists" | "updateCohort"
   >("addCohort");
+  const [detailsOptions, setDetailsOptions] = useState<
+    "viewTeams" | "viewPanelists" | "viewStudents" | "viewMentors" | ""
+  >("");
   const [panelistIds, setPanelistIds] = useState<number[]>([]);
 
   // Schemas for React Hook form
@@ -212,5 +231,7 @@ export const useAdminCohort = () => {
     schemaUpdate,
     onSubmitUpdate,
     isLoadingUpdate,
+    detailsOptions,
+    setDetailsOptions,
   };
 };
