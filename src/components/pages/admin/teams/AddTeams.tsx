@@ -10,6 +10,7 @@ import AuthButton from "@/components/atoms/buttons/AuthButton";
 import {
   useCohortsUsersForSelect,
   useFilterUsersForSelect,
+  useStudentsForSelect,
 } from "@/hooks/utility";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
@@ -38,7 +39,9 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
 
   console.log("errors", errors);
 
-  const { allMentors, isLoading, allStudents } = useFilterUsersForSelect();
+  const { allMentors, isLoading } = useFilterUsersForSelect();
+  const { studentsSelect, isFetching: isFetchingStudents } =
+    useStudentsForSelect();
   const { cohortsSelect, isLoading: isLoadingCohorts } =
     useCohortsUsersForSelect();
 
@@ -128,10 +131,12 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
                   );
                 }}
                 blackLabel
-                options={allStudents ? allStudents : [{ label: "", value: "" }]}
+                options={
+                  studentsSelect ? studentsSelect : [{ label: "", value: "" }]
+                }
                 background="#F3F5F6"
                 placeholder="Select type"
-                isLoading={isLoading}
+                isLoading={isFetchingStudents}
               />
               {errors?.students && (
                 <InputErrorText>

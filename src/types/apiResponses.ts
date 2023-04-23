@@ -163,3 +163,27 @@ export interface IUpdateMentorResponse {
   updated_at: string;
   mentor: User;
 }
+
+export interface IGetSingleCohortResponse {
+  id: number;
+  cohort_id: string;
+  cohort_name: string;
+  cohort_description: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  panelists: {
+    data: User[];
+    count: number;
+  };
+  mentors: {
+    data: User[];
+    count: number;
+  };
+  teams: {
+    data: ITeamRespons[];
+    count: number;
+  };
+}

@@ -180,6 +180,37 @@ export const usersTableColumns: readonly Column[] = [
   { id: "ACTION", label: "ACTION", minWidth: 100, align: "left" },
 ];
 
+export const studentsTableColumns: readonly Column[] = [
+  { id: "name", label: "NAME", minWidth: 100, align: "left" },
+  { id: "dob", label: "DATE OF BIRTH", minWidth: 70, align: "left" },
+  { id: "school", label: "SCHOOL", minWidth: 100, align: "left" },
+  { id: "points", label: "LEADERSHIP POINTS", minWidth: 100, align: "left" },
+];
+
+export const mentorsTableColumns: readonly Column[] = [
+  { id: "name", label: "NAME", minWidth: 100, align: "left" },
+  { id: "dob", label: "DATE OF BIRTH", minWidth: 70, align: "left" },
+  { id: "points", label: "LEADERSHIP POINTS", minWidth: 100, align: "left" },
+  { id: "badges", label: "BADGES", minWidth: 70, align: "left" },
+];
+
+export const panelistsTableColumns: readonly Column[] = [
+  { id: "name", label: "NAME", minWidth: 100, align: "left" },
+  { id: "dob", label: "DATE OF BIRTH", minWidth: 70, align: "left" },
+  { id: "points", label: "LEADERSHIP POINTS", minWidth: 100, align: "left" },
+  { id: "badges", label: "BADGES", minWidth: 70, align: "left" },
+];
+
+export const teamsTableColumns: readonly Column[] = [
+  { id: "name", label: "NAME", minWidth: 70, align: "left" },
+  {
+    id: "description",
+    label: "TEAM DESCRIPTION",
+    minWidth: 100,
+    align: "left",
+  },
+];
+
 export const resources: IResources[] = [
   {
     title: "Intro to Artificial Intelligence",

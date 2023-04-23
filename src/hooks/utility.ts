@@ -1,13 +1,14 @@
 import { allUsers } from "./../data/dashboard";
 import { getRoles } from "@/api/roles";
 import { queryKeys } from "@/data/constants";
-import { IRole } from "@/types/apiResponses";
+import { IGetAllUsersResponse, IRole } from "@/types/apiResponses";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useGetAllUsers } from "./admin/useAdminUsers";
 import { useGetAllCohorts } from "./admin/useAdminCohort";
 import { useGetAllTeams } from "./admin/useAdminTeams";
 import { Allerta } from "next/font/google";
+import { getStudensNotInTeam } from "@/api/users";
 
 const usePasswordShow = () => {
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
@@ -157,4 +158,29 @@ export const useTeamsForSelect = () => {
     });
 
   return { isLoading, teamSelect };
+};
+
+export const useGetStudentsNotInTeam = () => {
+  const { data, isFetching, status } = useQuery<IGetAllUsersResponse>(
+    [queryKeys.getStudentsNotInTeam],
+    () => getStudensNotInTeam(),
+  );
+
+  return { data, isFetching, status };
+};
+
+export const useStudentsForSelect = () => {
+  const { data, isFetching } = useGetStudentsNotInTeam();
+
+  const studentsSelect =
+    !isFetching &&
+    Array.isArray(data) &&
+    data.map(item => {
+      return {
+        label: `${item?.first_name} ${item?.last_name}`,
+        value: item?.id,
+      };
+    });
+
+  return { isFetching, studentsSelect };
 };

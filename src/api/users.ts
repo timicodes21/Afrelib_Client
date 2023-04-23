@@ -1,6 +1,7 @@
 import {
   CREATE_USER_API,
   GET_ALL_USERS_API,
+  GET_STUDENTS_NOT_IN_TEAM,
   LOGIN_USER_API,
 } from "@/data/constants";
 import { usersHttpClient } from "@/service/httpClients";
@@ -64,6 +65,27 @@ export const getAllusers = async (page: number) => {
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
         return data?.data;
+      } else {
+        toast.error(data?.message);
+        return data?.message;
+      }
+  } catch (err: any) {
+    console.log("error", err);
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const getStudensNotInTeam = async () => {
+  try {
+    const response = await usersHttpClient(GET_STUDENTS_NOT_IN_TEAM);
+    console.log("get all users response", response);
+    const { status, data } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        return data?.responseData;
       } else {
         toast.error(data?.message);
         return data?.message;

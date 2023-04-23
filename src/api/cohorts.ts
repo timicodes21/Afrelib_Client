@@ -3,6 +3,8 @@ import {
   CREATE_COHORT_API,
   DELETE_COHORT_API,
   GET_COHORTS_API,
+  GET_SINGLE_COHORT_API,
+  GET_SINGLE_TEAM_API,
   UPDATE_COHORT_API,
 } from "@/data/constants";
 import { coreHttpClient } from "@/service/httpClients";
@@ -136,6 +138,27 @@ export const updateCohort = async (
       } else {
         toast.error(message);
         return message;
+      }
+  } catch (err: any) {
+    console.log("error", err);
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const getSingleCohort = async (cohortId: string) => {
+  try {
+    const response = await coreHttpClient(GET_SINGLE_COHORT_API(cohortId));
+
+    const { status, data } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        return data?.responseData;
+      } else {
+        toast.error(data?.message);
+        return data?.message;
       }
   } catch (err: any) {
     console.log("error", err);

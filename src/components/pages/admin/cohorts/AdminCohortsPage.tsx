@@ -7,14 +7,26 @@ import React from "react";
 import { useModal } from "@/hooks/utility";
 import CohortsContainer from "@/components/organisms/containers/CohortsContainer";
 import AddCohort from "./AddCohort";
-import { useAdminCohort, useGetAllCohorts } from "@/hooks/admin/useAdminCohort";
+import {
+  useAdminCohort,
+  useGetAllCohorts,
+  useGetSingleCohort,
+} from "@/hooks/admin/useAdminCohort";
 import EmptyPage from "@/components/templates/EmptyPage";
 import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
 import AssignPanelists from "./AssignPanelist";
 import UpdateCohort from "./UpdateCohort";
+import MentorsTable from "@/components/organisms/tables/MentorsTable";
+import PanelistsTable from "@/components/organisms/tables/PanelistsTable";
+import TeamsTable from "@/components/organisms/tables/TeamsTable";
 
 const AdminCohortsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
+  const {
+    open: detailsopen,
+    setOpen: setDetailsOpen,
+    openModal: openDetailsModal,
+  } = useModal();
   const {
     open: openDelete,
     setOpen: setOpenDelete,
@@ -24,7 +36,6 @@ const AdminCohortsPage = () => {
 
   const {
     allCohorts,
-    status,
     isLoading,
     fetchNextPage,
     hasNextPage,
@@ -38,7 +49,42 @@ const AdminCohortsPage = () => {
     cohort,
     option,
     setOption,
+    detailsOptions,
+    setDetailsOptions,
   } = useAdminCohort();
+
+  const {
+    data,
+    status: statusGetSingle,
+    isFetching,
+  } = useGetSingleCohort(cohort?.cohort_id ?? "", detailsopen);
+
+  const renderDetailsOptions = () => {
+    switch (detailsOptions) {
+      case "viewMentors":
+        return (
+          <MentorsTable
+            loading={isFetching}
+            mentors={data?.mentors?.data ?? []}
+          />
+        );
+      case "viewStudents":
+        return <></>;
+      case "viewPanelists":
+        return (
+          <PanelistsTable
+            loading={isFetching}
+            panelists={data?.panelists?.data ?? []}
+          />
+        );
+      case "viewTeams":
+        return (
+          <TeamsTable loading={isFetching} teams={data?.teams?.data ?? []} />
+        );
+      default:
+        return <></>;
+    }
+  };
 
   return (
     <Wrapper>
@@ -99,6 +145,26 @@ Click the Add New button to create one..."
               panelists={item?.panelists}
               students={item?.students}
               teams={item?.teams}
+              viewTeams={() => {
+                setCohort(item);
+                setDetailsOptions("viewTeams");
+                openDetailsModal();
+              }}
+              viewPanelists={() => {
+                setCohort(item);
+                setDetailsOptions("viewPanelists");
+                openDetailsModal();
+              }}
+              viewStudents={() => {
+                setCohort(item);
+                setDetailsOptions("viewStudents");
+                openDetailsModal();
+              }}
+              viewMentors={() => {
+                setCohort(item);
+                setDetailsOptions("viewMentors");
+                openDetailsModal();
+              }}
             >
               <Box></Box>
             </CohortsContainer>
@@ -128,6 +194,15 @@ Click the Add New button to create one..."
         ) : (
           <></>
         )}
+      </CustomModal>
+      <CustomModal
+        open={detailsopen}
+        setOpen={setDetailsOpen}
+        width="800px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <Box sx={{ p: 5 }}>{renderDetailsOptions()}</Box>
       </CustomModal>
       <CustomModal
         open={openDelete}

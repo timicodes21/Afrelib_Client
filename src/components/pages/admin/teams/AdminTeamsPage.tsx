@@ -16,6 +16,7 @@ import TeamsContainer from "@/components/organisms/containers/TeamsContainer";
 import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
 import StudentsList from "@/components/molecules/lists/StudentsList";
 import AddMentor from "./AddMentor";
+import StudentsTable from "@/components/organisms/tables/StudentsTable";
 
 const AdminTeamsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
@@ -31,7 +32,6 @@ const AdminTeamsPage = () => {
     open: openStudents,
     setOpen: setOpenStudents,
     openModal: openStudentsModal,
-    closeModal: closeStudentsModal,
   } = useModal();
 
   const {
@@ -52,7 +52,7 @@ const AdminTeamsPage = () => {
     isFetching,
   } = useGetSingleTeam(team?.id ?? 0, openStudents);
 
-  console.log("team in admin teams page", team);
+  console.log("data", data);
 
   return (
     <Wrapper>
@@ -155,15 +155,13 @@ Click the Add New button to create one..."
       <CustomModal
         open={openStudents}
         setOpen={setOpenStudents}
-        maxWidth="550px"
+        width="1000px"
         closeOnOverlayClick={false}
         showCloseIcon
       >
-        <StudentsList
-          students={data?.students ?? []}
-          header="List of Students"
-          loading={isFetching}
-        />
+        <Box sx={{ p: 5 }}>
+          <StudentsTable students={data?.students ?? []} loading={isFetching} />
+        </Box>
       </CustomModal>
     </Wrapper>
   );
