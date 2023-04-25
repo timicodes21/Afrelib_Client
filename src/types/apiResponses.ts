@@ -186,4 +186,8 @@ export interface IGetSingleCohortResponse {
     data: ITeamRespons[];
     count: number;
   };
+  students: {
+    data: User[];
+    count: number;
+  };
 }

@@ -1,5 +1,6 @@
 import {
   CREATE_TEAM_API,
+  CREATE_TEAM__WITHOUT_COHORT_API,
   DELETE_TEAM_API,
   GET_SINGLE_TEAM_API,
   GET_TEAMS_API,
@@ -9,12 +10,12 @@ import { coreHttpClient } from "@/service/httpClients";
 import { ICreateTeamRequest, IUpdateMentorRequest } from "@/types/apiRequests";
 import { toast } from "react-hot-toast";
 
-export const createTeam = async (
-  body: ICreateTeamRequest,
-  cohortId: string,
-) => {
+export const createTeam = async (body: ICreateTeamRequest) => {
   try {
-    const response = await coreHttpClient.post(CREATE_TEAM_API(cohortId), body);
+    const response = await coreHttpClient.post(
+      CREATE_TEAM__WITHOUT_COHORT_API,
+      body,
+    );
     console.log("create COHORT response", response);
     const {
       status,

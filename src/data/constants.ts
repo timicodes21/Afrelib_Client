@@ -59,6 +59,7 @@ export const GET_SINGLE_COHORT_API = (cohortId: string) =>
 
 //teams
 export const CREATE_TEAM_API = (cohortId: string) => `/cohort/${cohortId}/team`;
+export const CREATE_TEAM__WITHOUT_COHORT_API = `/team/create`;
 export const GET_TEAMS_API = (page: number) => `teams?page=${page}`;
 export const GET_SINGLE_TEAM_API = (teamId: number) => `/team/${teamId}`;
 export const DELETE_TEAM_API = (teamId: number) => `/team/${teamId}`;

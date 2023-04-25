@@ -32,7 +32,7 @@ export type AddTeamFormValues = {
   description: string;
   students: number[];
   mentor: number;
-  cohort: string;
+  // cohort: string;
 };
 
 export type AddMentorFormValues = {
