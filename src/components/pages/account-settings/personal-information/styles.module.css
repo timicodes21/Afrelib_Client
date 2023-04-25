@@ -1,0 +1,84 @@
+.container {
+  width: 844px;
+  height: 539px;
+  padding: 25px;
+  background: #ffffff;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.15),
+    0px 1px 2px rgba(16, 24, 40, 0.1);
+  border-radius: 12px;
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contentsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(233, 233, 233);
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.avatar img {
+  width: 52px;
+  height: 52px;
+  display: block;
+  padding: 0;
+}
+
+.avatarBadge {
+  position: absolute;
+  right: -10%;
+  bottom: -5%;
+  height: 24px;
+  width: 24px;
+  background: linear-gradient(
+    126.95deg,
+    rgba(20, 136, 204, 0.88) 21.46%,
+    #2b32b2 78.54%
+  );
+  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.08), 0px 4px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarBadge svg {
+  width: 12px;
+  height: 12px;
+  color: #ffffff;
+}
+
+.informationInnerContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.informationContainer {
+  width: calc(100% - 100px);
+}
+
+.informationSections {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
