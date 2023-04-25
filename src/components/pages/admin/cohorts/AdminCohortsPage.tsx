@@ -19,6 +19,7 @@ import UpdateCohort from "./UpdateCohort";
 import MentorsTable from "@/components/organisms/tables/MentorsTable";
 import PanelistsTable from "@/components/organisms/tables/PanelistsTable";
 import TeamsTable from "@/components/organisms/tables/TeamsTable";
+import StudentsTable from "@/components/organisms/tables/StudentsTable";
 
 const AdminCohortsPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
@@ -69,7 +70,12 @@ const AdminCohortsPage = () => {
           />
         );
       case "viewStudents":
-        return <></>;
+        return (
+          <StudentsTable
+            loading={isFetching}
+            students={data?.students?.data ?? []}
+          />
+        );
       case "viewPanelists":
         return (
           <PanelistsTable

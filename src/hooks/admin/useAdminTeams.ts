@@ -91,7 +91,7 @@ export const useAdminTeams = () => {
     description: string(),
     students: number().array(),
     mentor: number(),
-    cohort: string(),
+    // cohort: string(),
   });
 
   const schemaUpdateMentor = z.object({
@@ -124,7 +124,7 @@ export const useAdminTeams = () => {
 
     setIsLoading(true);
 
-    const response = await createTeam(formData, data?.cohort);
+    const response = await createTeam(formData);
 
     if (response?.teamId) {
       onSuccess(response);
