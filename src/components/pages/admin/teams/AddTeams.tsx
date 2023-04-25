@@ -73,7 +73,7 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
               )}
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            {/* <Grid item xs={12} md={6}>
               <CustomSelect
                 label="Select Cohort"
                 smallLabel
@@ -95,7 +95,7 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
               {errors?.cohort && (
                 <InputErrorText>{errors?.cohort?.message ?? ""}</InputErrorText>
               )}
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} md={6}>
               <CustomSelect
