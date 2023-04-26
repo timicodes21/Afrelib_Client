@@ -61,9 +61,10 @@ const Avatars = ({ closeModal }: iProps) => {
       </Box>
 
       <Box className={styles.avatarList}>
-        {avatarNames.map(item => {
+        {avatarNames.map((item, index) => {
           return (
             <Box
+              key={index}
               className={styles.eachAvatar}
               onClick={() => setSelectedAvatar(item)}
               sx={{

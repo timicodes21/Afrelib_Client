@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import AuthInput from "@/components/atoms/inputFields/AuthInput";
 import CreateIcon from "@mui/icons-material/Create";
 import CustomModal from "@/components/organisms/modals/CustomModal";
@@ -8,9 +8,11 @@ import { useForm, Controller } from "react-hook-form";
 import styles from "./styles.module.css";
 import Avatars from "../Avatars/Avatars";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
+import ChangeAccountPassword from "./ChangePassword";
 
 const AccountPersonalInformation = () => {
   const [avatarsModal, setAvatarsModal] = useState(false);
+  const [passwordModal, setPasswordModal] = useState(false);
 
   const {
     control,
@@ -36,14 +38,27 @@ const AccountPersonalInformation = () => {
   const closeAvatarModal = () => {
     setAvatarsModal(false);
   };
+
+  const openPasswordModal = () => {
+    setPasswordModal(true);
+  };
+
+  const closePasswordModal = () => {
+    setPasswordModal(false);
+  };
   return (
     <Box className={styles.container}>
+      <CustomModal open={avatarsModal} setOpen={setAvatarsModal} width="620px">
+        <Avatars closeModal={closeAvatarModal} />
+      </CustomModal>
+
       <CustomModal
-        open={avatarsModal}
-        setOpen={setAvatarsModal}
-        children={<Avatars closeModal={closeAvatarModal} />}
-        width="620px"
-      />
+        open={passwordModal}
+        setOpen={setPasswordModal}
+        width="537px"
+      >
+        <ChangeAccountPassword closeModal={closePasswordModal} />
+      </CustomModal>
 
       <Box className={styles.contentsContainer}>
         <Box className={styles.avatar}>
@@ -152,6 +167,21 @@ const AccountPersonalInformation = () => {
                   )}
                 />
               </Box>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "97px",
+            }}
+            onClick={openPasswordModal}
+          >
+            <Typography className={styles.securityText}>Security</Typography>
+            <Box className={styles.changePassword}>
+              <Typography>Change Password</Typography>
             </Box>
           </Box>
         </Box>
