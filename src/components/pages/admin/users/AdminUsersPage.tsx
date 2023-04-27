@@ -38,8 +38,6 @@ const AdminUsersPage = () => {
     fetchNextPage,
   } = useGetAllUsers();
 
-  console.log("all users", allUsers);
-
   const { open, setOpen, closeModal, openModal } = useModal();
   const {
     open: openAlert,
