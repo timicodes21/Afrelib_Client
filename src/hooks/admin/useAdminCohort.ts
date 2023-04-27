@@ -50,7 +50,6 @@ export const useGetAllCohorts = () => {
     ({ pageParam = 1 }) => getAllCohorts(pageParam),
     {
       getNextPageParam: (lastPage, pages) => {
-        // console.log("lastpage", lastPage, "pages", pages);
         return lastPage?.length !== 0 ? pages.length + 1 : null;
       },
     },
@@ -124,15 +123,12 @@ export const useAdminCohort = () => {
   const { mutate, isLoading } = useCreateCohort();
 
   const onSuccess = (data: ICreateCohortResponse | string) => {
-    console.log("on success data cohorts", data);
     queryClient.invalidateQueries([queryKeys.getCohorts]);
   };
 
   const onError = () => {};
 
   const onSubmit: SubmitHandler<AddCohortFormValues> = data => {
-    console.log("data form cohort", data);
-
     const formData: ICreateCohortRequest = {
       cohort_name: data?.name,
       cohort_description: data?.description,
@@ -148,7 +144,6 @@ export const useAdminCohort = () => {
 
   // Delete cohort submit function
   const onSuccessDelete = (data: string) => {
-    console.log("on success delete cohorts", data);
     queryClient.invalidateQueries([queryKeys.getCohorts]);
   };
 

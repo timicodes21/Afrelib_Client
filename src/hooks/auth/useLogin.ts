@@ -39,8 +39,6 @@ export const useLogin = () => {
   const { mutate: userLogin, isLoading } = useLoginUser();
 
   const onSuccess = (data: IUserLoginResponse) => {
-    console.log("on success data", data);
-
     if (data?.access_token) {
       router.push(DASHBOARD);
     }
@@ -56,13 +54,9 @@ export const useLogin = () => {
     setUserDetails(userDetails);
   };
 
-  const onError = () => {
-    console.log("on error data");
-  };
+  const onError = () => {};
 
   const onSuccessAdmin = (data: IAdminLoginResponse) => {
-    console.log("on success data", data);
-
     if (data?.access_token) {
       router.push(ADMIN_DASHBOARD);
     }
@@ -78,9 +72,7 @@ export const useLogin = () => {
     setUserDetails(userDetails);
   };
 
-  const onErrorAdmin = () => {
-    console.log("on error data");
-  };
+  const onErrorAdmin = () => {};
 
   const onSubmit: SubmitHandler<LoginFormValues> = data => {
     const formData: IUserLoginRequest = {

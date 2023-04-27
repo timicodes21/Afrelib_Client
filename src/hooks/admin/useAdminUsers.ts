@@ -33,7 +33,6 @@ export const useGetAllUsers = () => {
     ({ pageParam = 1 }) => getUsers(pageParam),
     {
       getNextPageParam: (lastPage, pages) => {
-        // console.log("lastpage", lastPage, "pages", pages);
         return lastPage?.length !== 0 ? pages.length + 1 : null;
       },
     },
@@ -104,7 +103,6 @@ export const useAdminUsers = () => {
   const onError = () => {};
 
   const onSubmit: SubmitHandler<AddUserFormValues> = data => {
-    console.log("data form", data);
     const formData: ICreateUserRequest = {
       first_name: data?.firstName,
       last_name: data?.lastName,
@@ -127,7 +125,6 @@ export const useAdminUsers = () => {
       queryClient.invalidateQueries([queryKeys.getAllUsers]);
     }
     setIsUpdating(false);
-    console.log("res", res);
   };
 
   return {

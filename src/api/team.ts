@@ -16,7 +16,6 @@ export const createTeam = async (body: ICreateTeamRequest) => {
       CREATE_TEAM__WITHOUT_COHORT_API,
       body,
     );
-    console.log("create COHORT response", response);
     const {
       status,
       data: { message, responseData },
@@ -30,7 +29,6 @@ export const createTeam = async (body: ICreateTeamRequest) => {
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -51,7 +49,6 @@ export const getTeams = async (page: number) => {
         return data?.responseData;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -72,7 +69,6 @@ export const getSingleTeam = async (teamId: number) => {
         return data?.message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -83,7 +79,6 @@ export const getSingleTeam = async (teamId: number) => {
 export const deleteTeam = async (teamId: number) => {
   try {
     const response = await coreHttpClient.delete(DELETE_TEAM_API(teamId));
-    console.log("DELETE COHORT response", response);
     const {
       status,
       data: { message },
@@ -97,7 +92,6 @@ export const deleteTeam = async (teamId: number) => {
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -111,7 +105,6 @@ export const updateTeamMentor = async (
 ) => {
   try {
     const response = await coreHttpClient.put(UPDATE_TEAM_MENTOR(teamId), body);
-    console.log("Update mentor response", response);
     const {
       status,
       data: { message, responseData },
@@ -125,7 +118,6 @@ export const updateTeamMentor = async (
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");

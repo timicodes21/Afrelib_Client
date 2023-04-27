@@ -19,7 +19,6 @@ export const adminLogin = async (body: IAdminLoginRequest) => {
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
