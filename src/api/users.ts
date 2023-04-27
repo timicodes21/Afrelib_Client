@@ -1,5 +1,6 @@
 import {
   CREATE_USER_API,
+  ENABLE_DISABLE_USER_API,
   GET_ALL_USERS_API,
   GET_STUDENTS_NOT_IN_TEAM,
   LOGIN_USER_API,
@@ -85,6 +86,34 @@ export const getStudensNotInTeam = async () => {
     const { status, data } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
+        return data?.responseData;
+      } else {
+        toast.error(data?.message);
+        return data?.message;
+      }
+  } catch (err: any) {
+    console.log("error", err);
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const enableOrDisableUser = async (
+  type: "enable" | "disable",
+  userId: number,
+) => {
+  try {
+    const response = await usersHttpClient.patch(
+      ENABLE_DISABLE_USER_API({ userId, type }),
+    );
+    console.log("enable disable user", response);
+    const { status, data } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(data?.message ?? "Successful");
+
         return data?.responseData;
       } else {
         toast.error(data?.message);

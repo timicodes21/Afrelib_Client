@@ -100,14 +100,6 @@ const MentorsTable: React.FC<IProps> = ({ mentors, loading }) => {
                           className="font-12 font-400"
                           sx={{ color: "secondary.main" }}
                         >
-                          {item?.leadership_points}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Typography
-                          className="font-12 font-400"
-                          sx={{ color: "secondary.main" }}
-                        >
                           {item?.badges}
                         </Typography>
                       </TableCell>
