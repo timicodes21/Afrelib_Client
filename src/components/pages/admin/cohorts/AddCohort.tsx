@@ -204,7 +204,7 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                 render={({ field: { onChange, value, onBlur } }) => (
                   <CustomTextArea
                     label="Description"
-                    type="date"
+                    // type="date"
                     placeholder="Description"
                     value={value}
                     onBlur={onBlur}

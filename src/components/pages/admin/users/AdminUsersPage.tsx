@@ -27,6 +27,10 @@ const AdminUsersPage = () => {
     isUpdating,
     userDetails,
     setUserDetails,
+    open,
+    setOpen,
+    closeModal,
+    openModal,
   } = useAdminUsers();
 
   const {
@@ -38,13 +42,14 @@ const AdminUsersPage = () => {
     fetchNextPage,
   } = useGetAllUsers();
 
-  const { open, setOpen, closeModal, openModal } = useModal();
   const {
     open: openAlert,
     setOpen: setOpenAlert,
     closeModal: closeAlertModal,
     openModal: openAlertModal,
   } = useModal();
+
+  console.log("add user modal", open);
 
   return (
     <Wrapper>

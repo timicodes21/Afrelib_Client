@@ -10,6 +10,8 @@ import {
   IGetAllUsersResponse,
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
+import { useModal } from "../utility";
+import { useRouter } from "next/router";
 
 const useCreateUser = () => {
   return useMutation(createUser);
@@ -70,6 +72,8 @@ export const useAdminUsers = () => {
     id: number;
     isEnabled?: boolean;
   }>({ id: 0 });
+  const { open, setOpen, closeModal, openModal } = useModal();
+  const router = useRouter();
 
   const activeTabStyle = {
     boxShadow:
@@ -98,9 +102,14 @@ export const useAdminUsers = () => {
 
   const onSuccess = (data: ICreateUserResponse | string) => {
     queryClient.invalidateQueries([queryKeys.getAllUsers]);
+    //close modal
+    console.log("close modal");
   };
 
-  const onError = () => {};
+  const onError = () => {
+    // close modal
+    closeModal();
+  };
 
   const onSubmit: SubmitHandler<AddUserFormValues> = data => {
     const formData: ICreateUserRequest = {
@@ -143,5 +152,9 @@ export const useAdminUsers = () => {
     isUpdating,
     userDetails,
     setUserDetails,
+    open,
+    setOpen,
+    closeModal,
+    openModal,
   };
 };
