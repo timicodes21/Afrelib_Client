@@ -1,11 +1,8 @@
+import AccountSettingsPage from "@/components/pages/account-settings/AccountSettings";
 import React from "react";
 
 const Classroom = () => {
-  return (
-    <div>
-      <h1>Classroom</h1>
-    </div>
-  );
+  return <AccountSettingsPage />;
 };
 
 export default Classroom;

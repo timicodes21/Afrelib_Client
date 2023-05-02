@@ -1,0 +1,194 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.innerContainer {
+  display: flex;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+.prev {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
+  animation-name: prev;
+}
+
+.next {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
+  animation-name: next;
+}
+
+.carouselButton {
+  width: 127px;
+  height: 127px;
+  border-radius: 50%;
+  background: rgba(0, 101, 181, 0.83);
+  cursor: pointer;
+  z-index: 9999;
+  position: absolute;
+  top: calc(50% - 63.5px);
+  display: flex;
+  align-items: center;
+}
+
+.carouselButton svg {
+  width: 100px;
+  height: 100px;
+  fill: #ffffff;
+}
+
+.nextButton {
+  right: -63.5px;
+  justify-content: flex-start;
+}
+
+.nextButton svg {
+  margin-left: -10%;
+}
+
+.prevButton {
+  left: -63.5px;
+  justify-content: flex-end;
+}
+
+.prevButton svg {
+  margin-right: -10%;
+}
+
+.cardContainer {
+  width: 238px;
+  height: 189px;
+  background: #def1ff;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.15),
+    0px 1px 2px rgba(16, 24, 40, 0.1);
+  border-radius: 10px;
+  margin-right: 20px;
+  padding: 18px 16px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.evenCardContainer {
+  background: #efe3ff;
+}
+
+.cardHeader {
+  width: 160px;
+  min-height: 25px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  /* identical to box height */
+
+  letter-spacing: -0.01em;
+
+  color: #0072c7;
+}
+.evenCardHeader {
+  color: #5c0bc9;
+}
+
+.teamName {
+  width: 54px;
+  height: 19px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: -0.01em;
+  color: #353f50;
+}
+
+.submittedBy {
+  height: 14px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: -0.01em;
+
+  color: #353f50;
+}
+
+.comments {
+  width: 79px;
+  height: 19px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  letter-spacing: -0.01em;
+
+  color: #707070;
+}
+
+.points {
+  width: 67px;
+  height: 19px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  letter-spacing: -0.01em;
+
+  color: #353f50;
+}
+
+.submissionDate {
+  width: 64px;
+  height: 16px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  position: absolute;
+  bottom: 18px;
+  color: #353f50;
+}
+
+@keyframes next {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(258px);
+  }
+}
+
+@keyframes prev {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(-258px);
+  }
+}

@@ -14,6 +14,7 @@ import "react-responsive-modal/styles.css";
 import { Router } from "next/router";
 import { GlobalProvider } from "@/contexts/GlobalContext";
 import "react-calendar/dist/Calendar.css";
+import { MessagesProvider } from "@/contexts/MessagesContext";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -27,17 +28,19 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <Toaster />
         <ReactQueryDevtools position="bottom-right" />
-        <GlobalProvider>
-          <ThemeProvider theme={theme}>
-            {pathname.includes("dashboard") ? (
-              <DashboardLayout>
+        <MessagesProvider>
+          <GlobalProvider>
+            <ThemeProvider theme={theme}>
+              {pathname.includes("dashboard") ? (
+                <DashboardLayout>
+                  <Component {...pageProps} />
+                </DashboardLayout>
+              ) : (
                 <Component {...pageProps} />
-              </DashboardLayout>
-            ) : (
-              <Component {...pageProps} />
-            )}
-          </ThemeProvider>
-        </GlobalProvider>
+              )}
+            </ThemeProvider>
+          </GlobalProvider>
+        </MessagesProvider>
       </QueryClientProvider>
     </>
   );

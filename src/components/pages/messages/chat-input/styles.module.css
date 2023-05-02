@@ -1,0 +1,66 @@
+.chatInputContainer {
+  width: 100%;
+  /* min-height: 100px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+
+.chatInputTextArea {
+  box-sizing: border-box;
+
+  /* Auto layout */
+  resize: none;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 8px 12px;
+  isolation: isolate;
+
+  width: calc(100% - 120px);
+  height: 76px;
+
+  background: #ffffff;
+  border: 0.8px solid #ced4da;
+  border-radius: 8px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.chatInputButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 6px;
+  width: 60px;
+  height: 32px;
+  background: #0065b5;
+  border-radius: 8px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  /* Blanc fond 2 Wireframe */
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
