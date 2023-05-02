@@ -37,8 +37,6 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
     resolver: zodResolver(schema),
   });
 
-  console.log("errors", errors);
-
   const { allMentors, isLoading } = useFilterUsersForSelect();
   const { studentsSelect, isFetching: isFetchingStudents } =
     useStudentsForSelect();
@@ -78,7 +76,6 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
                 label="Select Cohort"
                 smallLabel
                 onChange={e => {
-                  console.log("select event", e);
                   setValue(
                     "cohort",
                     typeof e?.value === "string" ? e.value : "",
@@ -102,7 +99,6 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
                 label="Select Mentor"
                 smallLabel
                 onChange={e => {
-                  console.log("select event", e);
                   setValue(
                     "mentor",
                     typeof e?.value === "number" ? e.value : 0,
@@ -124,7 +120,6 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
                 label="Select Students(s)"
                 smallLabel
                 onChange={e => {
-                  console.log("select event", e);
                   setValue(
                     "students",
                     Array.isArray(e) ? e.map(item => item?.value) : [],

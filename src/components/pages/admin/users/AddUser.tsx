@@ -36,8 +36,6 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
   // This variable would watch for changes in the service ID and rerender the component
   const userType = watch("userType");
 
-  console.log("errors", errors);
-
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
       <Box className="d-flex justify-between items-center">
@@ -61,7 +59,6 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
                 label="User Type"
                 smallLabel
                 onChange={e => {
-                  console.log("select event", e);
                   setValue(
                     "userType",
                     typeof e?.value === "string" || typeof e?.value === "number"
@@ -163,7 +160,7 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
                     onChange={onChange}
                     blackLabel
                     smallLabel
-                    max="2000-01-01"
+                    max="2010-01-01"
                   />
                 )}
               />

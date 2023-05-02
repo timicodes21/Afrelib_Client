@@ -46,6 +46,14 @@ export const CREATE_USER_API = "/admin/user/create";
 export const GET_ALL_USERS_API = (page: number) => `users?page=${page}`;
 export const LOGIN_USER_API = "/user/signin";
 export const GET_STUDENTS_NOT_IN_TEAM = "/students/unmatched";
+export const ENABLE_DISABLE_USER_API = ({
+  type,
+  userId,
+}: {
+  type: "enable" | "disable";
+  userId: number;
+}) =>
+  type === "enable" ? `/user/${userId}/enable` : `/user/${userId}/disable`;
 
 //Cohorts
 export const CREATE_COHORT_API = "/cohort";

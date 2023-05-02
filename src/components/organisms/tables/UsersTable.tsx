@@ -20,7 +20,7 @@ import UsersOptionsList from "@/components/molecules/lists/UsersOptionsList";
 interface IProps {
   users: IGetAllUsersResponse[];
   loading?: boolean;
-  onDisableEnable: (id: number) => void;
+  onDisableEnable: (id: number, isEnabled: boolean) => void;
   onResetPassword: (id: number) => void;
 }
 
@@ -222,8 +222,13 @@ const UsersTable: React.FC<IProps> = ({
                                   <UsersOptionsList
                                     onDisableEnable={() => {
                                       handleClose();
-                                      onDisableEnable(item?.id);
+                                      // If is_disabled is 0, User is enable and I am returning true
+                                      onDisableEnable(
+                                        item?.id,
+                                        item?.is_disabled === 0,
+                                      );
                                     }}
+                                    isUserEnabled={item?.is_disabled === 0}
                                     onReset={() => {
                                       handleClose();
                                       onResetPassword(item?.id);

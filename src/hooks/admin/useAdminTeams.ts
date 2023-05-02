@@ -42,7 +42,6 @@ export const useGetAllTeams = () => {
     ({ pageParam = 1 }) => getAllTeams(pageParam),
     {
       getNextPageParam: (lastPage, pages) => {
-        // console.log("lastpage", lastPage, "pages", pages);
         return lastPage?.length !== 0 ? pages.length + 1 : null;
       },
     },
@@ -101,20 +100,16 @@ export const useAdminTeams = () => {
   });
 
   const onSuccessDelete = (data: string) => {
-    console.log("on success delete cohorts", data);
     queryClient.invalidateQueries([queryKeys.getTeams]);
   };
 
   const onSuccess = (data: ITeamRespons | string) => {
-    console.log("on success data teams", data);
     queryClient.invalidateQueries([queryKeys.getTeams]);
   };
 
   const onError = () => {};
 
   const onSubmit: SubmitHandler<AddTeamFormValues> = async data => {
-    console.log("data form cohort", data);
-
     const formData: ICreateTeamRequest = {
       team_name: data?.name,
       team_description: data?.description,

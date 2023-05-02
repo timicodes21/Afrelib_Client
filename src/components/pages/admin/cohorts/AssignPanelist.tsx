@@ -63,7 +63,6 @@ const AssignPanelists: React.FC<IProps> = ({
             <Box key={item?.value} sx={{ mt: 1 }}>
               <CheckboxWithLabel
                 onChange={e => {
-                  console.log("event", e?.target?.checked);
                   if (e?.target?.checked) {
                     setPanelistIds([...panelistIds, item?.value]);
                   } else {

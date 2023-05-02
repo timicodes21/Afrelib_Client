@@ -13,6 +13,7 @@ import "nprogress/nprogress.css";
 import "react-responsive-modal/styles.css";
 import { Router } from "next/router";
 import { GlobalProvider } from "@/contexts/GlobalContext";
+import "react-calendar/dist/Calendar.css";
 import { MessagesProvider } from "@/contexts/MessagesContext";
 
 Router.events.on("routeChangeStart", () => NProgress.start());

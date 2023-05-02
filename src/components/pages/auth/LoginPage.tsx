@@ -30,8 +30,6 @@ const LoginPage = () => {
     resolver: zodResolver(schema),
   });
 
-  console.log("errors", errors);
-
   return (
     <>
       <AuthLayout
