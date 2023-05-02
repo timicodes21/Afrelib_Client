@@ -1,0 +1,16 @@
+.container {
+  margin-top: 35px;
+}
+
+.headerText {
+  width: 185px;
+  height: 27px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: -0.01em;
+  color: #353f50;
+  margin-bottom: 25px;
+}

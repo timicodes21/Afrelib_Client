@@ -1,11 +1,8 @@
+import MessagesPage from "@/components/pages/messages/MessagesPage";
 import React from "react";
 
 const Messages = () => {
-  return (
-    <div>
-      <h1>Messages</h1>
-    </div>
-  );
+  return <MessagesPage />;
 };
 
 export default Messages;
