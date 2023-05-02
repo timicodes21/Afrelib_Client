@@ -11,6 +11,7 @@ import { useModal } from "@/hooks/utility";
 import TableOptionsButton, {
   TableOptionsButton2,
 } from "@/components/atoms/buttons/TableOptionsButton";
+import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
 
 const AdminUsersPage = () => {
   const {
@@ -22,6 +23,14 @@ const AdminUsersPage = () => {
     setSelectedRole,
     statusOptions,
     setStatusOptions,
+    handleEnableDisable,
+    isUpdating,
+    userDetails,
+    setUserDetails,
+    open,
+    setOpen,
+    closeModal,
+    openModal,
   } = useAdminUsers();
 
   const {
@@ -33,9 +42,14 @@ const AdminUsersPage = () => {
     fetchNextPage,
   } = useGetAllUsers();
 
-  console.log("all users", allUsers);
+  const {
+    open: openAlert,
+    setOpen: setOpenAlert,
+    closeModal: closeAlertModal,
+    openModal: openAlertModal,
+  } = useModal();
 
-  const { open, setOpen, closeModal, openModal } = useModal();
+  console.log("add user modal", open);
 
   return (
     <Wrapper>
@@ -137,7 +151,10 @@ const AdminUsersPage = () => {
               item?.role_name === selectedRole &&
               item?.status?.startsWith(statusOptions),
           )}
-          onDisableEnable={id => console.log("userId", id)}
+          onDisableEnable={(id, isEnabled) => {
+            setUserDetails({ id, isEnabled });
+            openAlertModal();
+          }}
           onResetPassword={id => console.log("userId", id)}
         />
       </Box>
@@ -149,6 +166,30 @@ const AdminUsersPage = () => {
         closeOnOverlayClick={false}
       >
         <AddUser handleClose={closeModal} />
+      </CustomModal>
+      <CustomModal
+        open={openAlert}
+        setOpen={setOpenAlert}
+        maxWidth="350px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <DeleteWrapper
+          text={`Are you sure you want to ${
+            userDetails?.isEnabled ? "Disable" : "Enable"
+          } this user`}
+          onDelete={() =>
+            // If user is disabled, it would enable the user and vice versa
+            handleEnableDisable(
+              userDetails?.isEnabled ? "disable" : "enable",
+              userDetails?.id,
+            )
+          }
+          onCancel={closeAlertModal}
+          deleteBtnText={`Yes ${userDetails?.isEnabled ? "Disable" : "Enable"}`}
+          cancelBtnText="No, Cancel"
+          loading={isUpdating}
+        />
       </CustomModal>
     </Wrapper>
   );

@@ -8,6 +8,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   icon?: ReactNode;
   blackLabel?: boolean;
   smallLabel?: boolean;
+  rows?: number;
 }
 
 const CustomTextArea: React.FC<IProps> = ({
@@ -15,6 +16,7 @@ const CustomTextArea: React.FC<IProps> = ({
   blackLabel,
   smallLabel,
   icon,
+  rows,
   ...rest
 }) => {
   return (
@@ -34,7 +36,11 @@ const CustomTextArea: React.FC<IProps> = ({
         }}
         className={styles.inputContainer}
       >
-        <textarea {...rest} style={{ background: "#F3F5F6" }} />
+        <textarea
+          {...rest}
+          style={{ background: "#F3F5F6", resize: "none" }}
+          rows={rows ?? 2}
+        />
 
         {icon}
       </Box>

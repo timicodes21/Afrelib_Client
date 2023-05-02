@@ -3,7 +3,7 @@ import { z, string } from "zod";
 import { SubmitHandler } from "react-hook-form/dist/types";
 import { AddUserFormValues } from "@/types/formValues";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { createUser, getAllusers } from "@/api/users";
+import { createUser, enableOrDisableUser, getAllusers } from "@/api/users";
 import { ICreateUserRequest } from "@/types/apiRequests";
 import {
   ICreateUserResponse,
@@ -11,6 +11,7 @@ import {
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
 import { useModal } from "../utility";
+import { useRouter } from "next/router";
 
 const useCreateUser = () => {
   return useMutation(createUser);
@@ -34,7 +35,6 @@ export const useGetAllUsers = () => {
     ({ pageParam = 1 }) => getUsers(pageParam),
     {
       getNextPageParam: (lastPage, pages) => {
-        // console.log("lastpage", lastPage, "pages", pages);
         return lastPage?.length !== 0 ? pages.length + 1 : null;
       },
     },
@@ -43,8 +43,10 @@ export const useGetAllUsers = () => {
   const allUsers: IGetAllUsersResponse[] = [];
   data?.pages &&
     Array.isArray(data?.pages) &&
-    data?.pages?.map(page =>
-      page?.map((el: IGetAllUsersResponse) => allUsers.push(el)),
+    data?.pages?.map(
+      page =>
+        Array.isArray(page) &&
+        page?.map((el: IGetAllUsersResponse) => allUsers.push(el)),
     );
 
   return {
@@ -62,10 +64,16 @@ export const useAdminUsers = () => {
   const [statusOptions, setStatusOptions] = useState<
     "disabled" | "active" | ""
   >("");
-
+  const [isUpdating, setIsUpdating] = useState(false);
   const [selectedRole, setSelectedRole] = useState<
     "Student" | "Mentor" | "Panelist"
   >("Student");
+  const [userDetails, setUserDetails] = useState<{
+    id: number;
+    isEnabled?: boolean;
+  }>({ id: 0 });
+  const { open, setOpen, closeModal, openModal } = useModal();
+  const router = useRouter();
 
   const activeTabStyle = {
     boxShadow:
@@ -94,12 +102,16 @@ export const useAdminUsers = () => {
 
   const onSuccess = (data: ICreateUserResponse | string) => {
     queryClient.invalidateQueries([queryKeys.getAllUsers]);
+    //close modal
+    console.log("close modal");
   };
 
-  const onError = () => {};
+  const onError = () => {
+    // close modal
+    closeModal();
+  };
 
   const onSubmit: SubmitHandler<AddUserFormValues> = data => {
-    console.log("data form", data);
     const formData: ICreateUserRequest = {
       first_name: data?.firstName,
       last_name: data?.lastName,
@@ -110,6 +122,18 @@ export const useAdminUsers = () => {
     };
 
     mutate(formData, { onSuccess, onError });
+  };
+
+  const handleEnableDisable = async (
+    type: "enable" | "disable",
+    userId: number,
+  ) => {
+    setIsUpdating(true);
+    const res = await enableOrDisableUser(type, userId);
+    if (res?.first_name) {
+      queryClient.invalidateQueries([queryKeys.getAllUsers]);
+    }
+    setIsUpdating(false);
   };
 
   return {
@@ -124,5 +148,13 @@ export const useAdminUsers = () => {
     setSelectedRole,
     statusOptions,
     setStatusOptions,
+    handleEnableDisable,
+    isUpdating,
+    userDetails,
+    setUserDetails,
+    open,
+    setOpen,
+    closeModal,
+    openModal,
   };
 };

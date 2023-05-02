@@ -8,6 +8,8 @@ interface IProps {
   loading?: boolean;
   type: "button" | "submit" | "reset" | undefined;
   onClick: () => void;
+  borderRadius?: string;
+  width?: string;
 }
 
 const AuthButton: React.FC<IProps> = ({
@@ -17,13 +19,15 @@ const AuthButton: React.FC<IProps> = ({
   loading,
   type,
   onClick,
+  borderRadius,
+  width,
 }) => {
   return (
     <Button
       sx={{
-        borderRadius: "8px",
+        borderRadius: borderRadius ?? "8px",
         background: "info.main",
-        width: notFullWidth ? "inherit" : "100%",
+        width: notFullWidth ? "inherit" : width ? width : "100%",
         color: "info.main",
         boxShadow: 0,
       }}

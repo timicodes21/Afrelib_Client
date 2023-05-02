@@ -26,8 +26,6 @@ const DashboardLayout: React.FC<IProps> = ({ children }) => {
     ? adminDashboardLinks
     : dashboardLinks;
 
-  console.log("pathname", router.pathname);
-
   useProtectedRoute();
 
   const { openModal, closeModal, open, setOpen } = useModal();

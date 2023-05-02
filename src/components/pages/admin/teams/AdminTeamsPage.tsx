@@ -52,8 +52,6 @@ const AdminTeamsPage = () => {
     isFetching,
   } = useGetSingleTeam(team?.id ?? 0, openStudents);
 
-  console.log("data", data);
-
   return (
     <Wrapper>
       <PageHeader headerText="Teams" />

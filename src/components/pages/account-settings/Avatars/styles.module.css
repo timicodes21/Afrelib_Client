@@ -1,0 +1,30 @@
+.container {
+  width: 620px;
+  min-height: 400px;
+  max-height: 90vh;
+  padding: 25px 0px;
+}
+
+.avatarList {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.eachAvatar {
+  width: 74px;
+  height: 74px;
+  background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 20px;
+  cursor: pointer;
+}
+
+.eachAvatar img {
+  width: 58px;
+  height: 58px;
+  display: block;
+}

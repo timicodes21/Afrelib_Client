@@ -18,7 +18,6 @@ import { toast } from "react-hot-toast";
 export const createCohort = async (body: ICreateCohortRequest) => {
   try {
     const response = await coreHttpClient.post(CREATE_COHORT_API, body);
-    console.log("create COHORT response", response);
     const {
       status,
       data: { message, responseData },
@@ -32,7 +31,6 @@ export const createCohort = async (body: ICreateCohortRequest) => {
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -53,7 +51,6 @@ export const getCohorts = async (page: number) => {
         return data?.message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -64,7 +61,6 @@ export const getCohorts = async (page: number) => {
 export const deleteCohort = async (cohortId: string) => {
   try {
     const response = await coreHttpClient.delete(DELETE_COHORT_API(cohortId));
-    console.log("DELETE COHORT response", response);
     const {
       status,
       data: { message },
@@ -78,7 +74,6 @@ export const deleteCohort = async (cohortId: string) => {
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -109,7 +104,6 @@ export const assignPanelist = async (
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -140,7 +134,6 @@ export const updateCohort = async (
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -161,7 +154,6 @@ export const getSingleCohort = async (cohortId: string) => {
         return data?.message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");

@@ -36,11 +36,7 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
     resolver: zodResolver(schema),
   });
 
-  console.log("errors", errors);
-
   const panelists = watch("panelists");
-
-  console.log("panelists", panelists);
 
   const { allMentors, allPanelists, isLoading } = useFilterUsersForSelect();
   const { teamSelect, isLoading: isLoadingTeams } = useTeamsForSelect();
@@ -68,7 +64,6 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                 label="Select Mentor(s)"
                 smallLabel
                 onChange={e => {
-                  console.log("select event", e);
                   setValue(
                     "mentors",
                     Array.isArray(e) ? e.map(item => item?.value) : [],
@@ -92,7 +87,6 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                 label="Select Panelists(s)"
                 smallLabel
                 onChange={e => {
-                  console.log("select event", e);
                   setValue(
                     "panelists",
                     Array.isArray(e) ? e.map(item => Number(item?.value)) : [],
@@ -118,7 +112,6 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                 label="Select Team(s)"
                 smallLabel
                 onChange={e => {
-                  console.log("select event", e);
                   setValue(
                     "teams",
                     Array.isArray(e) ? e.map(item => item?.value) : [],
@@ -211,7 +204,7 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
                 render={({ field: { onChange, value, onBlur } }) => (
                   <CustomTextArea
                     label="Description"
-                    type="date"
+                    // type="date"
                     placeholder="Description"
                     value={value}
                     onBlur={onBlur}

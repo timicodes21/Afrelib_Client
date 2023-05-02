@@ -72,6 +72,7 @@ export interface IGetAllUsersResponse {
   created_at: string;
   updated_at: string;
   role_name: string;
+  is_disabled: number;
 }
 
 export interface User {

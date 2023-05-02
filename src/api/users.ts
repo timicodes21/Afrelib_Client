@@ -1,5 +1,6 @@
 import {
   CREATE_USER_API,
+  ENABLE_DISABLE_USER_API,
   GET_ALL_USERS_API,
   GET_STUDENTS_NOT_IN_TEAM,
   LOGIN_USER_API,
@@ -11,7 +12,6 @@ import { toast } from "react-hot-toast";
 export const createUser = async (body: ICreateUserRequest) => {
   try {
     const response = await usersHttpClient.post(CREATE_USER_API, body);
-    console.log("create user response", response);
     const {
       status,
       data: { message, responseData },
@@ -25,7 +25,6 @@ export const createUser = async (body: ICreateUserRequest) => {
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -49,7 +48,6 @@ export const loginUser = async (body: IUserLoginRequest) => {
         return message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -60,7 +58,6 @@ export const loginUser = async (body: IUserLoginRequest) => {
 export const getAllusers = async (page: number) => {
   try {
     const response = await usersHttpClient(GET_ALL_USERS_API(page));
-    console.log("get all users response", response);
     const { status, data } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
@@ -70,7 +67,6 @@ export const getAllusers = async (page: number) => {
         return data?.message;
       }
   } catch (err: any) {
-    console.log("error", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
@@ -81,7 +77,6 @@ export const getAllusers = async (page: number) => {
 export const getStudensNotInTeam = async () => {
   try {
     const response = await usersHttpClient(GET_STUDENTS_NOT_IN_TEAM);
-    console.log("get all users response", response);
     const { status, data } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
@@ -91,7 +86,32 @@ export const getStudensNotInTeam = async () => {
         return data?.message;
       }
   } catch (err: any) {
-    console.log("error", err);
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const enableOrDisableUser = async (
+  type: "enable" | "disable",
+  userId: number,
+) => {
+  try {
+    const response = await usersHttpClient.patch(
+      ENABLE_DISABLE_USER_API({ userId, type }),
+    );
+    const { status, data } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(data?.message ?? "Successful");
+
+        return data?.responseData;
+      } else {
+        toast.error(data?.message);
+        return data?.message;
+      }
+  } catch (err: any) {
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");

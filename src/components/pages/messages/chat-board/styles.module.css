@@ -1,0 +1,112 @@
+.chatBoardContainer {
+  width: 100%;
+  height: calc(100vh - 250px);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin-top: 20px;
+  padding: 25px 0 25px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chatBoardMessagesContainer {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100% - 100px);
+  overflow-y: scroll;
+  padding: 0 25px;
+}
+
+.chatMessageAvatar {
+  width: 52px;
+  height: 52px;
+  border: 1.5px solid #ffffff;
+  border-radius: 50%;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+}
+
+.chatBoardEachMessage {
+  min-width: 20%;
+  max-width: 65%;
+  display: flex;
+  gap: 15px;
+}
+
+.chatBoardMessageContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 22px;
+  box-sizing: border-box;
+  gap: 10px;
+  width: calc(100% - 100px);
+  min-height: 76px;
+  width: 100%;
+  border-radius: 8px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.chatBoardSentMessage {
+  background: rgba(0, 101, 181, 0.4);
+}
+
+.chatBoardReceivedMessage {
+  background: #e9f1fd;
+}
+
+.chatBoardMessageTime {
+  min-width: 39px;
+  height: 14px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 14px;
+  /* identical to box height */
+
+  letter-spacing: -0.01em;
+
+  color: #353f50;
+}
+
+.chatMessageText {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  /* or 114% */
+
+  color: #353f50;
+}
+
+@media screen and (max-width: 600px) {
+  .chatBoardContainer {
+    padding: 15px 0;
+  }
+
+  .chatBoardMessagesContainer {
+    padding: 0 10px;
+  }
+
+  .chatBoardEachMessage {
+    min-width: 20%;
+    max-width: 95%;
+  }
+}
