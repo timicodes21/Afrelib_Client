@@ -13,7 +13,7 @@ export default function Home() {
     setTimeout(() => {
       router.push("/admin/login");
     }, 1000);
-  }, []);
+  }, [router]);
 
   return (
     <>

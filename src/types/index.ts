@@ -3,6 +3,8 @@ export interface IData {
   id: number;
 }
 
+export type RoleName = "Panelist" | "Student" | "Mentor" | "admin" | "";
+
 export interface GetInfinitePagesInterface<T> {
   nextId?: number;
   previousId?: number;
@@ -30,5 +32,5 @@ export interface IUserDetails {
   access_token: string | null;
   first_name: string | null;
   last_name: string | null;
-  role: string | null;
+  role: RoleName | null;
 }

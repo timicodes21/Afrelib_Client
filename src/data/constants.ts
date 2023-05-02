@@ -14,14 +14,18 @@ export const queryClient = new QueryClient({
   },
 });
 
-// links
+// links for students
 export const DASHBOARD = "/dashboard";
 export const CLASSROOM = "/dashboard/classroom";
 export const MESSAGES = "/dashboard/messages";
 export const RESOURCES = "/dashboard/resources";
+export const PROJECTS = "/dashboard/projects";
+export const MENTEES = "/dashboard/mentees";
 export const ACCOUNTS_SETTINGS = "/dashboard/accounts_settings";
 export const SUPPORT = "/dashboard/support";
 export const LOGIN = "/login";
+
+// Links for Panelists
 
 // admin links
 export const ADMIN_DASHBOARD = "/admin/dashboard";
@@ -73,6 +77,12 @@ export const GET_SINGLE_TEAM_API = (teamId: number) => `/team/${teamId}`;
 export const DELETE_TEAM_API = (teamId: number) => `/team/${teamId}`;
 export const UPDATE_TEAM_MENTOR = (teamId: number) => `/team/${teamId}/mentor`;
 
+// projects Api Routes
+export const GET_ALL_PROJECTS = "/project";
+export const GET_COHORT_PROJECT = (cohortId: string) =>
+  `/project/cohort/${cohortId}`;
+
+// Query keys for React Query
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
@@ -81,6 +91,7 @@ export const queryKeys = {
   getSingleTeam: "getSingleTeam",
   getSingleCohort: "getSingleCohort",
   getStudentsNotInTeam: "getStudentsNotInTeam",
+  getAllprojects: "getAllprojects",
 };
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

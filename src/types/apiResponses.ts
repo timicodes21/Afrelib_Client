@@ -7,6 +7,16 @@ interface AdminDetails {
   updated_at: string;
 }
 
+export interface IResponseMessageWithData<TData> {
+  message: string;
+  responseData: TData;
+}
+
+export interface IStatusWithData<TData> {
+  status: number;
+  data: TData;
+}
+
 export interface IAdminLoginResponse {
   access_token: string;
   token_type: string;
@@ -191,4 +201,62 @@ export interface IGetSingleCohortResponse {
     data: User[];
     count: number;
   };
+}
+
+interface Datum {
+  id: number;
+  project_title: string;
+  project_description: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  submissions: any[];
+  team: IGetTeamsResponse;
+}
+
+export interface IGetAllProjectsResponse {
+  current_page: number;
+  data: Datum[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url?: any;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
+interface Link {
+  url?: string;
+  label: string;
+  active: boolean;
+}
+
+export interface IGetCohortProjectResponse {
+  id: number;
+  cohort_id: string;
+  cohort_name: string;
+  cohort_description: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  teams: Team[];
+}
+
+interface Team {
+  id: number;
+  team_id: string;
+  team_name: string;
+  team_description: string;
+  created_at: string;
+  updated_at: string;
+  students: User[];
+  mentor: User;
+  projects: any[];
 }
