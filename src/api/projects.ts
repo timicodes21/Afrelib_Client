@@ -1,8 +1,13 @@
-import { GET_ALL_PROJECTS, GET_COHORT_PROJECT } from "@/data/constants";
+import {
+  GET_ALL_PROJECTS,
+  GET_COHORT_PROJECT,
+  GET_PROJECTS_UNDER_PANELISTS,
+} from "@/data/constants";
 import { coreHttpClient } from "@/service/httpClients";
 import {
   IGetAllProjectsResponse,
   IGetCohortProjectResponse,
+  IGetProjectsUnderPanelistsResponse,
   IResponseMessageWithData,
   IStatusWithData,
 } from "@/types/apiResponses";
@@ -46,6 +51,39 @@ export const getCohortProject: (
     const response: Awaited<
       IStatusWithData<IResponseMessageWithData<IGetCohortProjectResponse>>
     > = await coreHttpClient(GET_COHORT_PROJECT(cohortId));
+
+    const {
+      status,
+      data: { message, responseData },
+    } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(message);
+        return responseData;
+      } else {
+        toast.error(message);
+        return message;
+      }
+    else {
+      return "An error occured";
+    }
+  } catch (err: any) {
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const getProjectsUnderPanelists: () => Promise<
+  IGetProjectsUnderPanelistsResponse | string
+> = async () => {
+  try {
+    const response: Awaited<
+      IStatusWithData<
+        IResponseMessageWithData<IGetProjectsUnderPanelistsResponse>
+      >
+    > = await coreHttpClient(GET_PROJECTS_UNDER_PANELISTS);
 
     const {
       status,

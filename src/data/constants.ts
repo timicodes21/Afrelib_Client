@@ -81,6 +81,7 @@ export const UPDATE_TEAM_MENTOR = (teamId: number) => `/team/${teamId}/mentor`;
 export const GET_ALL_PROJECTS = "/project";
 export const GET_COHORT_PROJECT = (cohortId: string) =>
   `/project/cohort/${cohortId}`;
+export const GET_PROJECTS_UNDER_PANELISTS = "/project/panelist";
 
 // Query keys for React Query
 export const queryKeys = {
@@ -92,6 +93,7 @@ export const queryKeys = {
   getSingleCohort: "getSingleCohort",
   getStudentsNotInTeam: "getStudentsNotInTeam",
   getAllprojects: "getAllprojects",
+  getProjectsUnderPanelists: "getProjectsUnderPanelists",
 };
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

@@ -260,3 +260,21 @@ interface Team {
   mentor: User;
   projects: any[];
 }
+
+export interface IGetProjectsUnderPanelistsResponse {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  date_of_birth?: any;
+  email_verified_at?: any;
+  role_id: string;
+  school_name?: any;
+  leadership_points: number;
+  badges: number;
+  status: string;
+  is_disabled: number;
+  created_at: string;
+  updated_at: string;
+  cohort_projects: any[];
+}
