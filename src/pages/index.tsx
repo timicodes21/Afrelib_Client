@@ -11,7 +11,7 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
-      router.push("/admin/login");
+      router.push("/login");
     }, 1000);
   }, [router]);
 
