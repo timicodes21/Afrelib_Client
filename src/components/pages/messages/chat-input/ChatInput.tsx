@@ -3,6 +3,7 @@ import ActionButton from "@/components/atoms/buttons/ActionButton";
 import { Button, IconButton, TextareaAutosize } from "@mui/material";
 import Popover from "@mui/material/Popover";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
@@ -29,7 +30,6 @@ const ChatInput = () => {
 
   const handleHideEmojis = () => {
     setAnchorEl(null);
-    // console.log(inputRef);
     inputRef?.current?.focus();
   };
 
@@ -43,8 +43,8 @@ const ChatInput = () => {
   return (
     <div className={styles.chatInputContainer}>
       <>
-        <IconButton onClick={handleShowEmojis}>
-          <EmojiEmotionsIcon />
+        <IconButton size="small" onClick={handleShowEmojis}>
+          <AttachFileIcon fontSize="small" />
         </IconButton>
 
         <Popover
@@ -65,6 +65,28 @@ const ChatInput = () => {
         </Popover>
       </>
 
+      <>
+        <IconButton size="small" onClick={handleShowEmojis}>
+          <EmojiEmotionsIcon fontSize="small" />
+        </IconButton>
+
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleHideEmojis}
+          sx={{
+            top: -130,
+          }}
+        >
+          <Picker
+            data={data}
+            onEmojiSelect={handleEmoji}
+            previewPosition="none"
+            theme="light"
+          />
+        </Popover>
+      </>
       <textarea
         ref={inputRef}
         className={styles.chatInputTextArea}
