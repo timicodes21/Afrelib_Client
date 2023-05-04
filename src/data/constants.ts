@@ -81,6 +81,11 @@ export const queryKeys = {
   getSingleTeam: "getSingleTeam",
   getSingleCohort: "getSingleCohort",
   getStudentsNotInTeam: "getStudentsNotInTeam",
+  getChats: "getChats",
 };
+
+//Chats liks
+
+export const CREATE_GROUP_CHAT_API = "/chat/admin-chat";
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

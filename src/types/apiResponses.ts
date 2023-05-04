@@ -105,6 +105,10 @@ export interface ICreateCohortResponse {
   students: User[];
 }
 
+export interface ICreateGroupChatResponse {
+  [key: string]: any;
+}
+
 export interface IGetCohortsResponse {
   id: number;
   cohort_id: string;

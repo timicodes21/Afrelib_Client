@@ -7,11 +7,7 @@ const MessagesChatList = () => {
   return (
     <>
       {chats.map(chat => {
-        return (
-          <>
-            <EachChatMessage key={chat} />
-          </>
-        );
+        return <EachChatMessage key={chat} />;
       })}
     </>
   );

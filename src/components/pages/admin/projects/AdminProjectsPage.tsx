@@ -77,7 +77,7 @@ const AdminProjectsPage = () => {
         <Grid container spacing={3}>
           {[1, 2, 3, 4, 5, 5, 6, 7, , 8, 9, 9, 7, , 6, 5, 5, 4].map(
             (item, index) => (
-              <Grid item xs={12} md={6} lg={3}>
+              <Grid item xs={12} md={6} lg={3} key={index}>
                 <ProjectContainer
                   headerText="Team 01"
                   onClick={() => {}}
