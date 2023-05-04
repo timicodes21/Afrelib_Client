@@ -73,3 +73,17 @@
   background-size: cover;
   padding: 12px 20px;
 }
+
+.evaluationCiriteriaContainer {
+  background: linear-gradient(
+      81.62deg,
+      rgba(49, 56, 96, 0.5) 2.25%,
+      rgba(21, 25, 40, 0.5) 79.87%
+    ),
+    url("../../public/assets/images/evaluation_background.svg");
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 12px 20px;
+}

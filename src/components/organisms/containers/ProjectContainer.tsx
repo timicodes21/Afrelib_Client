@@ -11,6 +11,7 @@ interface IProps {
   submissionText: string;
   submissionsDone: number;
   totalSubmissions: number;
+  onClickCard?: () => void;
 }
 
 const ProjectContainer: React.FC<IProps> = ({
@@ -19,6 +20,7 @@ const ProjectContainer: React.FC<IProps> = ({
   submissionText,
   submissionsDone,
   totalSubmissions,
+  onClickCard,
 }) => {
   return (
     <Box
@@ -30,6 +32,8 @@ const ProjectContainer: React.FC<IProps> = ({
         boxShadow:
           "0px 1px 3px rgba(16, 24, 40, 0.15), 0px 1px 2px rgba(16, 24, 40, 0.1)",
       }}
+      className="pointer"
+      onClick={onClickCard}
     >
       <Box className="d-flex items-center justify-between">
         <Typography

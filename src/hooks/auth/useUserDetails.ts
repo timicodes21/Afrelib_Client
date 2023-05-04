@@ -8,6 +8,8 @@ export const useUserDetails = () => {
     first_name: "",
     last_name: "",
     role: "",
+    userId: 0,
+    teamId: 0,
   });
 
   let user: IUserDetails;
@@ -20,6 +22,8 @@ export const useUserDetails = () => {
           last_name: null,
           access_token: null,
           role: null,
+          userId: null,
+          teamId: null,
         }),
     );
 
@@ -32,6 +36,8 @@ export const useUserDetails = () => {
             last_name: null,
             access_token: null,
             role: null,
+            userId: null,
+            teamId: null,
           },
     );
   }, []);
