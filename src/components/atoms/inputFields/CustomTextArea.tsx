@@ -4,7 +4,7 @@ import styles from "@/styles/Auth.module.css";
 import { UseFormRegister } from "react-hook-form/dist/types/form";
 
 interface IProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
-  label: string;
+  label?: string;
   icon?: ReactNode;
   blackLabel?: boolean;
   smallLabel?: boolean;

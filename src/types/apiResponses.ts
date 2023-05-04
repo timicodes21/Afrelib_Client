@@ -266,6 +266,31 @@ interface Team {
   projects: any[];
 }
 
+interface Submission {
+  id: number;
+  project_id: number;
+  submitter_id: number;
+  submission_title: string;
+  submission_url: string;
+  submission_comment: string;
+  submission_attachments: string;
+  submission_week: number;
+  panelist_feedback: string;
+  is_deleted: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface PanelistCohortProject {
+  id: number;
+  project_title: string;
+  project_description: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  submissions: Submission[];
+}
+
 export interface IGetProjectsUnderPanelistsResponse {
   id: number;
   first_name: string;
@@ -281,7 +306,7 @@ export interface IGetProjectsUnderPanelistsResponse {
   is_disabled: number;
   created_at: string;
   updated_at: string;
-  cohort_projects: any[];
+  cohort_projects: PanelistCohortProject[][];
 }
 
 interface Project {
@@ -326,4 +351,81 @@ export interface ICreateSubmissionResponse {
   updated_at: string;
   created_at: string;
   id: number;
+}
+
+export interface EvaluatedSubmission {
+  id: number;
+  project_id: number;
+  submitter_id: number;
+  submission_title: string;
+  submission_url: string;
+  submission_comment: string;
+  submission_attachments: string;
+  submission_week: number;
+  panelist_feedback: string;
+  is_deleted: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Panelist {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  date_of_birth?: any;
+  email_verified_at?: any;
+  role_id: string;
+  school_name?: any;
+  leadership_points: number;
+  badges: number;
+  status: string;
+  is_disabled: number;
+  created_at: string;
+  updated_at: string;
+}
+export interface IGetProjectPanelistSubmission {
+  panelist: Panelist;
+  evaluatedSubmissions: EvaluatedSubmission[];
+  nonEvaluatedSubmissions: EvaluatedSubmission[];
+}
+
+interface Panelistfeedback {
+  panelist_id: number;
+  comment: string;
+  score: number;
+  evaluated: boolean;
+  panelist: Panelist;
+}
+
+interface Panelist {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  date_of_birth?: any;
+  email_verified_at?: any;
+  role_id: string;
+  school_name?: any;
+  leadership_points: number;
+  badges: number;
+  status: string;
+  is_disabled: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IGetSingleSubmissionResponse {
+  id: number;
+  project_id: number;
+  submitter_id: number;
+  submission_title: string;
+  submission_url: string;
+  submission_comment: string;
+  submission_attachments: string;
+  submission_week: number;
+  panelist_feedback: Panelistfeedback[];
+  is_deleted: number;
+  created_at: string;
+  updated_at: string;
 }

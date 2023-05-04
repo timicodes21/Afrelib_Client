@@ -90,6 +90,14 @@ export const GET_TEAM_PROJECTS = (teamId: number) => `/project/${teamId}`;
 // Submission Api Routes
 export const CREATE_SUBMISSION = (projectId: number) =>
   `/project/submission/${projectId}`;
+export const GET_PROJECT_PANELIST_SUBMISSION = (projectId: number) =>
+  `/project/submission/panelist/${projectId}`;
+export const GET_SINGLE_SUBMISSION = (submissionId: number) =>
+  `/project/submission/single/${submissionId}`;
+export const PANELIST_SCORE_SUBMISSION = (submissionId: number) =>
+  `/project/submission/score/${submissionId}`;
+export const PANELIST_COMMENT_SUBMISSION = (submissionId: number) =>
+  `/project/submission/comment/${submissionId}`;
 
 // Query keys for React Query
 export const queryKeys = {
@@ -102,6 +110,8 @@ export const queryKeys = {
   getStudentsNotInTeam: "getStudentsNotInTeam",
   getAllprojects: "getAllprojects",
   getProjectsUnderPanelists: "getProjectsUnderPanelists",
+  getProjectPanelistSubmission: "getProjectPanelistSubmission",
+  getSingleSubmission: "getSingleSubmission",
   getTeamProjects: "getTeamProjects",
 };
 

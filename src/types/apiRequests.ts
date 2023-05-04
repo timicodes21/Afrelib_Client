@@ -53,3 +53,11 @@ export interface ICreateSubmissionRequest {
   week_number: number;
   submission_comment: string;
 }
+
+export interface IScoreSubmissionRequest {
+  score: number;
+}
+
+export interface ICommentSubmissionRequest {
+  comment: string;
+}

@@ -2,15 +2,48 @@ import PageHeader from "@/components/molecules/headers/PageHeader";
 import EvaluationWrapper from "@/components/molecules/wrappers/EvaluationWrapper";
 import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";
 import ProjectContainer from "@/components/organisms/containers/ProjectContainer";
+import CustomModal from "@/components/organisms/modals/CustomModal";
 import EmptyPage from "@/components/templates/EmptyPage";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
 import Wrapper from "@/components/templates/Wrapper";
-import { useGetProjectsUnderPanelists } from "@/hooks/projects/useProjects";
+import {
+  useGetPanelistProjectSubmission,
+  useGetProjectsUnderPanelists,
+} from "@/hooks/projects/useProjects";
+import { useModal } from "@/hooks/utility";
 import { Box, Grid, LinearProgress, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import AllSubmissions from "./AllSubmissions";
+import SubmissionDetails from "./SubmissionDetails";
+import { useGetSingleSubmissions } from "@/hooks/submissions/useSubmissions";
+import { IGetSingleSubmissionResponse } from "@/types/apiResponses";
 
 const PanelistProjectPage = () => {
   const { data, isFetching, status } = useGetProjectsUnderPanelists();
+  const [projectId, setProjectId] = useState(0);
+  const [submissionId, setSubmissionId] = useState(0);
+
+  const { open, openModal, setOpen, closeModal } = useModal();
+  const {
+    open: open2,
+    openModal: openModal2,
+    setOpen: setOpen2,
+    closeModal: closeModal2,
+  } = useModal();
+
+  const { data: allSubmissions, isFetching: loadingAllSubmissions } =
+    useGetPanelistProjectSubmission(
+      projectId,
+      typeof data === "object" && projectId !== 0,
+    );
+
+  const { data: singleSubmission, isFetching: isFetchingSubmission } =
+    useGetSingleSubmissions(
+      submissionId,
+      submissionId !== 0 && typeof allSubmissions === "object",
+    );
+
+  console.log("single submission", singleSubmission);
 
   return (
     <Wrapper>
@@ -79,13 +112,17 @@ const PanelistProjectPage = () => {
         <Grid container spacing={3}>
           {typeof data === "object" &&
             data?.cohort_projects.map((item, index) => (
-              <Grid item xs={12} sm={6} lg={4}>
+              <Grid item xs={12} sm={6} lg={6} key={index}>
                 <ProjectContainer
-                  headerText={`Team ${item?.team?.team_name ?? ""}`}
+                  headerText={item[0]?.project_title}
                   onClick={() => {}}
                   submissionText=""
                   totalSubmissions={7}
                   submissionsDone={2}
+                  onClickCard={() => {
+                    setProjectId(item[0]?.id);
+                    openModal();
+                  }}
                 />
               </Grid>
             ))}
@@ -101,6 +138,48 @@ const PanelistProjectPage = () => {
           </Box>
         )}
       </PageFlexLayout>
+      <CustomModal
+        open={open2}
+        setOpen={setOpen2}
+        width="1000px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <SubmissionDetails
+          submission={
+            typeof singleSubmission === "object"
+              ? singleSubmission
+              : ({} as IGetSingleSubmissionResponse)
+          }
+          submissionId={submissionId}
+        />
+      </CustomModal>
+
+      <CustomModal
+        open={open}
+        setOpen={setOpen}
+        width="800px"
+        closeOnOverlayClick={false}
+        showCloseIcon={true}
+      >
+        <AllSubmissions
+          evaluatedSubmissions={
+            typeof allSubmissions === "object"
+              ? allSubmissions?.evaluatedSubmissions
+              : []
+          }
+          nonEvaluatedSubmissions={
+            typeof allSubmissions === "object"
+              ? allSubmissions?.nonEvaluatedSubmissions
+              : []
+          }
+          isFetching={loadingAllSubmissions}
+          onClick={submissionId => {
+            setSubmissionId(submissionId);
+            openModal2();
+          }}
+        />
+      </CustomModal>
     </Wrapper>
   );
 };
