@@ -14,14 +14,18 @@ export const queryClient = new QueryClient({
   },
 });
 
-// links
+// links for students
 export const DASHBOARD = "/dashboard";
 export const CLASSROOM = "/dashboard/classroom";
 export const MESSAGES = "/dashboard/messages";
 export const RESOURCES = "/dashboard/resources";
+export const PROJECTS = "/dashboard/projects";
+export const MENTEES = "/dashboard/mentees";
 export const ACCOUNTS_SETTINGS = "/dashboard/accounts_settings";
 export const SUPPORT = "/dashboard/support";
 export const LOGIN = "/login";
+
+// Links for Panelists
 
 // admin links
 export const ADMIN_DASHBOARD = "/admin/dashboard";
@@ -37,6 +41,9 @@ export const ADMIN_LOGIN = "/admin/login";
 
 // Admin
 export const ADMIN_LOGIN_API = "/admin/signin";
+
+// File
+export const UPLOAD_FILE = "/upload/:type";
 
 //Roles
 export const GET_ROLES_API = "/roles";
@@ -73,6 +80,26 @@ export const GET_SINGLE_TEAM_API = (teamId: number) => `/team/${teamId}`;
 export const DELETE_TEAM_API = (teamId: number) => `/team/${teamId}`;
 export const UPDATE_TEAM_MENTOR = (teamId: number) => `/team/${teamId}/mentor`;
 
+// projects Api Routes
+export const GET_ALL_PROJECTS = "/project";
+export const GET_COHORT_PROJECT = (cohortId: string) =>
+  `/project/cohort/${cohortId}`;
+export const GET_PROJECTS_UNDER_PANELISTS = "/project/panelist";
+export const GET_TEAM_PROJECTS = (teamId: number) => `/project/${teamId}`;
+
+// Submission Api Routes
+export const CREATE_SUBMISSION = (projectId: number) =>
+  `/project/submission/${projectId}`;
+export const GET_PROJECT_PANELIST_SUBMISSION = (projectId: number) =>
+  `/project/submission/panelist/${projectId}`;
+export const GET_SINGLE_SUBMISSION = (submissionId: number) =>
+  `/project/submission/single/${submissionId}`;
+export const PANELIST_SCORE_SUBMISSION = (submissionId: number) =>
+  `/project/submission/score/${submissionId}`;
+export const PANELIST_COMMENT_SUBMISSION = (submissionId: number) =>
+  `/project/submission/comment/${submissionId}`;
+
+// Query keys for React Query
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
@@ -81,6 +108,16 @@ export const queryKeys = {
   getSingleTeam: "getSingleTeam",
   getSingleCohort: "getSingleCohort",
   getStudentsNotInTeam: "getStudentsNotInTeam",
+  getAllprojects: "getAllprojects",
+  getProjectsUnderPanelists: "getProjectsUnderPanelists",
+  getProjectPanelistSubmission: "getProjectPanelistSubmission",
+  getSingleSubmission: "getSingleSubmission",
+  getTeamProjects: "getTeamProjects",
+  getChats: "getChats",
 };
+
+//Chats liks
+
+export const CREATE_GROUP_CHAT_API = "/chat/admin-chat";
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

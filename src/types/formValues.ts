@@ -42,3 +42,16 @@ export type AddMentorFormValues = {
 export type AssignPanelistsFormValues = {
   panelist_ids: number[];
 };
+
+export type CreateSubmissionFormValues = {
+  submission_title: string;
+  submitted_file: string;
+  submitted_url: string;
+  week_number: string;
+  submission_comment: string;
+};
+export type CreateGroupChatFormValues = {
+  name: string;
+  members: string[] | number[];
+  description?: string;
+};

@@ -1,3 +1,5 @@
+import { RoleName } from ".";
+
 interface AdminDetails {
   id: number;
   first_name: string;
@@ -5,6 +7,16 @@ interface AdminDetails {
   email: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface IResponseMessageWithData<TData> {
+  message: string;
+  responseData: TData;
+}
+
+export interface IStatusWithData<TData> {
+  status: number;
+  data: TData;
 }
 
 export interface IAdminLoginResponse {
@@ -27,7 +39,10 @@ interface UserDetails {
   status: string;
   created_at: string;
   updated_at: string;
-  role_name: string;
+  role_name: RoleName;
+  team: {
+    id: number;
+  };
 }
 
 export interface IUserLoginResponse {
@@ -103,6 +118,10 @@ export interface ICreateCohortResponse {
   mentors: User[];
   panelists: User[];
   students: User[];
+}
+
+export interface ICreateGroupChatResponse {
+  [key: string]: any;
 }
 
 export interface IGetCohortsResponse {
@@ -191,4 +210,226 @@ export interface IGetSingleCohortResponse {
     data: User[];
     count: number;
   };
+}
+
+interface Datum {
+  id: number;
+  project_title: string;
+  project_description: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  submissions: any[];
+  team: IGetTeamsResponse;
+}
+
+export interface IGetAllProjectsResponse {
+  current_page: number;
+  data: Datum[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url?: any;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
+interface Link {
+  url?: string;
+  label: string;
+  active: boolean;
+}
+
+export interface IGetCohortProjectResponse {
+  id: number;
+  cohort_id: string;
+  cohort_name: string;
+  cohort_description: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  teams: Team[];
+}
+
+interface Team {
+  id: number;
+  team_id: string;
+  team_name: string;
+  team_description: string;
+  created_at: string;
+  updated_at: string;
+  students: User[];
+  mentor: User;
+  projects: any[];
+}
+
+interface Submission {
+  id: number;
+  project_id: number;
+  submitter_id: number;
+  submission_title: string;
+  submission_url: string;
+  submission_comment: string;
+  submission_attachments: string;
+  submission_week: number;
+  panelist_feedback: string;
+  is_deleted: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface PanelistCohortProject {
+  id: number;
+  project_title: string;
+  project_description: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  submissions: Submission[];
+}
+
+export interface IGetProjectsUnderPanelistsResponse {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  date_of_birth?: any;
+  email_verified_at?: any;
+  role_id: string;
+  school_name?: any;
+  leadership_points: number;
+  badges: number;
+  status: string;
+  is_disabled: number;
+  created_at: string;
+  updated_at: string;
+  cohort_projects: PanelistCohortProject[][];
+}
+
+interface Project {
+  id: number;
+  project_title: string;
+  project_description: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  submissions: any[];
+}
+
+interface Team {
+  id: number;
+  team_id: string;
+  team_name: string;
+  team_description: string;
+  created_at: string;
+  updated_at: string;
+  students: User[];
+  mentor: User;
+}
+
+export interface IGetTeamProjectsResponse {
+  team: Team;
+  projects: Project[];
+}
+
+export interface IGetFileResponse {
+  url: string;
+}
+
+export interface ICreateSubmissionResponse {
+  project_id: number;
+  submitter_id: number;
+  submission_title: string;
+  submission_url: string;
+  submission_comment: string;
+  submission_attachments: string;
+  submission_week: number;
+  panelist_feedback: string;
+  updated_at: string;
+  created_at: string;
+  id: number;
+}
+
+export interface EvaluatedSubmission {
+  id: number;
+  project_id: number;
+  submitter_id: number;
+  submission_title: string;
+  submission_url: string;
+  submission_comment: string;
+  submission_attachments: string;
+  submission_week: number;
+  panelist_feedback: string;
+  is_deleted: number;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Panelist {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  date_of_birth?: any;
+  email_verified_at?: any;
+  role_id: string;
+  school_name?: any;
+  leadership_points: number;
+  badges: number;
+  status: string;
+  is_disabled: number;
+  created_at: string;
+  updated_at: string;
+}
+export interface IGetProjectPanelistSubmission {
+  panelist: Panelist;
+  evaluatedSubmissions: EvaluatedSubmission[];
+  nonEvaluatedSubmissions: EvaluatedSubmission[];
+}
+
+interface Panelistfeedback {
+  panelist_id: number;
+  comment: string;
+  score: number;
+  evaluated: boolean;
+  panelist: Panelist;
+}
+
+interface Panelist {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  date_of_birth?: any;
+  email_verified_at?: any;
+  role_id: string;
+  school_name?: any;
+  leadership_points: number;
+  badges: number;
+  status: string;
+  is_disabled: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IGetSingleSubmissionResponse {
+  id: number;
+  project_id: number;
+  submitter_id: number;
+  submission_title: string;
+  submission_url: string;
+  submission_comment: string;
+  submission_attachments: string;
+  submission_week: number;
+  panelist_feedback: Panelistfeedback[];
+  is_deleted: number;
+  created_at: string;
+  updated_at: string;
 }
