@@ -43,7 +43,6 @@ export interface IUpdateCohorRequest {
   cohort_name: string;
   cohort_description: string;
 }
-
 export interface ICreateSubmissionRequest {
   project_id: number;
   submitted_by: number;
@@ -60,4 +59,10 @@ export interface IScoreSubmissionRequest {
 
 export interface ICommentSubmissionRequest {
   comment: string;
+}
+export interface ICreateGroupChatRequest {
+  chatName: string;
+  chatDescription: string;
+  chatType: "group";
+  userIds: string[] | number[];
 }

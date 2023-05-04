@@ -50,3 +50,8 @@ export type CreateSubmissionFormValues = {
   week_number: string;
   submission_comment: string;
 };
+export type CreateGroupChatFormValues = {
+  name: string;
+  members: string[] | number[];
+  description?: string;
+};
