@@ -33,4 +33,6 @@ export interface IUserDetails {
   first_name: string | null;
   last_name: string | null;
   role: RoleName | null;
+  teamId?: number | null;
+  userId: number | null;
 }

@@ -1,3 +1,5 @@
+import { RoleName } from ".";
+
 interface AdminDetails {
   id: number;
   first_name: string;
@@ -37,7 +39,10 @@ interface UserDetails {
   status: string;
   created_at: string;
   updated_at: string;
-  role_name: string;
+  role_name: RoleName;
+  team: {
+    id: number;
+  };
 }
 
 export interface IUserLoginResponse {
@@ -277,4 +282,48 @@ export interface IGetProjectsUnderPanelistsResponse {
   created_at: string;
   updated_at: string;
   cohort_projects: any[];
+}
+
+interface Project {
+  id: number;
+  project_title: string;
+  project_description: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  submissions: any[];
+}
+
+interface Team {
+  id: number;
+  team_id: string;
+  team_name: string;
+  team_description: string;
+  created_at: string;
+  updated_at: string;
+  students: User[];
+  mentor: User;
+}
+
+export interface IGetTeamProjectsResponse {
+  team: Team;
+  projects: Project[];
+}
+
+export interface IGetFileResponse {
+  url: string;
+}
+
+export interface ICreateSubmissionResponse {
+  project_id: number;
+  submitter_id: number;
+  submission_title: string;
+  submission_url: string;
+  submission_comment: string;
+  submission_attachments: string;
+  submission_week: number;
+  panelist_feedback: string;
+  updated_at: string;
+  created_at: string;
+  id: number;
 }

@@ -42,6 +42,9 @@ export const ADMIN_LOGIN = "/admin/login";
 // Admin
 export const ADMIN_LOGIN_API = "/admin/signin";
 
+// File
+export const UPLOAD_FILE = "/upload/:type";
+
 //Roles
 export const GET_ROLES_API = "/roles";
 
@@ -82,6 +85,11 @@ export const GET_ALL_PROJECTS = "/project";
 export const GET_COHORT_PROJECT = (cohortId: string) =>
   `/project/cohort/${cohortId}`;
 export const GET_PROJECTS_UNDER_PANELISTS = "/project/panelist";
+export const GET_TEAM_PROJECTS = (teamId: number) => `/project/${teamId}`;
+
+// Submission Api Routes
+export const CREATE_SUBMISSION = (projectId: number) =>
+  `/project/submission/${projectId}`;
 
 // Query keys for React Query
 export const queryKeys = {
@@ -94,6 +102,7 @@ export const queryKeys = {
   getStudentsNotInTeam: "getStudentsNotInTeam",
   getAllprojects: "getAllprojects",
   getProjectsUnderPanelists: "getProjectsUnderPanelists",
+  getTeamProjects: "getTeamProjects",
 };
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";
