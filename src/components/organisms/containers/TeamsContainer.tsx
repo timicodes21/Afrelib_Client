@@ -114,7 +114,7 @@ const TeamsContainer: React.FC<IProps> = ({
               value={students.toString()}
               textColor="#0072C7"
               title="No. of Members"
-              height="70px"
+              height="100px"
               onClick={onClickStudents}
             />
           </Grid>

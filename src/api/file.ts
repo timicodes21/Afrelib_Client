@@ -18,7 +18,6 @@ export const uploadFile: (
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log("file api response", response);
     const {
       status,
       data: { message, responseData },
@@ -35,7 +34,6 @@ export const uploadFile: (
       return "Error";
     }
   } catch (err: any) {
-    console.log("file api err", err);
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");

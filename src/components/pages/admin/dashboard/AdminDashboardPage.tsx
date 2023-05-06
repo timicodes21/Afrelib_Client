@@ -2,12 +2,9 @@ import PageHeader from "@/components/molecules/headers/PageHeader";
 import Wrapper from "@/components/templates/Wrapper";
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
-import styles from "@/styles/Dashboard.module.css";
-import Image from "next/image";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
-import ResourcesTable from "@/components/organisms/tables/ResourcesTable";
-import { messages, resources } from "@/data/dashboard";
+import { messages } from "@/data/dashboard";
 import WeeklyUpdatesWrapper from "@/components/molecules/wrappers/WeeklyUpdatesWrapper";
 import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";
 import AddItemCard from "@/components/molecules/cards/AddItemCard";
@@ -16,11 +13,18 @@ import { useGlobalContext } from "@/contexts/GlobalContext";
 import WeeklyProgressContainer from "@/components/organisms/progress/WeeklyProgressContainer";
 import UsersTable from "@/components/organisms/tables/UsersTable";
 import { useGetAllUsers } from "@/hooks/admin/useAdminUsers";
+import CustomModal from "@/components/organisms/modals/CustomModal";
+import { useModal } from "@/hooks/utility";
+import WeeklyUpdatesForm from "./WeeklyUpdatesForm";
+import { useGetWeeklyUpdates } from "@/hooks/admin/useAdminDashboard";
 
 const AdminDashboardPage = () => {
   const { userDetails } = useGlobalContext();
 
   const { allUsers, isLoading } = useGetAllUsers();
+  const { open, setOpen, openModal, closeModal } = useModal();
+
+  const { data, isFetching } = useGetWeeklyUpdates();
 
   return (
     <Wrapper>
@@ -77,7 +81,7 @@ const AdminDashboardPage = () => {
               value="12"
               textColor="#0072C7"
               title="No. of Teams"
-              height="70px"
+              height="100px"
             />
           </Grid>
           <Grid item xs={6} md={3}>
@@ -86,7 +90,7 @@ const AdminDashboardPage = () => {
               value="80"
               textColor="#5C0BC9"
               title="No. of Students"
-              height="70px"
+              height="100px"
             />
           </Grid>
           <Grid item xs={6} md={3}>
@@ -95,7 +99,7 @@ const AdminDashboardPage = () => {
               value="12"
               textColor="#E4B300"
               title="No. of Mentors"
-              height="70px"
+              height="100px"
             />
           </Grid>{" "}
           <Grid item xs={6} md={3}>
@@ -104,7 +108,7 @@ const AdminDashboardPage = () => {
               value="5"
               textColor="#02C08A"
               title="No. of Panelists"
-              height="70px"
+              height="100px"
             />
           </Grid>
         </Grid>
@@ -117,21 +121,20 @@ const AdminDashboardPage = () => {
           />
         </Box>
         <Grid container spacing={3}>
+          {typeof data === "object" &&
+            Array.isArray(data?.data) &&
+            data?.data?.map((item, index) => (
+              <Grid item xs={12} md={6} lg={4} key={index}>
+                <WeeklyUpdatesWrapper
+                  header={`Week${item?.update_week} - ${item?.update_title}`}
+                >
+                  {item?.update_description}
+                </WeeklyUpdatesWrapper>
+              </Grid>
+            ))}
+
           <Grid item xs={12} md={6} lg={4}>
-            <WeeklyUpdatesWrapper header="Week 1">
-              Welcome to Week 1 of the Challenge! <br /> Endeavor to put your
-              best foot forward this week and seize the days as they come.
-            </WeeklyUpdatesWrapper>
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            {" "}
-            <WeeklyUpdatesWrapper header="Week 2">
-              Welcome to Week 1 of the Challenge! <br /> Endeavor to put your
-              best foot forward this week and seize the days as they come.
-            </WeeklyUpdatesWrapper>
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <AddItemCard onClick={() => {}} height="150px">
+            <AddItemCard onClick={openModal} height="150px">
               Add Weekly Updates
             </AddItemCard>
           </Grid>
@@ -146,11 +149,20 @@ const AdminDashboardPage = () => {
           <UsersTable
             users={allUsers}
             loading={isLoading}
-            onDisableEnable={id => console.log("userId", id)}
-            onResetPassword={id => console.log("userId", id)}
+            onDisableEnable={id => {}}
+            onResetPassword={id => {}}
           />
         </Box>
       </PageFlexLayout>
+      <CustomModal
+        open={open}
+        setOpen={setOpen}
+        width="600px"
+        closeOnOverlayClick={false}
+        showCloseIcon={false}
+      >
+        <WeeklyUpdatesForm handleClose={closeModal} />
+      </CustomModal>
     </Wrapper>
   );
 };

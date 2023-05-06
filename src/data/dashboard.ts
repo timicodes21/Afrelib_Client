@@ -274,6 +274,24 @@ export const panelistsTableColumns: readonly Column[] = [
   { id: "badges", label: "BADGES", minWidth: 70, align: "left" },
 ];
 
+export const submissionTableColumns: readonly Column[] = [
+  { id: "week", label: "WEEK", minWidth: 70, align: "left" },
+  { id: "Title", label: "TITLE", minWidth: 100, align: "left" },
+  { id: "Attachment", label: "ATTACHMENT", minWidth: 100, align: "left" },
+  {
+    id: "Submission File",
+    label: "SUBMISSION FILE",
+    minWidth: 100,
+    align: "left",
+  },
+  {
+    id: "Comment",
+    label: "COMMENT",
+    minWidth: 120,
+    align: "left",
+  },
+];
+
 export const teamsTableColumns: readonly Column[] = [
   { id: "name", label: "NAME", minWidth: 70, align: "left" },
   {

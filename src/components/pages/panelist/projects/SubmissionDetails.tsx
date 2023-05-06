@@ -5,7 +5,7 @@ import {
 import AuthButton from "@/components/atoms/buttons/AuthButton";
 import NumberButton from "@/components/atoms/buttons/NumberButton";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
-import { queryClient, queryKeys } from "@/data/constants";
+import { IMAGE_BASE_URL, queryClient, queryKeys } from "@/data/constants";
 import { IGetSingleSubmissionResponse } from "@/types/apiResponses";
 import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
@@ -107,6 +107,46 @@ const SubmissionDetails: React.FC<IProps> = ({ submission, submissionId }) => {
               </Typography>
             </Box>
 
+            {submission &&
+              submission?.submission_url &&
+              submission?.submission_url.trim() && (
+                <Box
+                  className="d-flex items-center justify-between"
+                  sx={{
+                    background: "#F3F5F6",
+                    borderRadius: "4px",
+                    p: 2,
+                  }}
+                >
+                  <Typography
+                    className="font-14 font-400"
+                    sx={{ color: "secondary.main" }}
+                  >
+                    Submission File
+                  </Typography>
+                  <a
+                    href={`${IMAGE_BASE_URL}${submission?.submission_url}`}
+                    download
+                    target="_blank"
+                  >
+                    <Box className="d-flex items-center justify-end pointer">
+                      <Image
+                        alt="download"
+                        src="/assets/icons/download_blue_icon.svg"
+                        width={13}
+                        height={13}
+                      />
+                      <Typography
+                        className="font-12 font-400"
+                        sx={{ color: "#0275D8" }}
+                      >
+                        Download
+                      </Typography>
+                    </Box>
+                  </a>
+                </Box>
+              )}
+
             <Box sx={{ mt: 3 }} className="d-flex items-center">
               <Typography
                 className="font-24 font-600"
@@ -154,10 +194,12 @@ const SubmissionDetails: React.FC<IProps> = ({ submission, submissionId }) => {
                   style={{
                     width: "100%",
                     marginLeft: "10px",
-                    background: "red",
+                    background: "#FFF !important",
                   }}
                   value={comment}
                   onChange={e => setComment(e.target.value)}
+                  border
+                  background="#FFFFFF"
                 />
               </Box>
               <Box sx={{ alignSelf: "flex-end" }}>
@@ -167,6 +209,7 @@ const SubmissionDetails: React.FC<IProps> = ({ submission, submissionId }) => {
                   type="button"
                   notFullWidth
                   loading={commetLoading}
+                  disabled={comment.trim().length === 0}
                 >
                   Comment
                 </AuthButton>
@@ -303,7 +346,12 @@ const SubmissionDetails: React.FC<IProps> = ({ submission, submissionId }) => {
               Total Score : {totalScore}
             </Typography>
             <Box sx={{ mt: 4 }}>
-              <AuthButton type="button" onClick={handleScore} loading={loading}>
+              <AuthButton
+                type="button"
+                onClick={handleScore}
+                loading={loading}
+                disabled={accuracy === 0 || process === 0 || speed === 0}
+              >
                 Submit
               </AuthButton>
             </Box>

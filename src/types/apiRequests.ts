@@ -66,3 +66,9 @@ export interface ICreateGroupChatRequest {
   chatType: "group";
   userIds: string[] | number[];
 }
+
+export interface ICreateUpdateRequest {
+  week: number;
+  title: string;
+  body: string;
+}

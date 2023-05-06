@@ -39,11 +39,19 @@ export const ADMIN_LOGIN = "/admin/login";
 
 // Api Url's
 
+// Image base url
+export const IMAGE_BASE_URL =
+  "https://139-162-248-210.ip.linodeusercontent.com";
+
 // Admin
 export const ADMIN_LOGIN_API = "/admin/signin";
 
 // File
 export const UPLOAD_FILE = "/upload/:type";
+
+// Weekly updates api
+export const GET_WEEKLY_UPDATES = "/update";
+export const CREATE_WEEKLY_UPDATES = "/update";
 
 //Roles
 export const GET_ROLES_API = "/roles";
@@ -114,6 +122,7 @@ export const queryKeys = {
   getSingleSubmission: "getSingleSubmission",
   getTeamProjects: "getTeamProjects",
   getChats: "getChats",
+  getWeeklyUpdates: "getWeeklyUpdates",
 };
 
 //Chats liks

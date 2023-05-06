@@ -212,7 +212,7 @@ export interface IGetSingleCohortResponse {
   };
 }
 
-interface Datum {
+interface DatumProject {
   id: number;
   project_title: string;
   project_description: string;
@@ -225,7 +225,7 @@ interface Datum {
 
 export interface IGetAllProjectsResponse {
   current_page: number;
-  data: Datum[];
+  data: DatumProject[];
   first_page_url: string;
   from: number;
   last_page: number;
@@ -270,7 +270,7 @@ interface Team {
   projects: any[];
 }
 
-interface Submission {
+export interface Submission {
   id: number;
   project_id: number;
   submitter_id: number;
@@ -432,4 +432,44 @@ export interface IGetSingleSubmissionResponse {
   is_deleted: number;
   created_at: string;
   updated_at: string;
+}
+
+interface Link {
+  url?: string;
+  label: string;
+  active: boolean;
+}
+
+interface Update {
+  id: number;
+  update_week: number;
+  update_title: string;
+  update_description: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IGetWeeklyUpdatesResponse {
+  current_page: number;
+  data: Update[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url?: any;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
+export interface ICreateWeeklyUpdatesResponse {
+  update_week: number;
+  update_title: string;
+  update_description: string;
+  updated_at: string;
+  created_at: string;
+  id: number;
 }

@@ -31,8 +31,6 @@ const AdminProjectsPage = () => {
     }
   }, [option]);
 
-  console.log("all projects", data);
-
   return (
     <Wrapper>
       <PageHeader headerText="Projects" />

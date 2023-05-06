@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Box, LinearProgress, Typography } from "@mui/material";
 import { EvaluatedSubmission } from "@/types/apiResponses";
+import EmptyPage from "@/components/templates/EmptyPage";
 
 interface IProps {
   evaluatedSubmissions: EvaluatedSubmission[];
@@ -19,11 +20,11 @@ const AllSubmissions: React.FC<IProps> = ({
 
   const submissions = useMemo(
     () =>
-      activeTab === "new" ? evaluatedSubmissions : nonEvaluatedSubmissions,
+      activeTab === "evaluated"
+        ? evaluatedSubmissions
+        : nonEvaluatedSubmissions,
     [activeTab],
   );
-
-  console.log("submissions", submissions);
 
   return (
     <Box sx={{ mt: 2 }}>
@@ -73,38 +74,44 @@ const AllSubmissions: React.FC<IProps> = ({
             <LinearProgress sx={{ color: "#213F7D" }} />
           </Box>
         )}
-        {submissions.map((item, index) => (
-          <Box
-            sx={{ borderBottom: "1px solid #AAAAAA", py: 1, px: 2 }}
-            className="d-flex pointer"
-            onClick={() => onClick(item?.id)}
-          >
-            <Box sx={{ width: "33.3%" }}>
-              <Typography
-                className="font-14 font-400"
-                sx={{ color: "secondary.main" }}
-              >
-                {item?.submission_title}
-              </Typography>
+        {!isFetching &&
+          submissions.map((item, index) => (
+            <Box
+              sx={{ borderBottom: "1px solid #AAAAAA", py: 1, px: 2 }}
+              className="d-flex pointer"
+              onClick={() => onClick(item?.id)}
+            >
+              <Box sx={{ width: "33.3%" }}>
+                <Typography
+                  className="font-14 font-400"
+                  sx={{ color: "secondary.main" }}
+                >
+                  {item?.submission_title}
+                </Typography>
+              </Box>
+              <Box sx={{ width: "33.3%" }}>
+                <Typography
+                  className="font-14 font-400 text-center"
+                  sx={{ color: "secondary.main" }}
+                >
+                  {item?.created_at}
+                </Typography>
+              </Box>
+              <Box sx={{ width: "33.3%" }}>
+                <Typography
+                  className="font-14 font-400"
+                  sx={{ color: "secondary.main", textAlign: "right" }}
+                >
+                  {item?.submission_comment} comments
+                </Typography>
+              </Box>
             </Box>
-            <Box sx={{ width: "33.3%" }}>
-              <Typography
-                className="font-14 font-400 text-center"
-                sx={{ color: "secondary.main" }}
-              >
-                {item?.created_at}
-              </Typography>
-            </Box>
-            <Box sx={{ width: "33.3%" }}>
-              <Typography
-                className="font-14 font-400"
-                sx={{ color: "secondary.main", textAlign: "right" }}
-              >
-                {item?.submission_comment} comments
-              </Typography>
-            </Box>
-          </Box>
-        ))}
+          ))}
+        {!isFetching &&
+          Array.isArray(submissions) &&
+          submissions.length === 0 && (
+            <EmptyPage text={`You have no ${activeTab} submissions`} />
+          )}
       </Box>
     </Box>
   );

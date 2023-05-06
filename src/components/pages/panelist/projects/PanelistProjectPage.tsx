@@ -43,8 +43,6 @@ const PanelistProjectPage = () => {
       submissionId !== 0 && typeof allSubmissions === "object",
     );
 
-  console.log("single submission", singleSubmission);
-
   return (
     <Wrapper>
       <PageHeader headerText="Projects" />
@@ -84,7 +82,10 @@ const PanelistProjectPage = () => {
                 }}
               >
                 {[1, 2, 3, 4].map((item, index) => (
-                  <Box sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.08)" }}>
+                  <Box
+                    sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.08)" }}
+                    key={index}
+                  >
                     <Box
                       className="d-flex justify-between items-center"
                       sx={{ p: 1 }}

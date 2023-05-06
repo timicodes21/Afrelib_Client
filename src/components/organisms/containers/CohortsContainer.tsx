@@ -113,7 +113,7 @@ const CohortsContainer: React.FC<IProps> = ({
               value={teams.toString()}
               textColor="#0072C7"
               title="No. of Teams"
-              height="70px"
+              height="100px"
               onClick={viewTeams}
             />
           </Grid>
@@ -123,7 +123,7 @@ const CohortsContainer: React.FC<IProps> = ({
               value={students.toString()}
               textColor="#5C0BC9"
               title="No. of Students"
-              height="70px"
+              height="100px"
               onClick={viewStudents}
             />
           </Grid>
@@ -133,7 +133,7 @@ const CohortsContainer: React.FC<IProps> = ({
               value={mentors.toString()}
               textColor="#E4B300"
               title="No. of Mentors"
-              height="70px"
+              height="100px"
               onClick={viewMentors}
             />
           </Grid>{" "}
@@ -143,7 +143,7 @@ const CohortsContainer: React.FC<IProps> = ({
               value={panelists.toString()}
               textColor="#02C08A"
               title="No. of Panelists"
-              height="70px"
+              height="100px"
               onClick={viewPanelists}
             />
           </Grid>

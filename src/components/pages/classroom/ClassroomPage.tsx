@@ -7,7 +7,7 @@ import {
   CircularProgress,
   LinearProgress,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
 import WeeklyUpdatesWrapper from "@/components/molecules/wrappers/WeeklyUpdatesWrapper";
 import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";
@@ -21,13 +21,26 @@ import { useGlobalContext } from "@/contexts/GlobalContext";
 import ProjectContainer from "@/components/organisms/containers/ProjectContainer";
 import EmptyPage from "@/components/templates/EmptyPage";
 import SubmissionForm from "./SubmissionForm";
+import CustomModal from "@/components/organisms/modals/CustomModal";
+import { useModal } from "@/hooks/utility";
+import ProjectDetails from "./ProjectDetails";
+import { IGetTeamProjectsResponse } from "@/types/apiResponses";
 
 const ClassroomPage = () => {
   const {
     userDetails: { teamId },
   } = useGlobalContext();
-  const { data, isFetching, status } = useGetTeamProjects(teamId ?? 0);
-  const {} = useClassRoom();
+  const { data, isFetching, status } = useGetTeamProjects(
+    teamId ?? 0,
+    typeof teamId === "number" && teamId !== 0,
+  );
+
+  const { open, setOpen, openModal, closeModal } = useModal();
+
+  const [index, setIndex] = useState(0);
+
+  console.log("data", data);
+
   return (
     <Wrapper>
       <PageHeader headerText="Classroom" />
@@ -84,13 +97,17 @@ const ClassroomPage = () => {
                   <ProjectContainer
                     headerText={
                       typeof data === "object"
-                        ? data?.projects[0]?.project_title
+                        ? data?.projects[index]?.project_title
                         : ""
                     }
                     onClick={() => {}}
                     submissionText=""
                     totalSubmissions={7}
                     submissionsDone={2}
+                    onClickCard={() => {
+                      setIndex(index);
+                      openModal();
+                    }}
                   />
                 </Grid>
               ))}
@@ -107,6 +124,22 @@ const ClassroomPage = () => {
           )}
         </Box>
       </PageFlexLayout>
+      <CustomModal
+        open={open}
+        setOpen={setOpen}
+        width="1000px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <Box sx={{ p: 5 }}>
+          <ProjectDetails
+            project={
+              typeof data === "object" ? data : ({} as IGetTeamProjectsResponse)
+            }
+            index={index}
+          />
+        </Box>
+      </CustomModal>
     </Wrapper>
   );
 };

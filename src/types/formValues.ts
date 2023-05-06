@@ -55,3 +55,9 @@ export type CreateGroupChatFormValues = {
   members: string[] | number[];
   description?: string;
 };
+
+export type WeeklyUpdatesFormValues = {
+  week: string;
+  title: string;
+  body: string;
+};
