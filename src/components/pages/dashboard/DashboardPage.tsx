@@ -7,7 +7,7 @@ import Image from "next/image";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
 import ResourcesTable from "@/components/organisms/tables/ResourcesTable";
-import { messages, resources } from "@/data/dashboard";
+import { resources } from "@/data/dashboard";
 import MessagesPage from "./MessagesPage";
 import WeeklyUpdatesWrapper from "@/components/molecules/wrappers/WeeklyUpdatesWrapper";
 import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";

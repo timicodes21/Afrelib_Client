@@ -103,7 +103,6 @@ export const useAdminUsers = () => {
   const onSuccess = (data: ICreateUserResponse | string) => {
     queryClient.invalidateQueries([queryKeys.getAllUsers]);
     //close modal
-    console.log("close modal");
   };
 
   const onError = () => {

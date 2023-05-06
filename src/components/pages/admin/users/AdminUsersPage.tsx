@@ -49,8 +49,6 @@ const AdminUsersPage = () => {
     openModal: openAlertModal,
   } = useModal();
 
-  console.log("add user modal", open);
-
   return (
     <Wrapper>
       <PageHeader headerText="Users" />

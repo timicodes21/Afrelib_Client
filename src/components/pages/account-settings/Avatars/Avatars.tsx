@@ -19,7 +19,6 @@ const Avatars = ({ closeModal }: iProps) => {
   }>();
 
   const handleOnChange = (value: string) => {
-    //console.log(value);
     setType(value);
   };
 

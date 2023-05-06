@@ -11,10 +11,13 @@ import { ICreateSubmissionRequest } from "@/types/apiRequests";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 
 // get all projects in a team
-export const useGetTeamProjects = (teamId: number) => {
+export const useGetTeamProjects = (teamId: number, enabled: boolean) => {
   const { data, isFetching, status } = useQuery<
     IGetTeamProjectsResponse | string
-  >([queryKeys.getTeamProjects], () => getTeamProjects(teamId));
+  >([queryKeys.getTeamProjects], () => getTeamProjects(teamId), {
+    // this query would only run when enabled is true
+    enabled,
+  });
 
   return { data, isFetching, status };
 };
@@ -50,11 +53,8 @@ export const useClassRoom = () => {
       submission_comment: data?.submission_comment,
     };
 
-    console.log("form data", submissionData);
-
     const response = await createSubmission(submissionData, projectId);
 
-    console.log("response submission", response);
     setLoading(false);
   };
 

@@ -248,6 +248,12 @@ a {
   }
 }
 
+@media screen and (max-width: 900px) {
+  .react-responsive-modal-modal {
+    width: 750px !important;
+  }
+}
+
 @media screen and (max-width: 780px) {
   .react-responsive-modal-modal {
     width: 700px !important;
@@ -257,5 +263,17 @@ a {
 @media screen and (max-width: 450px) {
   .react-responsive-modal-modal {
     width: 350px !important;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .react-responsive-modal-modal {
+    width: 275px !important;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .react-responsive-modal-modal {
+    width: 250px !important;
   }
 }
