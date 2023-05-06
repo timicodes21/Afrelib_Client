@@ -10,6 +10,7 @@ interface IProps {
   onClick: () => void;
   borderRadius?: string;
   width?: string;
+  disabled?: boolean;
 }
 
 const AuthButton: React.FC<IProps> = ({
@@ -21,12 +22,13 @@ const AuthButton: React.FC<IProps> = ({
   onClick,
   borderRadius,
   width,
+  disabled,
 }) => {
   return (
     <Button
       sx={{
         borderRadius: borderRadius ?? "8px",
-        background: "info.main",
+        background: disabled ? "#A8D6EF" : "info.main",
         width: notFullWidth ? "inherit" : width ? width : "100%",
         color: "info.main",
         boxShadow: 0,
@@ -35,7 +37,7 @@ const AuthButton: React.FC<IProps> = ({
       className={`${size === "small" ? "font-12" : "font-16"} font-700`}
       size={size ? size : "large"}
       type={type}
-      onClick={onClick}
+      onClick={disabled ? () => {} : onClick}
     >
       {loading ? (
         <CircularProgress sx={{ color: "#FFF" }} size={25} />

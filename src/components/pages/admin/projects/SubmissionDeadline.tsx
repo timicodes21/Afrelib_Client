@@ -19,7 +19,6 @@ const SubmissionDeadline: React.FC<IProps> = ({ handleClose }) => {
   //   onChange(value);
   // };
 
-  console.log("calendar value", value);
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
       <HeaderAndCloseButton
