@@ -93,6 +93,12 @@ export const mentorDashboard = [
     activeIcon: "/assets/icons/dashboard_icon_active.svg",
   },
   {
+    name: "Projects",
+    link: PROJECTS,
+    icon: "/assets/icons/dashboard_icon.svg",
+    activeIcon: "/assets/icons/dashboard_icon_active.svg",
+  },
+  {
     name: "My Mentees",
     link: MENTEES,
     icon: "/assets/icons/classroom_icon.svg",
