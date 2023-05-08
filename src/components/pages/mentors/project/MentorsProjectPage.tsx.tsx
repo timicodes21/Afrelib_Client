@@ -17,7 +17,7 @@ const MentorsProjectPage = () => {
   const {
     userDetails: { userId },
   } = useGlobalContext();
-  const { open, setOpen, closeModal, openModal } = useModal();
+  const { open, setOpen, openModal } = useModal();
   const [teamId, setTeamId] = useState(0);
 
   const { data, isFetching, status } = useGetProjects();
