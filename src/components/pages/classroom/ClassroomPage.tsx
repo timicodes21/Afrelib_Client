@@ -9,8 +9,6 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
-import WeeklyUpdatesWrapper from "@/components/molecules/wrappers/WeeklyUpdatesWrapper";
-import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";
 import LightCard from "@/components/molecules/wrappers/LightCard";
 import Image from "next/image";
 import {
@@ -35,7 +33,7 @@ const ClassroomPage = () => {
     typeof teamId === "number" && teamId !== 0,
   );
 
-  const { open, setOpen, openModal, closeModal } = useModal();
+  const { open, setOpen, openModal } = useModal();
 
   const [index, setIndex] = useState(0);
 
@@ -93,7 +91,7 @@ const ClassroomPage = () => {
           <Grid container spacing={3}>
             {typeof data === "object" &&
               data?.projects.map((item, index) => (
-                <Grid item xs={12} sm={6} lg={4}>
+                <Grid item xs={12} sm={6} lg={4} key={index}>
                   <ProjectContainer
                     headerText={
                       typeof data === "object"

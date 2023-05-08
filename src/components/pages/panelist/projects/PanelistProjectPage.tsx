@@ -60,8 +60,8 @@ const PanelistProjectPage = () => {
                 solve a real-world problem? Presentation: How well does the
                 submission convey its ideas and message? Please use these
                 criteria to provide a fair and unbiased evaluation of each
-                submission. If you have any questions or concerns, please don't
-                hesitate to contact us.
+                submission. If you have any questions or concerns, please
+                don&apos;t hesitate to contact us.
               </EvaluationWrapper>
             </Grid>
 
