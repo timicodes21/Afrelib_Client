@@ -1,4 +1,5 @@
 import ProjectsPage from "@/components/pages/dashboard/ProjectsPage";
+import MentorsProjectPage from "@/components/pages/mentors/project/MentorsProjectPage.tsx";
 import PanelistProjectPage from "@/components/pages/panelist/projects/PanelistProjectPage";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import React, { useCallback } from "react";
@@ -15,7 +16,7 @@ const Projects = () => {
       case "Panelist":
         return <PanelistProjectPage />;
       case "Mentor":
-        return <ProjectsPage />;
+        return <MentorsProjectPage />;
       default:
         return <ProjectsPage />;
     }

@@ -14,7 +14,7 @@ import { useGlobalContext } from "@/contexts/GlobalContext";
 export const useGetTeamProjects = (teamId: number, enabled: boolean) => {
   const { data, isFetching, status } = useQuery<
     IGetTeamProjectsResponse | string
-  >([queryKeys.getTeamProjects], () => getTeamProjects(teamId), {
+  >([queryKeys.getTeamProjects, teamId], () => getTeamProjects(teamId), {
     // this query would only run when enabled is true
     enabled,
   });
