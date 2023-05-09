@@ -7,9 +7,12 @@ const useMessagesContext = () => useContext(MessagesContext);
 
 function MessagesProvider({ children }: PropsWithChildren) {
   const [chat, setChat] = useState<chatType | null>(null);
-  const [createGroupModal, setCreateGroupModal] = useState(false);
+  const [chatModal, setChatModal] = useState<
+    "create-group" | "show-members" | "add-members" | null
+  >(null);
 
   const selectChat = (chat: chatType) => {
+    console.log(chat);
     setChat(chat);
   };
 
@@ -17,16 +20,27 @@ function MessagesProvider({ children }: PropsWithChildren) {
     setChat(null);
   };
 
-  const openCreateGroupModal = () => {
-    setCreateGroupModal(true);
+  const openChatModal = (
+    open: "create-group" | "show-members" | "add-members",
+  ) => {
+    setChatModal(open);
   };
 
-  const closeCreateGroupModal = () => {
-    setCreateGroupModal(false);
+  const closeChatModal = () => {
+    setChatModal(null);
   };
 
   return (
-    <MessagesContext.Provider value={{ chat, selectChat, unselectChat }}>
+    <MessagesContext.Provider
+      value={{
+        chat,
+        selectChat,
+        unselectChat,
+        chatModal,
+        openChatModal,
+        closeChatModal,
+      }}
+    >
       {children}
     </MessagesContext.Provider>
   );

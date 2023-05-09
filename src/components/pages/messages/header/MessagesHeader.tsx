@@ -1,4 +1,4 @@
-import { Avatar, Box, IconButton, Typography } from "@mui/material";
+import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 import { useMessagesContext } from "@/contexts/MessagesContext";
@@ -6,7 +6,7 @@ import { useMessagesContext } from "@/contexts/MessagesContext";
 import styles from "./styles.module.css";
 
 const MessagesHeader = () => {
-  const { unselectChat } = useMessagesContext();
+  const { unselectChat, chat, openChatModal } = useMessagesContext();
 
   return (
     <Box
@@ -33,13 +33,18 @@ const MessagesHeader = () => {
         </IconButton>
 
         <Avatar className={styles.headerAvatar} />
-        <Typography className={styles.headerGroupName}>Team Group</Typography>
+        <Typography className={styles.headerGroupName}>
+          {chat?.chatName}
+        </Typography>
       </Box>
 
       <Box>
-        <Typography className={styles.headerMembersCount}>
+        <Button
+          className={styles.headerMembersCount}
+          onClick={() => openChatModal("show-members")}
+        >
           50 Members
-        </Typography>
+        </Button>
       </Box>
     </Box>
   );

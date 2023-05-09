@@ -127,6 +127,22 @@ export interface ICreateGroupChatResponse {
   [key: string]: any;
 }
 
+export interface IGetGroupChatResponse {
+  [key: string]: any;
+}
+
+export interface IGetChatMessagesResponse {
+  [key: string]: any;
+}
+
+export interface ISendChatMessageResponse {
+  [key: string]: any;
+}
+
+export interface IRemoveChatMemberResponse {
+  [key: string]: any;
+}
+
 export interface IGetCohortsResponse {
   id: number;
   cohort_id: string;

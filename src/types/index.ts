@@ -32,8 +32,11 @@ export interface IUserDetails {
   access_token: string | null;
   first_name: string | null;
   last_name: string | null;
+ // role: string | null;
+  id: number | string | null;
   role: RoleName | null;
   teamId?: number | null;
   cohortId?: string | null;
   userId: number | null;
+
 }
