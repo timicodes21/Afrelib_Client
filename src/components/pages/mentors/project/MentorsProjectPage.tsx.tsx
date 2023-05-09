@@ -17,7 +17,7 @@ const MentorsProjectPage = () => {
   const {
     userDetails: { userId },
   } = useGlobalContext();
-  const { open, setOpen, closeModal, openModal } = useModal();
+  const { open, setOpen, openModal } = useModal();
   const [teamId, setTeamId] = useState(0);
 
   const { data, isFetching, status } = useGetProjects();
@@ -36,7 +36,7 @@ const MentorsProjectPage = () => {
             data?.data
               ?.filter(item => item?.team?.mentor?.id === userId)
               .map((item, index) => (
-                <Grid item xs={12} md={6} sm={6} lg={3}>
+                <Grid item xs={12} md={6} sm={6} lg={3} key={index}>
                   <ProjectContainer
                     headerText={`Team ${item?.team?.team_name}`}
                     onClick={() => {}}

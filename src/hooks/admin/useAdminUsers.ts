@@ -89,14 +89,35 @@ export const useAdminUsers = () => {
     py: 1,
   };
 
-  const schema = z.object({
-    email: string().email("Please entera valid email"),
-    firstName: string(),
-    lastName: string(),
-    school: string().optional(),
-    userType: string(),
-    dob: string(),
-  });
+  const schema = z
+    .object({
+      email: string().email("Please enter valid email"),
+      firstName: string(),
+      lastName: string(),
+      school: string().optional(),
+      userType: string(),
+      dob: string().optional(),
+    })
+    .refine(
+      // If user is a student dob is compulsory
+      data => {
+        if (data?.userType !== "6y8hXnL5xl1l") {
+          // return true for other users
+          return true;
+        } else {
+          // check if student user included date of birth
+          if (data?.dob?.trim()) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      },
+      {
+        path: ["dob"],
+        message: "Date of Birth is required",
+      },
+    );
 
   const { mutate, isLoading } = useCreateUser();
 
@@ -111,13 +132,14 @@ export const useAdminUsers = () => {
   };
 
   const onSubmit: SubmitHandler<AddUserFormValues> = data => {
+    console.log("data", data);
     const formData: ICreateUserRequest = {
       first_name: data?.firstName,
       last_name: data?.lastName,
       email: data?.email,
       school_name: data?.school,
       role_id: data?.userType,
-      date_of_birth: data?.dob,
+      date_of_birth: data?.dob ?? "",
     };
 
     mutate(formData, { onSuccess, onError });

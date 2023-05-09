@@ -27,6 +27,7 @@ import {
 } from "@/types/apiRequests";
 import { queryClient, queryKeys } from "@/data/constants";
 import { getSingleTeam } from "@/api/team";
+import { addCohortToChat } from "@/api/chatsTeamsAndCohorts";
 
 const useCreateCohort = () => {
   return useMutation(createCohort);
@@ -122,7 +123,8 @@ export const useAdminCohort = () => {
   // Create cohort submit function
   const { mutate, isLoading } = useCreateCohort();
 
-  const onSuccess = (data: ICreateCohortResponse | string) => {
+  const onSuccess = async (data: ICreateCohortResponse) => {
+    await addCohortToChat(data?.cohort_id);
     queryClient.invalidateQueries([queryKeys.getCohorts]);
   };
 

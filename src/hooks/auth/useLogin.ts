@@ -50,6 +50,7 @@ export const useLogin = () => {
       access_token: data?.access_token,
       role: data?.UserDetails?.role_name,
       teamId: data?.UserDetails?.team?.id,
+      cohortId: data?.UserDetails?.cohort?.cohort_id,
       userId: data?.UserDetails?.id,
     };
 

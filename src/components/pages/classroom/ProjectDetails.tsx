@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, LinearProgress, Typography } from "@mui/material";
-import { IGetTeamProjectsResponse } from "@/types/apiResponses";
+import {
+  IGetSingleSubmissionResponse,
+  IGetTeamProjectsResponse,
+} from "@/types/apiResponses";
 import SubmissionTable from "@/components/organisms/tables/SubmissionTable";
+import CustomModal from "@/components/organisms/modals/CustomModal";
+import { useModal } from "@/hooks/utility";
+import SubmissionDetails from "../panelist/projects/SubmissionDetails";
+import { useGetSingleSubmissions } from "@/hooks/submissions/useSubmissions";
+import { queryClient, queryKeys } from "@/data/constants";
 
 interface IProps {
   project: IGetTeamProjectsResponse;
@@ -10,6 +18,12 @@ interface IProps {
 }
 
 const ProjectDetails: React.FC<IProps> = ({ project, index, isFetching }) => {
+  const { open, setOpen, openModal, closeModal } = useModal();
+  const [submissionId, setSubmissionId] = useState(0);
+
+  const { data: singleSubmission, isFetching: isFetchingSubmission } =
+    useGetSingleSubmissions(submissionId, submissionId !== 0);
+
   return (
     <Box>
       {isFetching && (
@@ -71,10 +85,35 @@ const ProjectDetails: React.FC<IProps> = ({ project, index, isFetching }) => {
             </Typography>
             <SubmissionTable
               submission={project?.projects[index]?.submissions}
+              onClickRow={id => {
+                setSubmissionId(id);
+                queryClient.invalidateQueries([
+                  queryKeys.getSingleSubmission,
+                  id,
+                ]);
+                openModal();
+              }}
             />
           </Box>
         </>
       )}
+      <CustomModal
+        open={open}
+        setOpen={setOpen}
+        width="1000px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <SubmissionDetails
+          submission={
+            typeof singleSubmission === "object"
+              ? singleSubmission
+              : ({} as IGetSingleSubmissionResponse)
+          }
+          notPanelist
+          submissionId={submissionId}
+        />
+      </CustomModal>
     </Box>
   );
 };

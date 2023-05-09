@@ -72,3 +72,15 @@ export interface ICreateUpdateRequest {
   title: string;
   body: string;
 }
+
+export interface ICreateTeamGroupChatRequest {
+  teamId: number;
+  participants: Array<string>;
+}
+
+export interface ICreateProjectRequest {
+  cohort_id: string;
+  team_id: number;
+  project_title: string;
+  project_description: string;
+}
