@@ -9,7 +9,7 @@ export type AddUserFormValues = {
   lastName: string;
   school: string;
   userType: string;
-  dob: string;
+  dob?: string;
 };
 
 export type AddCohortFormValues = {
@@ -43,8 +43,26 @@ export type AssignPanelistsFormValues = {
   panelist_ids: number[];
 };
 
+export type CreateSubmissionFormValues = {
+  submission_title: string;
+  submitted_file: string;
+  submitted_url: string;
+  week_number: string;
+  submission_comment: string;
+};
 export type CreateGroupChatFormValues = {
   name: string;
   members: string[] | number[];
   description?: string;
+};
+
+export type WeeklyUpdatesFormValues = {
+  week: string;
+  title: string;
+  body: string;
+};
+
+export type AddProjectFormValues = {
+  project_title: string;
+  project_description: string;
 };

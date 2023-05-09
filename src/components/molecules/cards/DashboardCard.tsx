@@ -32,7 +32,7 @@ const DashboardCard: React.FC<IProps> = ({
         borderRadius: "8px",
         background,
         p: 2,
-        height: height ?? "120px",
+        height: height ?? "150px",
         cursor: "pointer",
       }}
       onClick={onClick ? onClick : () => {}}

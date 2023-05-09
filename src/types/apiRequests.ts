@@ -43,7 +43,23 @@ export interface IUpdateCohorRequest {
   cohort_name: string;
   cohort_description: string;
 }
+export interface ICreateSubmissionRequest {
+  project_id: number;
+  submitted_by: number;
+  submission_title: string;
+  submitted_file: string;
+  submitted_url: string;
+  week_number: number;
+  submission_comment: string;
+}
 
+export interface IScoreSubmissionRequest {
+  score: number;
+}
+
+export interface ICommentSubmissionRequest {
+  comment: string;
+}
 export interface ICreateGroupChatRequest {
   chatName: string;
   chatDescription: string;
@@ -63,4 +79,22 @@ export interface ISendMessageRequest {
 export interface IRemoveChatMemberRequest {
   userId: string | number;
   chatId: string | number;
+}
+
+export interface ICreateUpdateRequest {
+  week: number;
+  title: string;
+  body: string;
+}
+
+export interface ICreateTeamGroupChatRequest {
+  teamId: number;
+  participants: Array<string>;
+}
+
+export interface ICreateProjectRequest {
+  cohort_id: string;
+  team_id: number;
+  project_title: string;
+  project_description: string;
 }

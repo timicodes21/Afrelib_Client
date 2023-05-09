@@ -8,12 +8,17 @@ import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { useCallback } from "react";
 import SubmissionDeadline from "./SubmissionDeadline";
-import { useAdminProjects } from "@/hooks/admin/useAdminProjects";
+import {
+  useAdminProjects,
+  useGetProjects,
+} from "@/hooks/admin/useAdminProjects";
 import EvaluationCriteria from "./EvaluationCriteria";
 
 const AdminProjectsPage = () => {
   const { open, setOpen, closeModal, openModal } = useModal();
   const { option, setOption } = useAdminProjects();
+
+  const { data, isFetching, status } = useGetProjects();
 
   const renderPage = useCallback(() => {
     switch (option) {
@@ -25,6 +30,7 @@ const AdminProjectsPage = () => {
         return <></>;
     }
   }, [option]);
+
   return (
     <Wrapper>
       <PageHeader headerText="Projects" />
@@ -75,19 +81,18 @@ const AdminProjectsPage = () => {
       </Box>
       <Box sx={{ mt: { xs: 2, md: 3 } }}>
         <Grid container spacing={3}>
-          {[1, 2, 3, 4, 5, 5, 6, 7, , 8, 9, 9, 7, , 6, 5, 5, 4].map(
-            (item, index) => (
+          {typeof data === "object" &&
+            data?.data?.map((item, index) => (
               <Grid item xs={12} md={6} lg={3} key={index}>
                 <ProjectContainer
-                  headerText="Team 01"
+                  headerText={`Team ${item?.team?.team_name}`}
                   onClick={() => {}}
                   submissionText=""
                   totalSubmissions={7}
                   submissionsDone={2}
                 />
               </Grid>
-            ),
-          )}
+            ))}
         </Grid>
       </Box>
       <CustomModal

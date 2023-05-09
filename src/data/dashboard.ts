@@ -10,11 +10,13 @@ import {
   ADMIN_USER,
   CLASSROOM,
   DASHBOARD,
+  MENTEES,
   MESSAGES,
+  PROJECTS,
   RESOURCES,
   SUPPORT,
 } from "./constants";
-import { IUSer } from "@/types";
+import { IUSer, RoleName } from "@/types";
 
 export interface ILink {
   name: string;
@@ -23,7 +25,7 @@ export interface ILink {
   activeIcon: string;
 }
 
-export const dashboardLinks: ILink[] = [
+export const studentDashboard = [
   {
     name: "Dashboard",
     link: DASHBOARD,
@@ -55,6 +57,85 @@ export const dashboardLinks: ILink[] = [
     activeIcon: "/assets/icons/account_icon_active.svg",
   },
 ];
+
+export const panelistDashboard = [
+  {
+    name: "Dashboard",
+    link: DASHBOARD,
+    icon: "/assets/icons/dashboard_icon.svg",
+    activeIcon: "/assets/icons/dashboard_icon_active.svg",
+  },
+  {
+    name: "Projects",
+    link: PROJECTS,
+    icon: "/assets/icons/projects_icon.svg",
+    activeIcon: "/assets/icons/projects_icon_active.svg",
+  },
+  {
+    name: "Messages",
+    link: MESSAGES,
+    icon: "/assets/icons/messages_icon.svg",
+    activeIcon: "/assets/icons/messages_icon_active.svg",
+  },
+  {
+    name: "Account & Settings",
+    link: ACCOUNTS_SETTINGS,
+    icon: "/assets/icons/account_icon.svg",
+    activeIcon: "/assets/icons/account_icon_active.svg",
+  },
+];
+
+export const mentorDashboard = [
+  {
+    name: "Dashboard",
+    link: DASHBOARD,
+    icon: "/assets/icons/dashboard_icon.svg",
+    activeIcon: "/assets/icons/dashboard_icon_active.svg",
+  },
+  {
+    name: "Projects",
+    link: PROJECTS,
+    icon: "/assets/icons/dashboard_icon.svg",
+    activeIcon: "/assets/icons/dashboard_icon_active.svg",
+  },
+  {
+    name: "My Mentees",
+    link: MENTEES,
+    icon: "/assets/icons/classroom_icon.svg",
+    activeIcon: "/assets/icons/classroom_icon_active.svg",
+  },
+  {
+    name: "Messages",
+    link: MESSAGES,
+    icon: "/assets/icons/messages_icon.svg",
+    activeIcon: "/assets/icons/messages_icon_active.svg",
+  },
+  {
+    name: "Resources",
+    link: RESOURCES,
+    icon: "/assets/icons/resources_icon.svg",
+    activeIcon: "/assets/icons/resources_icon_active.svg",
+  },
+  {
+    name: "Account & Settings",
+    link: ACCOUNTS_SETTINGS,
+    icon: "/assets/icons/account_icon.svg",
+    activeIcon: "/assets/icons/account_icon_active.svg",
+  },
+];
+
+export const dashboardLinks = (role: RoleName): ILink[] => {
+  switch (role) {
+    case "Student":
+      return studentDashboard;
+    case "Panelist":
+      return panelistDashboard;
+    case "Mentor":
+      return mentorDashboard;
+    default:
+      return studentDashboard;
+  }
+};
 
 export const adminDashboardLinks: ILink[] = [
   {
@@ -197,6 +278,24 @@ export const panelistsTableColumns: readonly Column[] = [
   { id: "name", label: "NAME", minWidth: 100, align: "left" },
   { id: "dob", label: "DATE OF BIRTH", minWidth: 70, align: "left" },
   { id: "badges", label: "BADGES", minWidth: 70, align: "left" },
+];
+
+export const submissionTableColumns: readonly Column[] = [
+  { id: "week", label: "WEEK", minWidth: 70, align: "left" },
+  { id: "Title", label: "TITLE", minWidth: 100, align: "left" },
+  { id: "Attachment", label: "ATTACHMENT", minWidth: 100, align: "left" },
+  {
+    id: "Submission File",
+    label: "SUBMISSION FILE",
+    minWidth: 100,
+    align: "left",
+  },
+  {
+    id: "Comment",
+    label: "COMMENT",
+    minWidth: 120,
+    align: "left",
+  },
 ];
 
 export const teamsTableColumns: readonly Column[] = [

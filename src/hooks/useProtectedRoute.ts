@@ -15,6 +15,8 @@ export const useProtectedRoute = () => {
           last_name: null,
           access_token: null,
           role: null,
+          teamId: null,
+          cohortId: null,
           id: null,
         }),
     );

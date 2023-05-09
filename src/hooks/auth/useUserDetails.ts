@@ -9,6 +9,9 @@ export const useUserDetails = () => {
     last_name: "",
     role: "",
     id: 0,
+    userId: 0,
+    teamId: 0,
+    cohortId: "",
   });
 
   let user: IUserDetails;
@@ -22,6 +25,9 @@ export const useUserDetails = () => {
           access_token: null,
           role: null,
           id: null,
+          userId: null,
+          teamId: null,
+          cohortId: null,
         }),
     );
 
@@ -35,6 +41,9 @@ export const useUserDetails = () => {
             access_token: null,
             role: null,
             id: null,
+            userId: null,
+            teamId: null,
+            cohortId: null,
           },
     );
   }, []);
