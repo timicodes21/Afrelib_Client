@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Box, LinearProgress, Typography } from "@mui/material";
 import { EvaluatedSubmission } from "@/types/apiResponses";
 import EmptyPage from "@/components/templates/EmptyPage";
+import moment from "moment";
 
 interface IProps {
   evaluatedSubmissions: EvaluatedSubmission[];
@@ -94,7 +95,7 @@ const AllSubmissions: React.FC<IProps> = ({
                   className="font-14 font-400 text-center"
                   sx={{ color: "secondary.main" }}
                 >
-                  {item?.created_at}
+                  {moment(item?.created_at).format("DD-MMM-YYYY")}
                 </Typography>
               </Box>
               <Box sx={{ width: "33.3%" }}>

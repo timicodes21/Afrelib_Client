@@ -10,6 +10,7 @@ export const useUserDetails = () => {
     role: "",
     userId: 0,
     teamId: 0,
+    cohortId: "",
   });
 
   let user: IUserDetails;
@@ -24,6 +25,7 @@ export const useUserDetails = () => {
           role: null,
           userId: null,
           teamId: null,
+          cohortId: null,
         }),
     );
 
@@ -38,6 +40,7 @@ export const useUserDetails = () => {
             role: null,
             userId: null,
             teamId: null,
+            cohortId: null,
           },
     );
   }, []);

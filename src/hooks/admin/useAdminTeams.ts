@@ -19,6 +19,7 @@ import {
   updateTeamMentor,
 } from "@/api/team";
 import { ICreateTeamRequest, IUpdateMentorRequest } from "@/types/apiRequests";
+import { addTeamGroupChat } from "@/api/chatsTeamsAndCohorts";
 
 // const useUpdateTeamMentor = () => {
 //   return useMutation(updateTeamMentor);
@@ -122,6 +123,11 @@ export const useAdminTeams = () => {
     const response = await createTeam(formData);
 
     if (response?.teamId) {
+      const studentsStringId = data?.students?.map(id => id.toString());
+      await addTeamGroupChat({
+        teamId: response?.teamId,
+        participants: [...studentsStringId, data?.mentor.toString()],
+      });
       onSuccess(response);
     } else {
       onError();

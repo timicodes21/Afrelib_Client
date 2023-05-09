@@ -43,6 +43,9 @@ interface UserDetails {
   team: {
     id: number;
   };
+  cohort: {
+    cohort_id: string;
+  };
 }
 
 export interface IUserLoginResponse {
@@ -256,6 +259,14 @@ export interface IGetCohortProjectResponse {
   created_at: string;
   updated_at: string;
   teams: Team[];
+}
+
+export interface ICreateProjectResponse {
+  project_title: string;
+  project_description: string;
+  updated_at: string;
+  created_at: string;
+  id: number;
 }
 
 interface Team {

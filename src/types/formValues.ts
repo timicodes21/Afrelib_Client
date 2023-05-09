@@ -9,7 +9,7 @@ export type AddUserFormValues = {
   lastName: string;
   school: string;
   userType: string;
-  dob: string;
+  dob?: string;
 };
 
 export type AddCohortFormValues = {
@@ -60,4 +60,9 @@ export type WeeklyUpdatesFormValues = {
   week: string;
   title: string;
   body: string;
+};
+
+export type AddProjectFormValues = {
+  project_title: string;
+  project_description: string;
 };
