@@ -10,9 +10,13 @@ export const useGetSingleSubmissions = (
 ) => {
   const { data, isFetching, status } = useQuery<
     IGetSingleSubmissionResponse | string
-  >([queryKeys.getSingleSubmission], () => getSingleSubmission(submissionId), {
-    enabled,
-  });
+  >(
+    [queryKeys.getSingleSubmission, submissionId],
+    () => getSingleSubmission(submissionId),
+    {
+      enabled,
+    },
+  );
 
   return { data, isFetching, status };
 };

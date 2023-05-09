@@ -18,9 +18,14 @@ import { IMAGE_BASE_URL } from "@/data/constants";
 interface IProps {
   submission: Submission[];
   loading?: boolean;
+  onClickRow: (submissionId: number) => void;
 }
 
-const SubmissionTable: React.FC<IProps> = ({ submission, loading }) => {
+const SubmissionTable: React.FC<IProps> = ({
+  submission,
+  loading,
+  onClickRow,
+}) => {
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage } =
     useTable();
 
@@ -79,7 +84,13 @@ const SubmissionTable: React.FC<IProps> = ({ submission, loading }) => {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((item, index) => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={index}
+                      onClick={() => onClickRow(item?.id)}
+                    >
                       <TableCell align="left">
                         <Typography
                           className="font-12 font-700"

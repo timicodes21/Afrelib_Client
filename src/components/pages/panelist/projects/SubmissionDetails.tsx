@@ -15,9 +15,14 @@ import React, { useMemo, useState } from "react";
 interface IProps {
   submission: IGetSingleSubmissionResponse;
   submissionId: number;
+  notPanelist?: boolean;
 }
 
-const SubmissionDetails: React.FC<IProps> = ({ submission, submissionId }) => {
+const SubmissionDetails: React.FC<IProps> = ({
+  submission,
+  submissionId,
+  notPanelist,
+}) => {
   const [accuracy, setAccuracy] = useState(0);
   const [process, setProcess] = useState(0);
   const [speed, setSpeed] = useState(0);
@@ -371,19 +376,21 @@ const SubmissionDetails: React.FC<IProps> = ({ submission, submissionId }) => {
               </>
             ) : (
               <>
-                <Typography
-                  className="font-24 font-600 text-center"
-                  sx={{ color: "#172B4D", mt: 3 }}
-                >
-                  You have evaluated this project
-                </Typography>
+                {!notPanelist && (
+                  <Typography
+                    className="font-24 font-600 text-center"
+                    sx={{ color: "#172B4D", mt: 3 }}
+                  >
+                    You have evaluated this project
+                  </Typography>
+                )}
                 <Typography
                   sx={{ color: "secondary.main", mt: 4 }}
                   className="font-20 font-400"
                 >
                   Total Score :
                   {
-                    submission.panelist_feedback.filter(
+                    submission.panelist_feedback?.filter(
                       item => item?.panelist_id === userId,
                     )[0]?.score
                   }
