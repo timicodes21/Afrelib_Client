@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const SubmissionDeadline: React.FC<IProps> = ({ handleClose }) => {
-  const [value, onChange] = useState(new Date());
+  // const [value, onChange] = useState(new Date());
 
   // const handleChange: (
   //   value: Value,
@@ -29,9 +29,9 @@ const SubmissionDeadline: React.FC<IProps> = ({ handleClose }) => {
         Choose a date for the next submission{" "}
       </Typography>
 
-      <Box className="d-flex justify-center" sx={{ my: 2 }}>
+      {/* <Box className="d-flex justify-center" sx={{ my: 2 }}>
         <Calendar value={value} />
-      </Box>
+      </Box> */}
 
       <Box sx={{ mt: 2 }}>
         <Typography

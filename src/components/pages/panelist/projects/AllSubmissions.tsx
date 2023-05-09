@@ -81,6 +81,7 @@ const AllSubmissions: React.FC<IProps> = ({
               sx={{ borderBottom: "1px solid #AAAAAA", py: 1, px: 2 }}
               className="d-flex pointer"
               onClick={() => onClick(item?.id)}
+              key={index}
             >
               <Box sx={{ width: "33.3%" }}>
                 <Typography

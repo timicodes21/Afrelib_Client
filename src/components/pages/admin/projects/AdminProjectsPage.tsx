@@ -83,7 +83,7 @@ const AdminProjectsPage = () => {
         <Grid container spacing={3}>
           {typeof data === "object" &&
             data?.data?.map((item, index) => (
-              <Grid item xs={12} md={6} lg={3}>
+              <Grid item xs={12} md={6} lg={3} key={index}>
                 <ProjectContainer
                   headerText={`Team ${item?.team?.team_name}`}
                   onClick={() => {}}
