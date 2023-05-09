@@ -34,5 +34,6 @@ export interface IUserDetails {
   last_name: string | null;
   role: RoleName | null;
   teamId?: number | null;
+  cohortId?: string | null;
   userId: number | null;
 }

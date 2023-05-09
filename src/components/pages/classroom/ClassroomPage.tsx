@@ -23,6 +23,8 @@ import CustomModal from "@/components/organisms/modals/CustomModal";
 import { useModal } from "@/hooks/utility";
 import ProjectDetails from "./ProjectDetails";
 import { IGetTeamProjectsResponse } from "@/types/apiResponses";
+import TransparentBlueButton from "@/components/atoms/buttons/TransparentBlueButton";
+import AddProject from "./AddProject";
 
 const ClassroomPage = () => {
   const {
@@ -33,11 +35,12 @@ const ClassroomPage = () => {
     typeof teamId === "number" && teamId !== 0,
   );
 
-  const { open, setOpen, openModal } = useModal();
+  const { open, setOpen, openModal, closeModal } = useModal();
 
   const [index, setIndex] = useState(0);
 
   console.log("data", data);
+  const { option, setOption } = useClassRoom();
 
   return (
     <Wrapper>
@@ -53,7 +56,7 @@ const ClassroomPage = () => {
           </Grid>
         }
       >
-        <Box>
+        <Box className="d-flex justify-between">
           <LightCard width="184px">
             {status === "loading" ? (
               <Box className="text-center">
@@ -86,6 +89,20 @@ const ClassroomPage = () => {
               </Box>
             )}
           </LightCard>
+          {!isFetching &&
+            typeof data === "object" &&
+            Array.isArray(data.projects) &&
+            data?.projects?.length === 0 && (
+              <TransparentBlueButton
+                type="button"
+                onClick={() => {
+                  setOption("addProject");
+                  openModal();
+                }}
+              >
+                Create Project
+              </TransparentBlueButton>
+            )}
         </Box>
         <Box sx={{ mt: 3 }}>
           <Grid container spacing={3}>
@@ -104,6 +121,7 @@ const ClassroomPage = () => {
                     submissionsDone={2}
                     onClickCard={() => {
                       setIndex(index);
+                      setOption("projectDetails");
                       openModal();
                     }}
                   />
@@ -111,9 +129,12 @@ const ClassroomPage = () => {
               ))}
           </Grid>
 
-          {!isFetching && Array.isArray(data) && data.length === 0 && (
-            <EmptyPage text="Team Projects will appear here.." />
-          )}
+          {!isFetching &&
+            typeof data === "object" &&
+            Array.isArray(data.projects) &&
+            data?.projects?.length === 0 && (
+              <EmptyPage text="Team Projects will appear here.." />
+            )}
 
           {isFetching && (
             <Box sx={{ width: "100%", mt: 2 }}>
@@ -130,12 +151,18 @@ const ClassroomPage = () => {
         showCloseIcon
       >
         <Box sx={{ p: 5 }}>
-          <ProjectDetails
-            project={
-              typeof data === "object" ? data : ({} as IGetTeamProjectsResponse)
-            }
-            index={index}
-          />
+          {option === "projectDetails" ? (
+            <ProjectDetails
+              project={
+                typeof data === "object"
+                  ? data
+                  : ({} as IGetTeamProjectsResponse)
+              }
+              index={index}
+            />
+          ) : (
+            <AddProject handleClose={closeModal} />
+          )}
         </Box>
       </CustomModal>
     </Wrapper>

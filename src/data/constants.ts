@@ -90,6 +90,7 @@ export const UPDATE_TEAM_MENTOR = (teamId: number) => `/team/${teamId}/mentor`;
 
 // projects Api Routes
 export const GET_ALL_PROJECTS = "/project";
+export const CREATE_TEAM_PROJECT = "/project/create";
 export const GET_COHORT_PROJECT = (cohortId: string) =>
   `/project/cohort/${cohortId}`;
 export const GET_PROJECTS_UNDER_PANELISTS = "/project/panelist";
@@ -106,6 +107,11 @@ export const PANELIST_SCORE_SUBMISSION = (submissionId: number) =>
   `/project/submission/score/${submissionId}`;
 export const PANELIST_COMMENT_SUBMISSION = (submissionId: number) =>
   `/project/submission/comment/${submissionId}`;
+
+// Chats teams cohort api routes
+export const ADD_TEAM_MEMBERS_GROUPCHAT = "/group-chat/team";
+export const ADD_COHORT_GROUPCHAT = (cohortId: string) =>
+  `/chat/cohort/${cohortId}/add`;
 
 // Query keys for React Query
 export const queryKeys = {

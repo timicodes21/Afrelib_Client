@@ -61,3 +61,8 @@ export type WeeklyUpdatesFormValues = {
   title: string;
   body: string;
 };
+
+export type AddProjectFormValues = {
+  project_title: string;
+  project_description: string;
+};

@@ -1,11 +1,14 @@
 import {
+  CREATE_TEAM_PROJECT,
   GET_ALL_PROJECTS,
   GET_COHORT_PROJECT,
   GET_PROJECTS_UNDER_PANELISTS,
   GET_TEAM_PROJECTS,
 } from "@/data/constants";
 import { coreHttpClient } from "@/service/httpClients";
+import { ICreateProjectRequest } from "@/types/apiRequests";
 import {
+  ICreateProjectResponse,
   IGetAllProjectsResponse,
   IGetCohortProjectResponse,
   IGetProjectsUnderPanelistsResponse,
@@ -22,6 +25,37 @@ export const getAllProjects: () => Promise<
     const response: Awaited<
       IStatusWithData<IResponseMessageWithData<IGetAllProjectsResponse>>
     > = await coreHttpClient(GET_ALL_PROJECTS);
+
+    const {
+      status,
+      data: { message, responseData },
+    } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(message);
+        return responseData;
+      } else {
+        toast.error(message);
+        return message;
+      }
+    else {
+      return "An error occured";
+    }
+  } catch (err: any) {
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const createTeamProject: (
+  body: ICreateProjectRequest,
+) => Promise<ICreateProjectResponse | string> = async body => {
+  try {
+    const response: Awaited<
+      IStatusWithData<IResponseMessageWithData<ICreateProjectResponse>>
+    > = await coreHttpClient.post(CREATE_TEAM_PROJECT, body);
 
     const {
       status,
