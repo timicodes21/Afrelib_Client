@@ -17,7 +17,6 @@ const LinearProgressBar: React.FC<IProps> = ({
   const activePercentage = (active / total) * 100;
   const inActivePercentage = 100 - activePercentage;
 
-  console.log("active", "inactive", activePercentage, inActivePercentage);
   return (
     <Box sx={{ display: "flex", height: "4px", width: "100%" }}>
       <Box

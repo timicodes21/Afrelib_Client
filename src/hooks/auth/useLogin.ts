@@ -14,6 +14,7 @@ import { IAdminLoginRequest, IUserLoginRequest } from "@/types/apiRequests";
 import { IAdminLoginResponse, IUserLoginResponse } from "@/types/apiResponses";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { loginUser } from "@/api/users";
+import { IUserDetails } from "@/types";
 
 const useAdminLogin = () => {
   return useMutation(adminLogin);
@@ -43,12 +44,16 @@ export const useLogin = () => {
       router.push(DASHBOARD);
     }
 
-    const userDetails = {
+    const userDetails: IUserDetails = {
       first_name: data?.UserDetails?.first_name,
       last_name: data?.UserDetails?.last_name,
       access_token: data?.access_token,
       role: data?.UserDetails?.role_name,
       id: data?.UserDetails?.id,
+      teamId: data?.UserDetails?.team?.id,
+      cohortId: data?.UserDetails?.cohort?.cohort_id,
+      userId: data?.UserDetails?.id,
+
     };
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userDetails));
@@ -62,12 +67,14 @@ export const useLogin = () => {
       router.push(ADMIN_DASHBOARD);
     }
 
-    const userDetails = {
+    const userDetails: IUserDetails = {
       first_name: data?.adminDetails?.first_name,
       last_name: data?.adminDetails?.last_name,
       access_token: data?.access_token,
       role: "admin",
       id: data?.adminDetails?.id,
+      userId: data?.adminDetails?.id,
+
     };
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userDetails));

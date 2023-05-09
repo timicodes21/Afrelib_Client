@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { ILink } from "@/data/dashboard";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";

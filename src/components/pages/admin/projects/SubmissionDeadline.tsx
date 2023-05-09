@@ -1,8 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import HeaderAndCloseButton from "@/components/molecules/headers/HeaderAndCloseButton";
 import AuthButton from "@/components/atoms/buttons/AuthButton";
 import Calendar from "react-calendar";
+import { Value } from "react-calendar/dist/cjs/shared/types";
 
 interface IProps {
   handleClose: () => void;
@@ -11,7 +12,13 @@ interface IProps {
 const SubmissionDeadline: React.FC<IProps> = ({ handleClose }) => {
   const [value, onChange] = useState(new Date());
 
-  console.log("calendar value", value);
+  // const handleChange: (
+  //   value: Value,
+  //   event: MouseEvent<HTMLButtonElement, MouseEvent>,
+  // ) => void = () => {
+  //   onChange(value);
+  // };
+
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
       <HeaderAndCloseButton
@@ -23,7 +30,7 @@ const SubmissionDeadline: React.FC<IProps> = ({ handleClose }) => {
       </Typography>
 
       <Box className="d-flex justify-center" sx={{ my: 2 }}>
-        <Calendar onChange={onChange} value={value} />
+        <Calendar value={value} />
       </Box>
 
       <Box sx={{ mt: 2 }}>

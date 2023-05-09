@@ -1,0 +1,13 @@
+.evaluationCiriteriaContainer {
+  background: linear-gradient(
+      81.62deg,
+      rgba(49, 56, 96, 0.5) 2.25%,
+      rgba(21, 25, 40, 0.5) 79.87%
+    ),
+    url("../../public/assets/images/weekly_updates_bg.svg");
+  border-radius: 15px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 12px 20px;
+}

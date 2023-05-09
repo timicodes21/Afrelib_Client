@@ -22,12 +22,14 @@ import DeleteWrapper from "../wrappers/DeleteWrapper";
 import { clearLocalStorage } from "@/utils/helpers";
 import { LOGIN } from "@/data/constants";
 import SearchInput from "@/components/atoms/inputFields/SearchInput";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 interface IProps {
   headerText: string;
+  noSearchButton?: boolean;
 }
 
-const PageHeader: React.FC<IProps> = ({ headerText }) => {
+const PageHeader: React.FC<IProps> = ({ headerText, noSearchButton }) => {
   const {
     open: drawerOpen,
     setOpen: setDrawerOpen,
@@ -45,9 +47,13 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
 
   const router = useRouter();
 
+  const {
+    userDetails: { role },
+  } = useGlobalContext();
+
   const links = router.pathname.startsWith("/admin")
     ? adminDashboardLinks
-    : dashboardLinks;
+    : dashboardLinks(role ?? "Student");
 
   // The navbar links for mobile appears here
 
@@ -61,26 +67,28 @@ const PageHeader: React.FC<IProps> = ({ headerText }) => {
           {headerText}
         </Typography>
 
-        <div className={styles.pageHeaderRightContainer}>
-          <SearchInput placeholder="Search" />
-          <div style={{ marginLeft: "20px" }}>
-            <Image
-              src="/assets/icons/notification_icon.svg"
-              width={22}
-              height={30}
-              alt="icon"
-              className="pointer"
-              onClick={openModal}
-            />
+        {!noSearchButton && (
+          <div className={styles.pageHeaderRightContainer}>
+            <SearchInput placeholder="Search" />
+            <div style={{ marginLeft: "20px" }}>
+              <Image
+                src="/assets/icons/notification_icon.svg"
+                width={22}
+                height={30}
+                alt="icon"
+                className="pointer"
+                onClick={openModal}
+              />
+            </div>
+            <Box className={styles.mobileIconContainer} sx={{ ml: 2 }}>
+              <BiMenuAltRight
+                className="font-32 font-800 pointer"
+                style={{ color: "#353F50" }}
+                onClick={openDrawer}
+              />
+            </Box>
           </div>
-          <Box className={styles.mobileIconContainer} sx={{ ml: 2 }}>
-            <BiMenuAltRight
-              className="font-32 font-800 pointer"
-              style={{ color: "#353F50" }}
-              onClick={openDrawer}
-            />
-          </Box>
-        </div>
+        )}
       </div>
       <CustomModal
         open={logoutOpen}

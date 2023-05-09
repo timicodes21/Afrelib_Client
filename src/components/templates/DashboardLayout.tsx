@@ -14,6 +14,7 @@ import CustomModal from "../organisms/modals/CustomModal";
 import DeleteWrapper from "../molecules/wrappers/DeleteWrapper";
 import { LOGIN } from "@/data/constants";
 import { clearLocalStorage } from "@/utils/helpers";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 interface IProps {
   children: ReactNode;
@@ -22,9 +23,13 @@ interface IProps {
 const DashboardLayout: React.FC<IProps> = ({ children }) => {
   const router = useRouter();
 
+  const {
+    userDetails: { role },
+  } = useGlobalContext();
+
   const links = router.pathname.startsWith("/admin")
     ? adminDashboardLinks
-    : dashboardLinks;
+    : dashboardLinks(role ?? "Student");
 
   useProtectedRoute();
 
