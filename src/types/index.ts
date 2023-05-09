@@ -31,4 +31,5 @@ export interface IUserDetails {
   first_name: string | null;
   last_name: string | null;
   role: string | null;
+  id: number | string | null;
 }

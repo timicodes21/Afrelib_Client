@@ -50,3 +50,17 @@ export interface ICreateGroupChatRequest {
   chatType: "group";
   userIds: string[] | number[];
 }
+
+export interface ISendMessageRequest {
+  content: string;
+  mediaType: "text" | "image" | "audio" | "video" | "document";
+  mediaUrl?: string;
+  senderId: string | number;
+  timestamp: string;
+  senderName: string;
+}
+
+export interface IRemoveChatMemberRequest {
+  userId: string | number;
+  chatId: string | number;
+}

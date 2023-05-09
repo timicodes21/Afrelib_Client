@@ -2,11 +2,24 @@ import { Avatar, Box, Typography } from "@mui/material";
 
 import { useMessagesContext } from "@/contexts/MessagesContext";
 import styles from "@/styles/Messages.module.css";
+import { chatType } from "@/types/messages";
 
-const EachChatMessage = () => {
-  const { selectChat } = useMessagesContext();
+interface IProps {
+  chat: chatType;
+}
+
+const EachChatMessage = ({ chat }: IProps) => {
+  const { selectChat, chat: selectedChat } = useMessagesContext();
+
   return (
-    <Box className={styles.chatListChatEachChat} onClick={() => selectChat({})}>
+    <Box
+      className={styles.chatListChatEachChat}
+      onClick={() => selectChat(chat)}
+      sx={{
+        background:
+          chat.chatId === selectedChat?.chatId ? "#e9f1fd" : "#ffffff",
+      }}
+    >
       <Avatar
         sx={{
           width: 37.7,
@@ -29,7 +42,7 @@ const EachChatMessage = () => {
           }}
         >
           <Typography className={styles.chatListChatName}>
-            AIC-Cohort 14
+            {chat.chatName}
           </Typography>
 
           <Typography className={styles.chatListChatName}>8:30 AM</Typography>

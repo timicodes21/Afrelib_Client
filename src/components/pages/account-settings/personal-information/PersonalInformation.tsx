@@ -9,6 +9,7 @@ import styles from "./styles.module.css";
 import Avatars from "../Avatars/Avatars";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
 import ChangeAccountPassword from "./ChangePassword";
+import Image from "next/image";
 
 const AccountPersonalInformation = () => {
   const [avatarsModal, setAvatarsModal] = useState(false);
@@ -65,10 +66,13 @@ const AccountPersonalInformation = () => {
           <div className={styles.avatarBadge} onClick={showAvatarsModal}>
             <CreateIcon />
           </div>
-          <img
+          <Image
             src="https://api.dicebear.com/6.x/adventurer/svg?seed=Bella"
             alt="avatar"
             className={styles.avatarImage}
+            //loading="lazy"
+            width={64}
+            height={64}
           />
         </Box>
 

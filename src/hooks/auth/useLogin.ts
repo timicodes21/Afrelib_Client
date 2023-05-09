@@ -48,6 +48,7 @@ export const useLogin = () => {
       last_name: data?.UserDetails?.last_name,
       access_token: data?.access_token,
       role: data?.UserDetails?.role_name,
+      id: data?.UserDetails?.id,
     };
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userDetails));
@@ -66,6 +67,7 @@ export const useLogin = () => {
       last_name: data?.adminDetails?.last_name,
       access_token: data?.access_token,
       role: "admin",
+      id: data?.adminDetails?.id,
     };
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userDetails));
