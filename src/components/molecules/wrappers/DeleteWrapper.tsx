@@ -11,6 +11,8 @@ interface IProps {
   onCancel: () => void;
   deleteBtnText?: string;
   cancelBtnText?: string;
+  disableDelBtn?: boolean;
+  disableCancelBtn?: boolean;
   loading?: boolean;
 }
 
@@ -21,6 +23,8 @@ const DeleteWrapper: React.FC<IProps> = ({
   deleteBtnText,
   cancelBtnText,
   loading,
+  disableCancelBtn = false,
+  disableDelBtn = false,
 }) => {
   return (
     <Box

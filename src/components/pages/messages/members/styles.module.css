@@ -1,0 +1,93 @@
+.container {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 80vh;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.usersContainer {
+  box-sizing: border-box;
+  max-height: calc(80vh - 230px);
+  /* height: 40vh; */
+  overflow: auto;
+  padding: 25px;
+}
+
+.addUsersContainer {
+  box-sizing: border-box;
+  max-height: calc(80vh - 150px);
+  /* height: 40vh; */
+  overflow: auto;
+  padding: 25px;
+}
+
+.buttonContainer {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonContainer button {
+  width: 200px;
+}
+
+.memberInformation {
+  width: calc(100% - 150px);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  /* padding: 7.5px 20px; */
+  box-sizing: border-box;
+}
+
+.memberAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ececec;
+}
+
+.memberAvatar .avatarImage {
+  width: 54px;
+  height: 54px;
+}
+
+.memberDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.memberDetails h1 {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 150%;
+  color: #172b4d;
+}
+
+.memberDetails p {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+
+  color: #353f50;
+}

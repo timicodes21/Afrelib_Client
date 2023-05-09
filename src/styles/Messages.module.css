@@ -1,7 +1,6 @@
 .messagesContainer,
 .mobileScreenMessagesContainer {
   width: 100%;
-
   display: flex;
   gap: 20px;
   margin-top: 20px;
@@ -15,6 +14,16 @@
   width: 70%;
   display: flex;
   flex-direction: column;
+}
+
+.messageNoSelectedChat {
+  width: 100%;
+  height: calc(100vh - 200px);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+
+  margin-top: 20px;
 }
 
 .messagesChatBoard {
