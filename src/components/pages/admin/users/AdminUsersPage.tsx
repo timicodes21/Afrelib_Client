@@ -153,7 +153,7 @@ const AdminUsersPage = () => {
             setUserDetails({ id, isEnabled });
             openAlertModal();
           }}
-          onResetPassword={id => console.log("userId", id)}
+          onResetPassword={id => {}}
         />
       </Box>
       <CustomModal

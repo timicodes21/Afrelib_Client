@@ -39,7 +39,6 @@ const ClassroomPage = () => {
 
   const [index, setIndex] = useState(0);
 
-  console.log("data", data);
   const { option, setOption } = useClassRoom();
 
   return (

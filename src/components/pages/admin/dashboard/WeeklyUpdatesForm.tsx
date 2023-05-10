@@ -30,7 +30,6 @@ const WeeklyUpdatesForm: React.FC<IProps> = ({ handleClose }) => {
     resolver: zodResolver(WeeklyUpdatesschema),
   });
 
-  console.log("errors", errors);
   return (
     <Box sx={{ p: { xs: 2, md: 5 } }}>
       <HeaderAndCloseButton header="Weekly Update" onClick={handleClose} />

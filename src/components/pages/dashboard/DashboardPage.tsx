@@ -30,8 +30,6 @@ const DashboardPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
   const { weeklyUpdate, setWeeklyUpdate } = useAdminDashboard();
 
-  console.log("data", data);
-
   const currenUpdate = useMemo<IGetWeeklyUpdatesResponse>(() => {
     return typeof data === "object" ? data : ({} as IGetWeeklyUpdatesResponse);
   }, [data]);
