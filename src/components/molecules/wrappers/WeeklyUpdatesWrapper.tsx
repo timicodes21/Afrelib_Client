@@ -7,15 +7,21 @@ interface IProps {
   children: ReactNode;
   header?: string;
   onClick?: () => void;
+  onClickCard?: () => void;
 }
 
 const WeeklyUpdatesWrapper: React.FC<IProps> = ({
   children,
   header,
   onClick,
+  onClickCard,
 }) => {
   return (
-    <Box className={styles.weeklyUpdatesContainer}>
+    <Box
+      className={styles.weeklyUpdatesContainer}
+      sx={{ height: "150px", cursor: "pointer" }}
+      onClick={onClickCard}
+    >
       <Box className="d-flex items-center justify-between" sx={{ my: 1 }}>
         <Typography className="font-16 font-500" sx={{ color: "info.main" }}>
           {header ?? "Weekly Updates"}

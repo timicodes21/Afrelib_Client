@@ -91,6 +91,7 @@ export const UPDATE_TEAM_MENTOR = (teamId: number) => `/team/${teamId}/mentor`;
 // projects Api Routes
 export const GET_ALL_PROJECTS = "/project";
 export const CREATE_TEAM_PROJECT = "/project/create";
+export const EDIT_TEAM_PROJECT = (projectId: number) => `/project/${projectId}`;
 export const GET_COHORT_PROJECT = (cohortId: string) =>
   `/project/cohort/${cohortId}`;
 export const GET_PROJECTS_UNDER_PANELISTS = "/project/panelist";

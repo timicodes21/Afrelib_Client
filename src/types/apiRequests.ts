@@ -84,3 +84,6 @@ export interface ICreateProjectRequest {
   project_title: string;
   project_description: string;
 }
+
+export interface IEditProjectRequest
+  extends Omit<ICreateProjectRequest, "cohort_id" | "team_id"> {}
