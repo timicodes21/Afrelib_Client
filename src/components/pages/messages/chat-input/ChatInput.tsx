@@ -4,6 +4,8 @@ import {
   Button,
   CircularProgress,
   IconButton,
+  Menu,
+  MenuItem,
   TextareaAutosize,
 } from "@mui/material";
 import Popover from "@mui/material/Popover";
@@ -28,6 +30,8 @@ const ChatInput = () => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
   );
+  const [fileAnchorEl, setFileAnchorEl] =
+    React.useState<HTMLButtonElement | null>(null);
 
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -44,6 +48,14 @@ const ChatInput = () => {
   const handleHideEmojis = () => {
     setAnchorEl(null);
     inputRef?.current?.focus();
+  };
+
+  const handleCloseOptions = () => {
+    setFileAnchorEl(null);
+  };
+
+  const handleOpenOptions = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setFileAnchorEl(event.currentTarget);
   };
 
   const open = Boolean(anchorEl);
@@ -72,9 +84,51 @@ const ChatInput = () => {
   return (
     <div className={styles.chatInputContainer}>
       <>
-        <IconButton size="small" onClick={handleShowEmojis}>
+        <IconButton size="small" onClick={handleOpenOptions}>
           <AttachFileIcon fontSize="small" />
         </IconButton>
+
+        <Menu
+          anchorEl={fileAnchorEl}
+          id="account-menu"
+          open={Boolean(fileAnchorEl)}
+          onClose={handleCloseOptions}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          // sx={{padding: 0}}
+        >
+          <MenuItem
+            sx={{ fontSize: "0.8rem" }}
+            onClick={() => {
+              handleCloseOptions();
+            }}
+          >
+            Voice
+          </MenuItem>
+          <MenuItem
+            sx={{ fontSize: "0.8rem" }}
+            onClick={() => {
+              handleCloseOptions();
+            }}
+          >
+            Image
+          </MenuItem>
+          <MenuItem
+            sx={{ fontSize: "0.8rem" }}
+            onClick={() => {
+              handleCloseOptions();
+            }}
+          >
+            Video
+          </MenuItem>{" "}
+          <MenuItem
+            sx={{ fontSize: "0.8rem" }}
+            onClick={() => {
+              handleCloseOptions();
+            }}
+          >
+            Document
+          </MenuItem>
+        </Menu>
 
         <Popover
           id={id}

@@ -67,7 +67,6 @@ export interface ICreateGroupChatRequest {
   userIds: string[] | number[];
 }
 
-
 export interface ISendMessageRequest {
   content: string;
   mediaType: "text" | "image" | "audio" | "video" | "document";
@@ -80,6 +79,7 @@ export interface ISendMessageRequest {
 export interface IRemoveChatMemberRequest {
   userId: string | number;
   chatId: string | number;
+}
 
 export interface ICreateUpdateRequest {
   week: number;
@@ -97,7 +97,6 @@ export interface ICreateProjectRequest {
   team_id: number;
   project_title: string;
   project_description: string;
-
 }
 
 export interface IEditProjectRequest
