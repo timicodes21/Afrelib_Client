@@ -3,22 +3,31 @@ import { Avatar, Box, Typography } from "@mui/material";
 import { messageType } from "../../../../types/messages";
 
 import styles from "./styles.module.css";
+import { useGlobalContext } from "@/contexts/GlobalContext";
+import dayjs from "dayjs";
 
 interface componentProps {
   message: messageType;
 }
 
 const EachChatBoardMessage = ({ message }: componentProps) => {
+  const { userDetails } = useGlobalContext();
+
+  const userId = String(userDetails.id);
+  const senderId = String(message.senderId);
+
+  const isSent = userId === senderId;
+
   return (
     <Box
       sx={{
         width: "100%",
         display: "flex",
-        justifyContent: message.isSent ? "flex-end" : "flex-start",
+        justifyContent: isSent ? "flex-end" : "flex-start",
       }}
     >
       <Box className={styles.chatBoardEachMessage}>
-        {!message.isSent && (
+        {!isSent && (
           <Box className={styles.chatMessageAvatar}>
             <Avatar src={message.avatar} />
           </Box>
@@ -34,13 +43,13 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
         >
           <Box
             className={`${styles.chatBoardMessageContainer} ${
-              message.isSent
+              isSent
                 ? styles.chatBoardSentMessage
                 : styles.chatBoardReceivedMessage
             }`}
           >
             <Typography className={styles.chatMessageText}>
-              {message.message}
+              {message.content}
             </Typography>
           </Box>
 
@@ -48,16 +57,16 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
             sx={{
               width: "100%",
               display: "flex",
-              justifyContent: message.isSent ? "flex-end" : "space-between",
+              justifyContent: isSent ? "flex-end" : "space-between",
             }}
           >
-            {/* {!message.isSent && (
+            {!isSent && (
               <Typography className={styles.chatBoardMessageTime}>
-                {message.name}
+                {message.senderName}
               </Typography>
-            )} */}
+            )}
             <Typography className={styles.chatBoardMessageTime}>
-              8:30am
+              {dayjs(message.timestamp).format("h:mm A	")}
             </Typography>
           </Box>
         </Box>

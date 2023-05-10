@@ -4,7 +4,8 @@ import { Modal } from "react-responsive-modal";
 
 interface IProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModal?: () => void;
   children: React.ReactNode;
   width?: string;
   maxWidth?: string;
@@ -20,6 +21,7 @@ const CustomModal: React.FC<IProps> = ({
   maxWidth,
   closeOnOverlayClick,
   showCloseIcon,
+  closeModal,
 }) => {
   const customModalStyle = {
     modal: {
@@ -52,10 +54,18 @@ const CustomModal: React.FC<IProps> = ({
     // },
   };
 
+  const handleCloseModal = () => {
+    if (setOpen) {
+      return setOpen(false);
+    } else if (closeModal) {
+      return closeModal();
+    }
+  };
+
   return (
     <Modal
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={handleCloseModal}
       center
       showCloseIcon={showCloseIcon ?? false}
       styles={customModalStyle}
