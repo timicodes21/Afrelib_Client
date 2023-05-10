@@ -39,7 +39,6 @@ const ClassroomPage = () => {
 
   const [index, setIndex] = useState(0);
 
-  console.log("data", data);
   const { option, setOption } = useClassRoom();
 
   return (
@@ -103,6 +102,20 @@ const ClassroomPage = () => {
                 Create Project
               </TransparentBlueButton>
             )}
+          {!isFetching &&
+            typeof data === "object" &&
+            Array.isArray(data.projects) &&
+            data?.projects?.length !== 0 && (
+              <TransparentBlueButton
+                type="button"
+                onClick={() => {
+                  setOption("editProject");
+                  openModal();
+                }}
+              >
+                Edit Project
+              </TransparentBlueButton>
+            )}
         </Box>
         <Box sx={{ mt: 3 }}>
           <Grid container spacing={3}>
@@ -161,7 +174,20 @@ const ClassroomPage = () => {
               index={index}
             />
           ) : (
-            <AddProject handleClose={closeModal} />
+            // This is alos used for edit project
+            <AddProject
+              handleClose={closeModal}
+              editProject={option === "editProject"}
+              projectDetails={
+                typeof data === "object"
+                  ? {
+                      title: data?.projects[0]?.project_title ?? "",
+                      description: data?.projects[0]?.project_description ?? "",
+                      projectId: data?.projects[0]?.id,
+                    }
+                  : { title: "", description: "", projectId: 0 }
+              }
+            />
           )}
         </Box>
       </CustomModal>

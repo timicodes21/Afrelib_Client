@@ -35,8 +35,9 @@ export const useChatMessages = (chatId: string | number) => {
     data,
     status,
     isFetching: fetchingMsgs,
-  } = useQuery<IGetChatMessagesResponse[], Error>([queryKeys.getMessages], () =>
-    getAllChatMessages(chatId),
+  } = useQuery<IGetChatMessagesResponse[], Error>(
+    [queryKeys.getMessages, chatId],
+    () => getAllChatMessages(chatId),
   );
   const onError = () => {};
 

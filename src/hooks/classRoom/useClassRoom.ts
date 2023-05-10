@@ -1,4 +1,8 @@
-import { createTeamProject, getTeamProjects } from "@/api/projects";
+import {
+  createTeamProject,
+  editTeamProject,
+  getTeamProjects,
+} from "@/api/projects";
 import { queryClient, queryKeys } from "@/data/constants";
 import { IGetTeamProjectsResponse } from "@/types/apiResponses";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -13,6 +17,7 @@ import {
 import {
   ICreateProjectRequest,
   ICreateSubmissionRequest,
+  IEditProjectRequest,
 } from "@/types/apiRequests";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 
@@ -36,9 +41,9 @@ export const useClassRoom = () => {
   const {
     userDetails: { userId, teamId, cohortId },
   } = useGlobalContext();
-  const [option, setOption] = useState<"projectDetails" | "addProject">(
-    "projectDetails",
-  );
+  const [option, setOption] = useState<
+    "projectDetails" | "addProject" | "editProject"
+  >("projectDetails");
 
   const schema = z.object({
     submission_title: string(),
@@ -95,6 +100,27 @@ export const useClassRoom = () => {
     setIsLoadingAdd(false);
   };
 
+  const onSubmitEditProject = async (
+    data: AddProjectFormValues,
+    callBack: () => void,
+    projectId: number,
+  ) => {
+    setIsLoadingAdd(true);
+
+    const formData: IEditProjectRequest = {
+      project_description: data?.project_description,
+      project_title: data?.project_title,
+    };
+
+    const response = await editTeamProject(formData, projectId);
+
+    if (typeof response === "object" && response?.created_at) {
+      queryClient.invalidateQueries([queryKeys.getTeamProjects, teamId]);
+      callBack();
+    }
+    setIsLoadingAdd(false);
+  };
+
   return {
     schema,
     fileSelected,
@@ -108,5 +134,6 @@ export const useClassRoom = () => {
     addProjectSchema,
     onSubmitAddProject,
     isLoadingAdd,
+    onSubmitEditProject,
   };
 };

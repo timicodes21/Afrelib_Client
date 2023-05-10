@@ -53,8 +53,6 @@ const SubmissionDetails: React.FC<IProps> = ({
     setComment("");
   };
 
-  console.log("submission", submission);
-
   return (
     <Box sx={{ mt: 1, p: { xs: 2, md: 3 } }}>
       <Box>
