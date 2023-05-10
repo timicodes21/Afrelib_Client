@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const NoAvailableChat = () => {
   const { userDetails } = useGlobalContext();
-  const { openCreateGroupModal } = useMessagesContext();
+  const { openChatModal } = useMessagesContext();
 
   const { role } = userDetails;
 
@@ -44,7 +44,10 @@ const NoAvailableChat = () => {
         </Typography>
 
         {role?.toLowerCase() === "admin" && (
-          <Button sx={{ mt: "17px" }} onClick={openCreateGroupModal}>
+          <Button
+            sx={{ mt: "17px" }}
+            onClick={() => openChatModal("create-group")}
+          >
             <AddCircleOutline sx={{ marginRight: "5.68px" }} fontSize="small" />
             Create New Group
           </Button>
