@@ -24,8 +24,6 @@ const MentorsProjectPage = () => {
   const { data: teamProjects, isFetching: isFetchingTeamProjets } =
     useGetTeamProjects(teamId ?? 0, typeof teamId === "number" && teamId !== 0);
 
-  console.log("team projects", teamProjects);
-
   return (
     <Wrapper>
       <PageHeader headerText="Projects" />

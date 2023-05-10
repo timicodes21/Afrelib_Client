@@ -1,7 +1,7 @@
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import Wrapper from "@/components/templates/Wrapper";
 import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
 import { messages } from "@/data/dashboard";
@@ -16,7 +16,12 @@ import { useGetAllUsers } from "@/hooks/admin/useAdminUsers";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import { useModal } from "@/hooks/utility";
 import WeeklyUpdatesForm from "./WeeklyUpdatesForm";
-import { useGetWeeklyUpdates } from "@/hooks/admin/useAdminDashboard";
+import {
+  useAdminDashboard,
+  useGetWeeklyUpdates,
+} from "@/hooks/admin/useAdminDashboard";
+import { sliceText } from "@/utils/helpers";
+import WeeklyUpdatesPage from "./WeeklyUpdatesPage";
 
 const AdminDashboardPage = () => {
   const { userDetails } = useGlobalContext();
@@ -25,6 +30,11 @@ const AdminDashboardPage = () => {
   const { open, setOpen, openModal, closeModal } = useModal();
 
   const { data, isFetching } = useGetWeeklyUpdates();
+  const [option, setOption] = useState<"weeklyUpdateForm" | "weeklyUpdatePage">(
+    "weeklyUpdateForm",
+  );
+
+  const { weeklyUpdate, setWeeklyUpdate } = useAdminDashboard();
 
   return (
     <Wrapper>
@@ -127,14 +137,29 @@ const AdminDashboardPage = () => {
               <Grid item xs={12} md={6} lg={4} key={index}>
                 <WeeklyUpdatesWrapper
                   header={`Week${item?.update_week} - ${item?.update_title}`}
+                  onClickCard={() => {
+                    setWeeklyUpdate({
+                      body: item?.update_description,
+                      week: item?.update_week.toString(),
+                      title: item?.update_title,
+                    });
+                    setOption("weeklyUpdatePage");
+                    openModal();
+                  }}
                 >
-                  {item?.update_description}
+                  {sliceText(40, item?.update_description)}
                 </WeeklyUpdatesWrapper>
               </Grid>
             ))}
 
           <Grid item xs={12} md={6} lg={4}>
-            <AddItemCard onClick={openModal} height="150px">
+            <AddItemCard
+              onClick={() => {
+                setOption("weeklyUpdateForm");
+                openModal();
+              }}
+              height="150px"
+            >
               Add Weekly Updates
             </AddItemCard>
           </Grid>
@@ -161,7 +186,15 @@ const AdminDashboardPage = () => {
         closeOnOverlayClick={false}
         showCloseIcon={false}
       >
-        <WeeklyUpdatesForm handleClose={closeModal} />
+        {option === "weeklyUpdateForm" ? (
+          <WeeklyUpdatesForm handleClose={closeModal} />
+        ) : (
+          <WeeklyUpdatesPage
+            handleClose={closeModal}
+            header={`Week${weeklyUpdate?.week} - ${weeklyUpdate?.title}`}
+            body={weeklyUpdate?.body}
+          />
+        )}
       </CustomModal>
     </Wrapper>
   );

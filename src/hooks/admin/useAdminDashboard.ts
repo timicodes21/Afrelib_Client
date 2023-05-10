@@ -5,6 +5,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { z, string, number } from "zod";
 import { WeeklyUpdatesFormValues } from "@/types/formValues";
 import { ICreateUpdateRequest } from "@/types/apiRequests";
+import { IGetWeeklyUpdatesResponse } from "@/types/apiResponses";
+import { useState } from "react";
 
 export const useGetWeeklyUpdates = () => {
   const { data, status, isFetching } = useQuery(
@@ -14,6 +16,12 @@ export const useGetWeeklyUpdates = () => {
 
   return { data, status, isFetching };
 };
+
+export interface IWeeklyUpdate {
+  week: string;
+  title: string;
+  body: string;
+}
 
 export const useAdminDashboard = () => {
   const WeeklyUpdatesschema = z.object({
@@ -48,9 +56,15 @@ export const useAdminDashboard = () => {
     });
   };
 
+  const [weeklyUpdate, setWeeklyUpdate] = useState<IWeeklyUpdate>(
+    {} as IWeeklyUpdate,
+  );
+
   return {
     WeeklyUpdatesschema,
     isLoadingUpdates,
     onSubmitUpdate,
+    weeklyUpdate,
+    setWeeklyUpdate,
   };
 };

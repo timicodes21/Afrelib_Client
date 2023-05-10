@@ -3,7 +3,7 @@ import { Box, Button } from "@mui/material";
 
 import styles from "./styles.module.css";
 
-import { useChatMessage, useRemoveChatMember } from "@/hooks/chat/useChat";
+import { useChatMessages, useRemoveChatMember } from "@/hooks/chat/useChat";
 import { useMessagesContext } from "@/contexts/MessagesContext";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
