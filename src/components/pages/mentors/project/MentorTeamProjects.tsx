@@ -19,8 +19,6 @@ const MentorTeamProjects: React.FC<IProps> = ({ data, isFetching }) => {
 
   const [index, setIndex] = useState(0);
 
-  console.log("data", data);
-
   return (
     <Wrapper>
       <PageHeader

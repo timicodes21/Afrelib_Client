@@ -11,10 +11,22 @@ import { useForm, Controller } from "react-hook-form";
 
 interface IProps {
   handleClose: () => void;
+  editProject?: boolean;
+  // this would be used to autofill poroject in case of edit project, projectId is also needed for edit project
+  projectDetails: { title: string; description: string; projectId: number };
 }
 
-const AddProject: React.FC<IProps> = ({ handleClose }) => {
-  const { addProjectSchema, onSubmitAddProject, isLoadingAdd } = useClassRoom();
+const AddProject: React.FC<IProps> = ({
+  handleClose,
+  editProject,
+  projectDetails,
+}) => {
+  const {
+    addProjectSchema,
+    onSubmitAddProject,
+    isLoadingAdd,
+    onSubmitEditProject,
+  } = useClassRoom();
   const {
     control,
     handleSubmit,
@@ -23,20 +35,32 @@ const AddProject: React.FC<IProps> = ({ handleClose }) => {
     mode: "onBlur",
     resolver: zodResolver(addProjectSchema),
   });
+  // We also use this page to edit project
   return (
     <Box>
       <Typography sx={{ color: "secondary.main" }} className="font-20 font-700">
-        Add Project
+        {editProject ? "Edit Project" : "Add Project"}
       </Typography>
 
       <form
-        onSubmit={handleSubmit(data => onSubmitAddProject(data, handleClose))}
+        onSubmit={
+          editProject
+            ? handleSubmit(data =>
+                onSubmitEditProject(
+                  data,
+                  handleClose,
+                  projectDetails?.projectId,
+                ),
+              )
+            : handleSubmit(data => onSubmitAddProject(data, handleClose))
+        }
       >
         <Box sx={{ mt: 2 }}>
           <>
             <Controller
               control={control}
               name="project_title"
+              defaultValue={projectDetails?.title}
               render={({ field: { onChange, value, onBlur } }) => (
                 <AuthInput
                   label="Project Title"
@@ -60,6 +84,7 @@ const AddProject: React.FC<IProps> = ({ handleClose }) => {
             <Controller
               control={control}
               name="project_description"
+              defaultValue={projectDetails?.description}
               render={({ field: { onChange, value, onBlur } }) => (
                 <CustomTextArea
                   label="Title"
