@@ -45,7 +45,7 @@
 
 .chatBoardMessageContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 15px;
   box-sizing: border-box;
   gap: 10px;
@@ -79,6 +79,18 @@
   letter-spacing: -0.01em;
 
   color: #353f50;
+}
+
+.chatBoardMessageName {
+  min-width: 39px;
+  height: 14px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: -0.01em;
+  color: #09b00c;
 }
 
 .chatMessageText {
