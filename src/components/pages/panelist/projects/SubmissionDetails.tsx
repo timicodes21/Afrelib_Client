@@ -191,211 +191,234 @@ const SubmissionDetails: React.FC<IProps> = ({
             </Box>
             {submission?.panelist_feedback?.filter(
               item => item?.panelist_id === userId,
-            ).length === 0 && (
-              <Box className="d-flex">
-                <Image
-                  alt="avatar"
-                  src="/assets/icons/avatar_mentor.svg"
-                  width={48}
-                  height={48}
-                />
-                <Box sx={{ mx: 1, flexGrow: 1 }}>
-                  <CustomTextArea
-                    style={{
-                      width: "100%",
-                      marginLeft: "10px",
-                      background: "#FFF !important",
-                    }}
-                    value={comment}
-                    onChange={e => setComment(e.target.value)}
-                    border
-                    background="#FFFFFF"
-                  />
-                </Box>
-                <Box sx={{ alignSelf: "flex-end" }}>
-                  <AuthButton
-                    onClick={handleComment}
-                    size="small"
-                    type="button"
-                    notFullWidth
-                    loading={commetLoading}
-                    disabled={comment.trim().length === 0}
-                  >
-                    Comment
-                  </AuthButton>
-                </Box>
-              </Box>
-            )}
+            ).length === 0 &&
+              !notPanelist && (
+                <>
+                  <Box className="d-flex">
+                    <Image
+                      alt="avatar"
+                      src="/assets/icons/avatar_mentor.svg"
+                      width={48}
+                      height={48}
+                    />
+                    <Box sx={{ mx: 1, flexGrow: 1 }}>
+                      <CustomTextArea
+                        style={{
+                          width: "100%",
+                          marginLeft: "10px",
+                          background: "#FFF !important",
+                        }}
+                        value={comment}
+                        onChange={e => setComment(e.target.value)}
+                        border
+                        background="#FFFFFF"
+                      />
+                    </Box>
+                    <Box sx={{ alignSelf: "flex-end" }}>
+                      <AuthButton
+                        onClick={handleComment}
+                        size="small"
+                        type="button"
+                        notFullWidth
+                        loading={commetLoading}
+                        disabled={comment.trim().length === 0}
+                      >
+                        Comment
+                      </AuthButton>
+                    </Box>
+                  </Box>
+                </>
+              )}
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            {submission?.panelist_feedback?.filter(
-              item => item?.panelist_id === userId,
-            ).length === 0 ? (
-              <>
-                {" "}
-                <Box sx={{ mt: 3 }} className="d-flex items-center">
+          {
+            <Grid item xs={12} md={6} lg={4}>
+              {submission?.panelist_feedback?.filter(
+                item => item?.panelist_id === userId,
+              ).length === 0 ? (
+                <>
+                  {" "}
+                  <Box sx={{ mt: 3 }} className="d-flex items-center">
+                    <Typography
+                      className="font-24 font-600"
+                      sx={{ color: "#172B4D" }}
+                    >
+                      Evaluation
+                    </Typography>
+                  </Box>
+                  {!notPanelist && (
+                    <>
+                      <Box sx={{ mt: 2 }} className="d-flex">
+                        <Typography
+                          className="font-16 font-600"
+                          sx={{ color: "#172B4D" }}
+                        >
+                          Accuracy
+                        </Typography>
+                        <NumberButton
+                          number={20}
+                          onClick={number => setAccuracy(number)}
+                          ml
+                          active={accuracy === 20}
+                        />
+                        <NumberButton
+                          number={40}
+                          onClick={number => setAccuracy(number)}
+                          ml
+                          active={accuracy === 40}
+                        />
+                        <NumberButton
+                          number={60}
+                          onClick={number => setAccuracy(number)}
+                          ml
+                          active={accuracy === 60}
+                        />
+                        <NumberButton
+                          number={80}
+                          onClick={number => setAccuracy(number)}
+                          ml
+                          active={accuracy === 80}
+                        />
+                        <NumberButton
+                          number={100}
+                          onClick={number => setAccuracy(number)}
+                          ml
+                          active={accuracy === 100}
+                        />
+                      </Box>
+                      <Box sx={{ mt: 2 }} className="d-flex">
+                        <Typography
+                          className="font-16 font-600"
+                          sx={{ color: "#172B4D" }}
+                        >
+                          Process
+                        </Typography>
+                        <NumberButton
+                          number={20}
+                          onClick={number => setProcess(number)}
+                          ml
+                          active={process === 20}
+                        />
+                        <NumberButton
+                          number={40}
+                          onClick={number => setProcess(number)}
+                          ml
+                          active={process === 40}
+                        />
+                        <NumberButton
+                          number={60}
+                          onClick={number => setProcess(number)}
+                          ml
+                          active={process === 60}
+                        />
+                        <NumberButton
+                          number={80}
+                          onClick={number => setProcess(number)}
+                          ml
+                          active={process === 80}
+                        />
+                        <NumberButton
+                          number={100}
+                          onClick={number => setProcess(number)}
+                          ml
+                          active={process === 100}
+                        />
+                      </Box>
+                      <Box sx={{ mt: 2 }} className="d-flex">
+                        <Typography
+                          className="font-16 font-600"
+                          sx={{ color: "#172B4D" }}
+                        >
+                          Speed
+                        </Typography>
+                        <NumberButton
+                          number={20}
+                          onClick={number => setSpeed(number)}
+                          ml
+                          active={speed === 20}
+                        />
+                        <NumberButton
+                          number={40}
+                          onClick={number => setSpeed(number)}
+                          ml
+                          active={speed === 40}
+                        />
+                        <NumberButton
+                          number={60}
+                          onClick={number => setSpeed(number)}
+                          ml
+                          active={speed === 60}
+                        />
+                        <NumberButton
+                          number={80}
+                          onClick={number => setSpeed(number)}
+                          ml
+                          active={speed === 80}
+                        />
+                        <NumberButton
+                          number={100}
+                          onClick={number => setSpeed(number)}
+                          ml
+                          active={speed === 100}
+                        />
+                      </Box>
+                    </>
+                  )}
+                  {!notPanelist && (
+                    <Typography
+                      sx={{ color: "secondary.main", mt: 4 }}
+                      className="font-20 font-400"
+                    >
+                      Total Score : {totalScore}
+                    </Typography>
+                  )}
+                  {notPanelist && (
+                    <Typography
+                      sx={{ color: "secondary.main", mt: 4 }}
+                      className="font-20 font-400"
+                    >
+                      Total Score : {submission?.average_score}
+                    </Typography>
+                  )}
+                  {!notPanelist && (
+                    <Box sx={{ mt: 4 }}>
+                      <AuthButton
+                        type="button"
+                        onClick={handleScore}
+                        loading={loading}
+                        disabled={
+                          accuracy === 0 || process === 0 || speed === 0
+                        }
+                      >
+                        Submit
+                      </AuthButton>
+                    </Box>
+                  )}
+                </>
+              ) : (
+                <>
+                  {!notPanelist && (
+                    <Typography
+                      className="font-24 font-600 text-center"
+                      sx={{ color: "#172B4D", mt: 3 }}
+                    >
+                      You have evaluated this project
+                    </Typography>
+                  )}
                   <Typography
-                    className="font-24 font-600"
-                    sx={{ color: "#172B4D" }}
+                    sx={{ color: "secondary.main", mt: 4 }}
+                    className="font-20 font-400"
                   >
-                    Evaluation
+                    Total Score :
+                    {
+                      submission.panelist_feedback?.filter(
+                        item => item?.panelist_id === userId,
+                      )[0]?.score
+                    }
                   </Typography>
-                </Box>
-                <Box sx={{ mt: 2 }} className="d-flex">
-                  <Typography
-                    className="font-16 font-600"
-                    sx={{ color: "#172B4D" }}
-                  >
-                    Accuracy
-                  </Typography>
-                  <NumberButton
-                    number={20}
-                    onClick={number => setAccuracy(number)}
-                    ml
-                    active={accuracy === 20}
-                  />
-                  <NumberButton
-                    number={40}
-                    onClick={number => setAccuracy(number)}
-                    ml
-                    active={accuracy === 40}
-                  />
-                  <NumberButton
-                    number={60}
-                    onClick={number => setAccuracy(number)}
-                    ml
-                    active={accuracy === 60}
-                  />
-                  <NumberButton
-                    number={80}
-                    onClick={number => setAccuracy(number)}
-                    ml
-                    active={accuracy === 80}
-                  />
-                  <NumberButton
-                    number={100}
-                    onClick={number => setAccuracy(number)}
-                    ml
-                    active={accuracy === 100}
-                  />
-                </Box>
-                <Box sx={{ mt: 2 }} className="d-flex">
-                  <Typography
-                    className="font-16 font-600"
-                    sx={{ color: "#172B4D" }}
-                  >
-                    Process
-                  </Typography>
-                  <NumberButton
-                    number={20}
-                    onClick={number => setProcess(number)}
-                    ml
-                    active={process === 20}
-                  />
-                  <NumberButton
-                    number={40}
-                    onClick={number => setProcess(number)}
-                    ml
-                    active={process === 40}
-                  />
-                  <NumberButton
-                    number={60}
-                    onClick={number => setProcess(number)}
-                    ml
-                    active={process === 60}
-                  />
-                  <NumberButton
-                    number={80}
-                    onClick={number => setProcess(number)}
-                    ml
-                    active={process === 80}
-                  />
-                  <NumberButton
-                    number={100}
-                    onClick={number => setProcess(number)}
-                    ml
-                    active={process === 100}
-                  />
-                </Box>
-                <Box sx={{ mt: 2 }} className="d-flex">
-                  <Typography
-                    className="font-16 font-600"
-                    sx={{ color: "#172B4D" }}
-                  >
-                    Speed
-                  </Typography>
-                  <NumberButton
-                    number={20}
-                    onClick={number => setSpeed(number)}
-                    ml
-                    active={speed === 20}
-                  />
-                  <NumberButton
-                    number={40}
-                    onClick={number => setSpeed(number)}
-                    ml
-                    active={speed === 40}
-                  />
-                  <NumberButton
-                    number={60}
-                    onClick={number => setSpeed(number)}
-                    ml
-                    active={speed === 60}
-                  />
-                  <NumberButton
-                    number={80}
-                    onClick={number => setSpeed(number)}
-                    ml
-                    active={speed === 80}
-                  />
-                  <NumberButton
-                    number={100}
-                    onClick={number => setSpeed(number)}
-                    ml
-                    active={speed === 100}
-                  />
-                </Box>
-                <Typography
-                  sx={{ color: "secondary.main", mt: 4 }}
-                  className="font-20 font-400"
-                >
-                  Total Score : {totalScore}
-                </Typography>
-                <Box sx={{ mt: 4 }}>
-                  <AuthButton
-                    type="button"
-                    onClick={handleScore}
-                    loading={loading}
-                    disabled={accuracy === 0 || process === 0 || speed === 0}
-                  >
-                    Submit
-                  </AuthButton>
-                </Box>
-              </>
-            ) : (
-              <>
-                {!notPanelist && (
-                  <Typography
-                    className="font-24 font-600 text-center"
-                    sx={{ color: "#172B4D", mt: 3 }}
-                  >
-                    You have evaluated this project
-                  </Typography>
-                )}
-                <Typography
-                  sx={{ color: "secondary.main", mt: 4 }}
-                  className="font-20 font-400"
-                >
-                  Total Score :
-                  {
-                    submission.panelist_feedback?.filter(
-                      item => item?.panelist_id === userId,
-                    )[0]?.score
-                  }
-                </Typography>
-              </>
-            )}
-          </Grid>
+                </>
+              )}
+            </Grid>
+          }
         </Grid>
       </Box>
     </Box>
