@@ -39,29 +39,31 @@ const MessageSendVideo = () => {
   };
 
   const handleSendNewMessage = async () => {
-    setUploadingVideo(true);
-    const formData = new FormData();
-    formData.append("uploadFile", videoFile);
+    return toast.error("Cant send message at this time");
 
-    const res = await uploadFile(formData);
-    console.log(res);
-    setUploadingVideo(false);
-    if (typeof res === "object") {
-      const url = res?.url ?? "";
-      const chatId = chat?.chatId ?? 0;
-      const newMessage: ISendMessageRequest = {
-        content: caption,
-        mediaType: "video",
-        senderId: userDetails.id || 0,
-        mediaUrl: url,
-        timestamp: dayjs(Date.now()).toISOString(),
-        senderName: `${userDetails.first_name} ${userDetails.last_name}`,
-      };
+    // setUploadingVideo(true);
+    // const formData = new FormData();
+    // formData.append("uploadFile", videoFile);
 
-      return sendNewMessage(chatId, newMessage);
-    } else {
-      toast.error("An error occured, try again");
-    }
+    // const res = await uploadFile(formData);
+    // console.log(res);
+    // setUploadingVideo(false);
+    // if (typeof res === "object") {
+    //   const url = res?.url ?? "";
+    //   const chatId = chat?.chatId ?? 0;
+    //   const newMessage: ISendMessageRequest = {
+    //     content: caption,
+    //     mediaType: "video",
+    //     senderId: userDetails.id || 0,
+    //     mediaUrl: url,
+    //     timestamp: dayjs(Date.now()).toISOString(),
+    //     senderName: `${userDetails.first_name} ${userDetails.last_name}`,
+    //   };
+
+    //   return sendNewMessage(chatId, newMessage);
+    // } else {
+    //   toast.error("An error occured, try again");
+    // }
   };
 
   return (

@@ -19,35 +19,34 @@ const MessageSendVoice = () => {
   const { userDetails } = useGlobalContext();
 
   const onRecordingComplete = async (blob: any) => {
-    setUploadingAudio(true);
-    //console.log(blob);
-    var file = new File([blob], "audio");
-    const url = URL.createObjectURL(blob);
+    return toast.error("Cant send message at this time");
+    // setUploadingAudio(true);
 
-    const formData = new FormData();
-    formData.append("uploadFile", file);
+    // var file = new File([blob], "audio");
+    // const url = URL.createObjectURL(blob);
 
-    const res = await uploadFile(formData);
-    setUploadingAudio(false);
+    // const formData = new FormData();
+    // formData.append("uploadFile", file);
 
-    if (typeof res === "object") {
-      const url = res?.url ?? "";
-      const chatId = chat?.chatId ?? 0;
-      const newMessage: ISendMessageRequest = {
-        content: "",
-        mediaType: "audio",
-        senderId: userDetails.id || 0,
-        mediaUrl: url,
-        timestamp: dayjs(Date.now()).toISOString(),
-        senderName: `${userDetails.first_name} ${userDetails.last_name}`,
-      };
+    // const res = await uploadFile(formData);
+    // setUploadingAudio(false);
 
-      return sendNewMessage(chatId, newMessage);
-    } else {
-      toast.error("An error occured, try again");
-    }
+    // if (typeof res === "object") {
+    //   const url = res?.url ?? "";
+    //   const chatId = chat?.chatId ?? 0;
+    //   const newMessage: ISendMessageRequest = {
+    //     content: "",
+    //     mediaType: "audio",
+    //     senderId: userDetails.id || 0,
+    //     mediaUrl: url,
+    //     timestamp: dayjs(Date.now()).toISOString(),
+    //     senderName: `${userDetails.first_name} ${userDetails.last_name}`,
+    //   };
 
-    // console.log(res);
+    //   return sendNewMessage(chatId, newMessage);
+    // } else {
+    //   toast.error("An error occured, try again");
+    // }
   };
   const recorderControls = useAudioRecorder();
 
