@@ -52,7 +52,7 @@ const MessageDocumentType = ({ message }: IProps) => {
             <Box
               sx={{
                 width: "300px",
-                height: "400px",
+                height: "300px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

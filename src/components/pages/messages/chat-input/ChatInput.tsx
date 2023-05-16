@@ -21,6 +21,7 @@ import { useMessagesContext } from "@/contexts/MessagesContext";
 import { useSendNewMessage } from "@/hooks/chat/useChat";
 import { ISendMessageRequest } from "@/types/apiRequests";
 import { useGlobalContext } from "@/contexts/GlobalContext";
+import { toast } from "react-hot-toast";
 
 const ChatInput = () => {
   const { chat, setSendMedia } = useMessagesContext();
@@ -66,17 +67,19 @@ const ChatInput = () => {
   };
 
   const handleSendNewMessage = () => {
-    const chatId = chat?.chatId ?? 0;
-    const newMessage: ISendMessageRequest = {
-      content: message,
-      mediaType: "text",
-      senderId: userDetails.id || 0,
-      mediaUrl: "",
-      timestamp: dayjs(Date.now()).toISOString(),
-      senderName: `${userDetails.first_name} ${userDetails.last_name}`,
-    };
+    return toast.error("Cant send message at this time");
 
-    sendNewMessage(chatId, newMessage);
+    // const chatId = chat?.chatId ?? 0;
+    // const newMessage: ISendMessageRequest = {
+    //   content: message,
+    //   mediaType: "text",
+    //   senderId: userDetails.id || 0,
+    //   mediaUrl: "",
+    //   timestamp: dayjs(Date.now()).toISOString(),
+    //   senderName: `${userDetails.first_name} ${userDetails.last_name}`,
+    // };
+
+    // sendNewMessage(chatId, newMessage);
   };
 
   //const sendingMessage = false;

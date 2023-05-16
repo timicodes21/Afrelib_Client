@@ -46,10 +46,10 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
         {message.mediaType === "video" && (
           <MessageVideoType message={message} />
         )}
-        {message.mediaType === "text" && (
+        {message.mediaType === "document" && (
           <MessageDocumentType message={message} />
         )}
-        {message.mediaType === "document" && (
+        {message.mediaType === "text" && (
           <Box
             sx={{
               display: "flex",
