@@ -23,7 +23,7 @@ import { ISendMessageRequest } from "@/types/apiRequests";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 
 const ChatInput = () => {
-  const { chat } = useMessagesContext();
+  const { chat, setSendMedia } = useMessagesContext();
   const { userDetails } = useGlobalContext();
   const { sendNewMessage, sendingMessage } = useSendNewMessage();
   const [message, setMessage] = useState("");
@@ -100,6 +100,7 @@ const ChatInput = () => {
             sx={{ fontSize: "0.8rem" }}
             onClick={() => {
               handleCloseOptions();
+              setSendMedia("audio");
             }}
           >
             Voice
@@ -108,6 +109,7 @@ const ChatInput = () => {
             sx={{ fontSize: "0.8rem" }}
             onClick={() => {
               handleCloseOptions();
+              setSendMedia("image");
             }}
           >
             Image
@@ -116,6 +118,7 @@ const ChatInput = () => {
             sx={{ fontSize: "0.8rem" }}
             onClick={() => {
               handleCloseOptions();
+              setSendMedia("video");
             }}
           >
             Video
@@ -124,6 +127,7 @@ const ChatInput = () => {
             sx={{ fontSize: "0.8rem" }}
             onClick={() => {
               handleCloseOptions();
+              setSendMedia("document");
             }}
           >
             Document

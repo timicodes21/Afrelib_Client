@@ -9,11 +9,6 @@ export type messageType = {
   senderName: string;
   timestamp: string;
   status: any;
-  // message: string;
-  // avatar: string;
-  // name: string;
-  // time: string;
-  // isSent: boolean;
 };
 
 export type chatType = {
@@ -25,24 +20,17 @@ export type chatType = {
   userId: string | number;
 };
 
+export type mediaType = "audio" | "video" | "image" | "document";
+
 export type messagesContextType = {
   chat: chatType | null;
   selectChat: (chat: chatType) => void;
   unselectChat: () => void;
-
   chatModal: "create-group" | "show-members" | "add-members" | null;
   openChatModal: (
     open: "create-group" | "show-members" | "add-members",
   ) => void;
   closeChatModal: () => void;
+  sendMedia: null | mediaType;
+  setSendMedia: React.Dispatch<React.SetStateAction<mediaType | null>>;
 };
-
-// "messageId": "87557334",
-// "chatId": "8755",
-// "content": "Hello, this is a message",
-// "mediaType": "text",
-// "mediaUrl": "https://example.com/image.jpg",
-// "senderId": "1234",
-// "senderName": "John Doe",
-// "timestamp": "2023-04-01T12:00:00Z",
-// "status": "UnRead"
