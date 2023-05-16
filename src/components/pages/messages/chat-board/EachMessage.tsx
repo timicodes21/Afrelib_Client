@@ -5,6 +5,10 @@ import { messageType } from "../../../../types/messages";
 import styles from "./styles.module.css";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import dayjs from "dayjs";
+import MessageImageType from "./message-type/image/Image";
+import MessageVideoType from "./message-type/video/Video";
+import MessageAudioType from "./message-type/audio/Audio";
+import MessageDocumentType from "./message-type/document/Document";
 
 interface componentProps {
   message: messageType;
@@ -33,44 +37,58 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
           </Box>
         )}
 
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 1,
-            marginBottom: "25px",
-          }}
-        >
-          <Box
-            className={`${styles.chatBoardMessageContainer} ${
-              isSent
-                ? styles.chatBoardSentMessage
-                : styles.chatBoardReceivedMessage
-            }`}
-          >
-            {!isSent && (
-              <Typography className={styles.chatBoardMessageName}>
-                {message.senderName}
-              </Typography>
-            )}
-
-            <Typography className={styles.chatMessageText}>
-              {message.content}
-            </Typography>
-          </Box>
-
+        {message.mediaType === "audio" && (
+          <MessageAudioType message={message} />
+        )}
+        {message.mediaType === "image" && (
+          <MessageImageType message={message} />
+        )}
+        {message.mediaType === "video" && (
+          <MessageVideoType message={message} />
+        )}
+        {message.mediaType === "text" && (
+          <MessageDocumentType message={message} />
+        )}
+        {message.mediaType === "document" && (
           <Box
             sx={{
-              width: "100%",
               display: "flex",
-              justifyContent: isSent ? "flex-end" : "space-between",
+              flexDirection: "column",
+              gap: 1,
+              marginBottom: "25px",
             }}
           >
-            <Typography className={styles.chatBoardMessageTime}>
-              {dayjs(message.timestamp).format("h:mm A	")}
-            </Typography>
+            <Box
+              className={`${styles.chatBoardMessageContainer} ${
+                isSent
+                  ? styles.chatBoardSentMessage
+                  : styles.chatBoardReceivedMessage
+              }`}
+            >
+              {!isSent && (
+                <Typography className={styles.chatBoardMessageName}>
+                  {message.senderName}
+                </Typography>
+              )}
+
+              <Typography className={styles.chatMessageText}>
+                {message.content}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: isSent ? "flex-end" : "space-between",
+              }}
+            >
+              <Typography className={styles.chatBoardMessageTime}>
+                {dayjs(message.timestamp).format("h:mm A	")}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
     </Box>
   );

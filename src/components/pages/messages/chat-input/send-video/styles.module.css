@@ -1,0 +1,99 @@
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  background: rgba(218, 230, 242, 0.99);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.imageContainer {
+  width: 100%;
+  max-height: calc(100% - 180px);
+  /* min-height: 500px; */
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageContainer video {
+  max-width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.addCaptionContainer {
+  width: 100%;
+  /* min-height: 100px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+
+.chatInputTextArea {
+  box-sizing: border-box;
+
+  resize: none;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 8px 12px;
+  isolation: isolate;
+  width: calc(100% - 140px);
+  height: 76px;
+  background: #ffffff;
+  border: 0.8px solid #ced4da;
+  border-radius: 8px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.chatInputButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 6px;
+
+  height: 32px;
+  background: #0065b5;
+  border-radius: 8px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height, or 125% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  /* Blanc fond 2 Wireframe */
+
+  color: #ffffff;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
