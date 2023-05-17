@@ -1,0 +1,240 @@
+.container {
+  width: 682px;
+  height: 718px;
+  padding: 40px;
+  background: #ffffff;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.15),
+    0px 1px 2px rgba(16, 24, 40, 0.1);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.detailsSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detailsSection .eachDetail {
+  width: 100%;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.detailsSection .eachDetailFile {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.eachDetail span {
+  max-width: 100px;
+  /* height: 26px; */
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 162.5%;
+  letter-spacing: -0.8px;
+  color: #172b4d;
+  padding: 0;
+  margin: 0;
+}
+
+.eachDetail p {
+  padding: 0;
+  margin: 0;
+  width: calc(100% - 100px);
+  /* height: 19px; */
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: -0.01em;
+  color: #353f50;
+}
+
+.fileDownloader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fileDownloader .fileInformation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.fileInformation .iconContainer {
+  width: 38.31px;
+  height: 43.65px;
+  background: #eef7fb;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fileInformation .fileDetail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* gap: 10px; */
+}
+
+.fileDetail p {
+  height: 20px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: #353f50;
+}
+
+.fileDetail span {
+  height: 16px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 16px;
+  color: #5f738c;
+}
+
+.divider {
+  box-sizing: border-box;
+  width: 100%;
+  height: 2px;
+  background: rgba(217, 217, 217, 0.36);
+  margin: 35px 0;
+}
+
+/* *******************************************Feedback styles************************************** */
+
+.feedbackSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.feedbackSection .feedBackHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.feedBackHeader h1 {
+  height: 39px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 162.5%;
+  letter-spacing: -0.8px;
+  color: #172b4d;
+  margin: 0;
+  padding: 0;
+}
+
+.feedBackHeader span {
+  height: 39px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 162.5%;
+  letter-spacing: -0.8px;
+  color: #172b4d;
+}
+
+.feedbackSection .feedBackContents {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  overflow-y: auto;
+  gap: 20px;
+}
+
+.feedBackContents .noFeedBack {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noFeedBack p {
+  height: 47px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: #353f50;
+}
+
+.feedBackContents .eachFeedback {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.eachFeedback .feedbackInfo {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 80px);
+}
+
+.feedbackInfo p {
+  height: 26px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 162.5%;
+  letter-spacing: -0.8px;
+  color: #172b4d;
+  margin: 0;
+  padding: 0;
+}
+
+.feedbackInfo span {
+  height: 47px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  margin: 0;
+  padding: 0;
+}
+
+.eachFeedback .avatar {
+  width: 48px;
+  height: 48px;
+  position: relative;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(233, 233, 233);
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.avatar .avatarImage {
+  width: 38px;
+  height: 38px;
+  background-size: cover !important;
+  background-position: center !important;
+  padding: 0;
+}

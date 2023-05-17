@@ -18,6 +18,9 @@ export const useProtectedRoute = () => {
           teamId: null,
           cohortId: null,
           id: null,
+          email: null,
+          bio: null,
+          dob: null,
         }),
     );
 

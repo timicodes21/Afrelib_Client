@@ -1,0 +1,85 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.addBadgeButton {
+  box-sizing: border-box;
+  width: 238px;
+  height: 189px;
+  background: #fbfafa;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.15),
+    0px 1px 2px rgba(16, 24, 40, 0.1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.addBadgeButton p {
+  width: 139px;
+  height: 22px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+  color: #353f50;
+}
+
+.addBadgeButton:hover {
+  border: 1px solid rgba(#f2f4f8, 0);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.05), 0 0 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.addBadgeButton:active {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05), 0 0 2px rgba(0, 0, 0, 0.1);
+  transition: ease-in-out 0.1s;
+}
+
+.badgeContainer {
+  box-sizing: border-box;
+  width: 238px;
+  height: 189px;
+  background: #fbfafa;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.15),
+    0px 1px 2px rgba(16, 24, 40, 0.1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.badgeContainer p {
+  height: 25px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: -0.01em;
+  color: #353f50;
+}
+
+.badgeContainer span {
+  height: 16px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  color: #353f50;
+}

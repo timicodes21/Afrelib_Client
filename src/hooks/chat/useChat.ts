@@ -5,11 +5,14 @@ import {
   getAllChatMessages,
   sendChatMessage,
   removeChatMember,
+  getAllChatMembers,
+  readUnreadMessages,
 } from "@/api/chats";
 import {
   IGetChatMessagesResponse,
   IGetGroupChatResponse,
   ISendChatMessageResponse,
+  IGetChatMembersResponse,
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
 import { ISendMessageRequest } from "@/types/apiRequests";
@@ -40,11 +43,65 @@ export const useChatMessages = (chatId: string | number) => {
     [queryKeys.getMessages, chatId],
     () => getAllChatMessages(chatId),
   );
+
   const onError = () => {};
 
   const messages = data ? data[0].data : [];
 
-  return { messages, status, fetchingMsgs };
+  const onSuccessReadMessages = (data: string) => {
+    //Return chat members
+    //queryClient.invalidateQueries([queryKeys.getTeams]);
+  };
+
+  const handleReadUnreadMsgs = async (
+    userId: string | number,
+    chatId: string | number,
+  ) => {
+    // setRemovingMember(true);
+
+    const response = await readUnreadMessages(userId, chatId);
+
+    response === "User removed from chat successfully"
+      ? onSuccessReadMessages(response)
+      : () => {};
+
+    //setRemovingMember(false);
+  };
+
+  const handleGetNewMessages = async (chatId: string | number) => {
+    // setRemovingMember(true);
+
+    const response = await getAllChatMessages(chatId);
+    console.log(response);
+    response === "new messages" ? onSuccessReadMessages(response) : () => {};
+
+    //setRemovingMember(false);
+  };
+
+  return {
+    messages,
+    status,
+    fetchingMsgs,
+    handleReadUnreadMsgs,
+    handleGetNewMessages,
+  };
+};
+
+export const useChatMembers = (chatId: string | number) => {
+  const {
+    data,
+    status,
+    isFetching: fetchingMembers,
+  } = useQuery<IGetChatMembersResponse[], Error>(
+    [queryKeys.getMembers, chatId],
+    () => getAllChatMembers(chatId),
+  );
+
+  const onError = () => {};
+
+  const chatMembers = data;
+
+  return { status, chatMembers, fetchingMembers };
 };
 
 export const useSendNewMessage = () => {
@@ -107,6 +164,58 @@ export const useRemoveChatMember = () => {
   };
 
   return {
+    handleRemoveMember,
+    removingMember,
+  };
+};
+
+export const useChatMemberHandler = () => {
+  const [addingMember, setAddingMember] = useState(false);
+  const [removingMember, setRemovingMember] = useState(false);
+
+  const onSuccessRemoveMember = (data: string) => {
+    //Return chat members
+    //queryClient.invalidateQueries([queryKeys.getTeams]);
+  };
+
+  const onSuccessAddMember = (data: string) => {
+    //Return chat members
+    //queryClient.invalidateQueries([queryKeys.getTeams]);
+  };
+
+  const handleRemoveMember = async (
+    userId: string | number,
+    chatId: string | number,
+  ) => {
+    setRemovingMember(true);
+
+    const response = await removeChatMember(userId, chatId);
+
+    response === "User removed from chat successfully"
+      ? onSuccessRemoveMember(response)
+      : () => {};
+
+    setRemovingMember(false);
+  };
+
+  const handleAddChatMember = async (
+    userId: string | number,
+    chatId: string | number,
+  ) => {
+    setAddingMember(true);
+
+    const response = await removeChatMember(userId, chatId);
+
+    response === "User removed from chat successfully"
+      ? onSuccessAddMember(response)
+      : () => {};
+
+    setAddingMember(false);
+  };
+
+  return {
+    handleAddChatMember,
+    addingMember,
     handleRemoveMember,
     removingMember,
   };
