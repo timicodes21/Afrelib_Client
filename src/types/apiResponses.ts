@@ -7,6 +7,8 @@ interface AdminDetails {
   email: string;
   created_at: string;
   updated_at: string;
+  bio?: string;
+  dob?: string;
 }
 
 export interface IResponseMessageWithData<TData> {
@@ -40,6 +42,8 @@ interface UserDetails {
   created_at: string;
   updated_at: string;
   role_name: RoleName;
+  bio?: string;
+  dob?: string;
   team: {
     id: number;
   };
@@ -132,6 +136,10 @@ export interface IGetGroupChatResponse {
 }
 
 export interface IGetChatMessagesResponse {
+  [key: string]: any;
+}
+
+export interface IGetChatMembersResponse {
   [key: string]: any;
 }
 

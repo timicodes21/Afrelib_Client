@@ -67,19 +67,19 @@ const ChatInput = () => {
   };
 
   const handleSendNewMessage = () => {
-    return toast.error("Cant send message at this time");
+    //return toast.error("Cant send message at this time");
 
-    // const chatId = chat?.chatId ?? 0;
-    // const newMessage: ISendMessageRequest = {
-    //   content: message,
-    //   mediaType: "text",
-    //   senderId: userDetails.id || 0,
-    //   mediaUrl: "",
-    //   timestamp: dayjs(Date.now()).toISOString(),
-    //   senderName: `${userDetails.first_name} ${userDetails.last_name}`,
-    // };
+    const chatId = chat?.chatId ?? 0;
+    const newMessage: ISendMessageRequest = {
+      content: message,
+      mediaType: "text",
+      senderId: userDetails.id || 0,
+      mediaUrl: "",
+      timestamp: dayjs(Date.now()).toISOString(),
+      senderName: `${userDetails.first_name} ${userDetails.last_name}`,
+    };
 
-    // sendNewMessage(chatId, newMessage);
+    sendNewMessage(chatId, newMessage);
   };
 
   //const sendingMessage = false;

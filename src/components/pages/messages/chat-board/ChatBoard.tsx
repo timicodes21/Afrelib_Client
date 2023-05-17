@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Box, LinearProgress } from "@mui/material";
+import Pusher from "pusher-js";
 
 import styles from "./styles.module.css";
 import ChatInput from "../chat-input/ChatInput";
@@ -12,10 +14,31 @@ import MessageSendVoice from "../chat-input/send-voice/SendVoice";
 import MessageSendVideo from "../chat-input/send-video/SendVideo";
 import MessageSendDocument from "../chat-input/send-document/SendDocument";
 
+const pusher_key = process.env.PUSHER_APP_KEY || "";
+const pusher_cluster = process.env.PUSHER_APP_CLUSTER || "";
+
 const ChatMessagesBoard = () => {
   const { chat, sendMedia } = useMessagesContext();
 
-  const { messages, fetchingMsgs } = useChatMessages(chat?.chatId ?? 0);
+  const { messages, fetchingMsgs, handleGetNewMessages } = useChatMessages(
+    chat?.chatId ?? 0,
+  );
+
+  // useEffect(() => {
+  //   const pusher = new Pusher(pusher_key, {
+  //     cluster: pusher_cluster,
+  //   });
+
+  //   const channel = pusher.subscribe("messages");
+
+  //   channel.bind("new_message", function (data: any) {
+  //     handleGetNewMessages(chat?.chatId ?? 0);
+  //   });
+
+  //   return () => {
+  //     channel.unbind("new_message");
+  //   };
+  // }, []);
 
   return (
     <Box className={styles.chatBoardContainer}>

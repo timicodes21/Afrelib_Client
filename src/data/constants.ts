@@ -130,8 +130,8 @@ export const queryKeys = {
   getTeamProjects: "getTeamProjects",
   getChats: "getChats",
   getMessages: "getMessages",
+  getMembers: "getMembers",
   getWeeklyUpdates: "getWeeklyUpdates",
-
 };
 
 //Chats links
@@ -143,9 +143,19 @@ export const GET_ALL_CHAT_MESSAGES = (chatId: number | string) =>
   `/chat/${chatId}/messages`;
 export const SEND_CHAT_MESSAGE = (chatId: number | string) =>
   `/chat/${chatId}/message`;
+export const GET_ALL_CHAT_MEMBERS = (chatId: number | string) =>
+  `/chat/${chatId}/members`;
 export const REMOVE_CHAT_MEMBER = (
   userId: number | string,
   chatId: number | string,
 ) => `group-chats/${chatId}/members/${userId}`;
+export const ADD_CHAT_MEMBER = (
+  userId: number | string,
+  chatId: number | string,
+) => `chat/${chatId}/addUser/${userId}`;
+export const READ_UNREAD_CHAT_MESSAGES = (
+  userId: number | string,
+  chatId: number | string,
+) => `chat/${chatId}/user/${userId}/read`;
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

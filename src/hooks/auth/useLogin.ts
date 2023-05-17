@@ -53,7 +53,10 @@ export const useLogin = () => {
       teamId: data?.UserDetails?.team?.id,
       cohortId: data?.UserDetails?.cohort?.cohort_id,
       userId: data?.UserDetails?.id,
-
+      email: data?.UserDetails?.email,
+      bio: data?.UserDetails?.bio || null,
+      dob: data?.UserDetails?.dob || null,
+      // bio: data?.UserDetails.
     };
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userDetails));
@@ -74,7 +77,9 @@ export const useLogin = () => {
       role: "admin",
       id: data?.adminDetails?.id,
       userId: data?.adminDetails?.id,
-
+      email: data?.adminDetails?.email,
+      bio: data?.adminDetails?.bio || null,
+      dob: data?.adminDetails?.dob || null,
     };
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userDetails));

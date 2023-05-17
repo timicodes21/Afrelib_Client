@@ -2,11 +2,18 @@ import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 import { useMessagesContext } from "@/contexts/MessagesContext";
+import { useChatMembers } from "@/hooks/chat/useChat";
 
 import styles from "./styles.module.css";
 
 const MessagesHeader = () => {
   const { unselectChat, chat, openChatModal } = useMessagesContext();
+
+  const { chatMembers, fetchingMembers } = useChatMembers(chat?.chatId ?? 0);
+
+  if (!fetchingMembers) {
+    console.log(chatMembers);
+  }
 
   return (
     <Box

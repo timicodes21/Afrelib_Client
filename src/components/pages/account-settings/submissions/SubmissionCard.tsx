@@ -4,16 +4,18 @@ import styles from "./styles.module.css";
 import { data, submissionType } from "../../../../data/submissions";
 
 interface iProps {
-  item: submissionType;
+  submission: submissionType;
   isEven: boolean;
+  showDetails: (submission: submissionType) => void;
 }
 
-const SubmissionCard = ({ item, isEven }: iProps) => {
+const SubmissionCard = ({ submission, isEven, showDetails }: iProps) => {
   return (
     <Box
       className={`${styles.cardContainer} ${
         isEven ? styles.evenCardContainer : ""
       }`}
+      onClick={() => showDetails(submission)}
     >
       <Typography
         className={`${styles.cardHeader} ${
@@ -21,7 +23,7 @@ const SubmissionCard = ({ item, isEven }: iProps) => {
         }`}
         mb={1}
       >
-        {item.title}
+        {submission.title}
       </Typography>
 
       <Box
@@ -32,27 +34,31 @@ const SubmissionCard = ({ item, isEven }: iProps) => {
         }}
         mb={2}
       >
-        <Typography className={styles.teamName}>{item.team}</Typography>
+        <Typography className={styles.teamName}>{submission.team}</Typography>
         <Typography className={styles.submittedBy}>
-          Submitted By: {item.submittedBy}
+          Submitted By: {submission.submittedBy}
         </Typography>
       </Box>
 
       <Box
         sx={{
           display: "flex",
-          alignItems: "center",
+          alignsubmissions: "center",
           justifyContent: "space-between",
         }}
       >
         <Typography className={styles.comments}>
-          {item.feedback.length}
+          {submission.feedback ? submission.feedback.length : 0}
         </Typography>
-        <Typography className={styles.points}>{item.points} points</Typography>
+        <Typography className={styles.points}>
+          {submission.points} points
+        </Typography>
       </Box>
 
       <Box>
-        <Typography className={styles.submissionDate}>{item.date}</Typography>
+        <Typography className={styles.submissionDate}>
+          {submission.date}
+        </Typography>
       </Box>
     </Box>
   );

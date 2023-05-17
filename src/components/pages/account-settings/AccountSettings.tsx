@@ -10,11 +10,14 @@ import styles from "@/styles/AccountSettings.module.css";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import AccountPersonalInformation from "./personal-information/PersonalInformation";
 import AccountSubmissions from "./submissions/Submissions";
+import AccountBadges from "./badges/Badges";
 
 const AccountSettingsPage = () => {
   const { userDetails } = useGlobalContext();
   const { chat } = useMessagesContext();
   const activeChat = chat ? true : false;
+
+  const { role } = userDetails;
 
   return (
     <Wrapper>
@@ -27,15 +30,20 @@ const AccountSettingsPage = () => {
           <AccountPersonalInformation />
         </Box>
 
-        <Box mb={5}>
-          <Typography className={styles.headerText}>Submissions</Typography>
-          <AccountSubmissions />
-        </Box>
+        {role?.toLowerCase() === "student" && (
+          <Box mb={5}>
+            <Typography className={styles.headerText}>Submissions</Typography>
+            <AccountSubmissions />
+          </Box>
+        )}
 
-        <Box>
-          <Typography className={styles.headerText}>Badges</Typography>
-          {/* <AccountPersonalInformation /> */}
-        </Box>
+        {(role?.toLowerCase() === "student" ||
+          role?.toLowerCase() === "admin") && (
+          <Box>
+            <Typography className={styles.headerText}>Badges</Typography>
+            <AccountBadges />
+          </Box>
+        )}
       </div>
     </Wrapper>
   );
