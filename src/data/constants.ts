@@ -69,6 +69,7 @@ export const ENABLE_DISABLE_USER_API = ({
   userId: number;
 }) =>
   type === "enable" ? `/user/${userId}/enable` : `/user/${userId}/disable`;
+export const GET_MENTOR_MENTEES = (id: number) => `/mentees/${id}`;
 
 //Cohorts
 export const CREATE_COHORT_API = "/cohort";
