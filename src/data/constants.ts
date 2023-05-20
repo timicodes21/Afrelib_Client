@@ -35,6 +35,7 @@ export const ADMIN_TEAMS = "/admin/dashboard/teams";
 export const ADMIN_PROJECTS = "/admin/dashboard/projects";
 export const ADMIN_GROUPCHATS = "/admin/dashboard/groupchats";
 export const ADMIN_ACCOUNTS_SETTINGS = "/admin/dashboard/accounts_settings";
+export const ADMIN_SUPPORT = "/admin/dashboard/support";
 export const ADMIN_LOGIN = "/admin/login";
 
 // Api Url's
@@ -119,6 +120,7 @@ export const ADD_COHORT_GROUPCHAT = (cohortId: string) =>
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
+  getMentorMentees: "getMentorMentees",
   getCohorts: "getCohorts",
   getTeams: "getTeams",
   getSingleTeam: "getSingleTeam",
