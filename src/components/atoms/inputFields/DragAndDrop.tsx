@@ -24,6 +24,8 @@ const DragAndDrop: React.FC<IProps> = ({ handleDragDrop, fileName }) => {
     multiple: false,
     accept: {
       "image/png": [".png", ".jpg"],
+      "video/mp4": [".mp4", ".wmv"],
+      "image/jpeg": [".jpeg", ".png"],
       "application/pdf": [".pdf"],
       "application/msword": [".doc"],
     },

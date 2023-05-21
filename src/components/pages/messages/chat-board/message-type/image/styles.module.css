@@ -1,0 +1,59 @@
+.container {
+  box-sizing: border-box;
+  max-width: 330px;
+  height: auto;
+  border-radius: 7.5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.senderName {
+  min-width: 39px;
+  height: 14px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: -0.01em;
+  color: #09b00c;
+}
+
+.imageContainer {
+  box-sizing: border-box;
+  max-width: 100%;
+  background: #e9f1fd;
+  border-radius: 7.5px;
+  overflow: hidden;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.imageCaption {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+}
+
+.imageCaption p {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #353f50;
+}
+
+.messageTime {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: -0.01em;
+  color: #353f50;
+}

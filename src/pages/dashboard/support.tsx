@@ -1,11 +1,10 @@
+import AdminSupportPage from "@/components/pages/admin/support/AdminSupportPage";
+import SupportPage from "@/components/pages/support/SupportPage";
 import React from "react";
 
 const Support = () => {
-  return (
-    <div>
-      <h1>Support</h1>
-    </div>
-  );
+  // return <SupportPage />;
+  return <AdminSupportPage />;
 };
 
 export default Support;

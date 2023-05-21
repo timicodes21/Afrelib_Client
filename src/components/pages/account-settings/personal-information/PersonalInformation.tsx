@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import AuthInput from "@/components/atoms/inputFields/AuthInput";
 import CreateIcon from "@mui/icons-material/Create";
@@ -10,8 +10,10 @@ import Avatars from "../Avatars/Avatars";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
 import ChangeAccountPassword from "./ChangePassword";
 import Image from "next/image";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 const AccountPersonalInformation = () => {
+  const { userDetails } = useGlobalContext();
   const [avatarsModal, setAvatarsModal] = useState(false);
   const [passwordModal, setPasswordModal] = useState(false);
 
@@ -23,13 +25,6 @@ const AccountPersonalInformation = () => {
     formState: { errors },
   } = useForm({
     mode: "onBlur",
-    defaultValues: {
-      first_name: "Peter",
-      last_name: "Umoh",
-      dob: "13/03/2008",
-      email: "pumoh@example.com",
-      about_me: "",
-    },
   });
 
   const showAvatarsModal = () => {
@@ -47,6 +42,17 @@ const AccountPersonalInformation = () => {
   const closePasswordModal = () => {
     setPasswordModal(false);
   };
+
+  useEffect(() => {
+    const defaultvalues = {
+      first_name: userDetails.first_name,
+      last_name: userDetails.last_name,
+      dob: userDetails.dob,
+      email: userDetails.email,
+      bio: userDetails.bio,
+    };
+    reset(defaultvalues);
+  }, [userDetails]);
   return (
     <Box className={styles.container}>
       <CustomModal open={avatarsModal} setOpen={setAvatarsModal} width="620px">
@@ -66,13 +72,11 @@ const AccountPersonalInformation = () => {
           <div className={styles.avatarBadge} onClick={showAvatarsModal}>
             <CreateIcon />
           </div>
-          <Image
-            src="https://api.dicebear.com/6.x/adventurer/svg?seed=Bella"
-            alt="avatar"
+          <div
             className={styles.avatarImage}
-            //loading="lazy"
-            width={64}
-            height={64}
+            style={{
+              background: `url(${"https://api.dicebear.com/6.x/adventurer/svg?seed=Bella"})`,
+            }}
           />
         </Box>
 
@@ -156,7 +160,7 @@ const AccountPersonalInformation = () => {
               <Box>
                 <Controller
                   control={control}
-                  name="about_me"
+                  name="bio"
                   render={({ field: { onChange, value, onBlur } }) => (
                     <CustomTextArea
                       label="About Me"

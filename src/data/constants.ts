@@ -35,6 +35,7 @@ export const ADMIN_TEAMS = "/admin/dashboard/teams";
 export const ADMIN_PROJECTS = "/admin/dashboard/projects";
 export const ADMIN_GROUPCHATS = "/admin/dashboard/groupchats";
 export const ADMIN_ACCOUNTS_SETTINGS = "/admin/dashboard/accounts_settings";
+export const ADMIN_SUPPORT = "/admin/dashboard/support";
 export const ADMIN_LOGIN = "/admin/login";
 
 // Api Url's
@@ -69,6 +70,7 @@ export const ENABLE_DISABLE_USER_API = ({
   userId: number;
 }) =>
   type === "enable" ? `/user/${userId}/enable` : `/user/${userId}/disable`;
+export const GET_MENTOR_MENTEES = (id: number) => `/mentees/${id}`;
 
 //Cohorts
 export const CREATE_COHORT_API = "/cohort";
@@ -118,6 +120,7 @@ export const ADD_COHORT_GROUPCHAT = (cohortId: string) =>
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
+  getMentorMentees: "getMentorMentees",
   getCohorts: "getCohorts",
   getTeams: "getTeams",
   getSingleTeam: "getSingleTeam",
@@ -130,8 +133,8 @@ export const queryKeys = {
   getTeamProjects: "getTeamProjects",
   getChats: "getChats",
   getMessages: "getMessages",
+  getMembers: "getMembers",
   getWeeklyUpdates: "getWeeklyUpdates",
-
 };
 
 //Chats links
@@ -143,9 +146,19 @@ export const GET_ALL_CHAT_MESSAGES = (chatId: number | string) =>
   `/chat/${chatId}/messages`;
 export const SEND_CHAT_MESSAGE = (chatId: number | string) =>
   `/chat/${chatId}/message`;
+export const GET_ALL_CHAT_MEMBERS = (chatId: number | string) =>
+  `/chat/${chatId}/members`;
 export const REMOVE_CHAT_MEMBER = (
   userId: number | string,
   chatId: number | string,
 ) => `group-chats/${chatId}/members/${userId}`;
+export const ADD_CHAT_MEMBER = (
+  userId: number | string,
+  chatId: number | string,
+) => `chat/${chatId}/addUser/${userId}`;
+export const READ_UNREAD_CHAT_MESSAGES = (
+  userId: number | string,
+  chatId: number | string,
+) => `chat/${chatId}/user/${userId}/read`;
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";

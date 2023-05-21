@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent } from "react";
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useClassRoom } from "@/hooks/classRoom/useClassRoom";
 import { useForm, Controller } from "react-hook-form";
