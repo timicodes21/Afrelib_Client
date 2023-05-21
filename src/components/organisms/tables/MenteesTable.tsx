@@ -60,7 +60,14 @@ const MenteesTable: React.FC<IProps> = ({ mentees, loading }) => {
             </TableRow>
           </TableHead>
 
-          <TableBody>
+          <TableBody
+            sx={{
+              boxShadow:
+                "0px 1px 3px rgba(16, 24, 40, 0.15), 0px 1px 2px rgba(16, 24, 40, 0.1)",
+              background: "#FBFAFA",
+              borderRadius: "10px",
+            }}
+          >
             {mentees.length === 0 && (
               <Box className="d-flex justify-center items-center">
                 <Image
@@ -78,15 +85,32 @@ const MenteesTable: React.FC<IProps> = ({ mentees, loading }) => {
                 .map((item, index) => {
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                      <TableCell align="left">
+                      <TableCell align="center">
                         <Typography
                           className="font-12 font-700"
                           sx={{ color: "secondary.main" }}
                         >
-                          {`${item?.first_name} ${item?.last_name}`}
+                          {item?.first_name}
                         </Typography>
                       </TableCell>
-                      <TableCell align="left">
+                      <TableCell align="center">
+                        <Typography
+                          className="font-12 font-700"
+                          sx={{ color: "secondary.main" }}
+                        >
+                          {item?.last_name}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell align="center">
+                        <Typography
+                          className="font-12 font-700"
+                          sx={{ color: "secondary.main" }}
+                        >
+                          {item?.email}
+                        </Typography>
+                      </TableCell>
+                      <TableCell align="center">
                         <Typography
                           className="font-12 font-400"
                           sx={{ color: "secondary.main" }}
@@ -94,13 +118,20 @@ const MenteesTable: React.FC<IProps> = ({ mentees, loading }) => {
                           {item?.date_of_birth}
                         </Typography>
                       </TableCell>
-
-                      <TableCell align="left">
+                      <TableCell align="center">
                         <Typography
                           className="font-12 font-400"
                           sx={{ color: "secondary.main" }}
                         >
                           {item?.badges}
+                        </Typography>
+                      </TableCell>
+                      <TableCell align="center">
+                        <Typography
+                          className="font-12 font-400"
+                          sx={{ color: "secondary.main" }}
+                        >
+                          {item?.leadership_points}
                         </Typography>
                       </TableCell>
                     </TableRow>

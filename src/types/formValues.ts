@@ -66,3 +66,8 @@ export type AddProjectFormValues = {
   project_title: string;
   project_description: string;
 };
+
+export type SupportFormValues = {
+  name: string;
+  description: string;
+};

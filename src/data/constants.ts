@@ -35,6 +35,7 @@ export const ADMIN_TEAMS = "/admin/dashboard/teams";
 export const ADMIN_PROJECTS = "/admin/dashboard/projects";
 export const ADMIN_GROUPCHATS = "/admin/dashboard/groupchats";
 export const ADMIN_ACCOUNTS_SETTINGS = "/admin/dashboard/accounts_settings";
+export const ADMIN_SUPPORT = "/admin/dashboard/support";
 export const ADMIN_LOGIN = "/admin/login";
 
 // Api Url's
@@ -69,6 +70,7 @@ export const ENABLE_DISABLE_USER_API = ({
   userId: number;
 }) =>
   type === "enable" ? `/user/${userId}/enable` : `/user/${userId}/disable`;
+export const GET_MENTOR_MENTEES = (id: number) => `/mentees/${id}`;
 
 //Cohorts
 export const CREATE_COHORT_API = "/cohort";
@@ -118,6 +120,7 @@ export const ADD_COHORT_GROUPCHAT = (cohortId: string) =>
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
+  getMentorMentees: "getMentorMentees",
   getCohorts: "getCohorts",
   getTeams: "getTeams",
   getSingleTeam: "getSingleTeam",
