@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Box, LinearProgress } from "@mui/material";
 import Pusher from "pusher-js";
+import Echo from "laravel-echo";
+import { GET_ALL_CHAT_MESSAGES, LOCAL_STORAGE_KEY } from "@/data/constants";
 
 import styles from "./styles.module.css";
 import ChatInput from "../chat-input/ChatInput";
@@ -29,14 +31,16 @@ const ChatMessagesBoard = () => {
   //     cluster: pusher_cluster,
   //   });
 
-  //   const channel = pusher.subscribe("messages");
+  //   const channel = pusher.subscribe("chat-4220");
+  //   //console.log(channel);
 
-  //   channel.bind("new_message", function (data: any) {
-  //     handleGetNewMessages(chat?.chatId ?? 0);
+  //   channel.bind("SendChatMessage", function (data: any) {
+  //     console.log(data);
+  //     //handleGetNewMessages(chat?.chatId ?? 0);
   //   });
 
   //   return () => {
-  //     channel.unbind("new_message");
+  //     channel.unbind("SendChatMessage");
   //   };
   // }, []);
 

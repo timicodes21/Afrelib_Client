@@ -66,14 +66,12 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
               }`}
             >
               {!isSent && (
-                <Typography className={styles.chatBoardMessageName}>
+                <p className={styles.chatBoardMessageName}>
                   {message.senderName}
-                </Typography>
+                </p>
               )}
 
-              <Typography className={styles.chatMessageText}>
-                {message.content}
-              </Typography>
+              <p className={styles.chatMessageText}>{message.content}</p>
             </Box>
 
             <Box
@@ -83,9 +81,9 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
                 justifyContent: isSent ? "flex-end" : "space-between",
               }}
             >
-              <Typography className={styles.chatBoardMessageTime}>
+              <p className={styles.chatBoardMessageTime}>
                 {dayjs(message.timestamp).format("h:mm A	")}
-              </Typography>
+              </p>
             </Box>
           </Box>
         )}
