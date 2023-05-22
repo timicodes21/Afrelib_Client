@@ -17,15 +17,16 @@ const MessageImageType = ({ message }: IProps) => {
 
   const isSent = userId === senderId;
 
+  const mediaUrl = message.mediaUrl.includes("https")
+    ? message.mediaUrl
+    : `${storageUrl}/${message.mediaUrl}`;
+
   return (
     <div className={`${styles.container}`}>
       {!isSent && <p className={styles.senderName}>{message.senderName}</p>}
 
       <div className={styles.imageContainer}>
-        <img
-          className={styles.image}
-          src={`${storageUrl}/${message.mediaUrl}`}
-        />
+        <img className={styles.image} src={mediaUrl} />
         {message.content && (
           <div className={styles.imageCaption}>
             <p>{message.content}</p>

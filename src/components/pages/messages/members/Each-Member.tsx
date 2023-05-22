@@ -7,15 +7,27 @@ import { useChatMessages, useRemoveChatMember } from "@/hooks/chat/useChat";
 import { useMessagesContext } from "@/contexts/MessagesContext";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
+import { chatMemberType } from "@/types/messages";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 interface IProps {
   memberId: number | string;
   action: (userId: string | number) => void;
   muiBtnColor: "error" | "primary" | "secondary" | "warning" | "success";
   btnText: string;
+  member: chatMemberType;
+  showBtn: boolean;
 }
 
-const EachChatMember = ({ memberId, action, muiBtnColor, btnText }: IProps) => {
+const EachChatMember = ({
+  memberId,
+  action,
+  muiBtnColor,
+  btnText,
+  showBtn,
+  member,
+}: IProps) => {
+  const { userDetails } = useGlobalContext();
   const [open, setOpen] = useState(false);
   const { handleRemoveMember, removingMember } = useRemoveChatMember();
   const { chat } = useMessagesContext();
@@ -46,22 +58,38 @@ const EachChatMember = ({ memberId, action, muiBtnColor, btnText }: IProps) => {
           <div
             className={styles.avatarImage}
             style={{
-              background: `url("https://api.dicebear.com/6.x/adventurer/svg?seed=Bella")`,
+              background: `url(${
+                member.avatar ||
+                "https://api.dicebear.com/6.x/bottts/svg?seed=Sammy"
+              })`,
             }}
           />
         </div>
 
         <div className={styles.memberDetails}>
-          <h1>David Markinde</h1>
-          <p>david&markinde@gmail.com</p>
+          {userDetails.userId === member.userId ? (
+            <h1>You</h1>
+          ) : (
+            <h1>
+              {member.firstName} {member.lastName}
+            </h1>
+          )}
+
+          <p>{member.email}</p>
         </div>
       </div>
 
-      <div className={styles.membersAction}>
-        <Button color={muiBtnColor} size="small" onClick={() => setOpen(true)}>
-          {btnText}
-        </Button>
-      </div>
+      {showBtn && (
+        <div className={styles.membersAction}>
+          <Button
+            color={muiBtnColor}
+            size="small"
+            onClick={() => setOpen(true)}
+          >
+            {btnText}
+          </Button>
+        </div>
+      )}
     </Box>
   );
 };

@@ -41,11 +41,9 @@ const EachChatMessage = ({ chat }: IProps) => {
             width: "100%",
           }}
         >
-          <Typography className={styles.chatListChatName}>
-            {chat.chatName}
-          </Typography>
+          <p className={styles.chatListChatName}>{chat.chatName}</p>
 
-          <Typography className={styles.chatListChatName}>8:30 AM</Typography>
+          <p className={styles.chatListChatName}>8:30 AM</p>
         </Box>
 
         <Box
@@ -56,9 +54,9 @@ const EachChatMessage = ({ chat }: IProps) => {
             width: "100%",
           }}
         >
-          <Typography className={styles.chatListChatLastMsg}>
+          <p className={styles.chatListChatLastMsg}>
             Ayomide: Hello everyone how are you doing
-          </Typography>
+          </p>
 
           <Box className={styles.chatListMessageCount}>1</Box>
         </Box>

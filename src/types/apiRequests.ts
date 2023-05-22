@@ -88,7 +88,7 @@ export interface ICreateUpdateRequest {
 }
 
 export interface ICreateTeamGroupChatRequest {
-  teamId: number;
+  team_id: number;
   participants: Array<string>;
 }
 
