@@ -4,6 +4,8 @@ import {
   GET_ALL_USERS_API,
   GET_STUDENTS_NOT_IN_TEAM,
   LOGIN_USER_API,
+  UPDATE_USER_DETAILS,
+  CHANGE_USER_PASSWORD,
 } from "@/data/constants";
 import { usersHttpClient } from "@/service/httpClients";
 import { ICreateUserRequest, IUserLoginRequest } from "@/types/apiRequests";
