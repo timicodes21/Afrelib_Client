@@ -129,7 +129,7 @@ export const useAdminTeams = () => {
     if (response?.team_id) {
       const studentsStringId = data?.students?.map(id => id.toString());
       await addTeamGroupChat({
-        teamId: response?.team_id,
+        team_id: response?.id,
         participants: [...studentsStringId, data?.mentor.toString()],
       });
       onSuccess(response);
