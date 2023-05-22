@@ -105,10 +105,14 @@ export const useAdminTeams = () => {
   };
 
   const onSuccess = (data: ITeamRespons | string) => {
+    setIsLoading(false);
     queryClient.invalidateQueries([queryKeys.getTeams]);
   };
 
-  const onError = () => {};
+  const onError = () => {
+    queryClient.invalidateQueries([queryKeys.getTeams]);
+    setIsLoading(false);
+  };
 
   const onSubmit: SubmitHandler<AddTeamFormValues> = async data => {
     const formData: ICreateTeamRequest = {
@@ -122,14 +126,15 @@ export const useAdminTeams = () => {
 
     const response = await createTeam(formData);
 
-    if (response?.teamId) {
+    if (response?.team_id) {
       const studentsStringId = data?.students?.map(id => id.toString());
       await addTeamGroupChat({
-        teamId: response?.teamId,
+        team_id: response?.id,
         participants: [...studentsStringId, data?.mentor.toString()],
       });
       onSuccess(response);
     } else {
+      setIsLoading(false);
       onError();
     }
 

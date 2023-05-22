@@ -526,3 +526,18 @@ export interface ICreateWeeklyUpdatesResponse {
   created_at: string;
   id: number;
 }
+
+interface MentorTeam {
+  id: number;
+  team_id: string;
+  team_name: string;
+  team_description: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IGetMentorMenteesResponse {
+  mentor: User;
+  mentorTeams: MentorTeam[];
+  mentees: User[];
+}

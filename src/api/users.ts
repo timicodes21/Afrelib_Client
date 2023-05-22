@@ -2,6 +2,7 @@ import {
   CREATE_USER_API,
   ENABLE_DISABLE_USER_API,
   GET_ALL_USERS_API,
+  GET_MENTOR_MENTEES,
   GET_STUDENTS_NOT_IN_TEAM,
   LOGIN_USER_API,
   UPDATE_USER_DETAILS,
@@ -9,6 +10,12 @@ import {
 } from "@/data/constants";
 import { usersHttpClient } from "@/service/httpClients";
 import { ICreateUserRequest, IUserLoginRequest } from "@/types/apiRequests";
+import {
+  IGetMentorMenteesResponse,
+  IGetWeeklyUpdatesResponse,
+  IResponseMessageWithData,
+  IStatusWithData,
+} from "@/types/apiResponses";
 import { toast } from "react-hot-toast";
 
 export const createUser = async (body: ICreateUserRequest) => {
@@ -115,6 +122,32 @@ export const enableOrDisableUser = async (
       }
   } catch (err: any) {
     err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const getMentorMentees: (
+  id: number,
+) => Promise<IGetMentorMenteesResponse | string> = async id => {
+  try {
+    const response: Awaited<
+      IStatusWithData<IResponseMessageWithData<IGetMentorMenteesResponse>>
+    > = await usersHttpClient(GET_MENTOR_MENTEES(id));
+    const { status, data } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(data?.message);
+        return data?.responseData;
+      } else {
+        return data?.message;
+      }
+    else {
+      return "Error";
+    }
+  } catch (err: any) {
+    typeof err?.response?.data?.message === "string"
       ? toast.error(err?.response?.data?.message)
       : toast.error("An Error Occured, Please try again later");
     return "An error occured";

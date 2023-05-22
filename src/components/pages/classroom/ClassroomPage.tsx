@@ -35,6 +35,8 @@ const ClassroomPage = () => {
     typeof teamId === "number" && teamId !== 0,
   );
 
+  console.log("data", data, isFetching);
+
   const { open, setOpen, openModal, closeModal } = useModal();
 
   const [index, setIndex] = useState(0);
@@ -57,7 +59,7 @@ const ClassroomPage = () => {
       >
         <Box className="d-flex justify-between">
           <LightCard width="184px">
-            {status === "loading" ? (
+            {isFetching ? (
               <Box className="text-center">
                 <CircularProgress sx={{ color: "#0065B5" }} size={25} />
               </Box>

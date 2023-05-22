@@ -14,7 +14,6 @@ import {
 } from "@/hooks/admin/useAdminTeams";
 import TeamsContainer from "@/components/organisms/containers/TeamsContainer";
 import DeleteWrapper from "@/components/molecules/wrappers/DeleteWrapper";
-import StudentsList from "@/components/molecules/lists/StudentsList";
 import AddMentor from "./AddMentor";
 import StudentsTable from "@/components/organisms/tables/StudentsTable";
 
