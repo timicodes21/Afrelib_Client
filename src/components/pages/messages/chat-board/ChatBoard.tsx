@@ -1,8 +1,10 @@
-import { useEffect } from "react";
-import { Box, LinearProgress } from "@mui/material";
+import { useCallback, useEffect, useRef, useState, UIEvent } from "react";
+import { Box, IconButton, LinearProgress } from "@mui/material";
 import Pusher from "pusher-js";
 import Echo from "laravel-echo";
 import { GET_ALL_CHAT_MESSAGES, LOCAL_STORAGE_KEY } from "@/data/constants";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import Zoom from "@mui/material/Zoom";
 
 import styles from "./styles.module.css";
 import ChatInput from "../chat-input/ChatInput";
@@ -20,7 +22,9 @@ const pusher_key = process.env.PUSHER_APP_KEY || "";
 const pusher_cluster = process.env.PUSHER_APP_CLUSTER || "";
 
 const ChatMessagesBoard = () => {
+  const [goDownIcon, setGoDownIcon] = useState(false);
   const { chat, sendMedia } = useMessagesContext();
+  const msgsContainerRef = useRef<HTMLDivElement | null>(null);
 
   const { messages, fetchingMsgs, handleGetNewMessages } = useChatMessages(
     chat?.chatId ?? 0,
@@ -43,6 +47,34 @@ const ChatMessagesBoard = () => {
   //     channel.unbind("SendChatMessage");
   //   };
   // }, []);
+  const handleOnScroll = (event: UIEvent<HTMLElement>) => {
+    const target = event.target as HTMLDivElement;
+    const { scrollHeight, scrollTop, clientHeight } = target;
+    const scrollPosition = scrollHeight - scrollTop - clientHeight;
+
+    if (scrollPosition > 1000) {
+      setGoDownIcon(true);
+    } else if (scrollPosition <= 0) {
+      setGoDownIcon(false);
+    }
+  };
+
+  const scrollToBottom = useCallback(() => {
+    if (!msgsContainerRef.current) return;
+
+    const scroll =
+      msgsContainerRef.current.scrollHeight -
+      msgsContainerRef.current.clientHeight;
+
+    msgsContainerRef.current.scrollTo({
+      top: scroll,
+      behavior: "smooth",
+    });
+  }, [msgsContainerRef]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [fetchingMsgs]);
 
   return (
     <Box className={styles.chatBoardContainer}>
@@ -56,19 +88,42 @@ const ChatMessagesBoard = () => {
         </Box>
       ) : (
         <>
-          <Box className={styles.chatBoardMessagesContainer}>
+          <div
+            className={styles.chatBoardMessagesContainer}
+            ref={msgsContainerRef}
+            onScroll={handleOnScroll}
+          >
             {messages &&
-              messages.map((msg: messageType) => {
+              [...messages].reverse().map((msg: messageType) => {
                 return (
                   <EachChatBoardMessage message={msg} key={msg.messageId} />
                 );
               })}
-          </Box>
+          </div>
           <Box>
             <ChatInput />
           </Box>
         </>
       )}
+      <Zoom in={goDownIcon}>
+        <IconButton
+          size="small"
+          sx={{
+            position: "absolute",
+            right: "5%",
+            bottom: "20%",
+            zIndex: 9999,
+            backgroundColor: "#0065B5",
+            "&:hover": {
+              backgroundColor: "#0065B5",
+            },
+            color: "#ffffff",
+          }}
+          onClick={scrollToBottom}
+        >
+          <ArrowCircleDownIcon fontSize="small" />
+        </IconButton>
+      </Zoom>
     </Box>
   );
 };

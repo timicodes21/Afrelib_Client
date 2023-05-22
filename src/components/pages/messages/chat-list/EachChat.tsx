@@ -3,6 +3,7 @@ import { Avatar, Box, Typography } from "@mui/material";
 import { useMessagesContext } from "@/contexts/MessagesContext";
 import styles from "@/styles/Messages.module.css";
 import { chatType } from "@/types/messages";
+import { useUnreadMessages } from "@/hooks/chat/useChat";
 
 interface IProps {
   chat: chatType;
@@ -10,6 +11,7 @@ interface IProps {
 
 const EachChatMessage = ({ chat }: IProps) => {
   const { selectChat, chat: selectedChat } = useMessagesContext();
+  const { fetchingMsgs, unread_messages } = useUnreadMessages(chat.chatId);
 
   return (
     <Box
@@ -57,8 +59,9 @@ const EachChatMessage = ({ chat }: IProps) => {
           <p className={styles.chatListChatLastMsg}>
             Ayomide: Hello everyone how are you doing
           </p>
-
-          <Box className={styles.chatListMessageCount}>1</Box>
+          {unread_messages > 0 && (
+            <Box className={styles.chatListMessageCount}>{unread_messages}</Box>
+          )}
         </Box>
       </Box>
     </Box>

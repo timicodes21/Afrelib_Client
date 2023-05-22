@@ -6,6 +6,7 @@ import {
   sendChatMessage,
   removeChatMember,
   getAllChatMembers,
+  getUnreadMessages,
   readUnreadMessages,
 } from "@/api/chats";
 import {
@@ -13,6 +14,7 @@ import {
   IGetGroupChatResponse,
   ISendChatMessageResponse,
   IGetChatMembersResponse,
+  IGetUnreadMessagesResponse,
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
 import { ISendMessageRequest } from "@/types/apiRequests";
@@ -46,7 +48,7 @@ export const useChatMessages = (chatId: string | number) => {
 
   const onError = () => {};
 
-  const messages = data ? data[0].data : [];
+  const messages = data ? data[0]?.data : [];
 
   const onSuccessReadMessages = (data: string) => {
     //Return chat members
@@ -220,5 +222,26 @@ export const useChatMemberHandler = () => {
     addingMember,
     handleRemoveMember,
     removingMember,
+  };
+};
+
+export const useUnreadMessages = (chatId: string | number) => {
+  const {
+    data,
+    status,
+    isFetching: fetchingMsgs,
+  } = useQuery<IGetUnreadMessagesResponse, Error>(
+    [queryKeys.getMessages, chatId],
+    () => getUnreadMessages(chatId),
+  );
+
+  const onError = () => {};
+
+  const unread_messages = data ? data["Unread Messages"] : 0;
+
+  return {
+    unread_messages,
+    status,
+    fetchingMsgs,
   };
 };

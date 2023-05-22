@@ -157,5 +157,7 @@ export const READ_UNREAD_CHAT_MESSAGES = (
   userId: number | string,
   chatId: number | string,
 ) => `chat/${chatId}/user/${userId}/read`;
+export const GET_UNREAD_MESSAGES = (chatId: number | string) =>
+  `/chat/${chatId}/unread`;
 
 export const LOCAL_STORAGE_KEY = "afrelibUserdetails";
