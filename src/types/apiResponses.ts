@@ -137,6 +137,11 @@ export interface IGetGroupChatResponse {
 
 export interface IGetChatMessagesResponse {
   [key: string]: any;
+  ["Unread Messages"]: number;
+}
+
+export interface IGetUnreadMessagesResponse {
+  [key: string]: any;
 }
 
 export interface IGetChatMembersResponse {
