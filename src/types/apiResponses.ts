@@ -141,6 +141,18 @@ export interface IGetChatMessagesResponse {
 
 export interface IGetChatMembersResponse {
   [key: string]: any;
+  id: string | number;
+  chatId: string | number;
+  chatName: string;
+  chatDescription: string;
+  userId: string | number;
+  chatType: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  created_at: string;
+  updated_at: string;
+  avatar: string;
 }
 
 export interface ISendChatMessageResponse {

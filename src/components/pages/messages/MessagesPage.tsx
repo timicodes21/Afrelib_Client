@@ -27,7 +27,7 @@ const MessagesPage = () => {
     useMessagesContext();
   const activeChat = chat ? true : false;
 
-  const { role } = userDetails;
+  const role = userDetails ? userDetails.role : "";
 
   //console.log(chats);
 

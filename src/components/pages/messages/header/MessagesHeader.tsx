@@ -1,4 +1,11 @@
-import { Avatar, Box, Button, IconButton, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 import { useMessagesContext } from "@/contexts/MessagesContext";
@@ -7,13 +14,12 @@ import { useChatMembers } from "@/hooks/chat/useChat";
 import styles from "./styles.module.css";
 
 const MessagesHeader = () => {
-  const { unselectChat, chat, openChatModal } = useMessagesContext();
+  const { unselectChat, chat, openChatModal, selectChatMembers } =
+    useMessagesContext();
 
-  const { chatMembers, fetchingMembers } = useChatMembers(chat?.chatId ?? 0);
-
-  if (!fetchingMembers) {
-    console.log(chatMembers);
-  }
+  const { chatMembers, fetchingMembers, data } = useChatMembers(
+    chat?.chatId ?? 0,
+  );
 
   return (
     <Box
@@ -48,9 +54,16 @@ const MessagesHeader = () => {
       <Box>
         <Button
           className={styles.headerMembersCount}
-          onClick={() => openChatModal("show-members")}
+          onClick={() => {
+            openChatModal("show-members");
+            selectChatMembers(chatMembers);
+          }}
         >
-          50 Members
+          {fetchingMembers ? (
+            <CircularProgress sx={{ color: "#000000" }} size={25} />
+          ) : (
+            `${chatMembers?.length} Members`
+          )}
         </Button>
       </Box>
     </Box>

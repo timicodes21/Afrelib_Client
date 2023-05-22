@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 import styles from "./styles.module.css";
 import { data, submissionType } from "../../../../data/submissions";
@@ -17,14 +17,13 @@ const SubmissionCard = ({ submission, isEven, showDetails }: iProps) => {
       }`}
       onClick={() => showDetails(submission)}
     >
-      <Typography
+      <p
         className={`${styles.cardHeader} ${
           isEven ? styles.evenCardHeader : ""
         }`}
-        mb={1}
       >
         {submission.title}
-      </Typography>
+      </p>
 
       <Box
         sx={{
@@ -34,10 +33,10 @@ const SubmissionCard = ({ submission, isEven, showDetails }: iProps) => {
         }}
         mb={2}
       >
-        <Typography className={styles.teamName}>{submission.team}</Typography>
-        <Typography className={styles.submittedBy}>
+        <p className={styles.teamName}>{submission.team}</p>
+        <p className={styles.submittedBy}>
           Submitted By: {submission.submittedBy}
-        </Typography>
+        </p>
       </Box>
 
       <Box
@@ -47,18 +46,14 @@ const SubmissionCard = ({ submission, isEven, showDetails }: iProps) => {
           justifyContent: "space-between",
         }}
       >
-        <Typography className={styles.comments}>
+        <p className={styles.comments}>
           {submission.feedback ? submission.feedback.length : 0}
-        </Typography>
-        <Typography className={styles.points}>
-          {submission.points} points
-        </Typography>
+        </p>
+        <p className={styles.points}>{submission.points} points</p>
       </Box>
 
       <Box>
-        <Typography className={styles.submissionDate}>
-          {submission.date}
-        </Typography>
+        <p className={styles.submissionDate}>{submission.date}</p>
       </Box>
     </Box>
   );

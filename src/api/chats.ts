@@ -80,11 +80,11 @@ export const getAllChatMessages = async (chatId: number | string) => {
 export const getAllChatMembers = async (chatId: number | string) => {
   try {
     const response = await usersHttpClient(GET_ALL_CHAT_MEMBERS(chatId));
-    console.log(response);
+    //console.log(response);
     const { status, data } = response;
     if (typeof response !== "undefined")
-      if (status === 200 || status === 201) {
-        return data;
+      if (status === 200 || status === 201 || status === 202) {
+        return data[0];
       } else {
         toast.error(data?.message);
         return data?.message;
