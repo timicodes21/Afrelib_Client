@@ -24,7 +24,7 @@ const AddChatMembers = () => {
   return (
     <div className={styles.container}>
       <div className={styles.addUsersContainer}>
-        {members.map(item => (
+        {/* {members.map(item => (
           <EachChatMember
             memberId={item}
             key={item}
@@ -32,7 +32,7 @@ const AddChatMembers = () => {
             muiBtnColor="success"
             btnText="Add User"
           />
-        ))}
+        ))} */}
       </div>
     </div>
   );
