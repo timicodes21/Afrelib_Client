@@ -3,7 +3,11 @@ import PageHeader from "@/components/molecules/headers/PageHeader";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import UsersTable from "@/components/organisms/tables/UsersTable";
 import Wrapper from "@/components/templates/Wrapper";
-import { useAdminUsers, useGetAllUsers } from "@/hooks/admin/useAdminUsers";
+import {
+  useAdminUsers,
+  useGetAllAdmin,
+  useGetAllUsers,
+} from "@/hooks/admin/useAdminUsers";
 import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import AddUser from "./AddUser";
@@ -31,6 +35,7 @@ const AdminUsersPage = () => {
     setOpen,
     closeModal,
     openModal,
+    handleReset,
   } = useAdminUsers();
 
   const {
@@ -42,11 +47,20 @@ const AdminUsersPage = () => {
     fetchNextPage,
   } = useGetAllUsers();
 
+  const { data: allAdmin, isFetching: isFetchingAdmin } = useGetAllAdmin();
+
   const {
     open: openAlert,
     setOpen: setOpenAlert,
     closeModal: closeAlertModal,
     openModal: openAlertModal,
+  } = useModal();
+
+  const {
+    open: openReset,
+    setOpen: setOpenReset,
+    closeModal: closeResetModal,
+    openModal: openResetModal,
   } = useModal();
 
   return (
@@ -60,7 +74,10 @@ const AdminUsersPage = () => {
           <Box
             sx={activeTab === "users" ? activeTabStyle : inActiveTabStyle}
             className="pointer"
-            onClick={() => setActiveTab("users")}
+            onClick={() => {
+              setActiveTab("users");
+              setSelectedRole("Student");
+            }}
           >
             <Typography
               className="font-14 font-400"
@@ -72,7 +89,10 @@ const AdminUsersPage = () => {
           <Box
             sx={activeTab === "admin" ? activeTabStyle : inActiveTabStyle}
             className="pointer"
-            onClick={() => setActiveTab("admin")}
+            onClick={() => {
+              setActiveTab("admin");
+              setSelectedRole("admin");
+            }}
           >
             <Typography
               className="font-14 font-400"
@@ -144,16 +164,26 @@ const AdminUsersPage = () => {
       <Box sx={{ mt: 2 }}>
         <UsersTable
           loading={isLoading}
-          users={allUsers?.filter(
-            item =>
-              item?.role_name === selectedRole &&
-              item?.status?.startsWith(statusOptions),
-          )}
+          users={
+            activeTab === "users"
+              ? allUsers?.filter(
+                  item =>
+                    item?.role_name === selectedRole &&
+                    item?.status?.startsWith(statusOptions),
+                )
+              : typeof allAdmin === "object"
+              ? allAdmin
+              : []
+          }
           onDisableEnable={(id, isEnabled) => {
             setUserDetails({ id, isEnabled });
             openAlertModal();
           }}
-          onResetPassword={id => {}}
+          onResetPassword={id => {
+            setUserDetails({ ...userDetails, id });
+            openResetModal();
+          }}
+          role={selectedRole}
         />
       </Box>
       <CustomModal
@@ -185,6 +215,25 @@ const AdminUsersPage = () => {
           }
           onCancel={closeAlertModal}
           deleteBtnText={`Yes ${userDetails?.isEnabled ? "Disable" : "Enable"}`}
+          cancelBtnText="No, Cancel"
+          loading={isUpdating}
+        />
+      </CustomModal>
+      <CustomModal
+        open={openReset}
+        setOpen={setOpenReset}
+        maxWidth="350px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <DeleteWrapper
+          text={`Are you sure you reset this user's password?`}
+          onDelete={() =>
+            // If user is disabled, it would enable the user and vice versa
+            handleReset(userDetails?.id, closeResetModal)
+          }
+          onCancel={closeResetModal}
+          deleteBtnText={`Yes`}
           cancelBtnText="No, Cancel"
           loading={isUpdating}
         />

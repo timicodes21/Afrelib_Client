@@ -107,18 +107,14 @@ const TeamsContainer: React.FC<IProps> = ({
       </Box>
 
       <Box>
-        <Grid container spacing={2} sx={{ mt: 1 }}>
-          <Grid item xs={6} md={3}>
-            <DashboardCard
-              background="#DEF1FF"
-              value={students.toString()}
-              textColor="#0072C7"
-              title="No. of Members"
-              height="100px"
-              onClick={onClickStudents}
-            />
-          </Grid>
-        </Grid>
+        <DashboardCard
+          background="#DEF1FF"
+          value={students.toString()}
+          textColor="#0072C7"
+          title="No. of Members"
+          height="100px"
+          onClick={onClickStudents}
+        />
       </Box>
     </Box>
   );

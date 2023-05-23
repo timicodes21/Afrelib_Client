@@ -46,6 +46,7 @@ export const IMAGE_BASE_URL =
 
 // Admin
 export const ADMIN_LOGIN_API = "/admin/signin";
+export const GET_ALL_ADMIN_API = "/admin/all";
 
 // File
 export const UPLOAD_FILE = "/upload/:type";
@@ -71,6 +72,8 @@ export const ENABLE_DISABLE_USER_API = ({
 }) =>
   type === "enable" ? `/user/${userId}/enable` : `/user/${userId}/disable`;
 export const GET_MENTOR_MENTEES = (id: number) => `/mentees/${id}`;
+export const RESET_USER_PASSWORD = (id: number) =>
+  `/admin/user/${id}/password/reset`;
 
 //Cohorts
 export const CREATE_COHORT_API = "/cohort";
@@ -120,6 +123,7 @@ export const ADD_COHORT_GROUPCHAT = (cohortId: string) =>
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
+  getAllAdmin: "getAllAdmin",
   getMentorMentees: "getMentorMentees",
   getCohorts: "getCohorts",
   getTeams: "getTeams",

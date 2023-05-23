@@ -196,6 +196,8 @@ Click the Add New button to create one..."
           <UpdateCohort
             handleClose={closeModal}
             cohortId={cohort?.cohort_id ?? ""}
+            cohortDescription={cohort?.cohort_description ?? ""}
+            cohortName={cohort?.cohort_name ?? ""}
           />
         ) : (
           <></>

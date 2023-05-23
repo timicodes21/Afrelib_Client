@@ -51,10 +51,12 @@ const AuthLayout: React.FC<IProps> = ({
             </Typography>
             <Typography
               sx={{ color: "secondary.main" }}
-              className="font-18 font-600"
+              className="font-14 font-600"
             >
-              Get started in the Afrelib Academy Artificial Intelligence
-              Challenge
+              Welcome to the Afrelib AI Challenge Hub, where innovation,
+              competition, and the future collide! Get ready to unleash your
+              creativity and dive into the thrilling world of robotics and GPT
+              AI.
             </Typography>
           </Box>
         </Grid>

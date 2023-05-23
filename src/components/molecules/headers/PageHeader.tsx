@@ -70,7 +70,7 @@ const PageHeader: React.FC<IProps> = ({ headerText, noSearchButton }) => {
         {!noSearchButton && (
           <div className={styles.pageHeaderRightContainer}>
             <SearchInput placeholder="Search" />
-            <div style={{ marginLeft: "20px" }}>
+            {/* <div style={{ marginLeft: "20px" }}>
               <Image
                 src="/assets/icons/notification_icon.svg"
                 width={22}
@@ -79,7 +79,7 @@ const PageHeader: React.FC<IProps> = ({ headerText, noSearchButton }) => {
                 className="pointer"
                 onClick={openModal}
               />
-            </div>
+            </div> */}
             <Box className={styles.mobileIconContainer} sx={{ ml: 2 }}>
               <BiMenuAltRight
                 className="font-32 font-800 pointer"
