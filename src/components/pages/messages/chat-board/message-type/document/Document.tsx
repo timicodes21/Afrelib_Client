@@ -31,7 +31,7 @@ const MessageDocumentType = ({ message }: IProps) => {
       <div className={styles.documentContainer}>
         <Document
           file={{
-            url: "https://africau.edu/images/default/sample.pdf",
+            url: `${storageUrl}/${message.mediaUrl}`,
           }}
           error={
             <Box
@@ -71,6 +71,12 @@ const MessageDocumentType = ({ message }: IProps) => {
             renderAnnotationLayer={false}
           />
         </Document>
+
+        {message.content && (
+          <div className={styles.documentDescription}>
+            <p>{message.content}</p>
+          </div>
+        )}
       </div>
 
       <p className={styles.messageTime}>
