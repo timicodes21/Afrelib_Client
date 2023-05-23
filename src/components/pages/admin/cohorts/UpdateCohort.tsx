@@ -7,15 +7,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AuthInput from "@/components/atoms/inputFields/AuthInput";
 import AuthButton from "@/components/atoms/buttons/AuthButton";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
-import { useAdminCohort } from "@/hooks/admin/useAdminCohort";
+import {
+  useAdminCohort,
+  useGetSingleCohort,
+} from "@/hooks/admin/useAdminCohort";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
 
 interface IProps {
   handleClose: () => void;
   cohortId: string;
+  cohortName: string;
+  cohortDescription: string;
 }
 
-const UpdateCohort: React.FC<IProps> = ({ handleClose, cohortId }) => {
+const UpdateCohort: React.FC<IProps> = ({
+  handleClose,
+  cohortId,
+  cohortDescription,
+  cohortName,
+}) => {
   const { schemaUpdate, onSubmitUpdate, isLoadingUpdate } = useAdminCohort();
   const {
     control,
@@ -25,6 +35,10 @@ const UpdateCohort: React.FC<IProps> = ({ handleClose, cohortId }) => {
     mode: "onBlur",
     resolver: zodResolver(schemaUpdate),
   });
+
+  const { data, isFetching } = useGetSingleCohort(cohortId, true);
+
+  console.log("data single cohort", data);
 
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
@@ -48,6 +62,7 @@ const UpdateCohort: React.FC<IProps> = ({ handleClose, cohortId }) => {
               <Controller
                 control={control}
                 name="name"
+                defaultValue={cohortName}
                 render={({ field: { onChange, value, onBlur } }) => (
                   <AuthInput
                     label="Cohort Name"
@@ -70,6 +85,7 @@ const UpdateCohort: React.FC<IProps> = ({ handleClose, cohortId }) => {
               <Controller
                 control={control}
                 name="description"
+                defaultValue={cohortDescription}
                 render={({ field: { onChange, value, onBlur } }) => (
                   <CustomTextArea
                     label="Description"

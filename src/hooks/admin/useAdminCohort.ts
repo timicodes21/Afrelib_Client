@@ -123,14 +123,9 @@ export const useAdminCohort = () => {
   // Create cohort submit function
   const { mutate, isLoading } = useCreateCohort();
 
-  const onSuccess = async (data: ICreateCohortResponse) => {
-    await addCohortToChat(data?.cohort_id);
-    queryClient.invalidateQueries([queryKeys.getCohorts]);
-  };
-
   const onError = () => {};
 
-  const onSubmit: SubmitHandler<AddCohortFormValues> = data => {
+  const onSubmit = (data: AddCohortFormValues, closeModal: () => void) => {
     const formData: ICreateCohortRequest = {
       cohort_name: data?.name,
       cohort_description: data?.description,
@@ -141,7 +136,18 @@ export const useAdminCohort = () => {
       end_date: data?.endDate,
     };
 
-    mutate(formData, { onSuccess, onError });
+    mutate(formData, {
+      onSuccess: async (data: ICreateCohortResponse) => {
+        if (data?.cohort_name) {
+          await addCohortToChat(data?.cohort_id);
+        }
+        queryClient.invalidateQueries([queryKeys.getCohorts]);
+        closeModal();
+      },
+      onError: () => {
+        closeModal();
+      },
+    });
   };
 
   // Delete cohort submit function
