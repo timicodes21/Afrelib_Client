@@ -95,6 +95,7 @@ export interface IGetAllUsersResponse {
   updated_at: string;
   role_name: string;
   is_disabled: number;
+  role: string;
 }
 
 export interface User {
