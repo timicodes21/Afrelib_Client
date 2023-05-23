@@ -133,7 +133,9 @@ const ClassroomPage = () => {
                     onClick={() => {}}
                     submissionText=""
                     totalSubmissions={7}
-                    submissionsDone={2}
+                    submissionsDone={
+                      data?.projects[0]?.submissions?.length ?? 0
+                    }
                     onClickCard={() => {
                       setIndex(index);
                       setOption("projectDetails");

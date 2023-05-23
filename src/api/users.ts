@@ -5,6 +5,7 @@ import {
   GET_MENTOR_MENTEES,
   GET_STUDENTS_NOT_IN_TEAM,
   LOGIN_USER_API,
+  RESET_USER_PASSWORD,
 } from "@/data/constants";
 import { usersHttpClient } from "@/service/httpClients";
 import { ICreateUserRequest, IUserLoginRequest } from "@/types/apiRequests";
@@ -13,6 +14,7 @@ import {
   IGetWeeklyUpdatesResponse,
   IResponseMessageWithData,
   IStatusWithData,
+  UserDetails,
 } from "@/types/apiResponses";
 import { toast } from "react-hot-toast";
 
@@ -133,6 +135,32 @@ export const getMentorMentees: (
     const response: Awaited<
       IStatusWithData<IResponseMessageWithData<IGetMentorMenteesResponse>>
     > = await usersHttpClient(GET_MENTOR_MENTEES(id));
+    const { status, data } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(data?.message);
+        return data?.responseData;
+      } else {
+        return data?.message;
+      }
+    else {
+      return "Error";
+    }
+  } catch (err: any) {
+    typeof err?.response?.data?.message === "string"
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const resetUserPassword: (
+  id: number,
+) => Promise<UserDetails | string> = async id => {
+  try {
+    const response: Awaited<
+      IStatusWithData<IResponseMessageWithData<UserDetails>>
+    > = await usersHttpClient.patch(RESET_USER_PASSWORD(id));
     const { status, data } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {

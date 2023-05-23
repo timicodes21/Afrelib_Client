@@ -28,7 +28,7 @@ export interface IAdminLoginResponse {
   adminDetails: AdminDetails;
 }
 
-interface UserDetails {
+export interface UserDetails {
   id: number;
   first_name: string;
   last_name: string;
