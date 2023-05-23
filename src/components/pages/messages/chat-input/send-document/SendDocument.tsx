@@ -42,7 +42,7 @@ const MessageSendDocument = () => {
     // const formData = new FormData();
     // formData.append("uploadFile", docFile);
 
-    // const res = await uploadFile(formData);
+    // const res = await uploadFile(formData, "chat");
     // console.log(res);
     // setUploadingDoc(false);
     // if (typeof res === "object") {

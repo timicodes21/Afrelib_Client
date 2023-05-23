@@ -13,7 +13,7 @@ export const useUserDetails = () => {
     teamId: 0,
     cohortId: "",
     email: "",
-    bio: "",
+    about_me: "",
     dob: "",
   });
 
@@ -32,7 +32,7 @@ export const useUserDetails = () => {
           userId: null,
           teamId: null,
           cohortId: null,
-          bio: null,
+          about_me: null,
           dob: null,
         }),
     );
@@ -51,7 +51,7 @@ export const useUserDetails = () => {
             teamId: null,
             cohortId: null,
             email: null,
-            bio: null,
+            about_me: null,
             dob: null,
           },
     );

@@ -49,7 +49,8 @@ export const ADMIN_LOGIN_API = "/admin/signin";
 export const GET_ALL_ADMIN_API = "/admin/all";
 
 // File
-export const UPLOAD_FILE = "/upload/:type";
+//export const UPLOAD_FILE = "/upload/:type";
+export const UPLOAD_FILE = (type: string) => `/upload/${type}`;
 
 // Weekly updates api
 export const GET_WEEKLY_UPDATES = "/update";
@@ -63,6 +64,8 @@ export const CREATE_USER_API = "/admin/user/create";
 export const GET_ALL_USERS_API = (page: number) => `users?page=${page}`;
 export const LOGIN_USER_API = "/user/signin";
 export const GET_STUDENTS_NOT_IN_TEAM = "/students/unmatched";
+export const UPDATE_USER_DETAILS = "/user";
+export const CHANGE_USER_PASSWORD = "/user/password";
 export const ENABLE_DISABLE_USER_API = ({
   type,
   userId,

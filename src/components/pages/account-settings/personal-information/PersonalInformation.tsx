@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import AuthInput from "@/components/atoms/inputFields/AuthInput";
 import CreateIcon from "@mui/icons-material/Create";
 import CustomModal from "@/components/organisms/modals/CustomModal";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 import styles from "./styles.module.css";
 import Avatars from "../Avatars/Avatars";
@@ -11,11 +11,23 @@ import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
 import ChangeAccountPassword from "./ChangePassword";
 import Image from "next/image";
 import { useGlobalContext } from "@/contexts/GlobalContext";
+import { useUpdateUserDetails } from "@/hooks/user/useUser";
+
+type FormValue = {
+  first_name: string;
+  last_name: string;
+  dob: string;
+  email: string;
+  about_me: string;
+};
 
 const AccountPersonalInformation = () => {
   const { userDetails } = useGlobalContext();
+  const { updating, handleUpdate } = useUpdateUserDetails();
   const [avatarsModal, setAvatarsModal] = useState(false);
   const [passwordModal, setPasswordModal] = useState(false);
+
+  console.log(userDetails);
 
   const {
     control,
@@ -23,7 +35,7 @@ const AccountPersonalInformation = () => {
     getValues,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValue>({
     mode: "onBlur",
   });
 
@@ -43,13 +55,20 @@ const AccountPersonalInformation = () => {
     setPasswordModal(false);
   };
 
+  const handleUpdateUser: SubmitHandler<FormValue> = data => {
+    const update = {
+      about_me: data.about_me,
+    };
+    handleUpdate(update);
+  };
+
   useEffect(() => {
     const defaultvalues = {
-      first_name: userDetails.first_name,
-      last_name: userDetails.last_name,
-      dob: userDetails.dob,
-      email: userDetails.email,
-      bio: userDetails.bio,
+      first_name: userDetails.first_name || "",
+      last_name: userDetails.last_name || "",
+      dob: userDetails.dob || "",
+      email: userDetails.email || "",
+      about_me: userDetails.about_me || "",
     };
     reset(defaultvalues);
   }, [userDetails]);
@@ -89,6 +108,7 @@ const AccountPersonalInformation = () => {
                   name="first_name"
                   render={({ field: { onChange, value, onBlur } }) => (
                     <AuthInput
+                      disabled
                       label="First Name"
                       type="text"
                       placeholder="First name"
@@ -107,6 +127,7 @@ const AccountPersonalInformation = () => {
                   name="last_name"
                   render={({ field: { onChange, value, onBlur } }) => (
                     <AuthInput
+                      disabled
                       label="Last Name"
                       type="text"
                       placeholder="Last name"
@@ -125,6 +146,7 @@ const AccountPersonalInformation = () => {
                   name="email"
                   render={({ field: { onChange, value, onBlur } }) => (
                     <AuthInput
+                      disabled
                       label="Email"
                       type="text"
                       placeholder="Email address"
@@ -145,6 +167,7 @@ const AccountPersonalInformation = () => {
                   name="dob"
                   render={({ field: { onChange, value, onBlur } }) => (
                     <AuthInput
+                      disabled
                       label="Date of Birth"
                       type="text"
                       placeholder="Date of birth"
@@ -160,7 +183,7 @@ const AccountPersonalInformation = () => {
               <Box>
                 <Controller
                   control={control}
-                  name="bio"
+                  name="about_me"
                   render={({ field: { onChange, value, onBlur } }) => (
                     <CustomTextArea
                       label="About Me"
@@ -204,13 +227,18 @@ const AccountPersonalInformation = () => {
         }}
       >
         <Button
+          onClick={handleSubmit(handleUpdateUser)}
           variant="contained"
           sx={{
             width: "50%",
             height: "48px",
           }}
         >
-          Save Changes
+          {updating ? (
+            <CircularProgress sx={{ color: "#FFF" }} size={25} />
+          ) : (
+            "Save Changes"
+          )}
         </Button>
       </Box>
     </Box>

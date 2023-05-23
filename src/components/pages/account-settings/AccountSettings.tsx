@@ -37,13 +37,13 @@ const AccountSettingsPage = () => {
           </Box>
         )}
 
-        {(role?.toLowerCase() === "student" ||
+        {/* {(role?.toLowerCase() === "student" ||
           role?.toLowerCase() === "admin") && (
           <Box>
             <Typography className={styles.headerText}>Badges</Typography>
             <AccountBadges />
           </Box>
-        )}
+        )} */}
       </div>
     </Wrapper>
   );

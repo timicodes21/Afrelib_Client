@@ -28,7 +28,7 @@ const MessageSendVoice = () => {
     // const formData = new FormData();
     // formData.append("uploadFile", file);
 
-    // const res = await uploadFile(formData);
+    // const res = await uploadFile(formData, "chat");
     // setUploadingAudio(false);
 
     // if (typeof res === "object") {

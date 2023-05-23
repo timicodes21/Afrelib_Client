@@ -7,7 +7,7 @@ interface AdminDetails {
   email: string;
   created_at: string;
   updated_at: string;
-  bio?: string;
+  about_me?: string;
   dob?: string;
 }
 
@@ -42,7 +42,7 @@ export interface UserDetails {
   created_at: string;
   updated_at: string;
   role_name: RoleName;
-  bio?: string;
+  about_me?: string;
   dob?: string;
   team: {
     id: number;
@@ -95,6 +95,7 @@ export interface IGetAllUsersResponse {
   updated_at: string;
   role_name: string;
   is_disabled: number;
+  role: string;
 }
 
 export interface User {

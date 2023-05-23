@@ -54,7 +54,7 @@ export const useLogin = () => {
       cohortId: data?.UserDetails?.cohort?.cohort_id,
       userId: data?.UserDetails?.id,
       email: data?.UserDetails?.email,
-      bio: data?.UserDetails?.bio || null,
+      about_me: data?.UserDetails?.about_me || null,
       dob: data?.UserDetails?.dob || null,
       // bio: data?.UserDetails.
     };
@@ -78,7 +78,7 @@ export const useLogin = () => {
       id: data?.adminDetails?.id,
       userId: data?.adminDetails?.id,
       email: data?.adminDetails?.email,
-      bio: data?.adminDetails?.bio || null,
+      about_me: data?.adminDetails?.about_me || null,
       dob: data?.adminDetails?.dob || null,
     };
 
