@@ -57,7 +57,7 @@ const AddCohort: React.FC<IProps> = ({ handleClose }) => {
         />
       </Box>
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(data => onSubmit(data, handleClose))}>
           <Grid container sx={{ mt: 3 }} spacing={2}>
             <Grid item xs={12} md={6}>
               <CustomMultiSelect

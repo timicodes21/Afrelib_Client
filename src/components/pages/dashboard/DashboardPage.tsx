@@ -41,9 +41,6 @@ const DashboardPage = () => {
         rightContent={
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={6} lg={12}>
-              <MessagesPage messages={[]} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={12}>
               <WeeklyUpdatesWrapper
                 header={
                   typeof data === "object" && Array.isArray(data?.data)
@@ -117,29 +114,28 @@ const DashboardPage = () => {
           </Grid>
         </Box>
         <Grid container spacing={2} sx={{ mt: 1 }}>
-          <Grid item xs={6} md={3}>
+          {/* <Grid item xs={6} md={3}>
             <DashboardCard
               background="#DEF1FF"
               value="28"
               textColor="#0072C7"
               title="Completed Courses"
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#EFE3FF"
               value="28"
               textColor="#5C0BC9"
-              title="Projects Submitted"
+              title="Submissions"
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <DashboardCard
               background="#FFDFDF"
               value="4800"
-              value2="200"
               textColor="#F56E6E"
-              title="Leaderboard Points"
+              title="Your Team"
               leadershipCard
             />
           </Grid>

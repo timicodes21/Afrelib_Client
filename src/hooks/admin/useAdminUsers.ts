@@ -2,19 +2,35 @@ import { useState } from "react";
 import { z, string } from "zod";
 import { SubmitHandler } from "react-hook-form/dist/types";
 import { AddUserFormValues } from "@/types/formValues";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { createUser, enableOrDisableUser, getAllusers } from "@/api/users";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  createUser,
+  enableOrDisableUser,
+  getAllusers,
+  resetUserPassword,
+} from "@/api/users";
 import { ICreateUserRequest } from "@/types/apiRequests";
 import {
   ICreateUserResponse,
   IGetAllUsersResponse,
+  User,
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
 import { useModal } from "../utility";
 import { useRouter } from "next/router";
+import { getAllAdmin } from "@/api/admin";
+import { toast } from "react-hot-toast";
 
 const useCreateUser = () => {
   return useMutation(createUser);
+};
+
+export const useGetAllAdmin = () => {
+  const { data, isFetching, status } = useQuery<
+    IGetAllUsersResponse[] | string
+  >([queryKeys.getAllAdmin], () => getAllAdmin());
+
+  return { data, isFetching, status };
 };
 
 export const useGetAllUsers = () => {
@@ -66,7 +82,7 @@ export const useAdminUsers = () => {
   >("");
   const [isUpdating, setIsUpdating] = useState(false);
   const [selectedRole, setSelectedRole] = useState<
-    "Student" | "Mentor" | "Panelist"
+    "Student" | "Mentor" | "Panelist" | "admin"
   >("Student");
   const [userDetails, setUserDetails] = useState<{
     id: number;
@@ -121,17 +137,7 @@ export const useAdminUsers = () => {
 
   const { mutate, isLoading } = useCreateUser();
 
-  const onSuccess = (data: ICreateUserResponse | string) => {
-    queryClient.invalidateQueries([queryKeys.getAllUsers]);
-    //close modal
-  };
-
-  const onError = () => {
-    // close modal
-    closeModal();
-  };
-
-  const onSubmit: SubmitHandler<AddUserFormValues> = data => {
+  const onSubmit = (data: AddUserFormValues, closeModal: () => void) => {
     console.log("data", data);
     const formData: ICreateUserRequest = {
       first_name: data?.firstName,
@@ -142,7 +148,15 @@ export const useAdminUsers = () => {
       date_of_birth: data?.dob ?? "",
     };
 
-    mutate(formData, { onSuccess, onError });
+    mutate(formData, {
+      onSuccess: () => {
+        queryClient.invalidateQueries([queryKeys.getAllUsers]);
+        closeModal();
+      },
+      onError: () => {
+        closeModal();
+      },
+    });
   };
 
   const handleEnableDisable = async (
@@ -154,6 +168,27 @@ export const useAdminUsers = () => {
     if (res?.first_name) {
       queryClient.invalidateQueries([queryKeys.getAllUsers]);
     }
+    setIsUpdating(false);
+  };
+
+  const handleReset = async (id: number, closeModal: () => void) => {
+    setIsUpdating(true);
+    const res = await resetUserPassword(id);
+    // handle success
+    if (typeof res === "object" && res?.email) {
+      queryClient.invalidateQueries([queryKeys.getAllUsers]);
+      closeModal();
+      return setIsUpdating(false);
+    }
+    if (typeof res === "string") {
+      toast.error(res);
+      closeModal();
+
+      return setIsUpdating(false);
+    }
+    toast.error("An error occured, Please try again later");
+    closeModal();
+
     setIsUpdating(false);
   };
 
@@ -177,5 +212,6 @@ export const useAdminUsers = () => {
     setOpen,
     closeModal,
     openModal,
+    handleReset,
   };
 };
