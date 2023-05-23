@@ -2,7 +2,7 @@ import TransparentBlueButton from "@/components/atoms/buttons/TransparentBlueBut
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import Wrapper from "@/components/templates/Wrapper";
-import { Box, LinearProgress } from "@mui/material";
+import { Box, Grid, LinearProgress } from "@mui/material";
 import React from "react";
 import { useModal } from "@/hooks/utility";
 import AddTeams from "./AddTeams";
@@ -83,36 +83,40 @@ Click the Add New button to create one..."
         </Box>
       )}
 
-      {!isLoading &&
-        allTeams &&
-        Array.isArray(allTeams) &&
-        allTeams.length !== 0 &&
-        allTeams.map((item, index) => (
-          <Box sx={{ mt: 2 }} key={index}>
-            <TeamsContainer
-              header={item?.team_name}
-              description={item?.team_description}
-              students={item?.students}
-              mentorName={`${item?.mentor?.first_name} ${item?.mentor?.last_name}`}
-              onDelete={() => {
-                setTeam(item);
-                openDeleteModal();
-              }}
-              onEdit={() => {
-                setTeam(item);
-                setOption("addMentor");
-                openModal();
-              }}
-              onAssign={() => {}}
-              onClickStudents={() => {
-                setTeam(item);
-                openStudentsModal();
-              }}
-            >
-              <Box></Box>
-            </TeamsContainer>
-          </Box>
-        ))}
+      <Grid container spacing={3}>
+        {!isLoading &&
+          allTeams &&
+          Array.isArray(allTeams) &&
+          allTeams.length !== 0 &&
+          allTeams.map((item, index) => (
+            <Grid item key={index} xs={12} md={6}>
+              <Box sx={{ mt: 2 }}>
+                <TeamsContainer
+                  header={item?.team_name}
+                  description={item?.team_description}
+                  students={item?.students}
+                  mentorName={`${item?.mentor?.first_name} ${item?.mentor?.last_name}`}
+                  onDelete={() => {
+                    setTeam(item);
+                    openDeleteModal();
+                  }}
+                  onEdit={() => {
+                    setTeam(item);
+                    setOption("addMentor");
+                    openModal();
+                  }}
+                  onAssign={() => {}}
+                  onClickStudents={() => {
+                    setTeam(item);
+                    openStudentsModal();
+                  }}
+                >
+                  <Box></Box>
+                </TeamsContainer>
+              </Box>
+            </Grid>
+          ))}
+      </Grid>
 
       <CustomModal
         open={open}
