@@ -7,7 +7,7 @@ interface AdminDetails {
   email: string;
   created_at: string;
   updated_at: string;
-  bio?: string;
+  about_me?: string;
   dob?: string;
 }
 
@@ -42,7 +42,7 @@ interface UserDetails {
   created_at: string;
   updated_at: string;
   role_name: RoleName;
-  bio?: string;
+  about_me?: string;
   dob?: string;
   team: {
     id: number;

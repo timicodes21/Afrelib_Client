@@ -45,7 +45,7 @@ const MessageSendVideo = () => {
     const formData = new FormData();
     formData.append("uploadFile", videoFile);
 
-    const res = await uploadFile(formData);
+    const res = await uploadFile(formData, "chat");
     console.log(res);
     setUploadingVideo(false);
     if (typeof res === "object") {

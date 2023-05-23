@@ -43,7 +43,7 @@ const SubmissionForm: React.FC<IProps> = ({ projectId }) => {
   const handleFile = async (file: any) => {
     const formData = new FormData();
     formData.append("uploadFile", file[0]);
-    const res = await uploadFile(formData);
+    const res = await uploadFile(formData, "submissions");
     if (typeof res === "object") {
       setUrl(res?.url ?? "");
       setValue("submitted_url", res?.url);

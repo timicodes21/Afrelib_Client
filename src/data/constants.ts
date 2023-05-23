@@ -48,7 +48,8 @@ export const IMAGE_BASE_URL =
 export const ADMIN_LOGIN_API = "/admin/signin";
 
 // File
-export const UPLOAD_FILE = "/upload/:type";
+//export const UPLOAD_FILE = "/upload/:type";
+export const UPLOAD_FILE = (type: string) => `/upload/${type}`;
 
 // Weekly updates api
 export const GET_WEEKLY_UPDATES = "/update";
