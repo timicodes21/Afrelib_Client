@@ -19,34 +19,34 @@ const MessageSendVoice = () => {
   const { userDetails } = useGlobalContext();
 
   const onRecordingComplete = async (blob: any) => {
-    return toast.error("Cant send message at this time");
-    // setUploadingAudio(true);
+    //return toast.error("Cant send message at this time");
+    setUploadingAudio(true);
 
-    // var file = new File([blob], "audio");
-    // const url = URL.createObjectURL(blob);
+    var file = new File([blob], "audio");
+    const url = URL.createObjectURL(blob);
 
-    // const formData = new FormData();
-    // formData.append("uploadFile", file);
+    const formData = new FormData();
+    formData.append("uploadFile", file);
 
-    // const res = await uploadFile(formData, "chat");
-    // setUploadingAudio(false);
+    const res = await uploadFile(formData, "chat");
+    setUploadingAudio(false);
 
-    // if (typeof res === "object") {
-    //   const url = res?.url ?? "";
-    //   const chatId = chat?.chatId ?? 0;
-    //   const newMessage: ISendMessageRequest = {
-    //     content: "",
-    //     mediaType: "audio",
-    //     senderId: userDetails.id || 0,
-    //     mediaUrl: url,
-    //     timestamp: dayjs(Date.now()).toISOString(),
-    //     senderName: `${userDetails.first_name} ${userDetails.last_name}`,
-    //   };
+    if (typeof res === "object") {
+      const url = res?.url ?? "";
+      const chatId = chat?.chatId ?? 0;
+      const newMessage: ISendMessageRequest = {
+        content: "audio-content",
+        mediaType: "audio",
+        senderId: userDetails.id || 0,
+        mediaUrl: url,
+        timestamp: dayjs(Date.now()).toISOString(),
+        senderName: `${userDetails.first_name} ${userDetails.last_name}`,
+      };
 
-    //   return sendNewMessage(chatId, newMessage);
-    // } else {
-    //   toast.error("An error occured, try again");
-    // }
+      return sendNewMessage(chatId, newMessage);
+    } else {
+      toast.error("An error occured, try again");
+    }
   };
   const recorderControls = useAudioRecorder();
 

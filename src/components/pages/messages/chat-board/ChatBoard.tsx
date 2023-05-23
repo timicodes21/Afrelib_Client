@@ -51,7 +51,7 @@ const ChatMessagesBoard = () => {
   // }, []);
   const groupedMessages = fetchingMsgs ? [] : groupArrayByDates(messages, "D");
 
-  console.log(groupedMessages);
+  //console.log(groupedMessages);
 
   const handleOnScroll = (event: UIEvent<HTMLElement>) => {
     const target = event.target as HTMLDivElement;

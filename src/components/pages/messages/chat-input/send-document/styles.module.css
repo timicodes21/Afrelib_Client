@@ -23,7 +23,7 @@
 
 .documentContainer {
   width: 100%;
-  height: calc(100% - 120px);
+  height: calc(100% - 150px);
   /* min-height: 500px; */
   background-color: transparent;
   display: flex;
@@ -31,11 +31,33 @@
   justify-content: center;
 }
 
-.buttonContainer {
+.addCaptionContainer {
   width: 100%;
+  /* min-height: 100px; */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+
+.chatInputTextArea {
+  box-sizing: border-box;
+
+  resize: none;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 8px 12px;
+  isolation: isolate;
+  width: calc(100% - 140px);
+  height: 76px;
+  background: #ffffff;
+  border: 0.8px solid #ced4da;
+  border-radius: 8px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 
 .chatInputButton {
@@ -69,3 +91,37 @@
   order: 0;
   flex-grow: 0;
 }
+
+/* .buttonContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chatInputButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 6px;
+
+  height: 32px;
+  background: #0065b5;
+  border-radius: 8px;
+
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #ffffff;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+} */
