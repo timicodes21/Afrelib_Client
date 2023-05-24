@@ -43,6 +43,7 @@ export const useLogin = () => {
   const onSuccess = (data: IUserLoginResponse) => {
     if (data?.UserDetails?.is_disabled) {
       toast.error("You are currently being disabled");
+      return;
     }
 
     if (data?.access_token) {
