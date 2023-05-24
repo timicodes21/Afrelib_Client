@@ -45,6 +45,7 @@ export interface UserDetails {
   role_name: RoleName;
   about_me?: string;
   dob?: string;
+  is_disabled: 0 | 1;
   profile_image: string;
   team: {
     id: number;
