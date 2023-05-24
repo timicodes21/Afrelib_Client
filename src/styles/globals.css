@@ -12,6 +12,9 @@ body {
   overflow-x: hidden;
 }
 
+#toolbar {
+  display: none !important;
+}
 /* Font sizes */
 
 .font-6 {

@@ -42,14 +42,15 @@ export const useChatMessages = (chatId: string | number) => {
     data,
     status,
     isFetching: fetchingMsgs,
-  } = useQuery<IGetChatMessagesResponse[], Error>(
-    [queryKeys.getMessages, chatId],
-    () => getAllChatMessages(chatId),
+  } = useQuery<any, Error>([queryKeys.getMessages, chatId], () =>
+    getAllChatMessages(chatId),
   );
 
   const onError = () => {};
 
-  const messages = data ? data[0]?.data : [];
+  //console.log(data && data.Messages && data?.Messages[0]);
+
+  const messages: any = data && data.Messages ? data?.Messages[0] : [];
 
   const onSuccessReadMessages = (data: string) => {
     //Return chat members

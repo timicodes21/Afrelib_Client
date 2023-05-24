@@ -63,7 +63,7 @@ const MessagesPage = () => {
 
       <PageHeader headerText="Messages" />
       {fetchingChats ? (
-        <Box sx={{ width: "100%", margin: "25px" }}>
+        <Box sx={{ width: "100%", margin: "25px", boxSizing: "border-box" }}>
           <LinearProgress sx={{ color: "#213F7D" }} />
         </Box>
       ) : chats.length <= 0 ? (

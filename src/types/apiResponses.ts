@@ -8,6 +8,7 @@ interface AdminDetails {
   created_at: string;
   updated_at: string;
   about_me?: string;
+  profile_image?: string;
   dob?: string;
 }
 
@@ -45,6 +46,7 @@ export interface UserDetails {
   about_me?: string;
   dob?: string;
   is_disabled: 0 | 1;
+  profile_image: string;
   team: {
     id: number;
   };

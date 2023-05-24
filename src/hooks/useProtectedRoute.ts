@@ -19,8 +19,9 @@ export const useProtectedRoute = () => {
           cohortId: null,
           id: null,
           email: null,
-          bio: null,
+          about_me: null,
           dob: null,
+          profile_image: null,
         }),
     );
 

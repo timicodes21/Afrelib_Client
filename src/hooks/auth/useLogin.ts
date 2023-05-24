@@ -61,6 +61,7 @@ export const useLogin = () => {
       email: data?.UserDetails?.email,
       about_me: data?.UserDetails?.about_me || null,
       dob: data?.UserDetails?.dob || null,
+      profile_image: data?.UserDetails?.profile_image || null,
       // bio: data?.UserDetails.
     };
 
@@ -85,6 +86,7 @@ export const useLogin = () => {
       email: data?.adminDetails?.email,
       about_me: data?.adminDetails?.about_me || null,
       dob: data?.adminDetails?.dob || null,
+      profile_image: data?.adminDetails?.profile_image || null,
     };
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userDetails));

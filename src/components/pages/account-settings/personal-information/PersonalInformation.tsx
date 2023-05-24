@@ -27,7 +27,7 @@ const AccountPersonalInformation = () => {
   const [avatarsModal, setAvatarsModal] = useState(false);
   const [passwordModal, setPasswordModal] = useState(false);
 
-  console.log(userDetails);
+  //console.log(userDetails);
 
   const {
     control,
@@ -94,7 +94,7 @@ const AccountPersonalInformation = () => {
           <div
             className={styles.avatarImage}
             style={{
-              background: `url(${"https://api.dicebear.com/6.x/adventurer/svg?seed=Bella"})`,
+              background: `url(${userDetails.profile_image})`,
             }}
           />
         </Box>

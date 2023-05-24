@@ -24,14 +24,25 @@ const MessageDocumentType = ({ message }: IProps) => {
   }, []);
 
   const isSent = userId === senderId;
+  const url = `${storageUrl}/${message.mediaUrl}`;
   return (
     <div className={`${styles.container}`}>
       {!isSent && <p className={styles.senderName}>{message.senderName}</p>}
 
       <div className={styles.documentContainer}>
-        <Document
+        <iframe
+          src={url}
+          style={{ overflow: "hidden", cursor: "pointer" }}
+          title={message.content}
+        />
+        {message.content && (
+          <div className={styles.documentDescription}>
+            <p>{message.content}</p>
+          </div>
+        )}
+        {/* <Document
           file={{
-            url: `${storageUrl}/${message.mediaUrl}`,
+            url: url,
           }}
           error={
             <Box
@@ -76,7 +87,7 @@ const MessageDocumentType = ({ message }: IProps) => {
           <div className={styles.documentDescription}>
             <p>{message.content}</p>
           </div>
-        )}
+        )} */}
       </div>
 
       <p className={styles.messageTime}>
