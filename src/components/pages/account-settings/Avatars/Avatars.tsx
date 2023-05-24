@@ -36,8 +36,9 @@ const Avatars = ({ closeModal }: iProps) => {
   }));
 
   const udpateUserAvatar = () => {
+    const avatarUrl = `https://api.dicebear.com/6.x/${type}/svg?seed=${selectedAvatar?.value}`;
     const update = {
-      avatar: selectedAvatar?.value || "",
+      profile_image: avatarUrl,
     };
     handleUpdate(update);
   };
