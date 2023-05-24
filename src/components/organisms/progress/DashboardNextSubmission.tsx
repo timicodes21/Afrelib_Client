@@ -1,4 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
+import Image from "next/image";
 import React from "react";
 import Countdown from "react-countdown";
 
@@ -103,12 +104,21 @@ const DashboardNextSubmission = () => {
     >
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-          <Typography
-            className="font-12 font-700"
-            sx={{ color: "primary.main" }}
-          >
-            NEXT SUBMISSION
-          </Typography>
+          <Box className="d-flex items-center">
+            <Typography
+              className="font-12 font-700"
+              sx={{ color: "primary.main" }}
+            >
+              NEXT SUBMISSION
+            </Typography>
+            <Image
+              src="/assets/images/hour_glass.gif"
+              height={40}
+              width={40}
+              loading="lazy"
+              alt="hour_glass"
+            />
+          </Box>
         </Grid>
         <Grid item xs={12} md={6}>
           <Countdown date={Date.now() + 500000000} renderer={renderer} />
