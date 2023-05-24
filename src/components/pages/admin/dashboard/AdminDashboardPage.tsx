@@ -188,12 +188,11 @@ const AdminDashboardPage = () => {
             hideViewAll
           />
           <UsersTable
-            role=""
+            role="Student"
             users={allUsers}
             loading={isLoading}
             onDisableEnable={id => {}}
             onResetPassword={id => {}}
-            role="Student"
           />
         </Box>
       </PageFlexLayout>
