@@ -77,6 +77,7 @@ export const ENABLE_DISABLE_USER_API = ({
 export const GET_MENTOR_MENTEES = (id: number) => `/mentees/${id}`;
 export const RESET_USER_PASSWORD = (id: number) =>
   `/admin/user/${id}/password/reset`;
+export const GET_LOGGED_IN_USER = "/user";
 
 //Cohorts
 export const CREATE_COHORT_API = "/cohort";

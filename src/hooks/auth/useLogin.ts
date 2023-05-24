@@ -15,6 +15,7 @@ import { IAdminLoginResponse, IUserLoginResponse } from "@/types/apiResponses";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { loginUser } from "@/api/users";
 import { IUserDetails } from "@/types";
+import { toast } from "react-hot-toast";
 
 const useAdminLogin = () => {
   return useMutation(adminLogin);
@@ -40,6 +41,10 @@ export const useLogin = () => {
   const { mutate: userLogin, isLoading } = useLoginUser();
 
   const onSuccess = (data: IUserLoginResponse) => {
+    if (data?.UserDetails?.is_disabled) {
+      toast.error("You are currently being disabled");
+    }
+
     if (data?.access_token) {
       router.push(DASHBOARD);
     }
@@ -56,6 +61,7 @@ export const useLogin = () => {
       email: data?.UserDetails?.email,
       about_me: data?.UserDetails?.about_me || null,
       dob: data?.UserDetails?.dob || null,
+      profile_image: data?.UserDetails?.profile_image || null,
       // bio: data?.UserDetails.
     };
 
@@ -80,6 +86,7 @@ export const useLogin = () => {
       email: data?.adminDetails?.email,
       about_me: data?.adminDetails?.about_me || null,
       dob: data?.adminDetails?.dob || null,
+      profile_image: data?.adminDetails?.profile_image || null,
     };
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userDetails));
