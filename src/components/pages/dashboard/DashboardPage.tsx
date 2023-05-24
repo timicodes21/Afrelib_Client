@@ -8,7 +8,6 @@ import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
 import ResourcesTable from "@/components/organisms/tables/ResourcesTable";
 import { resources } from "@/data/dashboard";
-import MessagesPage from "./MessagesPage";
 import WeeklyUpdatesWrapper from "@/components/molecules/wrappers/WeeklyUpdatesWrapper";
 import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";
 import TeamSubmissions from "./TeamSubmissions";
@@ -22,7 +21,17 @@ import CustomModal from "@/components/organisms/modals/CustomModal";
 import { useModal } from "@/hooks/utility";
 import WeeklyUpdatesPage from "../admin/dashboard/WeeklyUpdatesPage";
 import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
-import { IGetWeeklyUpdatesResponse } from "@/types/apiResponses";
+import {
+  IGetStudentDashboardResponse,
+  IGetTeamProjectsResponse,
+  IGetWeeklyUpdatesResponse,
+} from "@/types/apiResponses";
+import { useGetDashboardDetailsStudent } from "@/hooks/dashboard/useDashboard";
+import DashboardWeeklyProgress from "@/components/organisms/progress/DashboardWeeklyProgress";
+import DashboardNextSubmission from "@/components/organisms/progress/DashboardNextSubmission";
+import { useGetTeamProjects } from "@/hooks/classRoom/useClassRoom";
+import { useRouter } from "next/router";
+import { CLASSROOM } from "@/data/constants";
 
 const DashboardPage = () => {
   const { userDetails } = useGlobalContext();
@@ -33,6 +42,32 @@ const DashboardPage = () => {
   const currenUpdate = useMemo<IGetWeeklyUpdatesResponse>(() => {
     return typeof data === "object" ? data : ({} as IGetWeeklyUpdatesResponse);
   }, [data]);
+
+  const {
+    userDetails: { teamId },
+  } = useGlobalContext();
+  const { data: projectData, isFetching: isFetchingProject } =
+    useGetTeamProjects(teamId ?? 0, typeof teamId === "number" && teamId !== 0);
+
+  const { data: dashboardData, isFetching: isFetchingDashboard } =
+    useGetDashboardDetailsStudent();
+  console.log("data student dashboard", dashboardData);
+
+  const dashboardDetails = useMemo(() => {
+    return typeof dashboardData === "object"
+      ? dashboardData
+      : ({} as IGetStudentDashboardResponse);
+  }, [dashboardData]);
+
+  const projectDetails = useMemo(() => {
+    return typeof projectData === "object"
+      ? projectData
+      : ({} as IGetTeamProjectsResponse);
+  }, [projectData]);
+
+  const router = useRouter();
+
+  console.log("project details", projectDetails);
 
   return (
     <Wrapper>
@@ -82,11 +117,20 @@ const DashboardPage = () => {
                 <HeaderAndViewAll
                   header="Team Submissions"
                   text="View All"
-                  onClick={() => {}}
+                  onClick={() => {
+                    router.push(CLASSROOM);
+                  }}
                 />
               </Box>
               <Box sx={{ mt: 1 }}>
-                <TeamSubmissions submissions={[]} />
+                <TeamSubmissions
+                  submissions={
+                    Array.isArray(projectDetails?.projects) &&
+                    Array.isArray(projectDetails?.projects[0]?.submissions)
+                      ? projectDetails?.projects[0]?.submissions
+                      : []
+                  }
+                />
               </Box>
             </Grid>
           </Grid>
@@ -101,6 +145,21 @@ const DashboardPage = () => {
               >
                 Welome, {userDetails?.first_name ?? ""}
               </Typography>
+              <Box>
+                <DashboardNextSubmission />
+
+                <Typography
+                  className="font-14 font-700"
+                  sx={{ color: "info.dark", mt: 1 }}
+                >
+                  Weeks
+                </Typography>
+                <Box sx={{ mt: 1 }}>
+                  <DashboardWeeklyProgress
+                    currentWeek={dashboardDetails?.current_week}
+                  />
+                </Box>
+              </Box>
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="imageContainer">
@@ -122,21 +181,25 @@ const DashboardPage = () => {
               title="Completed Courses"
             />
           </Grid> */}
-          <Grid item xs={6} md={3}>
+          <Grid item xs={6} md={6}>
             <DashboardCard
               background="#EFE3FF"
-              value="28"
+              value={dashboardDetails?.total_submissions_made}
               textColor="#5C0BC9"
               title="Submissions"
+              isLoading={isFetchingDashboard}
+              height="100px"
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <DashboardCard
               background="#FFDFDF"
-              value="4800"
+              value={dashboardDetails?.team_leaderboard_point}
               textColor="#F56E6E"
               title="Your Team"
               leadershipCard
+              isLoading={isFetchingDashboard}
+              height="100px"
             />
           </Grid>
         </Grid>

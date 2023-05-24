@@ -1,7 +1,7 @@
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import Wrapper from "@/components/templates/Wrapper";
 import { Box, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
 import { messages } from "@/data/dashboard";
@@ -18,10 +18,12 @@ import { useModal } from "@/hooks/utility";
 import WeeklyUpdatesForm from "./WeeklyUpdatesForm";
 import {
   useAdminDashboard,
+  useGetAdminDashboardDetails,
   useGetWeeklyUpdates,
 } from "@/hooks/admin/useAdminDashboard";
 import { sliceText } from "@/utils/helpers";
 import WeeklyUpdatesPage from "./WeeklyUpdatesPage";
+import { IGetAdminDashboardResponse } from "@/types/apiResponses";
 
 const AdminDashboardPage = () => {
   const { userDetails } = useGlobalContext();
@@ -35,6 +37,16 @@ const AdminDashboardPage = () => {
   );
 
   const { weeklyUpdate, setWeeklyUpdate } = useAdminDashboard();
+
+  const { data: dashboardData, isFetching: isFetchingDashboard } =
+    useGetAdminDashboardDetails();
+  console.log("data admin dashboard", dashboardData);
+
+  const dashboardDetails = useMemo(() => {
+    return typeof dashboardData === "object"
+      ? dashboardData
+      : ({} as IGetAdminDashboardResponse);
+  }, [dashboardData]);
 
   return (
     <Wrapper>
@@ -63,7 +75,7 @@ const AdminDashboardPage = () => {
                   <WeeklyProgressContainer />
                 </Box>
                 <Box sx={{ mt: 2 }}>
-                  <TeamSubmissions submissions={messages} noStyles />
+                  <TeamSubmissions submissions={[]} noStyles />
                 </Box>
               </Box>
             </Grid>
@@ -88,37 +100,41 @@ const AdminDashboardPage = () => {
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#DEF1FF"
-              value="12"
+              value={dashboardDetails?.total_teams}
               textColor="#0072C7"
               title="No. of Teams"
               height="100px"
+              isLoading={isFetchingDashboard}
             />
           </Grid>
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#EFE3FF"
-              value="80"
+              value={dashboardDetails?.total_students}
               textColor="#5C0BC9"
               title="No. of Students"
               height="100px"
+              isLoading={isFetchingDashboard}
             />
           </Grid>
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#FFF9E3"
-              value="12"
+              value={dashboardDetails?.total_mentors}
               textColor="#E4B300"
               title="No. of Mentors"
               height="100px"
+              isLoading={isFetchingDashboard}
             />
           </Grid>{" "}
           <Grid item xs={6} md={3}>
             <DashboardCard
               background="#E3FFF7"
-              value="5"
+              value={dashboardDetails?.total_panelists}
               textColor="#02C08A"
               title="No. of Panelists"
               height="100px"
+              isLoading={isFetchingDashboard}
             />
           </Grid>
         </Grid>
@@ -176,6 +192,7 @@ const AdminDashboardPage = () => {
             loading={isLoading}
             onDisableEnable={id => {}}
             onResetPassword={id => {}}
+            role="Student"
           />
         </Box>
       </PageFlexLayout>

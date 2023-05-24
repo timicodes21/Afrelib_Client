@@ -5,8 +5,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { z, string, number } from "zod";
 import { WeeklyUpdatesFormValues } from "@/types/formValues";
 import { ICreateUpdateRequest } from "@/types/apiRequests";
-import { IGetWeeklyUpdatesResponse } from "@/types/apiResponses";
+import {
+  IGetAdminDashboardResponse,
+  IGetWeeklyUpdatesResponse,
+} from "@/types/apiResponses";
 import { useState } from "react";
+import { getDashboardDetailsAdmin } from "@/api/dashboard";
 
 export const useGetWeeklyUpdates = () => {
   const { data, status, isFetching } = useQuery(
@@ -15,6 +19,14 @@ export const useGetWeeklyUpdates = () => {
   );
 
   return { data, status, isFetching };
+};
+
+export const useGetAdminDashboardDetails = () => {
+  const { data, isFetching, status } = useQuery<
+    IGetAdminDashboardResponse | string
+  >([queryKeys.getAdminDashboard], () => getDashboardDetailsAdmin());
+
+  return { data, isFetching, status };
 };
 
 export interface IWeeklyUpdate {

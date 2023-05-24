@@ -58,9 +58,11 @@ const MessagesWrapper: React.FC<IProps> = ({
               {group}
             </Typography>
           )}
-          <Typography sx={{ color: "#1A73E8" }} className="font-10 font-600">
-            {link}
-          </Typography>
+          <a href={link} target="_blank">
+            <Typography sx={{ color: "#1A73E8" }} className="font-10 font-600">
+              {link}
+            </Typography>
+          </a>
         </Box>
       </Box>
       <Box className="d-flex flex-column items-end justify-center">
