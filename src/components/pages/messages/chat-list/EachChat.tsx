@@ -3,6 +3,7 @@ import { Avatar, Box, Typography } from "@mui/material";
 import { useMessagesContext } from "@/contexts/MessagesContext";
 import styles from "@/styles/Messages.module.css";
 import { chatType } from "@/types/messages";
+import { useUnreadMessages } from "@/hooks/chat/useChat";
 
 interface IProps {
   chat: chatType;
@@ -10,6 +11,7 @@ interface IProps {
 
 const EachChatMessage = ({ chat }: IProps) => {
   const { selectChat, chat: selectedChat } = useMessagesContext();
+  const { fetchingMsgs, unread_messages } = useUnreadMessages(chat.chatId);
 
   return (
     <Box
@@ -41,11 +43,9 @@ const EachChatMessage = ({ chat }: IProps) => {
             width: "100%",
           }}
         >
-          <Typography className={styles.chatListChatName}>
-            {chat.chatName}
-          </Typography>
+          <p className={styles.chatListChatName}>{chat.chatName}</p>
 
-          <Typography className={styles.chatListChatName}>8:30 AM</Typography>
+          <p className={styles.chatListChatName}>8:30 AM</p>
         </Box>
 
         <Box
@@ -56,11 +56,12 @@ const EachChatMessage = ({ chat }: IProps) => {
             width: "100%",
           }}
         >
-          <Typography className={styles.chatListChatLastMsg}>
+          <p className={styles.chatListChatLastMsg}>
             Ayomide: Hello everyone how are you doing
-          </Typography>
-
-          <Box className={styles.chatListMessageCount}>1</Box>
+          </p>
+          {unread_messages > 0 && (
+            <Box className={styles.chatListMessageCount}>{unread_messages}</Box>
+          )}
         </Box>
       </Box>
     </Box>

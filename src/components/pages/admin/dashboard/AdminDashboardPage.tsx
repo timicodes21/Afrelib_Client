@@ -188,6 +188,7 @@ const AdminDashboardPage = () => {
             hideViewAll
           />
           <UsersTable
+            role=""
             users={allUsers}
             loading={isLoading}
             onDisableEnable={id => {}}

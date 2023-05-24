@@ -1,9 +1,16 @@
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  Typography,
+} from "@mui/material";
 
 import { avatarTypes, avatarNames } from "@/data/avatars";
 import CustomSelect from "../../../atoms/inputFields/CustomSelect";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import { useUpdateUserDetails } from "@/hooks/user/useUser";
 
 import styles from "./styles.module.css";
 
@@ -12,11 +19,12 @@ interface iProps {
 }
 
 const Avatars = ({ closeModal }: iProps) => {
+  const { updating, handleUpdate } = useUpdateUserDetails();
   const [type, setType] = useState(avatarTypes[0].value);
   const [selectedAvatar, setSelectedAvatar] = useState<{
     name: string;
     value: string;
-  }>();
+  } | null>(null);
 
   const handleOnChange = (value: string) => {
     setType(value);
@@ -26,6 +34,13 @@ const Avatars = ({ closeModal }: iProps) => {
     label: item.name,
     value: item.value,
   }));
+
+  const udpateUserAvatar = () => {
+    const update = {
+      avatar: selectedAvatar?.value || "",
+    };
+    handleUpdate(update);
+  };
 
   return (
     <Box className={styles.container}>
@@ -91,12 +106,18 @@ const Avatars = ({ closeModal }: iProps) => {
         }}
       >
         <Button
+          disabled={!selectedAvatar}
+          onClick={udpateUserAvatar}
           sx={{
             width: "80%",
           }}
           variant="contained"
         >
-          Change Avatar
+          {updating ? (
+            <CircularProgress sx={{ color: "#FFF" }} size={25} />
+          ) : (
+            "Change Avatar"
+          )}
         </Button>
       </Box>
     </Box>

@@ -7,6 +7,7 @@ import {
   GET_ALL_CHAT_MEMBERS,
   READ_UNREAD_CHAT_MESSAGES,
   ADD_CHAT_MEMBER,
+  GET_UNREAD_MESSAGES,
 } from "@/data/constants";
 import { usersHttpClient } from "@/service/httpClients";
 import {
@@ -77,14 +78,34 @@ export const getAllChatMessages = async (chatId: number | string) => {
   }
 };
 
-export const getAllChatMembers = async (chatId: number | string) => {
+export const getUnreadMessages = async (chatId: number | string) => {
   try {
-    const response = await usersHttpClient(GET_ALL_CHAT_MEMBERS(chatId));
-    console.log(response);
+    const response = await usersHttpClient(GET_UNREAD_MESSAGES(chatId));
+    //console.log(response);
     const { status, data } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
         return data;
+      } else {
+        toast.error(data?.message);
+        return data?.message;
+      }
+  } catch (err: any) {
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const getAllChatMembers = async (chatId: number | string) => {
+  try {
+    const response = await usersHttpClient(GET_ALL_CHAT_MEMBERS(chatId));
+    //console.log(response);
+    const { status, data } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201 || status === 202) {
+        return data[0];
       } else {
         toast.error(data?.message);
         return data?.message;

@@ -5,10 +5,17 @@ import {
   GET_MENTOR_MENTEES,
   GET_STUDENTS_NOT_IN_TEAM,
   LOGIN_USER_API,
+  UPDATE_USER_DETAILS,
+  CHANGE_USER_PASSWORD,
   RESET_USER_PASSWORD,
 } from "@/data/constants";
 import { usersHttpClient } from "@/service/httpClients";
-import { ICreateUserRequest, IUserLoginRequest } from "@/types/apiRequests";
+import {
+  IChangePasswordRequest,
+  ICreateUserRequest,
+  IUserLoginRequest,
+  IUpdateUserDetailsRequest,
+} from "@/types/apiRequests";
 import {
   IGetMentorMenteesResponse,
   IGetWeeklyUpdatesResponse,
@@ -44,6 +51,52 @@ export const createUser = async (body: ICreateUserRequest) => {
 export const loginUser = async (body: IUserLoginRequest) => {
   try {
     const response = await usersHttpClient.post(LOGIN_USER_API, body);
+    const {
+      status,
+      data: { message, responseData },
+    } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(message);
+        return responseData;
+      } else {
+        toast.error(message);
+        return message;
+      }
+  } catch (err: any) {
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const changeUserPassword = async (body: IChangePasswordRequest) => {
+  try {
+    const response = await usersHttpClient.put(CHANGE_USER_PASSWORD, body);
+    const {
+      status,
+      data: { message, responseData },
+    } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(message);
+        return responseData;
+      } else {
+        toast.error(message);
+        return message;
+      }
+  } catch (err: any) {
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const updateUserDetails = async (body: IUpdateUserDetailsRequest) => {
+  try {
+    const response = await usersHttpClient.put(UPDATE_USER_DETAILS, body);
     const {
       status,
       data: { message, responseData },

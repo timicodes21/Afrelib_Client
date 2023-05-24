@@ -1,12 +1,18 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
-import { chatType, messagesContextType, mediaType } from "@/types/messages";
+import {
+  chatType,
+  messagesContextType,
+  mediaType,
+  chatMemberType,
+} from "@/types/messages";
 
 const MessagesContext = createContext({} as messagesContextType);
 const useMessagesContext = () => useContext(MessagesContext);
 
 function MessagesProvider({ children }: PropsWithChildren) {
   const [chat, setChat] = useState<chatType | null>(null);
+  const [chatMembers, setChatMembers] = useState<chatMemberType[] | null>(null);
   const [sendMedia, setSendMedia] = useState<mediaType | null>(null);
   const [chatModal, setChatModal] = useState<
     "create-group" | "show-members" | "add-members" | null
@@ -31,6 +37,10 @@ function MessagesProvider({ children }: PropsWithChildren) {
     setChatModal(null);
   };
 
+  const selectChatMembers = (members: chatMemberType[] | null) => {
+    setChatMembers(members);
+  };
+
   return (
     <MessagesContext.Provider
       value={{
@@ -42,6 +52,8 @@ function MessagesProvider({ children }: PropsWithChildren) {
         closeChatModal,
         sendMedia,
         setSendMedia,
+        chatMembers,
+        selectChatMembers,
       }}
     >
       {children}

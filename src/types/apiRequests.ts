@@ -12,6 +12,15 @@ export interface ICreateUserRequest {
   date_of_birth: string;
 }
 
+export interface IChangePasswordRequest {
+  old_password: string;
+  new_password: string;
+}
+
+export interface IUpdateUserDetailsRequest {
+  [key: string]: string;
+}
+
 export interface ICreateCohortRequest {
   cohort_name: string;
   cohort_description: string;

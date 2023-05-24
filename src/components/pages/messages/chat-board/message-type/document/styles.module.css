@@ -28,6 +28,21 @@
   overflow: hidden;
 }
 
+.documentDescription {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+}
+
+.documentDescription p {
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #353f50;
+}
+
 .messageTime {
   font-family: "Nunito";
   font-style: normal;

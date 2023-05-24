@@ -1,19 +1,34 @@
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, SubmitHandler } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
 
 import styles from "./styles.module.css";
 import usePasswordShow from "@/hooks/utility";
 import AuthInput from "@/components/atoms/inputFields/AuthInput";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
+import { useChangePassword } from "@/hooks/user/useUser";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface iProps {
   closeModal: () => void;
 }
 
+type FormValues = {
+  old_password: string;
+  new_password: string;
+};
+
 const ChangeAccountPassword = ({ closeModal }: iProps) => {
   const { showPassword, passwordShow } = usePasswordShow();
+  const { schema, changingPassword, handleChangePassword } =
+    useChangePassword();
 
   const {
     control,
@@ -21,10 +36,14 @@ const ChangeAccountPassword = ({ closeModal }: iProps) => {
     getValues,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     mode: "onBlur",
-    //resolver: zodResolver(schema),
+    resolver: zodResolver(schema),
   });
+
+  const changeUserPassword: SubmitHandler<FormValues> = data => {
+    handleChangePassword(data);
+  };
 
   return (
     <Box
@@ -63,7 +82,7 @@ const ChangeAccountPassword = ({ closeModal }: iProps) => {
         <Box sx={{ mt: 2.5 }}>
           <Controller
             control={control}
-            name="current_assword"
+            name="old_password"
             render={({ field: { onChange, value, onBlur } }) => (
               <AuthInput
                 label="Current Password"
@@ -91,9 +110,11 @@ const ChangeAccountPassword = ({ closeModal }: iProps) => {
               />
             )}
           />
-          {/* {errors?.password && (
-            <InputErrorText>{errors?.password?.message ?? ""}</InputErrorText>
-          )} */}
+          {errors?.old_password && (
+            <InputErrorText>
+              {errors?.old_password?.message ?? ""}
+            </InputErrorText>
+          )}
         </Box>
 
         <Box sx={{ mt: 2.5 }}>
@@ -127,9 +148,11 @@ const ChangeAccountPassword = ({ closeModal }: iProps) => {
               />
             )}
           />
-          {/* {errors?.password && (
-            <InputErrorText>{errors?.password?.message ?? ""}</InputErrorText>
-          )} */}
+          {errors?.new_password && (
+            <InputErrorText>
+              {errors?.new_password?.message ?? ""}
+            </InputErrorText>
+          )}
         </Box>
 
         <Box
@@ -138,13 +161,18 @@ const ChangeAccountPassword = ({ closeModal }: iProps) => {
           }}
         >
           <Button
+            onClick={handleSubmit(changeUserPassword)}
             sx={{
               width: "100%",
               height: "48px",
             }}
             variant="contained"
           >
-            Change Password
+            {changingPassword ? (
+              <CircularProgress sx={{ color: "#FFF" }} size={25} />
+            ) : (
+              "Change Password"
+            )}
           </Button>
         </Box>
       </Box>

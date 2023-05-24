@@ -97,9 +97,10 @@
 }
 
 .cardHeader {
-  width: 160px;
+  min-width: 160px;
   min-height: 25px;
-
+  margin: 0;
+  padding: 0;
   font-family: "Nunito";
   font-style: normal;
   font-weight: 600;
@@ -118,6 +119,8 @@
 .teamName {
   width: 54px;
   height: 19px;
+  margin: 0;
+  padding: 0;
   font-family: "Nunito";
   font-style: normal;
   font-weight: 400;
@@ -128,6 +131,8 @@
 }
 
 .submittedBy {
+  margin: 0;
+  padding: 0;
   height: 14px;
   font-family: "Nunito";
   font-style: normal;
@@ -142,7 +147,8 @@
 .comments {
   width: 79px;
   height: 19px;
-
+  margin: 0;
+  padding: 0;
   font-family: "Nunito";
   font-style: normal;
   font-weight: 400;
@@ -158,7 +164,8 @@
 .points {
   width: 67px;
   height: 19px;
-
+  margin: 0;
+  padding: 0;
   font-family: "Nunito";
   font-style: normal;
   font-weight: 400;
@@ -183,6 +190,8 @@
   position: absolute;
   bottom: 18px;
   color: #353f50;
+  margin: 0;
+  padding: 0;
 }
 
 @keyframes next {

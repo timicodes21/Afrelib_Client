@@ -6,6 +6,7 @@ import {
   sendChatMessage,
   removeChatMember,
   getAllChatMembers,
+  getUnreadMessages,
   readUnreadMessages,
 } from "@/api/chats";
 import {
@@ -13,19 +14,21 @@ import {
   IGetGroupChatResponse,
   ISendChatMessageResponse,
   IGetChatMembersResponse,
+  IGetUnreadMessagesResponse,
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
 import { ISendMessageRequest } from "@/types/apiRequests";
+import { useMessagesContext } from "@/contexts/MessagesContext";
 
 export const useGetUserGroupChats = (userId: string | number) => {
   const {
     data,
     status,
     isFetching: fetchingChats,
-  } = useQuery<IGetGroupChatResponse[], Error>(
-    [queryKeys.getChats, userId],
-    () => getAllUserGroupChats(userId),
-  );
+  } = useQuery<IGetGroupChatResponse[], Error>({
+    queryKey: [queryKeys.getChats, userId],
+    queryFn: () => getAllUserGroupChats(userId),
+  });
 
   // console.log(data);
 
@@ -46,7 +49,7 @@ export const useChatMessages = (chatId: string | number) => {
 
   const onError = () => {};
 
-  const messages = data ? data[0].data : [];
+  const messages = data ? data[0]?.data : [];
 
   const onSuccessReadMessages = (data: string) => {
     //Return chat members
@@ -92,19 +95,22 @@ export const useChatMembers = (chatId: string | number) => {
     data,
     status,
     isFetching: fetchingMembers,
-  } = useQuery<IGetChatMembersResponse[], Error>(
-    [queryKeys.getMembers, chatId],
-    () => getAllChatMembers(chatId),
-  );
+  } = useQuery<IGetChatMembersResponse[], Error>({
+    queryKey: [queryKeys.getMembers, chatId],
+    queryFn: () => getAllChatMembers(chatId),
+  });
 
   const onError = () => {};
 
-  const chatMembers = data;
+  //console.log(data);
 
-  return { status, chatMembers, fetchingMembers };
+  const chatMembers = data ? data : null;
+
+  return { status, chatMembers, fetchingMembers, data };
 };
 
 export const useSendNewMessage = () => {
+  const { setSendMedia } = useMessagesContext();
   const onError = () => {};
 
   const { mutate, isLoading: sendingMessage } = useMutation({
@@ -118,6 +124,7 @@ export const useSendNewMessage = () => {
   });
 
   const onMessageSuccess = (data: ISendChatMessageResponse | string) => {
+    setSendMedia(null);
     queryClient.invalidateQueries([queryKeys.getMessages]);
   };
 
@@ -218,5 +225,26 @@ export const useChatMemberHandler = () => {
     addingMember,
     handleRemoveMember,
     removingMember,
+  };
+};
+
+export const useUnreadMessages = (chatId: string | number) => {
+  const {
+    data,
+    status,
+    isFetching: fetchingMsgs,
+  } = useQuery<IGetUnreadMessagesResponse, Error>(
+    [queryKeys.getMessages, chatId],
+    () => getUnreadMessages(chatId),
+  );
+
+  const onError = () => {};
+
+  const unread_messages = data ? data["Unread Messages"] : 0;
+
+  return {
+    unread_messages,
+    status,
+    fetchingMsgs,
   };
 };

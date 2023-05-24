@@ -9,11 +9,12 @@ import { toast } from "react-hot-toast";
 
 export const uploadFile: (
   data: FormData,
-) => Promise<IGetFileResponse | string> = async data => {
+  type: string,
+) => Promise<IGetFileResponse | string> = async (data, type) => {
   try {
     const response: Awaited<
       IStatusWithData<IResponseMessageWithData<IGetFileResponse>>
-    > = await usersHttpClient.post(UPLOAD_FILE, data, {
+    > = await usersHttpClient.post(UPLOAD_FILE(type), data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
