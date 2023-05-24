@@ -49,6 +49,7 @@ const ChatMessagesBoard = () => {
   //     channel.unbind("SendChatMessage");
   //   };
   // }, []);
+  //console.log("messages", messages);
   const groupedMessages = fetchingMsgs ? [] : groupArrayByDates(messages, "D");
 
   //console.log(groupedMessages);
@@ -123,9 +124,12 @@ const ChatMessagesBoard = () => {
                     )}
                   </div>
 
-                  {[...group].reverse().map((msg: messageType) => {
+                  {[...group].reverse().map((msg: any) => {
                     return (
-                      <EachChatBoardMessage message={msg} key={msg.messageId} />
+                      <EachChatBoardMessage
+                        message={msg.message}
+                        key={msg.messageId}
+                      />
                     );
                   })}
                 </div>
