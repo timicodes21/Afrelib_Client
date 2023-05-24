@@ -542,3 +542,18 @@ export interface IGetMentorMenteesResponse {
   mentorTeams: MentorTeam[];
   mentees: User[];
 }
+
+export interface IGetAdminDashboardResponse {
+  total_teams: number;
+  total_students: number;
+  total_mentors: number;
+  total_panelists: number;
+  total_submissions_in_week: number;
+}
+
+export interface IGetStudentDashboardResponse {
+  submission_deadline_date: number;
+  current_week: number;
+  total_submissions_made: number;
+  team_leaderboard_point: number;
+}

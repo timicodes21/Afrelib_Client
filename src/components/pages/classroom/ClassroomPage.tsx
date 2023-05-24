@@ -104,6 +104,7 @@ const ClassroomPage = () => {
                 Create Project
               </TransparentBlueButton>
             )}
+
           {!isFetching &&
             typeof data === "object" &&
             Array.isArray(data.projects) &&
@@ -152,6 +153,10 @@ const ClassroomPage = () => {
             data?.projects?.length === 0 && (
               <EmptyPage text="Team Projects will appear here.." />
             )}
+
+          {!isFetching && typeof data !== "object" && (
+            <EmptyPage text="Team Projects will appear here.." />
+          )}
 
           {isFetching && (
             <Box sx={{ width: "100%", mt: 2 }}>

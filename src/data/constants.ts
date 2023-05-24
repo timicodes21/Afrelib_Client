@@ -122,10 +122,18 @@ export const ADD_TEAM_MEMBERS_GROUPCHAT = "/group-chat/team";
 export const ADD_COHORT_GROUPCHAT = (cohortId: string) =>
   `/chat/cohort/${cohortId}/add`;
 
+// Dashboard Api's
+export const GET_DASHBOARD_DETAILS_ADMIN = "/dashboard/admin";
+export const GET_DASHBOARD_DETAILS_MENTOR = "/dashboard/mentor";
+export const GET_DASHBOARD_DETAILS_PANELIST = "/dashboard/panelist";
+export const GET_DASHBOARD_DETAILS_STUDENT = "/dashboard/student";
+
 // Query keys for React Query
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
+  getAdminDashboard: "getAdminDashboard",
+  getStudentDashboard: "getStudentDashboard",
   getAllAdmin: "getAllAdmin",
   getMentorMentees: "getMentorMentees",
   getCohorts: "getCohorts",
