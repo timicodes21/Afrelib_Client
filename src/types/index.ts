@@ -38,6 +38,6 @@ export interface IUserDetails {
   teamId?: number | null;
   cohortId?: string | null;
   userId: number | null;
-  bio: string | null;
+  about_me: string | null;
   dob: string | null;
 }

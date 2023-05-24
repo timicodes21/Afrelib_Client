@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import React from "react";
 import styles from "@/styles/Molecules.module.css";
 import Image from "next/image";
@@ -7,11 +7,12 @@ interface IProps {
   title: string;
   background: string;
   textColor: string;
-  value: string;
-  value2?: string;
+  value: string | number;
+  value2?: string | number;
   leadershipCard?: boolean;
   height?: string;
   onClick?: () => void;
+  isLoading?: boolean;
 }
 
 const DashboardCard: React.FC<IProps> = ({
@@ -23,6 +24,7 @@ const DashboardCard: React.FC<IProps> = ({
   value2,
   height,
   onClick,
+  isLoading,
 }) => {
   return (
     <Box
@@ -42,12 +44,18 @@ const DashboardCard: React.FC<IProps> = ({
         {title}
       </Typography>
       {!leadershipCard && (
-        <Typography
-          className="font-28 font-700"
-          sx={{ color: textColor, mt: 1 }}
-        >
-          {value}
-        </Typography>
+        <>
+          {isLoading ? (
+            <CircularProgress size={20} sx={{ mt: 2, color: textColor }} />
+          ) : (
+            <Typography
+              className="font-28 font-700"
+              sx={{ color: textColor, mt: 1 }}
+            >
+              {value}
+            </Typography>
+          )}
+        </>
       )}
 
       {leadershipCard && (
@@ -67,7 +75,7 @@ const DashboardCard: React.FC<IProps> = ({
                 height={24}
               />
             </Box>
-            <Box sx={{ mt: 1 }}>
+            {/* <Box sx={{ mt: 1 }}>
               <Typography
                 className="font-10 font-500"
                 sx={{ color: "secondary.main" }}
@@ -80,7 +88,7 @@ const DashboardCard: React.FC<IProps> = ({
                 width={24}
                 height={24}
               />
-            </Box>
+            </Box> */}
           </Box>
           <Box>
             <Typography

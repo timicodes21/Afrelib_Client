@@ -45,7 +45,7 @@ const MessageSendImage = () => {
     const formData = new FormData();
     formData.append("uploadFile", imageFile);
 
-    const res = await uploadFile(formData);
+    const res = await uploadFile(formData, "chat");
     console.log(res);
     setUploadingImage(false);
     if (typeof res === "object") {

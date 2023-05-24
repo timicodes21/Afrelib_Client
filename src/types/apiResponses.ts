@@ -7,7 +7,7 @@ interface AdminDetails {
   email: string;
   created_at: string;
   updated_at: string;
-  bio?: string;
+  about_me?: string;
   dob?: string;
 }
 
@@ -42,7 +42,7 @@ export interface UserDetails {
   created_at: string;
   updated_at: string;
   role_name: RoleName;
-  bio?: string;
+  about_me?: string;
   dob?: string;
   team: {
     id: number;
@@ -95,6 +95,7 @@ export interface IGetAllUsersResponse {
   updated_at: string;
   role_name: string;
   is_disabled: number;
+  role: string;
 }
 
 export interface User {
@@ -540,4 +541,19 @@ export interface IGetMentorMenteesResponse {
   mentor: User;
   mentorTeams: MentorTeam[];
   mentees: User[];
+}
+
+export interface IGetAdminDashboardResponse {
+  total_teams: number;
+  total_students: number;
+  total_mentors: number;
+  total_panelists: number;
+  total_submissions_in_week: number;
+}
+
+export interface IGetStudentDashboardResponse {
+  submission_deadline_date: number;
+  current_week: number;
+  total_submissions_made: number;
+  team_leaderboard_point: number;
 }

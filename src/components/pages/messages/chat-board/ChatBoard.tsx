@@ -17,6 +17,8 @@ import MessageSendImage from "../chat-input/send-image/SendImage";
 import MessageSendVoice from "../chat-input/send-voice/SendVoice";
 import MessageSendVideo from "../chat-input/send-video/SendVideo";
 import MessageSendDocument from "../chat-input/send-document/SendDocument";
+import { groupArrayByDates } from "@/service/groupArrayByDate";
+import moment from "moment";
 
 const pusher_key = process.env.PUSHER_APP_KEY || "";
 const pusher_cluster = process.env.PUSHER_APP_CLUSTER || "";
@@ -47,6 +49,10 @@ const ChatMessagesBoard = () => {
   //     channel.unbind("SendChatMessage");
   //   };
   // }, []);
+  const groupedMessages = fetchingMsgs ? [] : groupArrayByDates(messages, "D");
+
+  //console.log(groupedMessages);
+
   const handleOnScroll = (event: UIEvent<HTMLElement>) => {
     const target = event.target as HTMLDivElement;
     const { scrollHeight, scrollTop, clientHeight } = target;
@@ -93,12 +99,38 @@ const ChatMessagesBoard = () => {
             ref={msgsContainerRef}
             onScroll={handleOnScroll}
           >
-            {messages &&
-              [...messages].reverse().map((msg: messageType) => {
-                return (
-                  <EachChatBoardMessage message={msg} key={msg.messageId} />
-                );
-              })}
+            {groupedMessages.map((group: messageType[]) => {
+              const time = group[0].timestamp;
+              const messagesDay = moment(time);
+              const currentDay = moment(new Date());
+              const prevDay = moment().subtract(1, "day");
+              const weekDifference = currentDay.diff(messagesDay, "weeks");
+              const isCurrentDay = messagesDay.isSame(currentDay, "day");
+              const isPrevDay = messagesDay.isSame(prevDay, "day");
+              return (
+                <div className={styles.messagesGroup} key={group[0].messageId}>
+                  <div className={styles.messageGroupTime}>
+                    {weekDifference > 0 ? (
+                      <p>{moment(time).format("L")}</p>
+                    ) : (
+                      <p>
+                        {isCurrentDay
+                          ? "Today"
+                          : isPrevDay
+                          ? "Yesterday"
+                          : moment(time).format("dddd")}
+                      </p>
+                    )}
+                  </div>
+
+                  {[...group].reverse().map((msg: messageType) => {
+                    return (
+                      <EachChatBoardMessage message={msg} key={msg.messageId} />
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
           <Box>
             <ChatInput />

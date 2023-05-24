@@ -61,6 +61,29 @@
   flex: none;
 }
 
+.chatBoardMessageContainer .messagesGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.messagesGroup .messageGroupTime {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.messageGroupTime p {
+  width: fit-content;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1),
+    0px 18px 23px rgba(0, 0, 0, 0.1);
+  font-size: 0.8rem;
+  color: #0065b5;
+}
+
 .chatBoardSentMessage {
   /* background: rgba(0, 101, 181, 0.4); */
   background-color: rgb(255, 143, 178);
@@ -132,6 +155,7 @@
 
   .chatBoardMessagesContainer {
     padding: 0 10px;
+    width: 100%;
   }
 
   .chatBoardEachMessage {

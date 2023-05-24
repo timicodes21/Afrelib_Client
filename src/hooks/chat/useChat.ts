@@ -18,6 +18,7 @@ import {
 } from "@/types/apiResponses";
 import { queryClient, queryKeys } from "@/data/constants";
 import { ISendMessageRequest } from "@/types/apiRequests";
+import { useMessagesContext } from "@/contexts/MessagesContext";
 
 export const useGetUserGroupChats = (userId: string | number) => {
   const {
@@ -109,6 +110,7 @@ export const useChatMembers = (chatId: string | number) => {
 };
 
 export const useSendNewMessage = () => {
+  const { setSendMedia } = useMessagesContext();
   const onError = () => {};
 
   const { mutate, isLoading: sendingMessage } = useMutation({
@@ -122,6 +124,7 @@ export const useSendNewMessage = () => {
   });
 
   const onMessageSuccess = (data: ISendChatMessageResponse | string) => {
+    setSendMedia(null);
     queryClient.invalidateQueries([queryKeys.getMessages]);
   };
 

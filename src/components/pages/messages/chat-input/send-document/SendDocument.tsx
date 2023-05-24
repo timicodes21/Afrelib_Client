@@ -19,6 +19,7 @@ import { toast } from "react-hot-toast";
 const MessageSendDocument = () => {
   const [docFile, setDocFile] = useState<any>("");
   const { setSendMedia, chat } = useMessagesContext();
+  const [description, setDescription] = useState("");
   const { sendNewMessage, sendingMessage } = useSendNewMessage();
   const { userDetails } = useGlobalContext();
   const [uploadingDoc, setUploadingDoc] = useState(false);
@@ -36,31 +37,38 @@ const MessageSendDocument = () => {
   }, []);
 
   const handleSendNewMessage = async () => {
-    return toast.error("Cant send message at this time");
+    if (description === "") return toast.error("Please add description");
+    //return toast.error("Cant send message at this time");
 
-    // setUploadingDoc(true);
-    // const formData = new FormData();
-    // formData.append("uploadFile", docFile);
+    setUploadingDoc(true);
+    const formData = new FormData();
+    formData.append("uploadFile", docFile);
 
-    // const res = await uploadFile(formData);
-    // console.log(res);
-    // setUploadingDoc(false);
-    // if (typeof res === "object") {
-    //   const url = res?.url ?? "";
-    //   const chatId = chat?.chatId ?? 0;
-    //   const newMessage: ISendMessageRequest = {
-    //     content: "",
-    //     mediaType: "document",
-    //     senderId: userDetails.id || 0,
-    //     mediaUrl: url,
-    //     timestamp: dayjs(Date.now()).toISOString(),
-    //     senderName: `${userDetails.first_name} ${userDetails.last_name}`,
-    //   };
+    const res = await uploadFile(formData, "chat");
+    console.log(res);
+    setUploadingDoc(false);
+    if (typeof res === "object") {
+      const url = res?.url ?? "";
+      const chatId = chat?.chatId ?? 0;
+      const newMessage: ISendMessageRequest = {
+        content: description,
+        mediaType: "document",
+        senderId: userDetails.id || 0,
+        mediaUrl: url,
+        timestamp: dayjs(Date.now()).toISOString(),
+        senderName: `${userDetails.first_name} ${userDetails.last_name}`,
+      };
 
-    //   return sendNewMessage(chatId, newMessage);
-    // } else {
-    //   toast.error("An error occured, try again");
-    // }
+      return sendNewMessage(chatId, newMessage);
+    } else {
+      toast.error("An error occured, try again");
+    }
+  };
+
+  const handleDescriptionChange: React.ChangeEventHandler<
+    HTMLTextAreaElement
+  > = event => {
+    setDescription(event.currentTarget.value);
   };
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: any }) => {
@@ -99,7 +107,18 @@ const MessageSendDocument = () => {
         </div>
       )}
 
-      <div className={styles.buttonContainer}>
+      <div className={styles.addCaptionContainer}>
+        <textarea
+          //ref={inputRef}
+          className={styles.chatInputTextArea}
+          aria-label="empty textarea"
+          onChange={handleDescriptionChange}
+          value={description}
+          maxLength={1000}
+          placeholder="Description..."
+          // onFocus={() => console.log("hello world")}
+        />
+
         <Button
           variant="contained"
           className={styles.chatInputButton}

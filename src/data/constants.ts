@@ -49,7 +49,8 @@ export const ADMIN_LOGIN_API = "/admin/signin";
 export const GET_ALL_ADMIN_API = "/admin/all";
 
 // File
-export const UPLOAD_FILE = "/upload/:type";
+//export const UPLOAD_FILE = "/upload/:type";
+export const UPLOAD_FILE = (type: string) => `/upload/${type}`;
 
 // Weekly updates api
 export const GET_WEEKLY_UPDATES = "/update";
@@ -63,6 +64,8 @@ export const CREATE_USER_API = "/admin/user/create";
 export const GET_ALL_USERS_API = (page: number) => `users?page=${page}`;
 export const LOGIN_USER_API = "/user/signin";
 export const GET_STUDENTS_NOT_IN_TEAM = "/students/unmatched";
+export const UPDATE_USER_DETAILS = "/user";
+export const CHANGE_USER_PASSWORD = "/user/password";
 export const ENABLE_DISABLE_USER_API = ({
   type,
   userId,
@@ -119,10 +122,18 @@ export const ADD_TEAM_MEMBERS_GROUPCHAT = "/group-chat/team";
 export const ADD_COHORT_GROUPCHAT = (cohortId: string) =>
   `/chat/cohort/${cohortId}/add`;
 
+// Dashboard Api's
+export const GET_DASHBOARD_DETAILS_ADMIN = "/dashboard/admin";
+export const GET_DASHBOARD_DETAILS_MENTOR = "/dashboard/mentor";
+export const GET_DASHBOARD_DETAILS_PANELIST = "/dashboard/panelist";
+export const GET_DASHBOARD_DETAILS_STUDENT = "/dashboard/student";
+
 // Query keys for React Query
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
+  getAdminDashboard: "getAdminDashboard",
+  getStudentDashboard: "getStudentDashboard",
   getAllAdmin: "getAllAdmin",
   getMentorMentees: "getMentorMentees",
   getCohorts: "getCohorts",
