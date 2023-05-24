@@ -1,16 +1,13 @@
 import { useState } from "react";
 import { z, string } from "zod";
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
-import { changeUserPassword, updateUserDetails } from "@/api/users";
 import {
-  IGetChatMessagesResponse,
-  IGetGroupChatResponse,
-  ISendChatMessageResponse,
-  IGetChatMembersResponse,
-  IGetUnreadMessagesResponse,
-} from "@/types/apiResponses";
-import { queryClient, queryKeys } from "@/data/constants";
-import { ISendMessageRequest } from "@/types/apiRequests";
+  changeUserPassword,
+  updateUserDetails,
+  getLoggedInUser,
+} from "@/api/users";
+import { IGetChatMessagesResponse } from "@/types/apiResponses";
+import { LOCAL_STORAGE_KEY } from "@/data/constants";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 export const useChangePassword = () => {
   const [changingPassword, setChangingPassword] = useState(false);
@@ -48,6 +45,7 @@ export const useChangePassword = () => {
 };
 
 export const useUpdateUserDetails = () => {
+  const { setUserDetails } = useGlobalContext();
   const [updating, setUpdating] = useState(false);
 
   const schema = z.object({
@@ -63,10 +61,20 @@ export const useUpdateUserDetails = () => {
     setUpdating(true);
 
     const response = await updateUserDetails({ ...data });
+    const updatedUser = await getLoggedInUser();
 
-    response === "Password updated successfully"
-      ? onSuccess(response)
-      : () => {};
+    const storedUser = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) || "",
+    );
+
+    const newStoredUser = { ...storedUser, ...updatedUser };
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newStoredUser));
+    setUserDetails(newStoredUser);
+
+    //console.log(updatedUser);
+
+    response === "user updated successfully" ? onSuccess(response) : () => {};
 
     setUpdating(false);
   };

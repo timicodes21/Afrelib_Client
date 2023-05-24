@@ -40,4 +40,5 @@ export interface IUserDetails {
   userId: number | null;
   about_me: string | null;
   dob: string | null;
+  profile_image: string | null;
 }

@@ -15,6 +15,7 @@ export const useUserDetails = () => {
     email: "",
     about_me: "",
     dob: "",
+    profile_image : ""
   });
 
   let user: IUserDetails;
@@ -34,6 +35,7 @@ export const useUserDetails = () => {
           cohortId: null,
           about_me: null,
           dob: null,
+          profile_image : null
         }),
     );
 
@@ -53,6 +55,7 @@ export const useUserDetails = () => {
             email: null,
             about_me: null,
             dob: null,
+            profile_image : null
           },
     );
   }, []);

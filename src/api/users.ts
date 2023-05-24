@@ -8,6 +8,7 @@ import {
   UPDATE_USER_DETAILS,
   CHANGE_USER_PASSWORD,
   RESET_USER_PASSWORD,
+  GET_LOGGED_IN_USER,
 } from "@/data/constants";
 import { usersHttpClient } from "@/service/httpClients";
 import {
@@ -97,6 +98,31 @@ export const changeUserPassword = async (body: IChangePasswordRequest) => {
 export const updateUserDetails = async (body: IUpdateUserDetailsRequest) => {
   try {
     const response = await usersHttpClient.put(UPDATE_USER_DETAILS, body);
+    //console.log(response);
+    const {
+      status,
+      data: { message, data },
+    } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        toast.success(message);
+        return data;
+      } else {
+        toast.error(message);
+        return message;
+      }
+  } catch (err: any) {
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const getLoggedInUser = async () => {
+  try {
+    const response = await usersHttpClient.get(GET_LOGGED_IN_USER);
+    //console.log(response);
     const {
       status,
       data: { message, responseData },
