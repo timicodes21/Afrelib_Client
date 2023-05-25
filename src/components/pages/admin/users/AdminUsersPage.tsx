@@ -9,7 +9,7 @@ import {
   useGetAllUsers,
 } from "@/hooks/admin/useAdminUsers";
 import { Box, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import AddUser from "./AddUser";
 import { useModal } from "@/hooks/utility";
 import TableOptionsButton, {
@@ -62,8 +62,6 @@ const AdminUsersPage = () => {
     closeModal: closeResetModal,
     openModal: openResetModal,
   } = useModal();
-
-  console.log("all users", allUsers);
 
   return (
     <Wrapper>
@@ -178,14 +176,16 @@ const AdminUsersPage = () => {
               : []
           }
           onDisableEnable={(id, isEnabled) => {
-            setUserDetails({ id, isEnabled });
             openAlertModal();
           }}
           onResetPassword={id => {
-            setUserDetails({ ...userDetails, id });
             openResetModal();
           }}
           role={selectedRole}
+          onClick={(id, enabled) => {
+            console.log("onClick row", id);
+            setUserDetails({ id, isEnabled: enabled });
+          }}
         />
       </Box>
       <CustomModal

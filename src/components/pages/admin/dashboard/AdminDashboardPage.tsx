@@ -24,6 +24,7 @@ import {
 import { sliceText } from "@/utils/helpers";
 import WeeklyUpdatesPage from "./WeeklyUpdatesPage";
 import { IGetAdminDashboardResponse } from "@/types/apiResponses";
+import { useGetSupport } from "@/hooks/support/useSupport";
 
 const AdminDashboardPage = () => {
   const { userDetails } = useGlobalContext();
@@ -193,6 +194,7 @@ const AdminDashboardPage = () => {
             loading={isLoading}
             onDisableEnable={id => {}}
             onResetPassword={id => {}}
+            onClick={(id, enabled) => {}}
           />
         </Box>
       </PageFlexLayout>

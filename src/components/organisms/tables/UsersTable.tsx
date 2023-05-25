@@ -23,6 +23,7 @@ interface IProps {
   onDisableEnable: (id: number, isEnabled: boolean) => void;
   onResetPassword: (id: number) => void;
   role: string;
+  onClick: (id: number, isUserEnabled: boolean) => void;
 }
 
 const UsersTable: React.FC<IProps> = ({
@@ -31,6 +32,7 @@ const UsersTable: React.FC<IProps> = ({
   onDisableEnable,
   onResetPassword,
   role,
+  onClick,
 }) => {
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage } =
     useTable();
@@ -129,141 +131,142 @@ const UsersTable: React.FC<IProps> = ({
                   users?.length > 0 &&
                   users
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((item, index) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={index}
-                        >
-                          <TableCell align="left">
-                            <Typography
-                              className="font-10 font-500"
-                              sx={{ color: "secondary.main" }}
-                            >
-                              {item.first_name}
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="left">
-                            <Typography
-                              className="font-10 font-500"
-                              sx={{ color: "secondary.main" }}
-                            >
-                              {item.last_name}
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="left">
-                            <Typography
-                              className="font-10 font-500"
-                              sx={{ color: "secondary.main" }}
-                            >
-                              {item.email}
-                            </Typography>
-                          </TableCell>
-                          {item?.role_name === "Student" && (
-                            <TableCell align="center">
-                              <Typography
-                                className="font-10 font-500"
-                                sx={{ color: "secondary.main" }}
-                              >
-                                {item?.date_of_birth ?? ""}
-                              </Typography>
-                            </TableCell>
-                          )}
-                          {item?.role_name === "Student" && (
-                            <TableCell align="center">
-                              <Typography
-                                className="font-10 font-500"
-                                sx={{ color: "secondary.main" }}
-                              >
-                                {item.leadership_points}
-                              </Typography>
-                            </TableCell>
-                          )}
-                          {item?.role_name === "Student" && (
-                            <TableCell align="center">
-                              <Typography
-                                className="font-10 font-500"
-                                sx={{ color: "secondary.main" }}
-                              >
-                                {item.badges}
-                              </Typography>
-                            </TableCell>
-                          )}
+                    .map((item, index) => (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={index}
+                        onClick={() =>
+                          onClick(item?.id, item?.is_disabled === 0)
+                        }
+                      >
+                        <TableCell align="left">
+                          <Typography
+                            className="font-10 font-500"
+                            sx={{ color: "secondary.main" }}
+                          >
+                            {item.first_name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Typography
+                            className="font-10 font-500"
+                            sx={{ color: "secondary.main" }}
+                          >
+                            {item.last_name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Typography
+                            className="font-10 font-500"
+                            sx={{ color: "secondary.main" }}
+                          >
+                            {item.email}
+                          </Typography>
+                        </TableCell>
+                        {item?.role_name === "Student" && (
                           <TableCell align="center">
-                            <ActiveInActiveBdge
-                              type={item?.status?.toLocaleLowerCase()}
+                            <Typography
+                              className="font-10 font-500"
+                              sx={{ color: "secondary.main" }}
                             >
-                              {item.status}
-                            </ActiveInActiveBdge>
+                              {item?.date_of_birth ?? ""}
+                            </Typography>
                           </TableCell>
-                          {item?.role_name === "Student" && (
-                            <TableCell align="center">
-                              <Typography
-                                className="font-10 font-500"
-                                sx={{ color: "secondary.main" }}
-                              >
-                                {item.school_name}
-                              </Typography>
-                            </TableCell>
-                          )}
-                          {item?.role_name === "Student" && (
-                            <TableCell align="center">
-                              <Box className="d-flex items-center justify-between">
-                                <Box>
-                                  <AuthButton
-                                    type="button"
-                                    size="small"
-                                    notFullWidth
-                                    onClick={() => {}}
-                                  >
-                                    Login
-                                  </AuthButton>
-                                </Box>
-                                <Box>
-                                  <FiMoreVertical
-                                    style={{ color: "#353F50" }}
-                                    className="font-16 pointer"
-                                    onClick={handleClick}
-                                  />
-                                  <Popover
-                                    id={id}
-                                    open={open}
-                                    anchorEl={anchorEl}
-                                    onClose={handleClose}
-                                    anchorOrigin={{
-                                      vertical: "bottom",
-                                      horizontal: "right",
-                                    }}
-                                    sx={{
-                                      boxShadow:
-                                        "0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
-                                    }}
-                                  >
-                                    <UsersOptionsList
-                                      onDisableEnable={() => {
-                                        handleClose();
-                                        // If is_disabled is 0, User is enable and I am returning true
-                                        onDisableEnable(
-                                          item?.id,
-                                          item?.is_disabled === 0,
-                                        );
-                                      }}
-                                      isUserEnabled={item?.is_disabled === 0}
-                                      onReset={() => {
-                                        handleClose();
-                                        onResetPassword(item?.id);
-                                      }}
-                                    />
-                                  </Popover>
-                                </Box>
+                        )}
+                        {item?.role_name === "Student" && (
+                          <TableCell align="center">
+                            <Typography
+                              className="font-10 font-500"
+                              sx={{ color: "secondary.main" }}
+                            >
+                              {item.leadership_points}
+                            </Typography>
+                          </TableCell>
+                        )}
+                        {item?.role_name === "Student" && (
+                          <TableCell align="center">
+                            <Typography
+                              className="font-10 font-500"
+                              sx={{ color: "secondary.main" }}
+                            >
+                              {item.badges}
+                            </Typography>
+                          </TableCell>
+                        )}
+                        <TableCell align="center">
+                          <ActiveInActiveBdge
+                            type={item?.status?.toLocaleLowerCase()}
+                          >
+                            {item.status}
+                          </ActiveInActiveBdge>
+                        </TableCell>
+                        {item?.role_name === "Student" && (
+                          <TableCell align="center">
+                            <Typography
+                              className="font-10 font-500"
+                              sx={{ color: "secondary.main" }}
+                            >
+                              {item.school_name}
+                            </Typography>
+                          </TableCell>
+                        )}
+                        {item?.role_name === "Student" && (
+                          <TableCell align="center">
+                            <Box className="d-flex items-center justify-between">
+                              <Box>
+                                <AuthButton
+                                  type="button"
+                                  size="small"
+                                  notFullWidth
+                                  onClick={() => {}}
+                                >
+                                  Login
+                                </AuthButton>
                               </Box>
-                            </TableCell>
-                          )}
-                        </TableRow>
-                      );
-                    })}
+                              <Box>
+                                <FiMoreVertical
+                                  style={{ color: "#353F50" }}
+                                  className="font-16 pointer"
+                                  onClick={handleClick}
+                                />
+                                <Popover
+                                  id={id}
+                                  open={open}
+                                  anchorEl={anchorEl}
+                                  onClose={handleClose}
+                                  anchorOrigin={{
+                                    vertical: "bottom",
+                                    horizontal: "right",
+                                  }}
+                                  sx={{
+                                    boxShadow:
+                                      "0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                                  }}
+                                >
+                                  <UsersOptionsList
+                                    onDisableEnable={() => {
+                                      handleClose();
+                                      // If is_disabled is 0, User is enable and I am returning true
+                                      onDisableEnable(
+                                        item?.id,
+                                        item?.is_disabled === 0,
+                                      );
+                                    }}
+                                    isUserEnabled={item?.is_disabled === 0}
+                                    onReset={() => {
+                                      handleClose();
+                                      onResetPassword(item?.id);
+                                    }}
+                                  />
+                                </Popover>
+                              </Box>
+                            </Box>
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    ))}
               </TableBody>
             </Table>
           </TableContainer>

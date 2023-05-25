@@ -110,3 +110,9 @@ export interface ICreateProjectRequest {
 
 export interface IEditProjectRequest
   extends Omit<ICreateProjectRequest, "cohort_id" | "team_id"> {}
+
+export interface IPostSupportRequest {
+  title: string;
+  description: string;
+  file: string;
+}
