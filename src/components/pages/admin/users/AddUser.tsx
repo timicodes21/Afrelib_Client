@@ -65,6 +65,12 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
                       ? e?.value.toString()
                       : "",
                   );
+                  setValue(
+                    "roleName",
+                    typeof e?.label === "string" || typeof e?.label === "number"
+                      ? e?.label.toString()
+                      : "",
+                  );
                 }}
                 blackLabel
                 options={rolesSelect ? rolesSelect : [{ label: "", value: "" }]}

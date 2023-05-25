@@ -9,6 +9,7 @@ export type AddUserFormValues = {
   lastName: string;
   school: string;
   userType: string;
+  roleName: string;
   dob?: string;
 };
 
@@ -70,4 +71,5 @@ export type AddProjectFormValues = {
 export type SupportFormValues = {
   name: string;
   description: string;
+  file?: string;
 };

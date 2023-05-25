@@ -1,14 +1,19 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import Image from "next/image";
 
 interface IProps {
   handleDragDrop: (file: any) => void;
   fileName: string;
+  isLoading?: boolean;
 }
 
-const DragAndDrop: React.FC<IProps> = ({ handleDragDrop, fileName }) => {
+const DragAndDrop: React.FC<IProps> = ({
+  handleDragDrop,
+  fileName,
+  isLoading,
+}) => {
   const onDrop = useCallback(
     (acceptedFiles: any) => handleDragDrop(acceptedFiles),
     [],
@@ -52,6 +57,11 @@ const DragAndDrop: React.FC<IProps> = ({ handleDragDrop, fileName }) => {
             height={36}
           />
         </Box>
+        {isLoading && (
+          <Box className="d-flex justify-center items-center">
+            <CircularProgress sx={{ color: "primary.main" }} size={20} />
+          </Box>
+        )}
         {isDragActive ? (
           <Typography
             sx={{ color: "rgba(53, 63, 80, 0.6)" }}

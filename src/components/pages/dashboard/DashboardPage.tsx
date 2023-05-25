@@ -51,7 +51,6 @@ const DashboardPage = () => {
 
   const { data: dashboardData, isFetching: isFetchingDashboard } =
     useGetDashboardDetailsStudent();
-  console.log("data student dashboard", dashboardData);
 
   const dashboardDetails = useMemo(() => {
     return typeof dashboardData === "object"
@@ -67,8 +66,6 @@ const DashboardPage = () => {
 
   const router = useRouter();
 
-  console.log("project details", projectDetails);
-
   return (
     <Wrapper>
       <PageHeader headerText="Dashboard" />
@@ -79,24 +76,16 @@ const DashboardPage = () => {
               <WeeklyUpdatesWrapper
                 header={
                   typeof data === "object" && Array.isArray(data?.data)
-                    ? `Week ${
-                        data?.data[data?.data?.length - 1]?.update_week
-                      } - ${data?.data[data?.data?.length - 1]?.update_title}`
+                    ? `Week ${data?.data[0]?.update_week} - ${data?.data[0]?.update_title}`
                     : ""
                 }
                 onClickCard={() => {
                   setWeeklyUpdate(
                     typeof data === "object" && Array.isArray(data?.data)
                       ? {
-                          week: currenUpdate?.data[
-                            currenUpdate?.data?.length - 1
-                          ]?.update_week.toString(),
-                          body: currenUpdate?.data[
-                            currenUpdate?.data?.length - 1
-                          ]?.update_description,
-                          title:
-                            currenUpdate?.data[currenUpdate?.data?.length - 1]
-                              ?.update_title,
+                          week: currenUpdate?.data[0]?.update_week.toString(),
+                          body: currenUpdate?.data[0]?.update_description,
+                          title: currenUpdate?.data[0]?.update_title,
                         }
                       : ({} as IWeeklyUpdate),
                   );

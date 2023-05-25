@@ -560,3 +560,17 @@ export interface IGetStudentDashboardResponse {
   total_submissions_made: number;
   team_leaderboard_point: number;
 }
+
+export interface IPostSupportResponse {
+  Success: string;
+}
+
+export interface IGetSupportResponse {
+  id: number;
+  title?: any;
+  description?: any;
+  file?: any;
+  created_at: string;
+  updated_at: string;
+  status: string;
+}

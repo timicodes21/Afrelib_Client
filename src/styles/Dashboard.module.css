@@ -5,12 +5,11 @@
 /* Sidebar and Outlet styles */
 .sidebar {
   position: fixed;
-  display: block;
   width: 22vw !important;
   background: #ffffff;
   border: 1px solid #eaecf0;
   box-shadow: 7px 0px 4px rgba(117, 171, 242, 0.08);
-  height: 100vh;
+  min-height: 100% !important;
 }
 
 .outlet {
