@@ -119,7 +119,7 @@ const PanelistProjectPage = () => {
                   onClick={() => {}}
                   submissionText=""
                   totalSubmissions={7}
-                  submissionsDone={2}
+                  submissionsDone={item[0]?.submissions?.length}
                   onClickCard={() => {
                     setProjectId(item[0]?.id);
                     openModal();
@@ -129,8 +129,14 @@ const PanelistProjectPage = () => {
             ))}
         </Grid>
 
-        {!isFetching && Array.isArray(data) && data.length === 0 && (
-          <EmptyPage text="Team Projects will appear here.." />
+        {!isFetching &&
+          typeof data === "object" &&
+          data?.cohort_projects?.length === 0 && (
+            <EmptyPage text="Cohort Projects will appear here." />
+          )}
+
+        {!isFetching && !data && (
+          <EmptyPage text="Cohort Projects will appear here.." />
         )}
 
         {isFetching && (

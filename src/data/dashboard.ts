@@ -187,24 +187,24 @@ export const adminDashboardLinks: ILink[] = [
 ];
 
 export const bottomDashboardLinks: ILink[] = [
-  // {
-  //   name: "Guidlines",
-  //   link: GUIDELINES,
-  //   icon: "/assets/icons/support_icon.svg",
-  //   activeIcon: "/assets/icons/support_icon_active.svg",
-  // },
-  // {
-  //   name: "Terms and Conditions",
-  //   link: TERMS_AND_CONDITIONS,
-  //   icon: "/assets/icons/support_icon.svg",
-  //   activeIcon: "/assets/icons/support_icon_active.svg",
-  // },
-  // {
-  //   name: "Compliance",
-  //   link: COMPLIANCE,
-  //   icon: "/assets/icons/support_icon.svg",
-  //   activeIcon: "/assets/icons/support_icon_active.svg",
-  // },
+  {
+    name: "Guidlines",
+    link: GUIDELINES,
+    icon: "/assets/icons/support_icon.svg",
+    activeIcon: "/assets/icons/support_icon_active.svg",
+  },
+  {
+    name: "Terms and Conditions",
+    link: TERMS_AND_CONDITIONS,
+    icon: "/assets/icons/support_icon.svg",
+    activeIcon: "/assets/icons/support_icon_active.svg",
+  },
+  {
+    name: "Compliance",
+    link: COMPLIANCE,
+    icon: "/assets/icons/support_icon.svg",
+    activeIcon: "/assets/icons/support_icon_active.svg",
+  },
 
   {
     name: "Support",
@@ -221,24 +221,24 @@ export const bottomDashboardLinks: ILink[] = [
 ];
 
 export const adminBottomDashboardLinks: ILink[] = [
-  // {
-  //   name: "Guidlines",
-  //   link: GUIDELINES,
-  //   icon: "/assets/icons/support_icon.svg",
-  //   activeIcon: "/assets/icons/support_icon_active.svg",
-  // },
-  // {
-  //   name: "Terms and Conditions",
-  //   link: TERMS_AND_CONDITIONS,
-  //   icon: "/assets/icons/support_icon.svg",
-  //   activeIcon: "/assets/icons/support_icon_active.svg",
-  // },
-  // {
-  //   name: "Compliance",
-  //   link: COMPLIANCE,
-  //   icon: "/assets/icons/support_icon.svg",
-  //   activeIcon: "/assets/icons/support_icon_active.svg",
-  // },
+  {
+    name: "Guidlines",
+    link: GUIDELINES,
+    icon: "/assets/icons/support_icon.svg",
+    activeIcon: "/assets/icons/support_icon_active.svg",
+  },
+  {
+    name: "Terms and Conditions",
+    link: TERMS_AND_CONDITIONS,
+    icon: "/assets/icons/support_icon.svg",
+    activeIcon: "/assets/icons/support_icon_active.svg",
+  },
+  {
+    name: "Compliance",
+    link: COMPLIANCE,
+    icon: "/assets/icons/support_icon.svg",
+    activeIcon: "/assets/icons/support_icon_active.svg",
+  },
 
   {
     name: "Support",

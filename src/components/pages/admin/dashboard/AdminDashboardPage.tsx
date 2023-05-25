@@ -194,7 +194,6 @@ const AdminDashboardPage = () => {
             loading={isLoading}
             onDisableEnable={id => {}}
             onResetPassword={id => {}}
-            onClick={(id, enabled) => {}}
           />
         </Box>
       </PageFlexLayout>

@@ -47,7 +47,7 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
     <Box sx={{ p: { xs: 2, md: 3 } }}>
       <HeaderAndCloseButton header="Add Team" onClick={handleClose} />
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(data => onSubmit(data, handleClose))}>
           <Grid container sx={{ mt: 3 }} spacing={2}>
             <Grid item xs={12} md={6}>
               <Controller
