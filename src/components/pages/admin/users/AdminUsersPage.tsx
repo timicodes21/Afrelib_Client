@@ -175,17 +175,15 @@ const AdminUsersPage = () => {
               ? allAdmin
               : []
           }
-          onDisableEnable={(id, isEnabled) => {
+          onDisableEnable={userDetails => {
+            console.log("user details", userDetails);
+            setUserDetails(userDetails);
             openAlertModal();
           }}
           onResetPassword={id => {
             openResetModal();
           }}
           role={selectedRole}
-          onClick={(id, enabled) => {
-            console.log("onClick row", id);
-            setUserDetails({ id, isEnabled: enabled });
-          }}
         />
       </Box>
       <CustomModal
@@ -213,6 +211,7 @@ const AdminUsersPage = () => {
             handleEnableDisable(
               userDetails?.isEnabled ? "disable" : "enable",
               userDetails?.id,
+              closeAlertModal,
             )
           }
           onCancel={closeAlertModal}
