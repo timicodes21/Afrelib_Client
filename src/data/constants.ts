@@ -22,6 +22,9 @@ export const RESOURCES = "/dashboard/resources";
 export const PROJECTS = "/dashboard/projects";
 export const MENTEES = "/dashboard/mentees";
 export const ACCOUNTS_SETTINGS = "/dashboard/accounts_settings";
+export const COMPLIANCE = "/dashboard/compliance";
+export const GUIDELINES = "/dashboard/guidelines";
+export const TERMS_AND_CONDITIONS = "/dashboard/terms_and_conditions";
 export const SUPPORT = "/dashboard/support";
 export const LOGIN = "/login";
 
@@ -56,8 +59,16 @@ export const UPLOAD_FILE = (type: string) => `/upload/${type}`;
 export const GET_WEEKLY_UPDATES = "/update";
 export const CREATE_WEEKLY_UPDATES = "/update";
 
+// support api
+export const POST_SUPPORT = "/support";
+export const VIEW_SUPPORT = "/getsupport";
+
 //Roles
 export const GET_ROLES_API = "/roles";
+
+// evaluation criteria
+export const GET_EVALUATION_CRITERIA = (cohortId: string) =>
+  `/criteria/${cohortId}`;
 
 // Users
 export const CREATE_USER_API = "/admin/user/create";
@@ -151,6 +162,7 @@ export const queryKeys = {
   getMessages: "getMessages",
   getMembers: "getMembers",
   getWeeklyUpdates: "getWeeklyUpdates",
+  getSupport: "getSupport",
 };
 
 //Chats links

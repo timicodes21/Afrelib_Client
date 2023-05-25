@@ -87,7 +87,12 @@ export const useAdminUsers = () => {
   const [userDetails, setUserDetails] = useState<{
     id: number;
     isEnabled?: boolean;
-  }>({ id: 0 });
+  }>(
+    {} as {
+      id: number;
+      isEnabled?: boolean;
+    },
+  );
   const { open, setOpen, closeModal, openModal } = useModal();
   const router = useRouter();
 
@@ -112,12 +117,13 @@ export const useAdminUsers = () => {
       lastName: string(),
       school: string().optional(),
       userType: string(),
+      roleName: string(),
       dob: string().optional(),
     })
     .refine(
       // If user is a student dob is compulsory
       data => {
-        if (data?.userType !== "6y8hXnL5xl1l") {
+        if (data?.roleName !== "Student") {
           // return true for other users
           return true;
         } else {
@@ -163,6 +169,7 @@ export const useAdminUsers = () => {
     type: "enable" | "disable",
     userId: number,
   ) => {
+    console.log("userId", userId);
     setIsUpdating(true);
     const res = await enableOrDisableUser(type, userId);
     if (res?.first_name) {

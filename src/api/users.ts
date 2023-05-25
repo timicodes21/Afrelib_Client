@@ -58,7 +58,6 @@ export const loginUser = async (body: IUserLoginRequest) => {
     } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
-        toast.success(message);
         return responseData;
       } else {
         toast.error(message);
