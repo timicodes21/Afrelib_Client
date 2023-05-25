@@ -31,7 +31,7 @@ const CompliancePage = () => {
       <Box>
         <Box sx={{ mt: 2 }}>
           {compliance.map((item, index) => (
-            <Accordion>
+            <Accordion key={index}>
               <AccordionSummary
                 expandIcon={
                   <BsChevronDown

@@ -80,7 +80,7 @@ const AdminSupportPage = () => {
               <Grid xs={12} md={8} lg={6}>
                 {allSupport?.length > 0 &&
                   allSupport[0]?.map((item, index) => (
-                    <Accordion>
+                    <Accordion key={index}>
                       <AccordionSummary
                         expandIcon={
                           <BsChevronDown

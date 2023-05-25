@@ -20,7 +20,7 @@ const GuidelinesPage = () => {
       <Box>
         <Box sx={{ mt: 2 }}>
           {guidelines.map((item, index) => (
-            <Accordion>
+            <Accordion key={index}>
               <AccordionSummary
                 expandIcon={
                   <BsChevronDown

@@ -28,7 +28,7 @@ const TermsAndConditionsPage = () => {
       <Box>
         <Box sx={{ mt: 2 }}>
           {termsAndConditions.map((item, index) => (
-            <Accordion>
+            <Accordion key={index}>
               <AccordionSummary
                 expandIcon={
                   <BsChevronDown
