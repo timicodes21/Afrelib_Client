@@ -561,6 +561,19 @@ export interface IGetStudentDashboardResponse {
   team_leaderboard_point: number;
 }
 
+export interface IGetMentorDashboardResponse {
+  submission_deadline_date: number;
+  current_week: number;
+  num_mentees: number;
+  team_points: number;
+}
+
+export interface IGetPanelistDashboardResponse {
+  submission_deadline_date: number;
+  current_week: number;
+  num_teams_in_cohort: number;
+  num_submissions: number;
+}
 export interface IPostSupportResponse {
   Success: string;
 }

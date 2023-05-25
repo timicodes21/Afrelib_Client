@@ -20,6 +20,7 @@ import {
 } from "@/api/team";
 import { ICreateTeamRequest, IUpdateMentorRequest } from "@/types/apiRequests";
 import { addTeamGroupChat } from "@/api/chatsTeamsAndCohorts";
+import { toast } from "react-hot-toast";
 
 // const useUpdateTeamMentor = () => {
 //   return useMutation(updateTeamMentor);
@@ -104,17 +105,12 @@ export const useAdminTeams = () => {
     queryClient.invalidateQueries([queryKeys.getTeams]);
   };
 
-  const onSuccess = (data: ITeamRespons | string) => {
-    setIsLoading(false);
-    queryClient.invalidateQueries([queryKeys.getTeams]);
-  };
-
   const onError = () => {
     queryClient.invalidateQueries([queryKeys.getTeams]);
     setIsLoading(false);
   };
 
-  const onSubmit: SubmitHandler<AddTeamFormValues> = async data => {
+  const onSubmit = async (data: AddTeamFormValues, closeModal: () => void) => {
     const formData: ICreateTeamRequest = {
       team_name: data?.name,
       team_description: data?.description,
@@ -132,10 +128,19 @@ export const useAdminTeams = () => {
         team_id: response?.id,
         participants: [...studentsStringId, data?.mentor.toString()],
       });
-      onSuccess(response);
+      queryClient.invalidateQueries([queryKeys.getTeams]);
+      closeModal();
+      setIsLoading(false);
+      return;
     } else {
       setIsLoading(false);
-      onError();
+      toast.error(
+        typeof response === "string"
+          ? response
+          : "An error occured, Please try again",
+      );
+      closeModal();
+      return;
     }
 
     setIsLoading(false);

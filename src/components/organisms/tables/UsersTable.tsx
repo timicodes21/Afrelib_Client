@@ -17,13 +17,17 @@ import { IGetAllUsersResponse } from "@/types/apiResponses";
 import ActiveInActiveBdge from "@/components/atoms/badges/ActiveInActiveBdge";
 import UsersOptionsList from "@/components/molecules/lists/UsersOptionsList";
 
+interface IUserDetails {
+  id: number;
+  isEnabled: boolean;
+}
+
 interface IProps {
   users: IGetAllUsersResponse[];
   loading?: boolean;
-  onDisableEnable: (id: number, isEnabled: boolean) => void;
+  onDisableEnable: (par: IUserDetails) => void;
   onResetPassword: (id: number) => void;
   role: string;
-  onClick: (id: number, isUserEnabled: boolean) => void;
 }
 
 const UsersTable: React.FC<IProps> = ({
@@ -32,7 +36,6 @@ const UsersTable: React.FC<IProps> = ({
   onDisableEnable,
   onResetPassword,
   role,
-  onClick,
 }) => {
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage } =
     useTable();
@@ -60,6 +63,10 @@ const UsersTable: React.FC<IProps> = ({
           usersTableColumns[6],
         ];
   }, [role]);
+
+  const [userDetails, setUserDetails] = React.useState<IUserDetails>(
+    {} as IUserDetails,
+  );
 
   return (
     <Paper
@@ -137,9 +144,16 @@ const UsersTable: React.FC<IProps> = ({
                         role="checkbox"
                         tabIndex={-1}
                         key={index}
-                        onClick={() =>
-                          onClick(item?.id, item?.is_disabled === 0)
-                        }
+                        onClick={() => {
+                          setUserDetails({
+                            id: item?.id,
+                            isEnabled: item?.is_disabled === 0,
+                          });
+                        }}
+                        sx={{
+                          background:
+                            item?.is_disabled === 0 ? "#FBFAFA" : "#FDD1DA",
+                        }}
                       >
                         <TableCell align="left">
                           <Typography
@@ -247,17 +261,15 @@ const UsersTable: React.FC<IProps> = ({
                                 >
                                   <UsersOptionsList
                                     onDisableEnable={() => {
+                                      console.log("item", item);
                                       handleClose();
                                       // If is_disabled is 0, User is enable and I am returning true
-                                      onDisableEnable(
-                                        item?.id,
-                                        item?.is_disabled === 0,
-                                      );
+                                      onDisableEnable(userDetails);
                                     }}
-                                    isUserEnabled={item?.is_disabled === 0}
+                                    isUserEnabled={userDetails?.isEnabled}
                                     onReset={() => {
                                       handleClose();
-                                      onResetPassword(item?.id);
+                                      onResetPassword(userDetails?.id);
                                     }}
                                   />
                                 </Popover>

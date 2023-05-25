@@ -146,6 +146,8 @@ export const queryKeys = {
   getAllUsers: "getAllUsers",
   getAdminDashboard: "getAdminDashboard",
   getStudentDashboard: "getStudentDashboard",
+  getMentorDashboard: "getMentorDashboard",
+  getPanelistDashboard: "getPanelistDashboard",
   getAllAdmin: "getAllAdmin",
   getMentorMentees: "getMentorMentees",
   getCohorts: "getCohorts",
