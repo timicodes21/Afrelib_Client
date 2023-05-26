@@ -194,17 +194,17 @@ export const bottomDashboardLinks: ILink[] = [
     activeIcon: "/assets/icons/support_icon_active.svg",
   },
   {
-    name: "Terms and Conditions",
+    name: "Compliance / Terms and Conditions",
     link: TERMS_AND_CONDITIONS,
     icon: "/assets/icons/support_icon.svg",
     activeIcon: "/assets/icons/support_icon_active.svg",
   },
-  {
-    name: "Compliance",
-    link: COMPLIANCE,
-    icon: "/assets/icons/support_icon.svg",
-    activeIcon: "/assets/icons/support_icon_active.svg",
-  },
+  // {
+  //   name: "Compliance",
+  //   link: COMPLIANCE,
+  //   icon: "/assets/icons/support_icon.svg",
+  //   activeIcon: "/assets/icons/support_icon_active.svg",
+  // },
 
   {
     name: "Support",
@@ -228,17 +228,17 @@ export const adminBottomDashboardLinks: ILink[] = [
     activeIcon: "/assets/icons/support_icon_active.svg",
   },
   {
-    name: "Terms and Conditions",
+    name: "Compliance / Terms and Conditions",
     link: TERMS_AND_CONDITIONS,
     icon: "/assets/icons/support_icon.svg",
     activeIcon: "/assets/icons/support_icon_active.svg",
   },
-  {
-    name: "Compliance",
-    link: COMPLIANCE,
-    icon: "/assets/icons/support_icon.svg",
-    activeIcon: "/assets/icons/support_icon_active.svg",
-  },
+  // {
+  //   name: "Compliance",
+  //   link: COMPLIANCE,
+  //   icon: "/assets/icons/support_icon.svg",
+  //   activeIcon: "/assets/icons/support_icon_active.svg",
+  // },
 
   {
     name: "Support",
@@ -948,3 +948,63 @@ export const compliance: { header: string; text: string }[] = [
     text: "We regularly review and evaluate our data protection practices to ensure ongoing compliance with GDPR. We work proactively to identify and address any privacy risks and to continuously improve our data protection measures.",
   },
 ];
+
+export const frequentlyAskedQuestions: { question: string; answer: string }[] =
+  [
+    {
+      question: "How do I create an account on the Challenge Hub?",
+      answer:
+        "Getting started is easy! Simply click on the 'Sign Up' button located on the Challenge Hub homepage. Follow the prompts, provide the required information, and create a unique username and password. Before proceeding, make sure to review and accept thez terms and conditions",
+    },
+    {
+      question: "What should I do if I forget my password?",
+      answer:
+        "No worries! If you forget your password, just click on the 'Forgot Password' link on the login page. Follow the instructions to reset your password. You may need to provide your registered email address or username for verification.",
+    },
+    {
+      question: "How do I submit my entry for the challenge?",
+      answer:
+        "To submit your entry, log in to the Challenge Hub and go to the 'Submit Entry' section. Follow the instructions to upload your files, including any necessary documents, designs, or code. Before finalizing your submission, take a moment to review and confirm all the details.",
+    },
+    {
+      question:
+        "Can I make changes to my submission after it has been submitted?",
+      answer:
+        "Unfortunately, once a submission has been submitted, it cannot be edited or updated. We encourage you to carefully review your entry before finalizing your submission to ensure its accuracy and completeness.",
+    },
+    {
+      question: "How can I view other participants' submissions?",
+      answer:
+        "Look out for a dedicated section on the Challenge Hub where you can explore and view other participants' submissions. Keep an eye on any guidelines or instructions provided on how to access and browse through these entries.",
+    },
+    {
+      question:
+        "What should I do if I encounter technical issues on the Challenge Hub?",
+      answer:
+        "If you experience any technical issues, such as errors, slow loading times, or difficulties accessing certain features, don't worry! Reach out to our support team for assistance. You can find their contact information on the Challenge Hub website or in the provided support documentation.",
+    },
+    {
+      question:
+        "Can I collaborate with other participants on the Challenge Hub?",
+      answer:
+        "Collaboration opportunities may vary based on the challenge guidelines. Please refer to the specific rules or contact our support team to clarify whether team collaborations are allowed and for guidance on initiating or joining a team.",
+    },
+    {
+      question:
+        "How will I receive updates and notifications about the challenge?",
+      answer:
+        "Stay informed! The Challenge Hub may have a notification system to keep you updated on important announcements, deadlines, and other relevant information. Regularly check your account and the designated communication channels provided by the challenge organizers to stay in the loop.",
+    },
+    {
+      question:
+        "Where can I seek additional support or clarification about the challenge?",
+      answer:
+        "We're here to help! If you need further assistance, clarification, or have specific questions related to the challenge, reach out to our support team. They are dedicated to providing guidance, answering your queries, and addressing any concerns you may have.",
+    },
+    {
+      question:
+        "Can I collaborate with other participants on the Challenge Hub?",
+      answer:
+        "Collaboration opportunities may vary based on the challenge guidelines. Please refer to the specific rules or contact our support team to clarify whether team collaborations are allowed and for guidance on initiating or joining a team.",
+    },
+  ];

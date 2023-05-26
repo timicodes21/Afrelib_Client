@@ -4,7 +4,6 @@ import { Box, Grid, Typography } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
-import { messages } from "@/data/dashboard";
 import WeeklyUpdatesWrapper from "@/components/molecules/wrappers/WeeklyUpdatesWrapper";
 import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";
 import AddItemCard from "@/components/molecules/cards/AddItemCard";
