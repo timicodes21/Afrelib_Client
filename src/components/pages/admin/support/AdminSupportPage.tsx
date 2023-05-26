@@ -2,6 +2,7 @@ import TransparentBlueButton from "@/components/atoms/buttons/TransparentBlueBut
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import Wrapper from "@/components/templates/Wrapper";
+import { frequentlyAskedQuestions } from "@/data/dashboard";
 import { useAdminUsers } from "@/hooks/admin/useAdminUsers";
 import { useGetSupport } from "@/hooks/support/useSupport";
 import { useModal } from "@/hooks/utility";
@@ -78,8 +79,8 @@ const AdminSupportPage = () => {
           <Box sx={{ mt: 2 }}>
             <Grid container>
               <Grid xs={12} md={8} lg={6}>
-                {allSupport?.length > 0 &&
-                  allSupport[0]?.map((item, index) => (
+                {frequentlyAskedQuestions?.length > 0 &&
+                  frequentlyAskedQuestions?.map((item, index) => (
                     <Accordion key={index}>
                       <AccordionSummary
                         expandIcon={
@@ -94,7 +95,7 @@ const AdminSupportPage = () => {
                           sx={{ color: "secondary.main" }}
                           className="font-14 font-500"
                         >
-                          {item?.title}
+                          {item?.question}
                         </Typography>
                       </AccordionSummary>
                       <AccordionDetails>
@@ -102,11 +103,20 @@ const AdminSupportPage = () => {
                           sx={{ color: "secondary.main" }}
                           className="font-12 font-400"
                         >
-                          {item?.description}
+                          {item?.answer}
                         </Typography>
                       </AccordionDetails>
                     </Accordion>
                   ))}
+                <Typography
+                  sx={{ color: "secondary.main", mt: 3 }}
+                  className="font-12 font-400"
+                >
+                  We hope this FAQ has provided helpful guidance as you embark
+                  on your tech challenge journey. Remember, our support team is
+                  here to assist you every step of the way. Best of luck in the
+                  challenge! -The Afrelib AI Challenge Hub Support Team
+                </Typography>
               </Grid>
               <Grid xs={12} md={4} lg={6}></Grid>
             </Grid>
@@ -117,7 +127,7 @@ const AdminSupportPage = () => {
             <Grid container>
               <Grid xs={12} md={8} lg={6}>
                 {allSupport?.length > 0 &&
-                  allSupport[0]?.map((item, index) => (
+                  allSupport?.map((item, index) => (
                     <Accordion key={index}>
                       <AccordionSummary
                         expandIcon={
