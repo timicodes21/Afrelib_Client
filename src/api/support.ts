@@ -40,10 +40,10 @@ export const postSupport: (
 };
 
 export const viewSupport: () => Promise<
-  Array<IGetSupportResponse[]> | string
+  IGetSupportResponse[] | string
 > = async () => {
   try {
-    const response: Awaited<IStatusWithData<Array<IGetSupportResponse[]>>> =
+    const response: Awaited<IStatusWithData<IGetSupportResponse[]>> =
       await usersHttpClient(VIEW_SUPPORT);
     const { status, data } = response;
     if (typeof response !== "undefined")
