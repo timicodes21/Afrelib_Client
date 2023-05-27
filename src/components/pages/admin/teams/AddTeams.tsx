@@ -11,6 +11,7 @@ import {
   useCohortsUsersForSelect,
   useFilterUsersForSelect,
   useStudentsForSelect,
+  useUserForSelectField,
 } from "@/hooks/utility";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
@@ -38,8 +39,8 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
   });
 
   const { allMentors, isLoading } = useFilterUsersForSelect();
-  const { studentsSelect, isFetching: isFetchingStudents } =
-    useStudentsForSelect();
+  const { users: studentsSelect, loadingUsers: isFetchingStudents } =
+    useUserForSelectField("Student");
   const { cohortsSelect, isLoading: isLoadingCohorts } =
     useCohortsUsersForSelect();
 

@@ -1,7 +1,10 @@
 import AuthButton from "@/components/atoms/buttons/AuthButton";
 import SearchInput from "@/components/atoms/inputFields/SearchInput";
 import HeaderAndCloseButton from "@/components/molecules/headers/HeaderAndCloseButton";
-import { useFilterUsersForSelect } from "@/hooks/utility";
+import {
+  useFilterUsersForSelect,
+  useUserForSelectField,
+} from "@/hooks/utility";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -26,7 +29,8 @@ const AssignPanelists: React.FC<IProps> = ({
   cohortName,
   cohortId,
 }) => {
-  const { allPanelists, isLoading } = useFilterUsersForSelect();
+  const { users: allPanelists, loadingUsers: isLoading } =
+    useUserForSelectField("Panelist");
 
   const {
     schemaAssign,
@@ -86,7 +90,8 @@ const AssignPanelists: React.FC<IProps> = ({
       <Box sx={{ mt: 5 }} className="d-flex justify-center">
         <AuthButton
           onClick={() => {
-            panelistIds.length > 0 && onSubmitAssign(cohortId, panelistIds);
+            panelistIds.length > 0 &&
+              onSubmitAssign(cohortId, panelistIds, handleClose);
           }}
           type="button"
           notFullWidth

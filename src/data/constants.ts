@@ -73,6 +73,8 @@ export const GET_EVALUATION_CRITERIA = (cohortId: string) =>
 // Users
 export const CREATE_USER_API = "/admin/user/create";
 export const GET_ALL_USERS_API = (page: number) => `users?page=${page}`;
+export const GET_USERS_BY_ROLE_ID = (roleId: string, page: number) =>
+  `/users/${roleId}?page=${page}`;
 export const LOGIN_USER_API = "/user/signin";
 export const GET_STUDENTS_NOT_IN_TEAM = "/students/unmatched";
 export const UPDATE_USER_DETAILS = "/user";

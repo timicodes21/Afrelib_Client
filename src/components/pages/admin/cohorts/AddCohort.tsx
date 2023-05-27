@@ -7,11 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AuthInput from "@/components/atoms/inputFields/AuthInput";
 import CustomSelect from "@/components/atoms/inputFields/CustomSelect";
 import AuthButton from "@/components/atoms/buttons/AuthButton";
-import {
-  useFilterUsersForSelect,
-  useGetRoles,
-  useTeamsForSelect,
-} from "@/hooks/utility";
+import { useFilterUsersForSelect, useTeamsForSelect } from "@/hooks/utility";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
 import { useAdminCohort } from "@/hooks/admin/useAdminCohort";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";

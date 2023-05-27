@@ -150,19 +150,17 @@ export const useAdminCohort = () => {
     });
   };
 
-  // Delete cohort submit function
-  const onSuccessDelete = (data: string) => {
-    queryClient.invalidateQueries([queryKeys.getCohorts]);
-  };
-
-  const onSubmitDelete = async () => {
+  const onSubmitDelete = async (closeModal: () => void) => {
     setIsLoadingDelete(true);
 
     const response = await deleteCohort(cohort?.cohort_id ?? "");
 
     response === "Cohort Deleted Successfully"
-      ? onSuccessDelete(response)
-      : () => {};
+      ? () => {
+          queryClient.invalidateQueries([queryKeys.getCohorts]);
+          closeModal();
+        }
+      : closeModal();
 
     setIsLoadingDelete(false);
   };
@@ -178,18 +176,26 @@ export const useAdminCohort = () => {
     }) => assignPanelist(cohortId, body),
   });
 
-  const onSuccessAssign = (data: string) => {
+  const onSuccessAssign = (data: string, closeModal: () => void) => {
     queryClient.invalidateQueries([queryKeys.getCohorts]);
+    closeModal();
   };
 
-  const onSubmitAssign = (cohortId: string, panelistsIds: number[]) => {
+  const onSubmitAssign = (
+    cohortId: string,
+    panelistsIds: number[],
+    closeModal: () => void,
+  ) => {
     const formData: IAssignPanelistsRequest = {
       panelist_ids: panelistsIds,
     };
 
     mutateAssign(
       { cohortId: cohortId ?? "", body: formData },
-      { onSuccess: onSuccessAssign, onError },
+      {
+        onSuccess: data => onSuccessAssign(data, closeModal),
+        onError: () => closeModal(),
+      },
     );
   };
 
@@ -204,7 +210,11 @@ export const useAdminCohort = () => {
     }) => updateCohort(cohortId, body),
   });
 
-  const onSubmitUpdate = (data: UpdateCohortFormValues, cohortId: string) => {
+  const onSubmitUpdate = (
+    data: UpdateCohortFormValues,
+    cohortId: string,
+    closeModal: () => void,
+  ) => {
     const formData: IUpdateCohorRequest = {
       cohort_name: data?.name,
       cohort_description: data?.description,
@@ -212,7 +222,7 @@ export const useAdminCohort = () => {
 
     mutateUpdate(
       { cohortId: cohortId ?? "", body: formData },
-      { onSuccess: onSuccessAssign, onError },
+      { onSuccess: data => onSuccessAssign(data, closeModal), onError },
     );
   };
 
