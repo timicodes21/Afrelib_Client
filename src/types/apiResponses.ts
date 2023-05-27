@@ -197,7 +197,7 @@ export interface IGetTeamsResponse {
   is_deleted: number;
   created_at: string;
   updated_at: string;
-  students: User[];
+  students: number;
   mentor: User;
 }
 
