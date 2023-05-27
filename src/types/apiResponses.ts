@@ -115,6 +115,7 @@ export interface User {
   status: string;
   created_at: string;
   updated_at: string;
+  profile_image: string;
 }
 
 export interface ICreateCohortResponse {
@@ -260,7 +261,7 @@ export interface IGetSingleCohortResponse {
   };
 }
 
-interface DatumProject {
+export interface IGetSingleProject {
   id: number;
   project_title: string;
   project_description: string;
@@ -273,7 +274,7 @@ interface DatumProject {
 
 export interface IGetAllProjectsResponse {
   current_page: number;
-  data: DatumProject[];
+  data: IGetSingleProject[];
   first_page_url: string;
   from: number;
   last_page: number;
@@ -586,4 +587,34 @@ export interface IGetSupportResponse {
   created_at: string;
   updated_at: string;
   status: string;
+}
+
+export interface IGetUserResponse {
+  current_page: number;
+  data: User[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url?: any;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
+interface Link {
+  url?: string;
+  label: string;
+  active: boolean;
+}
+
+export interface IGetRolesResponse {
+  id: number;
+  role_id: string;
+  role_name: string;
+  created_at: string;
+  updated_at: string;
 }

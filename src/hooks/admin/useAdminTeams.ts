@@ -101,8 +101,9 @@ export const useAdminTeams = () => {
     }),
   });
 
-  const onSuccessDelete = (data: string) => {
+  const onSuccessDelete = (data: string, closeModal: () => void) => {
     queryClient.invalidateQueries([queryKeys.getTeams]);
+    closeModal();
   };
 
   const onError = () => {
@@ -146,14 +147,16 @@ export const useAdminTeams = () => {
     setIsLoading(false);
   };
 
-  const onSubmitDelete = async () => {
+  const onSubmitDelete = async (closeModal: () => void) => {
     setIsLoadingDelete(true);
 
     const response = await deleteTeam(team?.id ?? 0);
 
     response === "Team Deleted Successfully"
-      ? onSuccessDelete(response)
-      : () => {};
+      ? onSuccessDelete(response, closeModal)
+      : () => {
+          closeModal();
+        };
 
     setIsLoadingDelete(false);
   };
@@ -168,22 +171,30 @@ export const useAdminTeams = () => {
     }) => updateTeamMentor(teamId, body),
   });
 
-  const onSuccessUpdate = (data: IUpdateMentorResponse | string) => {
-    queryClient.invalidateQueries([queryKeys.getTeams]);
-  };
-
   const validateMentorForm: SubmitHandler<AddMentorFormValues> = data => {
     return;
   };
 
-  const onSubmitUpdateMentor = (teamId: number, mentorId: number) => {
+  const onSubmitUpdateMentor = (
+    teamId: number,
+    mentorId: number,
+    closeModal: () => void,
+  ) => {
     const formData: IUpdateMentorRequest = {
       mentorId: mentorId,
     };
 
     mutate(
       { teamId: teamId ?? 0, body: formData },
-      { onSuccess: onSuccessUpdate, onError },
+      {
+        onSuccess: (data: IUpdateMentorResponse | string) => {
+          closeModal();
+          queryClient.invalidateQueries([queryKeys.getTeams]);
+        },
+        onError: () => {
+          closeModal();
+        },
+      },
     );
   };
 
