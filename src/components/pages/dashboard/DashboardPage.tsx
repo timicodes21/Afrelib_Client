@@ -1,7 +1,7 @@
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import Wrapper from "@/components/templates/Wrapper";
 import { Box, Grid, Typography } from "@mui/material";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import styles from "@/styles/Dashboard.module.css";
 import Image from "next/image";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
@@ -18,7 +18,7 @@ import {
 } from "@/hooks/admin/useAdminDashboard";
 import { sliceText } from "@/utils/helpers";
 import CustomModal from "@/components/organisms/modals/CustomModal";
-import { useModal } from "@/hooks/utility";
+import { getUserByRole, useModal } from "@/hooks/utility";
 import WeeklyUpdatesPage from "../admin/dashboard/WeeklyUpdatesPage";
 import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
 import {

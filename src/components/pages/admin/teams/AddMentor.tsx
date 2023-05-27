@@ -1,7 +1,10 @@
 import AuthButton from "@/components/atoms/buttons/AuthButton";
 import SearchInput from "@/components/atoms/inputFields/SearchInput";
 import HeaderAndCloseButton from "@/components/molecules/headers/HeaderAndCloseButton";
-import { useFilterUsersForSelect } from "@/hooks/utility";
+import {
+  useFilterUsersForSelect,
+  useUserForSelectField,
+} from "@/hooks/utility";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -18,7 +21,8 @@ interface IProps {
 }
 
 const AddMentor: React.FC<IProps> = ({ handleClose, teamName, teamId }) => {
-  const { allMentors, isLoading } = useFilterUsersForSelect();
+  const { users: allMentors, loadingUsers: isLoading } =
+    useUserForSelectField("Mentor");
 
   const {
     schemaUpdateMentor,
@@ -84,7 +88,7 @@ const AddMentor: React.FC<IProps> = ({ handleClose, teamName, teamId }) => {
         <AuthButton
           onClick={() => {
             handleSubmit(validateMentorForm)();
-            onSubmitUpdateMentor(teamId, getValues("mentorId"));
+            onSubmitUpdateMentor(teamId, getValues("mentorId"), handleClose);
           }}
           type="button"
           notFullWidth
