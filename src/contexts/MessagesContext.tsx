@@ -19,7 +19,7 @@ function MessagesProvider({ children }: PropsWithChildren) {
   >(null);
 
   const selectChat = (chat: chatType) => {
-    console.log(chat);
+    //console.log(chat);
     setChat(chat);
   };
 

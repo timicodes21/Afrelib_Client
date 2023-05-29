@@ -57,7 +57,8 @@ const EachChatMessage = ({ chat }: IProps) => {
           }}
         >
           <p className={styles.chatListChatLastMsg}>
-            Ayomide: Hello everyone how are you doing
+            {/* Ayomide: Hello everyone how are you doing */}
+            {chat.lastMessage}
           </p>
           {unread_messages > 0 && (
             <Box className={styles.chatListMessageCount}>{unread_messages}</Box>
