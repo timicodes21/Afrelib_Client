@@ -46,9 +46,17 @@ const MessagesHeader = () => {
         </IconButton>
 
         <Avatar className={styles.headerAvatar} />
-        <Typography className={styles.headerGroupName}>
-          {chat?.chatName}
-        </Typography>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography className={styles.headerGroupName}>
+            {chat?.chatName}
+          </Typography>
+          <p className={styles.chatDescription}>{chat?.chatDescription}</p>
+        </div>
       </Box>
 
       <Box>

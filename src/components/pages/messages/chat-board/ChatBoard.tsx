@@ -126,10 +126,7 @@ const ChatMessagesBoard = () => {
 
                   {[...group].reverse().map((msg: any) => {
                     return (
-                      <EachChatBoardMessage
-                        message={msg.message}
-                        key={msg.messageId}
-                      />
+                      <EachChatBoardMessage message={msg} key={msg.messageId} />
                     );
                   })}
                 </div>

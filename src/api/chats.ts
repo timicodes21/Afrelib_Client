@@ -43,6 +43,7 @@ export const getAllUserGroupChats = async (userId: number | string) => {
   try {
     const response = await usersHttpClient(GET_USER_GROUP_CHATS_API(userId));
     const { status, data } = response;
+
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
         return data?.data;
