@@ -234,7 +234,10 @@ const SubmissionDetails: React.FC<IProps> = ({
             <Grid item xs={12} md={6} lg={4}>
               {submission?.panelist_feedback?.filter(
                 item => item?.panelist_id === userId,
-              ).length === 0 ? (
+              ).length > 0 &&
+              submission?.panelist_feedback?.filter(
+                item => item?.panelist_id === userId,
+              )[0]?.score === 0 ? (
                 <>
                   {" "}
                   <Box sx={{ mt: 3 }} className="d-flex items-center">
