@@ -26,7 +26,7 @@ export const useGetUserGroupChats = (userId: string | number) => {
     status,
     isFetching: fetchingChats,
   } = useQuery<any, Error>({
-    queryKey: [queryKeys.getChats, userId],
+    queryKey: [queryKeys.getChats, userId, queryKeys.getMessages],
     queryFn: () => getAllUserGroupChats(userId),
   });
 
@@ -42,8 +42,9 @@ export const useChatMessages = (chatId: string | number) => {
     data,
     status,
     isFetching: fetchingMsgs,
-  } = useQuery<any, Error>([queryKeys.getMessages, chatId], () =>
-    getAllChatMessages(chatId),
+  } = useQuery<any, Error>(
+    [queryKeys.getMessages, chatId, queryKeys.getChats],
+    () => getAllChatMessages(chatId),
   );
 
   const onError = () => {};
