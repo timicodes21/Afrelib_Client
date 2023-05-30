@@ -9,6 +9,7 @@ import {
   ADMIN_SUPPORT,
   ADMIN_TEAMS,
   ADMIN_USER,
+  CHAT_WITH_AI,
   CLASSROOM,
   COMPLIANCE,
   DASHBOARD,
@@ -53,6 +54,12 @@ export const studentDashboard = [
     link: RESOURCES,
     icon: "/assets/icons/resources_icon.svg",
     activeIcon: "/assets/icons/resources_icon_active.svg",
+  },
+  {
+    name: "Chat With AI",
+    link: CHAT_WITH_AI,
+    icon: "/assets/icons/messages_icon.svg",
+    activeIcon: "/assets/icons/messages_icon_active.svg",
   },
   {
     name: "Account & Settings",

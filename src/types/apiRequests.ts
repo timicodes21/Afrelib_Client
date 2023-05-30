@@ -116,3 +116,7 @@ export interface IPostSupportRequest {
   description: string;
   file: string;
 }
+
+export interface IChatRequest {
+  prompt: string;
+}

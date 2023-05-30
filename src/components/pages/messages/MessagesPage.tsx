@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import Wrapper from "@/components/templates/Wrapper";
-import { Box, Button, Grid, LinearProgress, Typography } from "@mui/material";
+import { Box, Button, Grid, LinearProgress } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CustomModal from "@/components/organisms/modals/CustomModal";
-
 import { useMessagesContext } from "@/contexts/MessagesContext";
-
 import styles from "@/styles/Messages.module.css";
-
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import MessagesChatList from "./chat-list/ChatList";
 import MessagesHeader from "./header/MessagesHeader";
@@ -28,8 +25,6 @@ const MessagesPage = () => {
   const activeChat = chat ? true : false;
 
   const role = userDetails ? userDetails.role : "";
-
-  //console.log(chats);
 
   return (
     <Wrapper>

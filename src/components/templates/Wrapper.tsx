@@ -4,12 +4,16 @@ import React, { ReactNode } from "react";
 
 interface IProps {
   children: ReactNode;
+  relative?: boolean;
 }
 
-const Wrapper: NextPage<IProps> = ({ children }) => {
+const Wrapper: NextPage<IProps> = ({ children, relative }) => {
   return (
     <>
-      <Container maxWidth="xl" sx={{ py: 3 }}>
+      <Container
+        maxWidth="xl"
+        sx={{ py: 3, position: relative ? "relative" : "static" }}
+      >
         {children}
       </Container>
     </>
