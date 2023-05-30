@@ -3,7 +3,7 @@ export type messageType = {
   messageId: string | number;
   chatId: string | number;
   content: string;
-  mediaType: "text" | "image" | "audio" | "video" | "document";
+  mediaType: mediaType;
   mediaUrl: string;
   senderId: string;
   senderName: string;
@@ -19,9 +19,15 @@ export type chatType = {
   firstName: string;
   userId: string | number;
   chatDescription: string;
+  lastMessage: {
+    mediaType: mediaType;
+    content: string;
+    senderName: string;
+    timestamp: string;
+  };
 };
 
-export type mediaType = "audio" | "video" | "image" | "document";
+export type mediaType = "text" | "audio" | "video" | "image" | "document";
 
 export type messagesContextType = {
   chat: chatType | null;

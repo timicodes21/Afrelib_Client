@@ -33,7 +33,7 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
       <Box className={styles.chatBoardEachMessage}>
         {!isSent && (
           <Box className={styles.chatMessageAvatar}>
-            <Avatar src={message?.avatar} />
+            <Avatar src={message?.profile_image} />
           </Box>
         )}
 
