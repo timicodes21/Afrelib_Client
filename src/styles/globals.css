@@ -17,6 +17,10 @@ body {
 }
 /* Font sizes */
 
+.font-6 {
+  font-size: 6px !important;
+}
+
 .font-8 {
   font-size: 8px !important;
 }

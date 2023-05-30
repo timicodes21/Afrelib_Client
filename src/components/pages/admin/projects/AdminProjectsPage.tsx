@@ -4,21 +4,34 @@ import ProjectContainer from "@/components/organisms/containers/ProjectContainer
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import Wrapper from "@/components/templates/Wrapper";
 import { useModal } from "@/hooks/utility";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, LinearProgress, Typography } from "@mui/material";
 import Image from "next/image";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import SubmissionDeadline from "./SubmissionDeadline";
 import {
   useAdminProjects,
   useGetProjects,
 } from "@/hooks/admin/useAdminProjects";
 import EvaluationCriteria from "./EvaluationCriteria";
+import { IGetSingleProject } from "@/types/apiResponses";
+import AdminProjectDetails from "./AdminProjectDetails";
 
 const AdminProjectsPage = () => {
   const { open, setOpen, closeModal, openModal } = useModal();
+  const {
+    open: openSubmission,
+    setOpen: setOpenSubmission,
+    closeModal: closeSubmissionModal,
+    openModal: openSubmissionModal,
+  } = useModal();
   const { option, setOption } = useAdminProjects();
+  const [project, setProject] = useState<IGetSingleProject>(
+    {} as IGetSingleProject,
+  );
 
   const { data, isFetching, status } = useGetProjects();
+
+  console.log("admin projects", data);
 
   const renderPage = useCallback(() => {
     switch (option) {
@@ -34,6 +47,13 @@ const AdminProjectsPage = () => {
   return (
     <Wrapper>
       <PageHeader headerText="Projects" />
+
+      {isFetching && (
+        <Box sx={{ width: "100%", mt: 2 }}>
+          <LinearProgress sx={{ color: "#213F7D" }} />
+        </Box>
+      )}
+
       <Box
         className=""
         sx={{
@@ -90,6 +110,10 @@ const AdminProjectsPage = () => {
                   submissionText=""
                   totalSubmissions={7}
                   submissionsDone={2}
+                  onClickCard={() => {
+                    setProject(item);
+                    openSubmissionModal();
+                  }}
                 />
               </Grid>
             ))}
@@ -103,6 +127,17 @@ const AdminProjectsPage = () => {
         showCloseIcon={false}
       >
         {renderPage()}
+      </CustomModal>
+      <CustomModal
+        open={openSubmission}
+        setOpen={setOpenSubmission}
+        width="1000px"
+        closeOnOverlayClick={false}
+        showCloseIcon
+      >
+        <Box sx={{ p: { xs: 2, md: 5 } }}>
+          <AdminProjectDetails project={project} isFetching={false} />
+        </Box>
       </CustomModal>
     </Wrapper>
   );

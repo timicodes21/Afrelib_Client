@@ -34,7 +34,7 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
   const { data: allRoles, isFetching, rolesSelect } = useGetRoles();
 
   // This variable would watch for changes in the service ID and rerender the component
-  const userType = watch("userType");
+  const roleName = watch("roleName");
 
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
@@ -63,6 +63,12 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
                     "userType",
                     typeof e?.value === "string" || typeof e?.value === "number"
                       ? e?.value.toString()
+                      : "",
+                  );
+                  setValue(
+                    "roleName",
+                    typeof e?.label === "string" || typeof e?.label === "number"
+                      ? e?.label.toString()
                       : "",
                   );
                 }}
@@ -168,7 +174,7 @@ const AddUser: React.FC<IProps> = ({ handleClose }) => {
                 <InputErrorText>{errors?.dob?.message ?? ""}</InputErrorText>
               )}
             </Grid>
-            {userType === "6y8hXnL5xl1l" && (
+            {roleName === "Student" && (
               <Grid item xs={12} md={6}>
                 <Controller
                   control={control}

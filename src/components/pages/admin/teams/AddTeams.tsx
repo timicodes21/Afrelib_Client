@@ -11,6 +11,7 @@ import {
   useCohortsUsersForSelect,
   useFilterUsersForSelect,
   useStudentsForSelect,
+  useUserForSelectField,
 } from "@/hooks/utility";
 import InputErrorText from "@/components/atoms/texts/InputErrorText";
 import CustomTextArea from "@/components/atoms/inputFields/CustomTextArea";
@@ -38,8 +39,8 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
   });
 
   const { allMentors, isLoading } = useFilterUsersForSelect();
-  const { studentsSelect, isFetching: isFetchingStudents } =
-    useStudentsForSelect();
+  const { users: studentsSelect, loadingUsers: isFetchingStudents } =
+    useUserForSelectField("Student");
   const { cohortsSelect, isLoading: isLoadingCohorts } =
     useCohortsUsersForSelect();
 
@@ -47,7 +48,7 @@ const AddTeams: React.FC<IProps> = ({ handleClose }) => {
     <Box sx={{ p: { xs: 2, md: 3 } }}>
       <HeaderAndCloseButton header="Add Team" onClick={handleClose} />
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(data => onSubmit(data, handleClose))}>
           <Grid container sx={{ mt: 3 }} spacing={2}>
             <Grid item xs={12} md={6}>
               <Controller

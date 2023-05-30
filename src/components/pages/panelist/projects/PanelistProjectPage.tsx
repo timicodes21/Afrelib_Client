@@ -81,30 +81,30 @@ const PanelistProjectPage = () => {
                   background: "#FBFAFA",
                 }}
               >
-                {[1, 2, 3, 4].map((item, index) => (
-                  <Box
-                    sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.08)" }}
-                    key={index}
-                  >
+                {typeof data === "object" &&
+                  Array.isArray(data?.cohort_projects) &&
+                  data?.cohort_projects.map((item, index) => (
                     <Box
-                      className="d-flex justify-between items-center"
-                      sx={{ p: 1 }}
+                      sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.08)" }}
+                      key={index}
                     >
-                      <Typography
-                        className="font-12 font-500"
-                        sx={{ color: "secondary.main" }}
+                      <Box
+                        className="d-flex justify-between items-center"
+                        sx={{ p: 1 }}
                       >
-                        Team 05
-                      </Typography>
-                      <Typography
-                        className="font-12 font-500"
-                        sx={{ color: "secondary.main" }}
-                      >
-                        1200
-                      </Typography>
+                        <Typography
+                          className="font-12 font-500"
+                          sx={{ color: "secondary.main" }}
+                        >
+                          {item[0]?.project_title}
+                        </Typography>
+                        <Typography
+                          className="font-12 font-500"
+                          sx={{ color: "secondary.main" }}
+                        ></Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                ))}
+                  ))}
               </Box>
             </Grid>
           </Grid>
@@ -119,7 +119,7 @@ const PanelistProjectPage = () => {
                   onClick={() => {}}
                   submissionText=""
                   totalSubmissions={7}
-                  submissionsDone={2}
+                  submissionsDone={item[0]?.submissions?.length}
                   onClickCard={() => {
                     setProjectId(item[0]?.id);
                     openModal();
@@ -129,8 +129,14 @@ const PanelistProjectPage = () => {
             ))}
         </Grid>
 
-        {!isFetching && Array.isArray(data) && data.length === 0 && (
-          <EmptyPage text="Team Projects will appear here.." />
+        {!isFetching &&
+          typeof data === "object" &&
+          data?.cohort_projects?.length === 0 && (
+            <EmptyPage text="Cohort Projects will appear here." />
+          )}
+
+        {!isFetching && !data && (
+          <EmptyPage text="Cohort Projects will appear here.." />
         )}
 
         {isFetching && (

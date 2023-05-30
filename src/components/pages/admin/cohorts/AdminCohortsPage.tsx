@@ -221,9 +221,9 @@ Click the Add New button to create one..."
       >
         <DeleteWrapper
           text={`Are you sure you want to delete ${cohort?.cohort_name ?? ""}`}
-          onDelete={onSubmitDelete}
+          onDelete={() => onSubmitDelete(closeDeleteModal)}
           onCancel={closeDeleteModal}
-          deleteBtnText="Yes, Disable"
+          deleteBtnText="Yes, Delete"
           cancelBtnText="No, Cancel"
           loading={isLoadingDelete}
         />

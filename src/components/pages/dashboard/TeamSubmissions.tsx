@@ -1,11 +1,13 @@
 import MessagesWrapper from "@/components/molecules/wrappers/MessagesWrapper";
 import { IMessages, messages } from "@/data/dashboard";
+import { IGetSingleSubmissionResponse } from "@/types/apiResponses";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
+import moment from "moment";
 
 interface IProps {
-  submissions: IMessages[];
+  submissions: IGetSingleSubmissionResponse[];
   noStyles?: boolean;
 }
 
@@ -29,12 +31,12 @@ const TeamSubmissions: React.FC<IProps> = ({ submissions, noStyles }) => {
           {submissions.map((item, index) => (
             <MessagesWrapper
               key={index}
-              message={item.message}
-              time={item.time}
-              group={item.group}
-              number={item?.number}
+              message={item?.submission_title}
+              time={moment(item?.created_at).format("MM:SS")}
+              group={""}
+              number={0}
               hideImage
-              link="https://jdjjdjdjjdjdjjjiioe.com"
+              link={item?.submission_attachments}
               whiteBg={noStyles}
             />
           ))}

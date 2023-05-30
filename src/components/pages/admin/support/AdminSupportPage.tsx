@@ -2,7 +2,9 @@ import TransparentBlueButton from "@/components/atoms/buttons/TransparentBlueBut
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import Wrapper from "@/components/templates/Wrapper";
+import { frequentlyAskedQuestions } from "@/data/dashboard";
 import { useAdminUsers } from "@/hooks/admin/useAdminUsers";
+import { useGetSupport } from "@/hooks/support/useSupport";
 import { useModal } from "@/hooks/utility";
 import {
   Accordion,
@@ -12,13 +14,20 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
 
 const AdminSupportPage = () => {
   const [activeTab, setActiveTab] = useState<"faq" | "messages">("faq");
   const { activeTabStyle, inActiveTabStyle } = useAdminUsers();
   const { open, setOpen, openModal, closeModal } = useModal();
+
+  const { data, isFetching } = useGetSupport();
+
+  const allSupport = useMemo(() => {
+    return Array.isArray(data) && data?.length !== 0 ? data : [];
+  }, [data]);
+
   return (
     <Wrapper>
       <PageHeader headerText="Support" />
@@ -60,74 +69,97 @@ const AdminSupportPage = () => {
               </Typography>
             </Box>
           </Box>
-          <Box>
+          {/* <Box>
             <TransparentBlueButton type="button" onClick={openModal}>
               Add New
             </TransparentBlueButton>
-          </Box>
+          </Box> */}
         </Box>
         {activeTab === "faq" && (
           <Box sx={{ mt: 2 }}>
             <Grid container>
               <Grid xs={12} md={8} lg={6}>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={
-                      <BsChevronDown
-                        style={{ color: "#3384C4", fontWeight: 700 }}
-                      />
-                    }
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    <Typography
-                      sx={{ color: "secondary.main" }}
-                      className="font-14 font-500"
-                    >
-                      How do I know when it is time to make a submission
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography
-                      sx={{ color: "secondary.main" }}
-                      className="font-12 font-400"
-                    >
-                      How do I know when it is time to make a submission
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={
-                      <BsChevronDown
-                        style={{ color: "#3384C4", fontWeight: 700 }}
-                      />
-                    }
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                  >
-                    <Typography
-                      sx={{ color: "secondary.main" }}
-                      className="font-14 font-500"
-                    >
-                      How do I know when it is time to make a submission
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography
-                      sx={{ color: "secondary.main" }}
-                      className="font-12 font-400"
-                    >
-                      How do I know when it is time to make a submission
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                {frequentlyAskedQuestions?.length > 0 &&
+                  frequentlyAskedQuestions?.map((item, index) => (
+                    <Accordion key={index}>
+                      <AccordionSummary
+                        expandIcon={
+                          <BsChevronDown
+                            style={{ color: "#3384C4", fontWeight: 700 }}
+                          />
+                        }
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <Typography
+                          sx={{ color: "secondary.main" }}
+                          className="font-14 font-500"
+                        >
+                          {item?.question}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography
+                          sx={{ color: "secondary.main" }}
+                          className="font-12 font-400"
+                        >
+                          {item?.answer}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+                <Typography
+                  sx={{ color: "secondary.main", mt: 3 }}
+                  className="font-12 font-400"
+                >
+                  We hope this FAQ has provided helpful guidance as you embark
+                  on your tech challenge journey. Remember, our support team is
+                  here to assist you every step of the way. Best of luck in the
+                  challenge! -The Afrelib AI Challenge Hub Support Team
+                </Typography>
               </Grid>
               <Grid xs={12} md={4} lg={6}></Grid>
             </Grid>
           </Box>
         )}
-        {activeTab === "messages" && <Box sx={{ mt: 2 }}></Box>}
+        {activeTab === "messages" && (
+          <Box sx={{ mt: 2 }}>
+            <Grid container>
+              <Grid xs={12} md={8} lg={6}>
+                {allSupport?.length > 0 &&
+                  allSupport?.map((item, index) => (
+                    <Accordion key={index}>
+                      <AccordionSummary
+                        expandIcon={
+                          <BsChevronDown
+                            style={{ color: "#3384C4", fontWeight: 700 }}
+                          />
+                        }
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                      >
+                        <Typography
+                          sx={{ color: "secondary.main" }}
+                          className="font-14 font-500"
+                        >
+                          {item?.title}
+                        </Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography
+                          sx={{ color: "secondary.main" }}
+                          className="font-12 font-400"
+                        >
+                          {item?.description}
+                        </Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  ))}
+              </Grid>
+              <Grid xs={12} md={4} lg={6}></Grid>
+            </Grid>
+          </Box>
+        )}
       </Box>
       <CustomModal
         open={open}

@@ -87,7 +87,12 @@ export const useAdminUsers = () => {
   const [userDetails, setUserDetails] = useState<{
     id: number;
     isEnabled?: boolean;
-  }>({ id: 0 });
+  }>(
+    {} as {
+      id: number;
+      isEnabled?: boolean;
+    },
+  );
   const { open, setOpen, closeModal, openModal } = useModal();
   const router = useRouter();
 
@@ -112,12 +117,13 @@ export const useAdminUsers = () => {
       lastName: string(),
       school: string().optional(),
       userType: string(),
+      roleName: string(),
       dob: string().optional(),
     })
     .refine(
       // If user is a student dob is compulsory
       data => {
-        if (data?.userType !== "6y8hXnL5xl1l") {
+        if (data?.roleName !== "Student") {
           // return true for other users
           return true;
         } else {
@@ -162,13 +168,25 @@ export const useAdminUsers = () => {
   const handleEnableDisable = async (
     type: "enable" | "disable",
     userId: number,
+    closeModal: () => void,
   ) => {
+    console.log("userId", userId);
     setIsUpdating(true);
     const res = await enableOrDisableUser(type, userId);
     if (res?.first_name) {
       queryClient.invalidateQueries([queryKeys.getAllUsers]);
+      closeModal();
+      setIsUpdating(false);
+      return;
+    } else {
+      toast.error(
+        typeof res === "string"
+          ? res
+          : "An error occured, Please try again later",
+      );
     }
     setIsUpdating(false);
+    closeModal();
   };
 
   const handleReset = async (id: number, closeModal: () => void) => {

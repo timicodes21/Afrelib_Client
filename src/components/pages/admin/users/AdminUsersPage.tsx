@@ -9,7 +9,7 @@ import {
   useGetAllUsers,
 } from "@/hooks/admin/useAdminUsers";
 import { Box, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import AddUser from "./AddUser";
 import { useModal } from "@/hooks/utility";
 import TableOptionsButton, {
@@ -169,18 +169,18 @@ const AdminUsersPage = () => {
               ? allUsers?.filter(
                   item =>
                     item?.role_name === selectedRole &&
-                    item?.status?.startsWith(statusOptions),
+                    item?.status.toLocaleLowerCase()?.startsWith(statusOptions),
                 )
               : typeof allAdmin === "object"
               ? allAdmin
               : []
           }
-          onDisableEnable={(id, isEnabled) => {
-            setUserDetails({ id, isEnabled });
+          onDisableEnable={userDetails => {
+            console.log("user details", userDetails);
+            setUserDetails(userDetails);
             openAlertModal();
           }}
           onResetPassword={id => {
-            setUserDetails({ ...userDetails, id });
             openResetModal();
           }}
           role={selectedRole}
@@ -211,6 +211,7 @@ const AdminUsersPage = () => {
             handleEnableDisable(
               userDetails?.isEnabled ? "disable" : "enable",
               userDetails?.id,
+              closeAlertModal,
             )
           }
           onCancel={closeAlertModal}

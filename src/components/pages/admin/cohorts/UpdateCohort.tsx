@@ -56,7 +56,11 @@ const UpdateCohort: React.FC<IProps> = ({
         />
       </Box>
       <Box>
-        <form onSubmit={handleSubmit(data => onSubmitUpdate(data, cohortId))}>
+        <form
+          onSubmit={handleSubmit(data =>
+            onSubmitUpdate(data, cohortId, handleClose),
+          )}
+        >
           <Grid container sx={{ mt: 3 }} spacing={2}>
             <Grid item xs={12} md={6}>
               <Controller

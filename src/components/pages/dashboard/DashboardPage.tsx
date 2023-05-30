@@ -1,14 +1,13 @@
 import PageHeader from "@/components/molecules/headers/PageHeader";
 import Wrapper from "@/components/templates/Wrapper";
 import { Box, Grid, Typography } from "@mui/material";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import styles from "@/styles/Dashboard.module.css";
 import Image from "next/image";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
 import ResourcesTable from "@/components/organisms/tables/ResourcesTable";
 import { resources } from "@/data/dashboard";
-import MessagesPage from "./MessagesPage";
 import WeeklyUpdatesWrapper from "@/components/molecules/wrappers/WeeklyUpdatesWrapper";
 import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";
 import TeamSubmissions from "./TeamSubmissions";
@@ -22,7 +21,21 @@ import CustomModal from "@/components/organisms/modals/CustomModal";
 import { useModal } from "@/hooks/utility";
 import WeeklyUpdatesPage from "../admin/dashboard/WeeklyUpdatesPage";
 import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
-import { IGetWeeklyUpdatesResponse } from "@/types/apiResponses";
+import {
+  ICohortDeadlineResponse,
+  IGetStudentDashboardResponse,
+  IGetTeamProjectsResponse,
+  IGetWeeklyUpdatesResponse,
+} from "@/types/apiResponses";
+import {
+  useGetCohortDeadlines,
+  useGetDashboardDetailsStudent,
+} from "@/hooks/dashboard/useDashboard";
+import DashboardWeeklyProgress from "@/components/organisms/progress/DashboardWeeklyProgress";
+import DashboardNextSubmission from "@/components/organisms/progress/DashboardNextSubmission";
+import { useGetTeamProjects } from "@/hooks/classRoom/useClassRoom";
+import { useRouter } from "next/router";
+import { CLASSROOM } from "@/data/constants";
 
 const DashboardPage = () => {
   const { userDetails } = useGlobalContext();
@@ -34,6 +47,59 @@ const DashboardPage = () => {
     return typeof data === "object" ? data : ({} as IGetWeeklyUpdatesResponse);
   }, [data]);
 
+  const {
+    userDetails: { teamId },
+  } = useGlobalContext();
+  const { data: projectData, isFetching: isFetchingProject } =
+    useGetTeamProjects(teamId ?? 0, typeof teamId === "number" && teamId !== 0);
+
+  const { data: dashboardData, isFetching: isFetchingDashboard } =
+    useGetDashboardDetailsStudent();
+
+  const dashboardDetails = useMemo(() => {
+    return typeof dashboardData === "object"
+      ? dashboardData
+      : ({} as IGetStudentDashboardResponse);
+  }, [dashboardData]);
+
+  const projectDetails = useMemo(() => {
+    return typeof projectData === "object"
+      ? projectData
+      : ({} as IGetTeamProjectsResponse);
+  }, [projectData]);
+
+  const { data: deadlines, isFetching: isFetchingDeadlines } =
+    useGetCohortDeadlines(
+      userDetails?.cohortId ?? "",
+      typeof userDetails?.cohortId === "string" &&
+        userDetails.cohortId.trim().length > 0,
+    );
+
+  const router = useRouter();
+
+  const cohortDeadlines = useMemo(() => {
+    return Array.isArray(deadlines)
+      ? deadlines
+      : ([] as ICohortDeadlineResponse[]);
+  }, [deadlines]);
+
+  console.log("cohort deadlines", cohortDeadlines);
+
+  const totalAverageScore = useMemo(() => {
+    let score = 0;
+    if (
+      Array.isArray(projectDetails?.projects) &&
+      Array.isArray(projectDetails?.projects[0]?.submissions)
+    ) {
+      projectDetails?.projects[0]?.submissions?.forEach(item => {
+        if (item?.average_score && typeof item?.average_score === "number") {
+          score += item?.average_score;
+        }
+      });
+    }
+    return score ? score : 0;
+  }, [projectDetails]);
+
   return (
     <Wrapper>
       <PageHeader headerText="Dashboard" />
@@ -44,24 +110,16 @@ const DashboardPage = () => {
               <WeeklyUpdatesWrapper
                 header={
                   typeof data === "object" && Array.isArray(data?.data)
-                    ? `Week ${
-                        data?.data[data?.data?.length - 1]?.update_week
-                      } - ${data?.data[data?.data?.length - 1]?.update_title}`
+                    ? `Week ${data?.data[0]?.update_week} - ${data?.data[0]?.update_title}`
                     : ""
                 }
                 onClickCard={() => {
                   setWeeklyUpdate(
                     typeof data === "object" && Array.isArray(data?.data)
                       ? {
-                          week: currenUpdate?.data[
-                            currenUpdate?.data?.length - 1
-                          ]?.update_week.toString(),
-                          body: currenUpdate?.data[
-                            currenUpdate?.data?.length - 1
-                          ]?.update_description,
-                          title:
-                            currenUpdate?.data[currenUpdate?.data?.length - 1]
-                              ?.update_title,
+                          week: currenUpdate?.data[0]?.update_week.toString(),
+                          body: currenUpdate?.data[0]?.update_description,
+                          title: currenUpdate?.data[0]?.update_title,
                         }
                       : ({} as IWeeklyUpdate),
                   );
@@ -82,11 +140,20 @@ const DashboardPage = () => {
                 <HeaderAndViewAll
                   header="Team Submissions"
                   text="View All"
-                  onClick={() => {}}
+                  onClick={() => {
+                    router.push(CLASSROOM);
+                  }}
                 />
               </Box>
               <Box sx={{ mt: 1 }}>
-                <TeamSubmissions submissions={[]} />
+                <TeamSubmissions
+                  submissions={
+                    Array.isArray(projectDetails?.projects) &&
+                    Array.isArray(projectDetails?.projects[0]?.submissions)
+                      ? projectDetails?.projects[0]?.submissions
+                      : []
+                  }
+                />
               </Box>
             </Grid>
           </Grid>
@@ -101,6 +168,21 @@ const DashboardPage = () => {
               >
                 Welome, {userDetails?.first_name ?? ""}
               </Typography>
+              <Box>
+                <DashboardNextSubmission />
+
+                <Typography
+                  className="font-14 font-700"
+                  sx={{ color: "info.dark", mt: 1 }}
+                >
+                  Weeks
+                </Typography>
+                <Box sx={{ mt: 1 }}>
+                  <DashboardWeeklyProgress
+                    currentWeek={dashboardDetails?.current_week}
+                  />
+                </Box>
+              </Box>
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="imageContainer">
@@ -114,29 +196,30 @@ const DashboardPage = () => {
           </Grid>
         </Box>
         <Grid container spacing={2} sx={{ mt: 1 }}>
-          {/* <Grid item xs={6} md={3}>
-            <DashboardCard
-              background="#DEF1FF"
-              value="28"
-              textColor="#0072C7"
-              title="Completed Courses"
-            />
-          </Grid> */}
-          <Grid item xs={6} md={3}>
+          <Grid item xs={6} md={6}>
             <DashboardCard
               background="#EFE3FF"
-              value="28"
+              value={
+                Array.isArray(projectDetails?.projects) &&
+                Array.isArray(projectDetails?.projects[0]?.submissions)
+                  ? projectDetails?.projects[0]?.submissions?.length
+                  : 0
+              }
               textColor="#5C0BC9"
               title="Submissions"
+              isLoading={isFetchingDashboard}
+              height="100px"
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <DashboardCard
               background="#FFDFDF"
-              value="4800"
+              value={totalAverageScore}
               textColor="#F56E6E"
               title="Your Team"
               leadershipCard
+              isLoading={isFetchingDashboard}
+              height="100px"
             />
           </Grid>
         </Grid>

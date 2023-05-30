@@ -15,6 +15,7 @@ import { IAdminLoginResponse, IUserLoginResponse } from "@/types/apiResponses";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { loginUser } from "@/api/users";
 import { IUserDetails } from "@/types";
+import { toast } from "react-hot-toast";
 
 const useAdminLogin = () => {
   return useMutation(adminLogin);
@@ -40,6 +41,11 @@ export const useLogin = () => {
   const { mutate: userLogin, isLoading } = useLoginUser();
 
   const onSuccess = (data: IUserLoginResponse) => {
+    if (data?.UserDetails?.is_disabled) {
+      toast.error("You are currently being disabled");
+      return;
+    }
+
     if (data?.access_token) {
       router.push(DASHBOARD);
     }

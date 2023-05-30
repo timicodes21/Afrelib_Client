@@ -3,8 +3,8 @@ import PageHeader from "@/components/molecules/headers/PageHeader";
 import CustomModal from "@/components/organisms/modals/CustomModal";
 import Wrapper from "@/components/templates/Wrapper";
 import { Box, Grid, LinearProgress } from "@mui/material";
-import React from "react";
-import { useModal } from "@/hooks/utility";
+import React, { useEffect } from "react";
+import { getUserByRole, useModal } from "@/hooks/utility";
 import AddTeams from "./AddTeams";
 import EmptyPage from "@/components/templates/EmptyPage";
 import {
@@ -50,6 +50,12 @@ const AdminTeamsPage = () => {
     status: statusGetSingle,
     isFetching,
   } = useGetSingleTeam(team?.id ?? 0, openStudents);
+
+  useEffect(() => {
+    getUserByRole("Student", true).then(res => {
+      console.log("response user", res);
+    });
+  }, []);
 
   return (
     <Wrapper>
@@ -146,9 +152,9 @@ Click the Add New button to create one..."
       >
         <DeleteWrapper
           text={`Are you sure you want to delete ${team?.team_name ?? ""}`}
-          onDelete={onSubmitDelete}
+          onDelete={() => onSubmitDelete(closeDeleteModal)}
           onCancel={closeDeleteModal}
-          deleteBtnText="Yes, Disable"
+          deleteBtnText="Yes, Delete"
           cancelBtnText="No, Cancel"
           loading={isLoadingDelete}
         />

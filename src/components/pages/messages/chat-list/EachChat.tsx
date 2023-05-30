@@ -77,10 +77,10 @@ const EachChatMessage = ({ chat }: IProps) => {
           ) : (
             <p className={styles.chatListChatName}>
               {isCurrentDay
-                ? moment(chat.createdAt).format("LT")
+                ? moment(timestamp).format("LT")
                 : isPrevDay
                 ? "Yesterday"
-                : moment(chat.createdAt).format("dddd")}
+                : moment(timestamp).format("dddd")}
             </p>
           )}
         </Box>

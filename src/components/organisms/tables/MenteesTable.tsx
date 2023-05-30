@@ -59,7 +59,16 @@ const MenteesTable: React.FC<IProps> = ({ mentees, loading }) => {
               ))}
             </TableRow>
           </TableHead>
-
+          {mentees.length === 0 && (
+            <Box className="d-flex justify-center items-center">
+              <Image
+                src="/assets/icons/empty_icon.svg"
+                alt="icon"
+                width={143}
+                height={107}
+              />
+            </Box>
+          )}
           <TableBody
             sx={{
               boxShadow:
@@ -68,16 +77,6 @@ const MenteesTable: React.FC<IProps> = ({ mentees, loading }) => {
               borderRadius: "10px",
             }}
           >
-            {mentees.length === 0 && (
-              <Box className="d-flex justify-center items-center">
-                <Image
-                  src="/assets/icons/empty_icon.svg"
-                  alt="icon"
-                  width={143}
-                  height={107}
-                />
-              </Box>
-            )}
             {!loading &&
               mentees?.length > 0 &&
               mentees

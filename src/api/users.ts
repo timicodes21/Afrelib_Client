@@ -9,6 +9,7 @@ import {
   CHANGE_USER_PASSWORD,
   RESET_USER_PASSWORD,
   GET_LOGGED_IN_USER,
+  GET_USERS_BY_ROLE_ID,
 } from "@/data/constants";
 import { usersHttpClient } from "@/service/httpClients";
 import {
@@ -18,7 +19,9 @@ import {
   IUpdateUserDetailsRequest,
 } from "@/types/apiRequests";
 import {
+  IGetAllUsersResponse,
   IGetMentorMenteesResponse,
+  IGetUserResponse,
   IGetWeeklyUpdatesResponse,
   IResponseMessageWithData,
   IStatusWithData,
@@ -58,7 +61,6 @@ export const loginUser = async (body: IUserLoginRequest) => {
     } = response;
     if (typeof response !== "undefined")
       if (status === 200 || status === 201) {
-        toast.success(message);
         return responseData;
       } else {
         toast.error(message);
@@ -154,6 +156,35 @@ export const getAllusers = async (page: number) => {
         toast.error(data?.message);
         return data?.message;
       }
+  } catch (err: any) {
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};
+
+export const getUsersByRoleId: (
+  roleId: string,
+  page: number,
+) => Promise<IGetUserResponse | string> = async (
+  roleId: string,
+  page: number,
+) => {
+  try {
+    const response: Awaited<IStatusWithData<IGetUserResponse>> =
+      await usersHttpClient(GET_USERS_BY_ROLE_ID(roleId, page));
+    const { status, data } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        return data;
+      } else {
+        toast.error("An error occured");
+        return "An error occured getting users";
+      }
+    else {
+      return "An error occured";
+    }
   } catch (err: any) {
     err?.response?.data?.message
       ? toast.error(err?.response?.data?.message)

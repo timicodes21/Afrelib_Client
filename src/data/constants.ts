@@ -22,6 +22,9 @@ export const RESOURCES = "/dashboard/resources";
 export const PROJECTS = "/dashboard/projects";
 export const MENTEES = "/dashboard/mentees";
 export const ACCOUNTS_SETTINGS = "/dashboard/accounts_settings";
+export const COMPLIANCE = "/dashboard/compliance";
+export const GUIDELINES = "/dashboard/guidelines";
+export const TERMS_AND_CONDITIONS = "/dashboard/terms_and_conditions";
 export const SUPPORT = "/dashboard/support";
 export const LOGIN = "/login";
 
@@ -56,12 +59,22 @@ export const UPLOAD_FILE = (type: string) => `/upload/${type}`;
 export const GET_WEEKLY_UPDATES = "/update";
 export const CREATE_WEEKLY_UPDATES = "/update";
 
+// support api
+export const POST_SUPPORT = "/support";
+export const VIEW_SUPPORT = "/getsupport";
+
 //Roles
 export const GET_ROLES_API = "/roles";
+
+// evaluation criteria
+export const GET_EVALUATION_CRITERIA = (cohortId: string) =>
+  `/criteria/${cohortId}`;
 
 // Users
 export const CREATE_USER_API = "/admin/user/create";
 export const GET_ALL_USERS_API = (page: number) => `users?page=${page}`;
+export const GET_USERS_BY_ROLE_ID = (roleId: string, page: number) =>
+  `/users/${roleId}?page=${page}`;
 export const LOGIN_USER_API = "/user/signin";
 export const GET_STUDENTS_NOT_IN_TEAM = "/students/unmatched";
 export const UPDATE_USER_DETAILS = "/user";
@@ -88,6 +101,8 @@ export const ASSIGN_PANELISTS_API = (cohortId: string) =>
 export const UPDATE_COHORT_API = (cohortId: string) => `/cohort/${cohortId}`;
 export const GET_SINGLE_COHORT_API = (cohortId: string) =>
   `/cohort/${cohortId}`;
+export const GET_COHORT_DEADLINE_API = (cohortId: string) =>
+  `/cohort/deadline/${cohortId}`;
 
 //teams
 export const CREATE_TEAM_API = (cohortId: string) => `/cohort/${cohortId}/team`;
@@ -123,10 +138,21 @@ export const ADD_TEAM_MEMBERS_GROUPCHAT = "/group-chat/team";
 export const ADD_COHORT_GROUPCHAT = (cohortId: string) =>
   `/chat/cohort/${cohortId}/add`;
 
+// Dashboard Api's
+export const GET_DASHBOARD_DETAILS_ADMIN = "/dashboard/admin";
+export const GET_DASHBOARD_DETAILS_MENTOR = "/dashboard/mentor";
+export const GET_DASHBOARD_DETAILS_PANELIST = "/dashboard/panelist";
+export const GET_DASHBOARD_DETAILS_STUDENT = "/dashboard/student";
+
 // Query keys for React Query
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
+  getAdminDashboard: "getAdminDashboard",
+  getStudentDashboard: "getStudentDashboard",
+  getMentorDashboard: "getMentorDashboard",
+  getPanelistDashboard: "getPanelistDashboard",
+  getCohortDeadlines: "getCohortDeadlines",
   getAllAdmin: "getAllAdmin",
   getMentorMentees: "getMentorMentees",
   getCohorts: "getCohorts",
@@ -143,6 +169,7 @@ export const queryKeys = {
   getMessages: "getMessages",
   getMembers: "getMembers",
   getWeeklyUpdates: "getWeeklyUpdates",
+  getSupport: "getSupport",
 };
 
 //Chats links

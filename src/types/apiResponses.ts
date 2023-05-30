@@ -45,6 +45,7 @@ export interface UserDetails {
   role_name: RoleName;
   about_me?: string;
   dob?: string;
+  is_disabled: 0 | 1;
   profile_image: string;
   team: {
     id: number;
@@ -114,6 +115,7 @@ export interface User {
   status: string;
   created_at: string;
   updated_at: string;
+  profile_image: string;
 }
 
 export interface ICreateCohortResponse {
@@ -259,7 +261,7 @@ export interface IGetSingleCohortResponse {
   };
 }
 
-interface DatumProject {
+export interface IGetSingleProject {
   id: number;
   project_title: string;
   project_description: string;
@@ -272,7 +274,7 @@ interface DatumProject {
 
 export interface IGetAllProjectsResponse {
   current_page: number;
-  data: DatumProject[];
+  data: IGetSingleProject[];
   first_page_url: string;
   from: number;
   last_page: number;
@@ -375,7 +377,7 @@ interface Project {
   status: string;
   created_at: string;
   updated_at: string;
-  submissions: any[];
+  submissions: IGetSingleSubmissionResponse[];
 }
 
 interface Team {
@@ -543,4 +545,95 @@ export interface IGetMentorMenteesResponse {
   mentor: User;
   mentorTeams: MentorTeam[];
   mentees: User[];
+}
+
+export interface IGetAdminDashboardResponse {
+  total_teams: number;
+  total_students: number;
+  total_mentors: number;
+  total_panelists: number;
+  total_submissions_in_week: number;
+}
+
+export interface IGetStudentDashboardResponse {
+  submission_deadline_date: number;
+  current_week: number;
+  total_submissions_made: number;
+  team_leaderboard_point: number;
+}
+
+export interface IGetMentorDashboardResponse {
+  submission_deadline_date: number;
+  current_week: number;
+  num_mentees: number;
+  team_points: number;
+}
+
+export interface IGetPanelistDashboardResponse {
+  submission_deadline_date: number;
+  current_week: number;
+  num_teams_in_cohort: number;
+  num_submissions: number;
+}
+export interface IPostSupportResponse {
+  Success: string;
+}
+
+export interface IGetSupportResponse {
+  id: number;
+  title?: any;
+  description?: any;
+  file?: any;
+  created_at: string;
+  updated_at: string;
+  status: string;
+}
+
+export interface ICohortDeadlineResponse {
+  id: number;
+  cohort_id: string;
+  week_number: number;
+  week_start: string;
+  week_end: string;
+  created_at: string;
+  updated_at: string;
+}
+export interface ICohortDeadlineResponse {
+  id: number;
+  title?: any;
+  description?: any;
+  file?: any;
+  created_at: string;
+  updated_at: string;
+  status: string;
+}
+
+export interface IGetUserResponse {
+  current_page: number;
+  data: User[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url?: any;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
+interface Link {
+  url?: string;
+  label: string;
+  active: boolean;
+}
+
+export interface IGetRolesResponse {
+  id: number;
+  role_id: string;
+  role_name: string;
+  created_at: string;
+  updated_at: string;
 }

@@ -5,12 +5,36 @@
 /* Sidebar and Outlet styles */
 .sidebar {
   position: fixed;
-  display: block;
+  top: 0;
+  left: 0;
   width: 22vw !important;
   background: #ffffff;
   border: 1px solid #eaecf0;
   box-shadow: 7px 0px 4px rgba(117, 171, 242, 0.08);
-  height: 100vh;
+  height: 100vh !important;
+  overflow: auto !important;
+}
+
+/* width */
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+.sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.sidebar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 2.5px;
+}
+
+/* Handle on hover */
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .outlet {
