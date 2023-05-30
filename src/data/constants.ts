@@ -18,6 +18,7 @@ export const queryClient = new QueryClient({
 export const DASHBOARD = "/dashboard";
 export const CLASSROOM = "/dashboard/classroom";
 export const MESSAGES = "/dashboard/messages";
+export const CHAT_WITH_AI = "/dashboard/chat_with_ai";
 export const RESOURCES = "/dashboard/resources";
 export const PROJECTS = "/dashboard/projects";
 export const MENTEES = "/dashboard/mentees";
@@ -144,11 +145,16 @@ export const GET_DASHBOARD_DETAILS_MENTOR = "/dashboard/mentor";
 export const GET_DASHBOARD_DETAILS_PANELIST = "/dashboard/panelist";
 export const GET_DASHBOARD_DETAILS_STUDENT = "/dashboard/student";
 
+// Chat with Ai Api's
+export const CHAT_AI_API = `/chat`;
+export const GET_CHAT_HISTORY = `/chat/history`;
+
 // Query keys for React Query
 export const queryKeys = {
   getRoles: "getRoles",
   getAllUsers: "getAllUsers",
   getAdminDashboard: "getAdminDashboard",
+  getChatHistory: "getChatHistory",
   getStudentDashboard: "getStudentDashboard",
   getMentorDashboard: "getMentorDashboard",
   getPanelistDashboard: "getPanelistDashboard",
