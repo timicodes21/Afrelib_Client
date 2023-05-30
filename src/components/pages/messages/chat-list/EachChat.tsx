@@ -16,10 +16,11 @@ const EachChatMessage = ({ chat }: IProps) => {
   const { fetchingMsgs, unread_messages } = useUnreadMessages(chat.chatId);
 
   const { lastMessage } = chat;
-  const { senderName, mediaType, timestamp, content } = lastMessage;
+
+  const { senderName, mediaType, timestamp, content } = lastMessage || {};
 
   const msgConent =
-    mediaType === "text"
+    mediaType && mediaType === "text"
       ? content
       : mediaType === "audio"
       ? "Sent a voice note"
@@ -93,10 +94,12 @@ const EachChatMessage = ({ chat }: IProps) => {
             width: "100%",
           }}
         >
-          <p className={styles.chatListChatLastMsg}>
-            {/* Ayomide: Hello everyone how are you doing */}
-            {senderName.substring(0, senderName.indexOf(" "))} : {msgConent}
-          </p>
+          {senderName && (
+            <p className={styles.chatListChatLastMsg}>
+              {senderName.substring(0, senderName.indexOf(" "))} : {msgConent}
+            </p>
+          )}
+
           {unread_messages > 0 && (
             <Box className={styles.chatListMessageCount}>{unread_messages}</Box>
           )}
