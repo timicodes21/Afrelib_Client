@@ -200,7 +200,12 @@ const MentorDashboardPage = () => {
           <Grid item xs={6} md={6}>
             <DashboardCard
               background="#EFE3FF"
-              value={dashboardDetails?.num_mentees}
+              value={
+                typeof allMentees === "object" &&
+                Array.isArray(allMentees?.mentees)
+                  ? allMentees?.mentees.length
+                  : 0
+              }
               textColor="#5C0BC9"
               title="No. of Mentees"
               isLoading={isFetchingDashboard}

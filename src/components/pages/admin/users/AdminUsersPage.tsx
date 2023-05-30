@@ -169,7 +169,7 @@ const AdminUsersPage = () => {
               ? allUsers?.filter(
                   item =>
                     item?.role_name === selectedRole &&
-                    item?.status?.startsWith(statusOptions),
+                    item?.status.toLocaleLowerCase()?.startsWith(statusOptions),
                 )
               : typeof allAdmin === "object"
               ? allAdmin
