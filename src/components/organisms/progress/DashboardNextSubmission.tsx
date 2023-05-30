@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useCallback } from "react";
 import Countdown from "react-countdown";
 
 interface IPropsRenderer {
@@ -11,7 +11,11 @@ interface IPropsRenderer {
   completed: boolean;
 }
 
-const renderer: React.FC<IPropsRenderer> = ({
+interface IProps {
+  deadline: number;
+}
+
+const Renderer: React.FC<IPropsRenderer> = ({
   days,
   hours,
   minutes,
@@ -92,7 +96,14 @@ const renderer: React.FC<IPropsRenderer> = ({
   }
 };
 
-const DashboardNextSubmission = () => {
+const DashboardNextSubmission: React.FC<IProps> = ({ deadline }) => {
+  console.log("deadline i receiving component", deadline, Date.now());
+
+  const CountdownRender = useCallback(
+    () => <Countdown date={deadline} renderer={Renderer} />,
+    [deadline],
+  );
+
   return (
     <Box
       sx={{
@@ -121,7 +132,7 @@ const DashboardNextSubmission = () => {
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Countdown date={Date.now() + 500000000} renderer={renderer} />
+          {CountdownRender()}
         </Grid>
       </Grid>
     </Box>

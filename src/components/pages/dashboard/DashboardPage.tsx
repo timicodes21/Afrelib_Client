@@ -36,6 +36,7 @@ import DashboardNextSubmission from "@/components/organisms/progress/DashboardNe
 import { useGetTeamProjects } from "@/hooks/classRoom/useClassRoom";
 import { useRouter } from "next/router";
 import { CLASSROOM } from "@/data/constants";
+import moment from "moment";
 
 const DashboardPage = () => {
   const { userDetails } = useGlobalContext();
@@ -50,6 +51,7 @@ const DashboardPage = () => {
   const {
     userDetails: { teamId },
   } = useGlobalContext();
+
   const { data: projectData, isFetching: isFetchingProject } =
     useGetTeamProjects(teamId ?? 0, typeof teamId === "number" && teamId !== 0);
 
@@ -83,7 +85,17 @@ const DashboardPage = () => {
       : ([] as ICohortDeadlineResponse[]);
   }, [deadlines]);
 
-  console.log("cohort deadlines", cohortDeadlines);
+  const currentDeadline = useMemo(() => {
+    const deadline = cohortDeadlines.find(
+      item => item?.week_number === dashboardDetails?.current_week,
+    )?.week_end;
+
+    console.log("deadline", deadline);
+
+    return deadline ? moment(deadline, "YYYY-MM-DD").valueOf() : 0;
+  }, [cohortDeadlines, dashboardDetails]);
+
+  console.log("current deadline", currentDeadline);
 
   const totalAverageScore = useMemo(() => {
     let score = 0;
@@ -169,7 +181,7 @@ const DashboardPage = () => {
                 Welome, {userDetails?.first_name ?? ""}
               </Typography>
               <Box>
-                <DashboardNextSubmission />
+                <DashboardNextSubmission deadline={currentDeadline} />
 
                 <Typography
                   className="font-14 font-700"
