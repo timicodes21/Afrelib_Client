@@ -101,6 +101,8 @@ export const ASSIGN_PANELISTS_API = (cohortId: string) =>
 export const UPDATE_COHORT_API = (cohortId: string) => `/cohort/${cohortId}`;
 export const GET_SINGLE_COHORT_API = (cohortId: string) =>
   `/cohort/${cohortId}`;
+export const GET_COHORT_DEADLINE_API = (cohortId: string) =>
+  `/cohort/deadline/${cohortId}`;
 
 //teams
 export const CREATE_TEAM_API = (cohortId: string) => `/cohort/${cohortId}/team`;
@@ -150,6 +152,7 @@ export const queryKeys = {
   getStudentDashboard: "getStudentDashboard",
   getMentorDashboard: "getMentorDashboard",
   getPanelistDashboard: "getPanelistDashboard",
+  getCohortDeadlines: "getCohortDeadlines",
   getAllAdmin: "getAllAdmin",
   getMentorMentees: "getMentorMentees",
   getCohorts: "getCohorts",

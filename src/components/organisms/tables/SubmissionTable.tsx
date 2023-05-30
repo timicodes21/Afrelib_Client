@@ -12,11 +12,15 @@ import { submissionTableColumns } from "@/data/dashboard";
 import { IStudents } from "@/types/dashboard";
 import { useTable } from "@/hooks/utility";
 import Image from "next/image";
-import { Submission, User } from "@/types/apiResponses";
+import {
+  IGetSingleSubmissionResponse,
+  Submission,
+  User,
+} from "@/types/apiResponses";
 import { IMAGE_BASE_URL } from "@/data/constants";
 
 interface IProps {
-  submission: Submission[];
+  submission: IGetSingleSubmissionResponse[];
   loading?: boolean;
   onClickRow: (submissionId: number) => void;
 }
