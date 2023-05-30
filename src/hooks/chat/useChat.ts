@@ -25,14 +25,14 @@ export const useGetUserGroupChats = (userId: string | number) => {
     data,
     status,
     isFetching: fetchingChats,
-  } = useQuery<IGetGroupChatResponse[], Error>({
+  } = useQuery<any, Error>({
     queryKey: [queryKeys.getChats, userId],
     queryFn: () => getAllUserGroupChats(userId),
   });
 
-  // console.log(data);
+  //console.log(data);
 
-  const chats = data ? data[0].data : [];
+  const chats = data ? data : [];
 
   return { chats, status, fetchingChats };
 };
@@ -48,9 +48,10 @@ export const useChatMessages = (chatId: string | number) => {
 
   const onError = () => {};
 
-  //console.log(data && data.Messages && data?.Messages[0]);
+  //console.log(data && data.Messages);
 
-  const messages: any = data && data.Messages ? data?.Messages[0] : [];
+  const messages: any = data && data.Messages ? data?.Messages : [];
+  //const messages: any = [];
 
   const onSuccessReadMessages = (data: string) => {
     //Return chat members

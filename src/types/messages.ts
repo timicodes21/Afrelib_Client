@@ -18,6 +18,7 @@ export type chatType = {
   chatType: string;
   firstName: string;
   userId: string | number;
+  chatDescription: string;
 };
 
 export type mediaType = "audio" | "video" | "image" | "document";

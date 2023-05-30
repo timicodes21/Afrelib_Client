@@ -18,7 +18,7 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
   const { userDetails } = useGlobalContext();
 
   const userId = String(userDetails.id);
-  const senderId = String(message.senderId);
+  const senderId = String(message?.senderId);
 
   const isSent = userId === senderId;
 
@@ -33,23 +33,23 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
       <Box className={styles.chatBoardEachMessage}>
         {!isSent && (
           <Box className={styles.chatMessageAvatar}>
-            <Avatar src={message.avatar} />
+            <Avatar src={message?.avatar} />
           </Box>
         )}
 
-        {message.mediaType === "audio" && (
+        {message?.mediaType === "audio" && (
           <MessageAudioType message={message} />
         )}
-        {message.mediaType === "image" && (
+        {message?.mediaType === "image" && (
           <MessageImageType message={message} />
         )}
-        {message.mediaType === "video" && (
+        {message?.mediaType === "video" && (
           <MessageVideoType message={message} />
         )}
-        {message.mediaType === "document" && (
+        {message?.mediaType === "document" && (
           <MessageDocumentType message={message} />
         )}
-        {message.mediaType === "text" && (
+        {message?.mediaType === "text" && (
           <Box
             sx={{
               display: "flex",
@@ -67,11 +67,11 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
             >
               {!isSent && (
                 <p className={styles.chatBoardMessageName}>
-                  {message.senderName}
+                  {message?.senderName}
                 </p>
               )}
 
-              <p className={styles.chatMessageText}>{message.content}</p>
+              <p className={styles.chatMessageText}>{message?.content}</p>
             </Box>
 
             <Box
@@ -82,7 +82,7 @@ const EachChatBoardMessage = ({ message }: componentProps) => {
               }}
             >
               <p className={styles.chatBoardMessageTime}>
-                {dayjs(message.timestamp).format("h:mm A	")}
+                {dayjs(message?.timestamp).format("h:mm A	")}
               </p>
             </Box>
           </Box>
