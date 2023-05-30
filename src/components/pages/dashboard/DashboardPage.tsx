@@ -18,15 +18,19 @@ import {
 } from "@/hooks/admin/useAdminDashboard";
 import { sliceText } from "@/utils/helpers";
 import CustomModal from "@/components/organisms/modals/CustomModal";
-import { getUserByRole, useModal } from "@/hooks/utility";
+import { useModal } from "@/hooks/utility";
 import WeeklyUpdatesPage from "../admin/dashboard/WeeklyUpdatesPage";
 import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
 import {
+  ICohortDeadlineResponse,
   IGetStudentDashboardResponse,
   IGetTeamProjectsResponse,
   IGetWeeklyUpdatesResponse,
 } from "@/types/apiResponses";
-import { useGetDashboardDetailsStudent } from "@/hooks/dashboard/useDashboard";
+import {
+  useGetCohortDeadlines,
+  useGetDashboardDetailsStudent,
+} from "@/hooks/dashboard/useDashboard";
 import DashboardWeeklyProgress from "@/components/organisms/progress/DashboardWeeklyProgress";
 import DashboardNextSubmission from "@/components/organisms/progress/DashboardNextSubmission";
 import { useGetTeamProjects } from "@/hooks/classRoom/useClassRoom";
@@ -64,7 +68,37 @@ const DashboardPage = () => {
       : ({} as IGetTeamProjectsResponse);
   }, [projectData]);
 
+  const { data: deadlines, isFetching: isFetchingDeadlines } =
+    useGetCohortDeadlines(
+      userDetails?.cohortId ?? "",
+      typeof userDetails?.cohortId === "string" &&
+        userDetails.cohortId.trim().length > 0,
+    );
+
   const router = useRouter();
+
+  const cohortDeadlines = useMemo(() => {
+    return Array.isArray(deadlines)
+      ? deadlines
+      : ([] as ICohortDeadlineResponse[]);
+  }, [deadlines]);
+
+  console.log("cohort deadlines", cohortDeadlines);
+
+  const totalAverageScore = useMemo(() => {
+    let score = 0;
+    if (
+      Array.isArray(projectDetails?.projects) &&
+      Array.isArray(projectDetails?.projects[0]?.submissions)
+    ) {
+      projectDetails?.projects[0]?.submissions?.forEach(item => {
+        if (item?.average_score && typeof item?.average_score === "number") {
+          score += item?.average_score;
+        }
+      });
+    }
+    return score ? score : 0;
+  }, [projectDetails]);
 
   return (
     <Wrapper>
@@ -162,18 +196,15 @@ const DashboardPage = () => {
           </Grid>
         </Box>
         <Grid container spacing={2} sx={{ mt: 1 }}>
-          {/* <Grid item xs={6} md={3}>
-            <DashboardCard
-              background="#DEF1FF"
-              value="28"
-              textColor="#0072C7"
-              title="Completed Courses"
-            />
-          </Grid> */}
           <Grid item xs={6} md={6}>
             <DashboardCard
               background="#EFE3FF"
-              value={dashboardDetails?.total_submissions_made}
+              value={
+                Array.isArray(projectDetails?.projects) &&
+                Array.isArray(projectDetails?.projects[0]?.submissions)
+                  ? projectDetails?.projects[0]?.submissions?.length
+                  : 0
+              }
               textColor="#5C0BC9"
               title="Submissions"
               isLoading={isFetchingDashboard}
@@ -183,7 +214,7 @@ const DashboardPage = () => {
           <Grid item xs={12} md={6}>
             <DashboardCard
               background="#FFDFDF"
-              value={dashboardDetails?.team_leaderboard_point}
+              value={totalAverageScore}
               textColor="#F56E6E"
               title="Your Team"
               leadershipCard

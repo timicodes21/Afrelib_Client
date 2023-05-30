@@ -1001,10 +1001,10 @@ export const frequentlyAskedQuestions: { question: string; answer: string }[] =
       answer:
         "We're here to help! If you need further assistance, clarification, or have specific questions related to the challenge, reach out to our support team. They are dedicated to providing guidance, answering your queries, and addressing any concerns you may have.",
     },
-    {
-      question:
-        "Can I collaborate with other participants on the Challenge Hub?",
-      answer:
-        "Collaboration opportunities may vary based on the challenge guidelines. Please refer to the specific rules or contact our support team to clarify whether team collaborations are allowed and for guidance on initiating or joining a team.",
-    },
+    // {
+    //   question:
+    //     "Can I collaborate with other participants on the Challenge Hub?",
+    //   answer:
+    //     "Collaboration opportunities may vary based on the challenge guidelines. Please refer to the specific rules or contact our support team to clarify whether team collaborations are allowed and for guidance on initiating or joining a team.",
+    // },
   ];

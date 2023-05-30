@@ -14,6 +14,7 @@ const ActiveWeek = ({ children }: { children: ReactNode }) => {
         borderRadius: "20px",
         boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
         zIndex: 2,
+        mt: 1,
       }}
     >
       <span style={{ color: "#F3F5F6", fontWeight: 700, fontSize: "18px" }}>
@@ -36,6 +37,7 @@ const InActiveWeek = ({ children }: { children: ReactNode }) => {
         borderRadius: "20px",
         boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
         zIndex: 2,
+        mt: 1,
       }}
     >
       <span
@@ -67,6 +69,7 @@ const Line = () => {
         background: "#F3F5F6",
         marginLeft: "-5px",
         marginRight: "-5px",
+        mt: 1,
       }}
     ></Box>
   );
@@ -78,7 +81,7 @@ interface IProps {
 
 const DashboardWeeklyProgress: React.FC<IProps> = ({ currentWeek }) => {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", overFlowX: "scroll" }}>
+    <Box sx={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
       {currentWeek >= 1 ? (
         <ActiveWeek>1</ActiveWeek>
       ) : (

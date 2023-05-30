@@ -1,3 +1,4 @@
+import { getCohortDeadlines } from "@/api/cohorts";
 import {
   getDashboardDetailsMentors,
   getDashboardDetailsPanelist,
@@ -5,6 +6,7 @@ import {
 } from "@/api/dashboard";
 import { queryKeys } from "@/data/constants";
 import {
+  ICohortDeadlineResponse,
   IGetMentorDashboardResponse,
   IGetPanelistDashboardResponse,
   IGetStudentDashboardResponse,
@@ -31,6 +33,16 @@ export const useGetDashboardDetailsPanelist = () => {
   const { data, isFetching, status } = useQuery<
     IGetPanelistDashboardResponse | string
   >([queryKeys.getPanelistDashboard], () => getDashboardDetailsPanelist());
+
+  return { data, isFetching, status };
+};
+
+export const useGetCohortDeadlines = (cohortId: string, enabled?: boolean) => {
+  const { data, isFetching, status } = useQuery<
+    ICohortDeadlineResponse[] | string
+  >([queryKeys.getPanelistDashboard], () => getCohortDeadlines(cohortId), {
+    enabled,
+  });
 
   return { data, isFetching, status };
 };

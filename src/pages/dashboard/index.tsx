@@ -9,6 +9,7 @@ const DashboardHome = () => {
     userDetails: { role },
   } = useGlobalContext();
   // render project page based on user role Students, Panelist and Mentor
+
   const RenderPage = useCallback(() => {
     switch (role) {
       case "Student":
