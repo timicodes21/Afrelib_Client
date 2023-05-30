@@ -8,9 +8,15 @@ interface IProps {
 }
 
 const MessagesChatList = ({ chats }: IProps) => {
+  const sortedChats = chats?.sort((a, b) => {
+    const compA: any = new Date(a.lastMessage.timestamp);
+    const compB: any = new Date(b.lastMessage.timestamp);
+    return compB - compA;
+  });
+
   return (
     <>
-      {chats.map(chat => {
+      {sortedChats.map(chat => {
         return <EachChatMessage key={chat.chatId} chat={chat} />;
       })}
     </>
