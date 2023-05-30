@@ -31,8 +31,6 @@ const AdminProjectsPage = () => {
 
   const { data, isFetching, status } = useGetProjects();
 
-  console.log("admin projects", data);
-
   const renderPage = useCallback(() => {
     switch (option) {
       case "evaluation":

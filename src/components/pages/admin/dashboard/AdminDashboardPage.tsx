@@ -39,7 +39,6 @@ const AdminDashboardPage = () => {
 
   const { data: dashboardData, isFetching: isFetchingDashboard } =
     useGetAdminDashboardDetails();
-  console.log("data admin dashboard", dashboardData);
 
   const dashboardDetails = useMemo(() => {
     return typeof dashboardData === "object"

@@ -25,7 +25,7 @@ const Renderer: React.FC<IPropsRenderer> = ({
   if (completed) {
     // Render a completed state
     return (
-      <Typography className="font-12 font-700" sx={{ color: "primary.main" }}>
+      <Typography className="font-14 font-700" sx={{ color: "primary.main" }}>
         DEADLINE
       </Typography>
     );
@@ -97,10 +97,16 @@ const Renderer: React.FC<IPropsRenderer> = ({
 };
 
 const DashboardNextSubmission: React.FC<IProps> = ({ deadline }) => {
-  console.log("deadline i receiving component", deadline, Date.now());
-
   const CountdownRender = useCallback(
-    () => <Countdown date={deadline} renderer={Renderer} />,
+    () =>
+      // check if deadline is passed
+      deadline > 0 && Date.now() > deadline ? (
+        <Typography className="font-14 font-700" sx={{ color: "primary.main" }}>
+          Deadline has been passed. See you next week.
+        </Typography>
+      ) : (
+        <Countdown date={deadline} renderer={Renderer} />
+      ),
     [deadline],
   );
 

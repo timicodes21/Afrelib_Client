@@ -90,12 +90,8 @@ const DashboardPage = () => {
       item => item?.week_number === dashboardDetails?.current_week,
     )?.week_end;
 
-    console.log("deadline", deadline);
-
     return deadline ? moment(deadline, "YYYY-MM-DD").valueOf() : 0;
   }, [cohortDeadlines, dashboardDetails]);
-
-  console.log("current deadline", currentDeadline);
 
   const totalAverageScore = useMemo(() => {
     let score = 0;
