@@ -600,6 +600,46 @@ export interface ICohortDeadlineResponse {
   created_at: string;
   updated_at: string;
 }
+
+export interface IChatAiResponse {
+  user_id: number;
+  search: string;
+  gpt_response: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Link {
+  url?: string;
+  label: string;
+  active: boolean;
+}
+
+interface Chat {
+  id: number;
+  user_id: number;
+  search: string;
+  gpt_response: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IGetChatHistoryResponse {
+  current_page: number;
+  data: Chat[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url?: any;
+  path: string;
+  per_page: number;
+  prev_page_url?: any;
+  to: number;
+  total: number;
+}
+
 export interface ICohortDeadlineResponse {
   id: number;
   title?: any;
