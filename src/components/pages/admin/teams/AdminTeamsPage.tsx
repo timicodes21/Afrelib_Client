@@ -52,9 +52,7 @@ const AdminTeamsPage = () => {
   } = useGetSingleTeam(team?.id ?? 0, openStudents);
 
   useEffect(() => {
-    getUserByRole("Student", true).then(res => {
-      console.log("response user", res);
-    });
+    getUserByRole("Student", true).then(res => {});
   }, []);
 
   return (

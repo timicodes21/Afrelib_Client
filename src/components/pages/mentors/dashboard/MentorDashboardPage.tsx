@@ -63,8 +63,6 @@ const MentorDashboardPage = () => {
       : ({} as IGetMentorDashboardResponse);
   }, [dashboardData]);
 
-  console.log("mentor project data", projectData, teamId);
-
   const projectDetails = useMemo(() => {
     return typeof projectData === "object"
       ? projectData
@@ -94,29 +92,11 @@ const MentorDashboardPage = () => {
     return score ? score : 0;
   }, [projectDetails]);
 
-  const { data: deadlines, isFetching: isFetchingDeadlines } =
-    useGetCohortDeadlines(
-      cohortId ?? "",
-      typeof cohortId === "string" && cohortId.trim().length > 0,
-    );
-
-  const cohortDeadlines = useMemo(() => {
-    return Array.isArray(deadlines)
-      ? deadlines
-      : ([] as ICohortDeadlineResponse[]);
-  }, [deadlines]);
-
   const currentDeadline = useMemo(() => {
-    const deadline = cohortDeadlines.find(
-      item => item?.week_number === dashboardDetails?.current_week,
-    )?.week_end;
-
-    console.log("deadline", deadline);
+    const deadline = dashboardDetails?.submission_deadline_date;
 
     return deadline ? moment(deadline, "YYYY-MM-DD").valueOf() : 0;
-  }, [cohortDeadlines, dashboardDetails]);
-
-  console.log("current deadline", currentDeadline);
+  }, [dashboardDetails]);
 
   return (
     <Wrapper>

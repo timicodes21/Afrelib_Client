@@ -38,8 +38,6 @@ const UpdateCohort: React.FC<IProps> = ({
 
   const { data, isFetching } = useGetSingleCohort(cohortId, true);
 
-  console.log("data single cohort", data);
-
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
       <Box className="d-flex justify-between items-center">
