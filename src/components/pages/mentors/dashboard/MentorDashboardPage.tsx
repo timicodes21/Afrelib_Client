@@ -78,6 +78,21 @@ const MentorDashboardPage = () => {
     status,
   } = useGetMentees(Number(id), typeof id === "number");
 
+  const totalAverageScore = useMemo(() => {
+    let score = 0;
+    if (
+      Array.isArray(projectDetails?.projects) &&
+      Array.isArray(projectDetails?.projects[0]?.submissions)
+    ) {
+      projectDetails?.projects[0]?.submissions?.forEach(item => {
+        if (item?.average_score && typeof item?.average_score === "number") {
+          score += item?.average_score;
+        }
+      });
+    }
+    return score ? score : 0;
+  }, [projectDetails]);
+
   return (
     <Wrapper>
       <PageHeader headerText="Dashboard" />
@@ -195,7 +210,7 @@ const MentorDashboardPage = () => {
           <Grid item xs={12} md={6}>
             <DashboardCard
               background="#FFDFDF"
-              value={dashboardDetails?.team_points}
+              value={totalAverageScore}
               textColor="#F56E6E"
               title="Team Points"
               leadershipCard

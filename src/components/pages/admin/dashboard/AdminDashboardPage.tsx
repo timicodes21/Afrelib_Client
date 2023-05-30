@@ -23,7 +23,6 @@ import {
 import { sliceText } from "@/utils/helpers";
 import WeeklyUpdatesPage from "./WeeklyUpdatesPage";
 import { IGetAdminDashboardResponse } from "@/types/apiResponses";
-import { useGetSupport } from "@/hooks/support/useSupport";
 
 const AdminDashboardPage = () => {
   const { userDetails } = useGlobalContext();
@@ -31,7 +30,7 @@ const AdminDashboardPage = () => {
   const { allUsers, isLoading } = useGetAllUsers();
   const { open, setOpen, openModal, closeModal } = useModal();
 
-  const { data, isFetching } = useGetWeeklyUpdates();
+  const { data } = useGetWeeklyUpdates();
   const [option, setOption] = useState<"weeklyUpdateForm" | "weeklyUpdatePage">(
     "weeklyUpdateForm",
   );

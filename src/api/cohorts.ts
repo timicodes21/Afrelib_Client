@@ -3,6 +3,7 @@ import {
   CREATE_COHORT_API,
   DELETE_COHORT_API,
   GET_COHORTS_API,
+  GET_COHORT_DEADLINE_API,
   GET_EVALUATION_CRITERIA,
   GET_SINGLE_COHORT_API,
   GET_SINGLE_TEAM_API,
@@ -15,7 +16,12 @@ import {
   ICreateCohortRequest,
   IUpdateCohorRequest,
 } from "@/types/apiRequests";
-import { IGetSupportResponse, IStatusWithData } from "@/types/apiResponses";
+import {
+  ICohortDeadlineResponse,
+  IGetSupportResponse,
+  IResponseMessageWithData,
+  IStatusWithData,
+} from "@/types/apiResponses";
 import { toast } from "react-hot-toast";
 
 export const createCohort = async (body: ICreateCohortRequest) => {
@@ -190,28 +196,29 @@ export const getCohortCriteria: (
   }
 };
 
-// export const getCohortCriteria: (
-//   cohortId: string,
-// ) => Promise<Array<IGetSupportResponse[]> | string> = async cohortId => {
-//   try {
-//     const response: Awaited<IStatusWithData<Array<IGetSupportResponse[]>>> =
-//       await usersHttpClient(GET_EVALUATION_CRITERIA(cohortId));
-//     const { status, data } = response;
-//     if (typeof response !== "undefined")
-//       if (status === 200 || status === 201) {
-//         return data;
-//       } else {
-//         toast.error("An error occured");
-//         return "An error occured";
-//       }
-//     else {
-//       toast.error("An error occured");
-//       return "Error";
-//     }
-//   } catch (err: any) {
-//     err?.response?.data?.message
-//       ? toast.error(err?.response?.data?.message)
-//       : toast.error("An Error Occured, Please try again later");
-//     return "An error occured";
-//   }
-// };
+export const getCohortDeadlines: (
+  cohortId: string,
+) => Promise<ICohortDeadlineResponse[] | string> = async cohortId => {
+  try {
+    const response: Awaited<
+      IStatusWithData<IResponseMessageWithData<ICohortDeadlineResponse[]>>
+    > = await usersHttpClient(GET_COHORT_DEADLINE_API(cohortId));
+    const { status, data } = response;
+    if (typeof response !== "undefined")
+      if (status === 200 || status === 201) {
+        return data?.responseData;
+      } else {
+        toast.error("An error occured");
+        return "An error occured";
+      }
+    else {
+      toast.error("An error occured");
+      return "Error";
+    }
+  } catch (err: any) {
+    err?.response?.data?.message
+      ? toast.error(err?.response?.data?.message)
+      : toast.error("An Error Occured, Please try again later");
+    return "An error occured";
+  }
+};

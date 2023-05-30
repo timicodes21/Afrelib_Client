@@ -154,7 +154,7 @@ Click the Add New button to create one..."
           text={`Are you sure you want to delete ${team?.team_name ?? ""}`}
           onDelete={() => onSubmitDelete(closeDeleteModal)}
           onCancel={closeDeleteModal}
-          deleteBtnText="Yes, Disable"
+          deleteBtnText="Yes, Delete"
           cancelBtnText="No, Cancel"
           loading={isLoadingDelete}
         />

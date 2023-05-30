@@ -377,7 +377,7 @@ interface Project {
   status: string;
   created_at: string;
   updated_at: string;
-  submissions: any[];
+  submissions: IGetSingleSubmissionResponse[];
 }
 
 interface Team {
@@ -580,6 +580,25 @@ export interface IPostSupportResponse {
 }
 
 export interface IGetSupportResponse {
+  id: number;
+  title?: any;
+  description?: any;
+  file?: any;
+  created_at: string;
+  updated_at: string;
+  status: string;
+}
+
+export interface ICohortDeadlineResponse {
+  id: number;
+  cohort_id: string;
+  week_number: number;
+  week_start: string;
+  week_end: string;
+  created_at: string;
+  updated_at: string;
+}
+export interface ICohortDeadlineResponse {
   id: number;
   title?: any;
   description?: any;
