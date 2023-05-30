@@ -35,8 +35,6 @@ const ClassroomPage = () => {
     typeof teamId === "number" && teamId !== 0,
   );
 
-  console.log("data", data, isFetching);
-
   const { open, setOpen, openModal, closeModal } = useModal();
 
   const [index, setIndex] = useState(0);

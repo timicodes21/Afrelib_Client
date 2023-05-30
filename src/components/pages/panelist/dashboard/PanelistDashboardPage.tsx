@@ -150,7 +150,7 @@ const PanelistDashboardPage = () => {
                 Welome, {userDetails?.first_name ?? ""}
               </Typography>
               <Box>
-                <DashboardNextSubmission />
+                <DashboardNextSubmission deadline={0} />
 
                 <Typography
                   className="font-14 font-700"

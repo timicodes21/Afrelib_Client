@@ -6,8 +6,6 @@ import styles from "@/styles/Dashboard.module.css";
 import Image from "next/image";
 import DashboardCard from "@/components/molecules/cards/DashboardCard";
 import PageFlexLayout from "@/components/templates/PageFlexLayout";
-import ResourcesTable from "@/components/organisms/tables/ResourcesTable";
-import { resources } from "@/data/dashboard";
 import WeeklyUpdatesWrapper from "@/components/molecules/wrappers/WeeklyUpdatesWrapper";
 import HeaderAndViewAll from "@/components/molecules/wrappers/HeaderAndViewAll";
 import TeamSubmissions from "../../dashboard/TeamSubmissions";
@@ -22,14 +20,14 @@ import { useModal } from "@/hooks/utility";
 import WeeklyUpdatesPage from "../../admin/dashboard/WeeklyUpdatesPage";
 import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
 import {
+  ICohortDeadlineResponse,
   IGetMentorDashboardResponse,
-  IGetStudentDashboardResponse,
   IGetTeamProjectsResponse,
   IGetWeeklyUpdatesResponse,
 } from "@/types/apiResponses";
 import {
+  useGetCohortDeadlines,
   useGetDashboardDetailsMentor,
-  useGetDashboardDetailsStudent,
 } from "@/hooks/dashboard/useDashboard";
 import DashboardWeeklyProgress from "@/components/organisms/progress/DashboardWeeklyProgress";
 import DashboardNextSubmission from "@/components/organisms/progress/DashboardNextSubmission";
@@ -38,9 +36,9 @@ import { useRouter } from "next/router";
 import { CLASSROOM, MENTEES } from "@/data/constants";
 import { useGetMentees } from "@/hooks/mentees/useMentees";
 import MenteesTable from "@/components/organisms/tables/MenteesTable";
+import moment from "moment";
 
 const MentorDashboardPage = () => {
-  const { userDetails } = useGlobalContext();
   const { data } = useGetWeeklyUpdates();
   const { open, setOpen, openModal, closeModal } = useModal();
   const { weeklyUpdate, setWeeklyUpdate } = useAdminDashboard();
@@ -50,8 +48,9 @@ const MentorDashboardPage = () => {
   }, [data]);
 
   const {
-    userDetails: { teamId, id },
+    userDetails: { teamId, id, first_name, cohortId },
   } = useGlobalContext();
+
   const { data: projectData, isFetching: isFetchingProject } =
     useGetTeamProjects(teamId ?? 0, typeof teamId === "number" && teamId !== 0);
 
@@ -92,6 +91,12 @@ const MentorDashboardPage = () => {
     }
     return score ? score : 0;
   }, [projectDetails]);
+
+  const currentDeadline = useMemo(() => {
+    const deadline = dashboardDetails?.submission_deadline_date;
+
+    return deadline ? moment(deadline, "YYYY-MM-DD").valueOf() : 0;
+  }, [dashboardDetails]);
 
   return (
     <Wrapper>
@@ -159,10 +164,10 @@ const MentorDashboardPage = () => {
                 className="font-32 font-700"
                 sx={{ color: "info.dark" }}
               >
-                Welome, {userDetails?.first_name ?? ""}
+                Welome, {first_name ?? ""}
               </Typography>
               <Box>
-                <DashboardNextSubmission />
+                <DashboardNextSubmission deadline={currentDeadline} />
 
                 <Typography
                   className="font-14 font-700"

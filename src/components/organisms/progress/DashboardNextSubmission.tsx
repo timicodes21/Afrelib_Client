@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useCallback } from "react";
 import Countdown from "react-countdown";
 
 interface IPropsRenderer {
@@ -11,7 +11,11 @@ interface IPropsRenderer {
   completed: boolean;
 }
 
-const renderer: React.FC<IPropsRenderer> = ({
+interface IProps {
+  deadline: number;
+}
+
+const Renderer: React.FC<IPropsRenderer> = ({
   days,
   hours,
   minutes,
@@ -21,7 +25,7 @@ const renderer: React.FC<IPropsRenderer> = ({
   if (completed) {
     // Render a completed state
     return (
-      <Typography className="font-12 font-700" sx={{ color: "primary.main" }}>
+      <Typography className="font-14 font-700" sx={{ color: "primary.main" }}>
         DEADLINE
       </Typography>
     );
@@ -92,7 +96,20 @@ const renderer: React.FC<IPropsRenderer> = ({
   }
 };
 
-const DashboardNextSubmission = () => {
+const DashboardNextSubmission: React.FC<IProps> = ({ deadline }) => {
+  const CountdownRender = useCallback(
+    () =>
+      // check if deadline is passed
+      deadline > 0 && Date.now() > deadline ? (
+        <Typography className="font-14 font-700" sx={{ color: "primary.main" }}>
+          Deadline has been passed. See you next week.
+        </Typography>
+      ) : (
+        <Countdown date={deadline} renderer={Renderer} />
+      ),
+    [deadline],
+  );
+
   return (
     <Box
       sx={{
@@ -121,7 +138,7 @@ const DashboardNextSubmission = () => {
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Countdown date={Date.now() + 500000000} renderer={renderer} />
+          {CountdownRender()}
         </Grid>
       </Grid>
     </Box>

@@ -41,13 +41,10 @@ export const useLogin = () => {
   const { mutate: userLogin, isLoading } = useLoginUser();
 
   const onSuccess = (data: IUserLoginResponse) => {
+    // don't route disabled user
     if (data?.UserDetails?.is_disabled) {
       toast.error("You are currently being disabled");
       return;
-    }
-
-    if (data?.access_token) {
-      router.push(DASHBOARD);
     }
 
     const userDetails: IUserDetails = {
@@ -56,7 +53,9 @@ export const useLogin = () => {
       access_token: data?.access_token,
       role: data?.UserDetails?.role_name,
       id: data?.UserDetails?.id,
-      teamId: data?.UserDetails?.team?.id,
+      teamId: Array.isArray(data?.UserDetails?.team)
+        ? data?.UserDetails?.team[0]?.id
+        : data?.UserDetails?.team?.id,
       cohortId: data?.UserDetails?.cohort?.cohort_id,
       userId: data?.UserDetails?.id,
       email: data?.UserDetails?.email,
@@ -68,6 +67,10 @@ export const useLogin = () => {
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(userDetails));
     setUserDetails(userDetails);
+
+    if (data?.access_token) {
+      router.push(DASHBOARD);
+    }
   };
 
   const onError = () => {};

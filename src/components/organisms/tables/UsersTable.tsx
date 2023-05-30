@@ -261,7 +261,6 @@ const UsersTable: React.FC<IProps> = ({
                                 >
                                   <UsersOptionsList
                                     onDisableEnable={() => {
-                                      console.log("item", item);
                                       handleClose();
                                       // If is_disabled is 0, User is enable and I am returning true
                                       onDisableEnable(userDetails);

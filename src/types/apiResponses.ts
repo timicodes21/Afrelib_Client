@@ -47,9 +47,11 @@ export interface UserDetails {
   dob?: string;
   is_disabled: 0 | 1;
   profile_image: string;
-  team: {
-    id: number;
-  };
+  team:
+    | {
+        id: number;
+      }
+    | { id: number }[];
   cohort: {
     cohort_id: string;
   };
