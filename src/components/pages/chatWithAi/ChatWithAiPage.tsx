@@ -24,7 +24,6 @@ const ChatWithAiPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleSendMessage = async (text: string) => {
-    console.log("hello here");
     setTempChatResponse("");
 
     if (text.trim().length === 0) return;
@@ -76,8 +75,6 @@ const ChatWithAiPage = () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [scrollRef, history, handleSendMessage]);
-
-  console.log("chat history", chatHistory.reverse());
 
   return (
     <Wrapper relative>
