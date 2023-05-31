@@ -342,7 +342,7 @@ export const menteesTableColumns: readonly Column[] = [
   { id: "firstName", label: "FIRST NAME", minWidth: 100, align: "center" },
   { id: "lastName", label: "LAST NAME", minWidth: 100, align: "center" },
   { id: "email", label: "EMAIL", minWidth: 100, align: "center" },
-  { id: "cohort", label: "COHORT", minWidth: 50, align: "center" },
+  { id: "dob", label: "Date of Birth", minWidth: 50, align: "center" },
   { id: "badges", label: "BADGES", minWidth: 50, align: "center" },
   {
     id: "leaderBoardPoints",

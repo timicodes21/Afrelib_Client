@@ -117,7 +117,7 @@ const MenteesTable: React.FC<IProps> = ({ mentees, loading }) => {
                           {item?.date_of_birth}
                         </Typography>
                       </TableCell>
-                      <TableCell align="center">
+                      {/* <TableCell align="center">
                         <Typography
                           className="font-12 font-400"
                           sx={{ color: "secondary.main" }}
@@ -132,7 +132,7 @@ const MenteesTable: React.FC<IProps> = ({ mentees, loading }) => {
                         >
                           {item?.leadership_points}
                         </Typography>
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   );
                 })}
