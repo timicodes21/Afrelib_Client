@@ -5,7 +5,7 @@ import React from "react";
 interface IProps {
   handleClose: () => void;
   header: string;
-  body: string;
+  body: string | React.ReactNode;
 }
 
 const WeeklyUpdatesPage: React.FC<IProps> = ({ handleClose, header, body }) => {

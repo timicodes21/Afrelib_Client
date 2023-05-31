@@ -14,6 +14,7 @@ const ChatWithAiPage = () => {
   const [message, setMessage] = useState("");
   const [tempUserMessage, setTempUserMessage] = useState("");
   const [tempChatResponse, setTempChatResponse] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const chatHistory = useMemo(() => {
     return typeof history === "object" && Array.isArray(history?.data)
@@ -39,17 +40,21 @@ const ChatWithAiPage = () => {
     }
 
     setMessage("");
+    setIsLoading(true);
     const response = await chatAiApi({ prompt: text });
     if (typeof response === "object" && response?.gpt_response) {
       setTempUserMessage("");
       queryClient.invalidateQueries([queryKeys.getChatHistory]);
+      setIsLoading(false);
       return;
     }
     if (typeof response === "string") {
       setTempChatResponse(response);
+      setIsLoading(false);
       return;
     }
     setTempChatResponse("An error occured, Please try again later");
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -99,9 +104,11 @@ const ChatWithAiPage = () => {
                 onClick={() => handleSendMessage(message)}
               />
             }
+            placeholder={isLoading ? "Sending Message..." : ""}
             type="text"
             value={message}
             onChange={e => setMessage(e.target.value)}
+            disabled={isLoading}
           />
         </Box>
       </Box>
@@ -137,7 +144,11 @@ const ChatWithAiPage = () => {
                 />
                 <ChatMessageWrapper
                   time={item?.created_at}
-                  message={item?.gpt_response}
+                  message={
+                    JSON.parse(item?.gpt_response)?.content
+                      ? JSON.parse(item?.gpt_response)?.content
+                      : ""
+                  }
                 />
               </React.Fragment>
             ))}
@@ -152,6 +163,9 @@ const ChatWithAiPage = () => {
           )}
           {tempChatResponse.trim().length > 0 && (
             <ChatMessageWrapper time={""} now message={tempChatResponse} />
+          )}
+          {isLoading && (
+            <ChatMessageWrapper time={""} now message={"Wait..."} />
           )}
         </Box>
       </Box>

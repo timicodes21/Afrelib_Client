@@ -18,25 +18,42 @@ interface IProps {
   notPanelist?: boolean;
 }
 
+interface IScores {
+  collaboration: number;
+  criticalThinking: number;
+  creativeProblemSolving: number;
+  persistence: number;
+  learningLessons: number;
+  useOfGpt: number;
+}
+
 const SubmissionDetails: React.FC<IProps> = ({
   submission,
   submissionId,
   notPanelist,
 }) => {
-  const [accuracy, setAccuracy] = useState(0);
-  const [process, setProcess] = useState(0);
-  const [speed, setSpeed] = useState(0);
+  const [scores, setScores] = useState<IScores>({
+    collaboration: 0,
+    creativeProblemSolving: 0,
+    criticalThinking: 0,
+    persistence: 0,
+    learningLessons: 0,
+    useOfGpt: 0,
+  });
+
+  interface ICriteria<TKey extends keyof IScores> {
+    name: string;
+    scores: Record<number, number>;
+    reference: number;
+    key: TKey;
+  }
+
   const [loading, setLoading] = useState(false);
   const [commetLoading, setCommetLoading] = useState(false);
   const [comment, setComment] = useState("");
   const {
     userDetails: { userId },
   } = useGlobalContext();
-
-  const totalScore = useMemo(
-    () => process + accuracy + speed,
-    [process, accuracy, speed],
-  );
 
   const handleScore = async () => {
     setLoading(true);
@@ -53,11 +70,72 @@ const SubmissionDetails: React.FC<IProps> = ({
     setComment("");
   };
 
+  const scoreOptions = {
+    0: 0,
+    20: 20,
+    40: 40,
+    60: 60,
+    80: 80,
+    100: 100,
+  };
+
+  const criteria: ICriteria<
+    | "collaboration"
+    | "creativeProblemSolving"
+    | "learningLessons"
+    | "criticalThinking"
+    | "persistence"
+    | "useOfGpt"
+  >[] = [
+    {
+      name: "Collaboration",
+      scores: scoreOptions,
+      reference: scores?.collaboration,
+      key: "collaboration",
+    },
+    {
+      name: "Critical Thinking",
+      scores: scoreOptions,
+      reference: scores?.criticalThinking,
+      key: "criticalThinking",
+    },
+    {
+      name: "Creative Problem Solving",
+      scores: scoreOptions,
+      reference: scores?.creativeProblemSolving,
+      key: "creativeProblemSolving",
+    },
+    {
+      name: "Persistence",
+      scores: scoreOptions,
+      reference: scores?.persistence,
+      key: "persistence",
+    },
+    {
+      name: "Learning Lessons",
+      scores: scoreOptions,
+      reference: scores?.learningLessons,
+      key: "learningLessons",
+    },
+
+    {
+      name: "Use of GPT",
+      scores: scoreOptions,
+      reference: scores?.useOfGpt,
+      key: "useOfGpt",
+    },
+  ];
+
+  // calculate total score
+  const totalScore = useMemo(() => {
+    return Object.values(scores).reduce((acc, curr) => acc + curr, 0);
+  }, [scores]);
+
   return (
     <Box sx={{ mt: 1, p: { xs: 2, md: 3 } }}>
       <Box>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={8}>
+          <Grid item xs={12} md={6} lg={6}>
             <Box sx={{ mt: 2 }} className="d-flex items-center">
               <Typography
                 className="font-16 font-600"
@@ -231,10 +309,10 @@ const SubmissionDetails: React.FC<IProps> = ({
               )}
           </Grid>
           {
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={6} lg={6}>
               {submission?.panelist_feedback?.filter(
                 item => item?.panelist_id === userId,
-              ).length > 0 &&
+              ).length === 0 ||
               submission?.panelist_feedback?.filter(
                 item => item?.panelist_id === userId,
               )[0]?.score === 0 ? (
@@ -250,120 +328,56 @@ const SubmissionDetails: React.FC<IProps> = ({
                   </Box>
                   {!notPanelist && (
                     <>
-                      <Box sx={{ mt: 2 }} className="d-flex">
-                        <Typography
-                          className="font-16 font-600"
-                          sx={{ color: "#172B4D" }}
-                        >
-                          Accuracy
-                        </Typography>
-                        <NumberButton
-                          number={20}
-                          onClick={number => setAccuracy(number)}
-                          ml
-                          active={accuracy === 20}
-                        />
-                        <NumberButton
-                          number={40}
-                          onClick={number => setAccuracy(number)}
-                          ml
-                          active={accuracy === 40}
-                        />
-                        <NumberButton
-                          number={60}
-                          onClick={number => setAccuracy(number)}
-                          ml
-                          active={accuracy === 60}
-                        />
-                        <NumberButton
-                          number={80}
-                          onClick={number => setAccuracy(number)}
-                          ml
-                          active={accuracy === 80}
-                        />
-                        <NumberButton
-                          number={100}
-                          onClick={number => setAccuracy(number)}
-                          ml
-                          active={accuracy === 100}
-                        />
-                      </Box>
-                      <Box sx={{ mt: 2 }} className="d-flex">
-                        <Typography
-                          className="font-16 font-600"
-                          sx={{ color: "#172B4D" }}
-                        >
-                          Process
-                        </Typography>
-                        <NumberButton
-                          number={20}
-                          onClick={number => setProcess(number)}
-                          ml
-                          active={process === 20}
-                        />
-                        <NumberButton
-                          number={40}
-                          onClick={number => setProcess(number)}
-                          ml
-                          active={process === 40}
-                        />
-                        <NumberButton
-                          number={60}
-                          onClick={number => setProcess(number)}
-                          ml
-                          active={process === 60}
-                        />
-                        <NumberButton
-                          number={80}
-                          onClick={number => setProcess(number)}
-                          ml
-                          active={process === 80}
-                        />
-                        <NumberButton
-                          number={100}
-                          onClick={number => setProcess(number)}
-                          ml
-                          active={process === 100}
-                        />
-                      </Box>
-                      <Box sx={{ mt: 2 }} className="d-flex">
-                        <Typography
-                          className="font-16 font-600"
-                          sx={{ color: "#172B4D" }}
-                        >
-                          Speed
-                        </Typography>
-                        <NumberButton
-                          number={20}
-                          onClick={number => setSpeed(number)}
-                          ml
-                          active={speed === 20}
-                        />
-                        <NumberButton
-                          number={40}
-                          onClick={number => setSpeed(number)}
-                          ml
-                          active={speed === 40}
-                        />
-                        <NumberButton
-                          number={60}
-                          onClick={number => setSpeed(number)}
-                          ml
-                          active={speed === 60}
-                        />
-                        <NumberButton
-                          number={80}
-                          onClick={number => setSpeed(number)}
-                          ml
-                          active={speed === 80}
-                        />
-                        <NumberButton
-                          number={100}
-                          onClick={number => setSpeed(number)}
-                          ml
-                          active={speed === 100}
-                        />
-                      </Box>
+                      {criteria.map((item, index) => (
+                        <Box sx={{ mt: 2 }} className="d-flex" key={index}>
+                          <Typography
+                            className="font-16 font-600"
+                            sx={{ color: "#172B4D" }}
+                          >
+                            {item?.name}
+                          </Typography>
+                          <NumberButton
+                            number={20}
+                            onClick={num => {
+                              setScores({ ...scores, [item?.key]: num });
+                            }}
+                            ml
+                            active={item?.reference === 20}
+                          />
+                          <NumberButton
+                            number={40}
+                            onClick={num => {
+                              setScores({ ...scores, [item?.key]: num });
+                            }}
+                            ml
+                            active={item?.reference === 40}
+                          />
+                          <NumberButton
+                            number={60}
+                            onClick={num => {
+                              setScores({ ...scores, [item?.key]: num });
+                            }}
+                            ml
+                            active={item?.reference === 60}
+                          />
+                          <NumberButton
+                            number={80}
+                            onClick={num => {
+                              setScores({ ...scores, [item?.key]: num });
+                            }}
+                            ml
+                            active={item?.reference === 80}
+                          />
+                          <NumberButton
+                            number={100}
+                            onClick={num => {
+                              setScores({ ...scores, [item?.key]: num });
+                            }}
+                            ml
+                            active={item?.reference === 100}
+                          />
+                        </Box>
+                      ))}
                     </>
                   )}
                   {!notPanelist && (
@@ -388,9 +402,9 @@ const SubmissionDetails: React.FC<IProps> = ({
                         type="button"
                         onClick={handleScore}
                         loading={loading}
-                        disabled={
-                          accuracy === 0 || process === 0 || speed === 0
-                        }
+                        // disabled={
+                        //   accuracy === 0 || process === 0 || speed === 0
+                        // }
                       >
                         Submit
                       </AuthButton>

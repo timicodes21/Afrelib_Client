@@ -176,7 +176,6 @@ const AdminUsersPage = () => {
               : []
           }
           onDisableEnable={userDetails => {
-            console.log("user details", userDetails);
             setUserDetails(userDetails);
             openAlertModal();
           }}
