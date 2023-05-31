@@ -343,13 +343,6 @@ export const menteesTableColumns: readonly Column[] = [
   { id: "lastName", label: "LAST NAME", minWidth: 100, align: "center" },
   { id: "email", label: "EMAIL", minWidth: 100, align: "center" },
   { id: "dob", label: "Date of Birth", minWidth: 50, align: "center" },
-  { id: "badges", label: "BADGES", minWidth: 50, align: "center" },
-  {
-    id: "leaderBoardPoints",
-    label: "LEADERBOARD POINTS",
-    minWidth: 70,
-    align: "center",
-  },
 ];
 
 export const panelistsTableColumns: readonly Column[] = [
