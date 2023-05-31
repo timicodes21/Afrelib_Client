@@ -9,8 +9,8 @@ interface IProps {
 
 const MessagesChatList = ({ chats }: IProps) => {
   const sortedChats = chats?.sort((a, b) => {
-    const compA: any = new Date(a.lastMessage.timestamp);
-    const compB: any = new Date(b.lastMessage.timestamp);
+    const compA: any = new Date(a.lastMessage?.timestamp);
+    const compB: any = new Date(b.lastMessage?.timestamp);
     return compB - compA;
   });
 
