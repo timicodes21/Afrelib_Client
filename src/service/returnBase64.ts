@@ -1,5 +1,5 @@
 export const getBase64 = (file: any) => {
-  console.log(file);
+  // console.log(file);
   return new Promise(resolve => {
     //let fileInfo;
     let baseURL = "";

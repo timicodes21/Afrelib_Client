@@ -144,7 +144,6 @@ export const useAdminUsers = () => {
   const { mutate, isLoading } = useCreateUser();
 
   const onSubmit = (data: AddUserFormValues, closeModal: () => void) => {
-    console.log("data", data);
     const formData: ICreateUserRequest = {
       first_name: data?.firstName,
       last_name: data?.lastName,
@@ -170,7 +169,6 @@ export const useAdminUsers = () => {
     userId: number,
     closeModal: () => void,
   ) => {
-    console.log("userId", userId);
     setIsUpdating(true);
     const res = await enableOrDisableUser(type, userId);
     if (res?.first_name) {
