@@ -147,7 +147,6 @@ const PanelistProjectPage = () => {
               </Grid>
             ))}
         </Grid>
-
         {!isFetching &&
           typeof data === "object" &&
           data?.cohort_projects?.length === 0 && (
