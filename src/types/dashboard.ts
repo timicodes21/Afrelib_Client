@@ -9,7 +9,7 @@ export interface IResources {
   title: string;
   type: string;
   resource: string;
-  sharedBy: string;
+  source: string;
 }
 
 export interface IStudents {
