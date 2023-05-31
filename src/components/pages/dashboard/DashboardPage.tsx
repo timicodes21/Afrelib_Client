@@ -182,7 +182,16 @@ const DashboardPage = () => {
                 Welome, {userDetails?.first_name ?? ""}
               </Typography>
               <Box>
-                <DashboardNextSubmission deadline={currentDeadline} />
+                {typeof currentDeadline === "number" && currentDeadline > 0 ? (
+                  <DashboardNextSubmission deadline={currentDeadline} />
+                ) : (
+                  <Typography
+                    className="font-16 font-700"
+                    sx={{ color: "info.main" }}
+                  >
+                    Deadline:
+                  </Typography>
+                )}
 
                 <Typography
                   className="font-14 font-700"
