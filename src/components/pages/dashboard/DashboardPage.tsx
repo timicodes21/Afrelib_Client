@@ -86,11 +86,16 @@ const DashboardPage = () => {
   }, [deadlines]);
 
   const currentDeadline = useMemo(() => {
-    const deadline = cohortDeadlines.find(
-      item => item?.week_number === dashboardDetails?.current_week,
-    )?.week_end;
+    // const deadline = cohortDeadlines.find(
+    //   item => item?.week_number === dashboardDetails?.current_week,
+    // )?.week_end;
 
-    return deadline ? moment(deadline, "YYYY-MM-DD").valueOf() : 0;
+    return dashboardDetails?.submission_deadline_date
+      ? moment(
+          `${dashboardDetails?.submission_deadline_date} 16:00`,
+          "YYYY-MM-DD HH:mm",
+        ).valueOf()
+      : 0;
   }, [cohortDeadlines, dashboardDetails]);
 
   const totalAverageScore = useMemo(() => {

@@ -95,7 +95,9 @@ const MentorDashboardPage = () => {
   const currentDeadline = useMemo(() => {
     const deadline = dashboardDetails?.submission_deadline_date;
 
-    return deadline ? moment(deadline, "YYYY-MM-DD").valueOf() : 0;
+    return deadline
+      ? moment(`${deadline} 16:00`, "YYYY-MM-DD HH:mm").valueOf()
+      : 0;
   }, [dashboardDetails]);
 
   return (
