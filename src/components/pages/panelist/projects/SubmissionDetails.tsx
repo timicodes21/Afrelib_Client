@@ -329,7 +329,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                   {!notPanelist && (
                     <>
                       {criteria.map((item, index) => (
-                        <Box sx={{ mt: 2 }} className="d-flex">
+                        <Box sx={{ mt: 2 }} className="d-flex" key={index}>
                           <Typography
                             className="font-16 font-600"
                             sx={{ color: "#172B4D" }}

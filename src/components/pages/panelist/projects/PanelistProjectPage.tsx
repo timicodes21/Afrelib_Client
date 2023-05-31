@@ -232,14 +232,14 @@ const PanelistProjectPage = () => {
                 <br />
                 <br />
                 3. Creative Problem Solving (100 points): This criterion
-                assesses the participant's ability to think creatively and
+                assesses the participant&apos;s ability to think creatively and
                 develop innovative solutions to complex problems. Participants
                 will be evaluated on their capacity to generate original ideas,
                 consider alternative perspectives, and apply imaginative
                 thinking in problem-solving processes. <br />
                 <br />
                 4. Persistence (100 points): Persistence reflects the
-                participant's determination, resilience, and dedication to
+                participant&apos;s determination, resilience, and dedication to
                 overcome obstacles and achieve their goals. Participants will be
                 evaluated on their ability to demonstrate perseverance and a
                 proactive attitude throughout the challenge, including their
@@ -247,18 +247,18 @@ const PanelistProjectPage = () => {
                 development process. <br />
                 <br />
                 5. Learning Lessons (100 points): This criterion assesses the
-                participant's ability to learn from the challenge experience and
-                apply acquired knowledge and insights. Participants will be
-                evaluated on their reflection, growth, and improvement
-                throughout the challenge journey, as well as their ability to
-                adapt and incorporate feedback into their work.
+                participant&apos;s ability to learn from the challenge
+                experience and apply acquired knowledge and insights.
+                Participants will be evaluated on their reflection, growth, and
+                improvement throughout the challenge journey, as well as their
+                ability to adapt and incorporate feedback into their work.
                 <br />
                 <br />
                 6. Use of GPT (100 points): GPT (Generative Pre-trained
                 Transformer) refers to the utilisation of language models for
                 natural language processing tasks. This criterion assesses the
-                participant's skill in leveraging GPT technology within their
-                solution. Participants will be evaluated based on the
+                participant&apos;s skill in leveraging GPT technology within
+                their solution. Participants will be evaluated based on the
                 appropriate and effective use of GPT to enhance the
                 functionality, interactivity, or intelligence of their solution.
               </Typography>
