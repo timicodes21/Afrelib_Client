@@ -30,12 +30,12 @@ const AccountSettingsPage = () => {
           <AccountPersonalInformation />
         </Box>
 
-        {role?.toLowerCase() === "student" && (
+        {/* {role?.toLowerCase() === "student" && (
           <Box mb={5}>
             <Typography className={styles.headerText}>Submissions</Typography>
             <AccountSubmissions />
           </Box>
-        )}
+        )} */}
 
         {/* {(role?.toLowerCase() === "student" ||
           role?.toLowerCase() === "admin") && (
