@@ -109,7 +109,7 @@ const ResourcesTable: React.FC<IProps> = ({ resources, loading }) => {
                           className="font-12 font-400"
                           sx={{ color: "secondary.main" }}
                         >
-                          {item?.sharedBy}
+                          {item?.source}
                         </Typography>
                       </TableCell>
                     </TableRow>
