@@ -31,12 +31,10 @@ const SupportForm = () => {
   const [isUploading, setIsUploading] = useState(false);
 
   const handleFile = async (file: any) => {
-    console.log("file in file function", file);
     const formData = new FormData();
     formData.append("uploadFile", file[0]);
     setIsUploading(true);
     const res = await uploadFile(formData, "submissions");
-    console.log("res file upload", res);
     if (typeof res === "object") {
       setUrl(res?.url ?? "");
       setValue("file", res?.url);

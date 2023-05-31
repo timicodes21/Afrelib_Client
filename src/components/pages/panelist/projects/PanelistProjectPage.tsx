@@ -17,6 +17,7 @@ import AllSubmissions from "./AllSubmissions";
 import SubmissionDetails from "./SubmissionDetails";
 import { useGetSingleSubmissions } from "@/hooks/submissions/useSubmissions";
 import { IGetSingleSubmissionResponse } from "@/types/apiResponses";
+import WeeklyUpdatesPage from "../../admin/dashboard/WeeklyUpdatesPage";
 
 const PanelistProjectPage = () => {
   const { data, isFetching, status } = useGetProjectsUnderPanelists();
@@ -43,6 +44,10 @@ const PanelistProjectPage = () => {
       submissionId !== 0 && typeof allSubmissions === "object",
     );
 
+  const [options, setOptions] = useState<"submissions" | "criteria">(
+    "submissions",
+  );
+
   return (
     <Wrapper>
       <PageHeader headerText="Projects" />
@@ -51,17 +56,30 @@ const PanelistProjectPage = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={6} lg={12}>
               <EvaluationWrapper header="Evaluation Criteria">
-                The following are the evaluation criteria that will be used to
-                assess the submissions: Technical proficiency: How well does the
-                submission demonstrate technical skills? Innovation: Does the
-                submission show creativity and originality? User experience: Is
-                the submission easy to use and intuitive for the target
-                audience? Impact: Does the submission have the potential to
-                solve a real-world problem? Presentation: How well does the
-                submission convey its ideas and message? Please use these
-                criteria to provide a fair and unbiased evaluation of each
-                submission. If you have any questions or concerns, please
-                don&apos;t hesitate to contact us.
+                1. Collaboration (100 points): Collaboration emphasises the
+                ability to work effectively in a team or group setting.
+                Participants will be evaluated on their engagement in
+                collaborative activities, including communication, sharing of
+                ideas, and constructive contributions. The assessment will focus
+                on the extent to which participants demonstrate teamwork,
+                cooperation, and effective collaboration skills.
+                <br />
+                <br />
+                <button
+                  style={{
+                    background: "transparent",
+                    outline: "none",
+                    border: "none",
+                    color: "#FFF",
+                  }}
+                  className="pointer"
+                  onClick={() => {
+                    setOptions("criteria");
+                    openModal();
+                  }}
+                >
+                  Read More..
+                </button>
               </EvaluationWrapper>
             </Grid>
 
@@ -122,6 +140,7 @@ const PanelistProjectPage = () => {
                   submissionsDone={item[0]?.submissions?.length}
                   onClickCard={() => {
                     setProjectId(item[0]?.id);
+                    setOptions("submissions");
                     openModal();
                   }}
                 />
@@ -167,25 +186,86 @@ const PanelistProjectPage = () => {
         setOpen={setOpen}
         width="800px"
         closeOnOverlayClick={false}
-        showCloseIcon={true}
+        showCloseIcon={(options === "submissions") === true}
       >
-        <AllSubmissions
-          evaluatedSubmissions={
-            typeof allSubmissions === "object"
-              ? allSubmissions?.evaluatedSubmissions
-              : []
-          }
-          nonEvaluatedSubmissions={
-            typeof allSubmissions === "object"
-              ? allSubmissions?.nonEvaluatedSubmissions
-              : []
-          }
-          isFetching={loadingAllSubmissions}
-          onClick={submissionId => {
-            setSubmissionId(submissionId);
-            openModal2();
-          }}
-        />
+        {options === "submissions" ? (
+          <AllSubmissions
+            evaluatedSubmissions={
+              typeof allSubmissions === "object"
+                ? allSubmissions?.evaluatedSubmissions
+                : []
+            }
+            nonEvaluatedSubmissions={
+              typeof allSubmissions === "object"
+                ? allSubmissions?.nonEvaluatedSubmissions
+                : []
+            }
+            isFetching={loadingAllSubmissions}
+            onClick={submissionId => {
+              setSubmissionId(submissionId);
+              openModal2();
+            }}
+          />
+        ) : (
+          <WeeklyUpdatesPage
+            header="Evaluation Criteria"
+            body={
+              <Typography
+                className="font-14 font-400 pointer"
+                sx={{ color: "secondary.main", mt: 1 }}
+              >
+                1. Collaboration (100 points): Collaboration emphasises the
+                ability to work effectively in a team or group setting.
+                Participants will be evaluated on their engagement in
+                collaborative activities, including communication, sharing of
+                ideas, and constructive contributions. The assessment will focus
+                on the extent to which participants demonstrate teamwork,
+                cooperation, and effective collaboration skills.
+                <br />
+                <br />
+                2. Critical Thinking (100 points): Critical thinking refers to
+                the ability to analyse, evaluate, and solve problems
+                systematically. Participants will be assessed on their capacity
+                to approach challenges with a logical and analytical mindset.
+                The evaluation will focus on the use of evidence, reasoning, and
+                sound judgment in developing solutions.
+                <br />
+                <br />
+                3. Creative Problem Solving (100 points): This criterion
+                assesses the participant's ability to think creatively and
+                develop innovative solutions to complex problems. Participants
+                will be evaluated on their capacity to generate original ideas,
+                consider alternative perspectives, and apply imaginative
+                thinking in problem-solving processes. <br />
+                <br />
+                4. Persistence (100 points): Persistence reflects the
+                participant's determination, resilience, and dedication to
+                overcome obstacles and achieve their goals. Participants will be
+                evaluated on their ability to demonstrate perseverance and a
+                proactive attitude throughout the challenge, including their
+                response to setbacks or challenges faced during the solution
+                development process. <br />
+                <br />
+                5. Learning Lessons (100 points): This criterion assesses the
+                participant's ability to learn from the challenge experience and
+                apply acquired knowledge and insights. Participants will be
+                evaluated on their reflection, growth, and improvement
+                throughout the challenge journey, as well as their ability to
+                adapt and incorporate feedback into their work.
+                <br />
+                <br />
+                6. Use of GPT (100 points): GPT (Generative Pre-trained
+                Transformer) refers to the utilisation of language models for
+                natural language processing tasks. This criterion assesses the
+                participant's skill in leveraging GPT technology within their
+                solution. Participants will be evaluated based on the
+                appropriate and effective use of GPT to enhance the
+                functionality, interactivity, or intelligence of their solution.
+              </Typography>
+            }
+            handleClose={closeModal}
+          />
+        )}
       </CustomModal>
     </Wrapper>
   );
