@@ -162,10 +162,10 @@ const SubmissionDetails: React.FC<IProps> = ({
                 sx={{ color: "secondary.main", ml: 2 }}
               >
                 <a
-                  href={`${IMAGE_BASE_URL}${submission?.submission_url}` ?? ""}
+                  href={`${submission?.submission_attachments}` ?? ""}
                   target="_blank"
                 >
-                  Enter Url
+                 {submission?.submission_attachments ?? ""}
                 </a>
               </Typography>
             </Box>
@@ -337,7 +337,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                             {item?.name}
                           </Typography>
                           <NumberButton
-                            number={20}
+                            number={2}
                             onClick={num => {
                               setScores({ ...scores, [item?.key]: num });
                             }}
@@ -345,7 +345,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                             active={item?.reference === 2}
                           />
                           <NumberButton
-                            number={40}
+                            number={4}
                             onClick={num => {
                               setScores({ ...scores, [item?.key]: num });
                             }}
@@ -353,7 +353,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                             active={item?.reference === 4}
                           />
                           <NumberButton
-                            number={60}
+                            number={6}
                             onClick={num => {
                               setScores({ ...scores, [item?.key]: num });
                             }}
@@ -361,7 +361,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                             active={item?.reference === 6}
                           />
                           <NumberButton
-                            number={80}
+                            number={8}
                             onClick={num => {
                               setScores({ ...scores, [item?.key]: num });
                             }}
@@ -369,7 +369,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                             active={item?.reference === 8}
                           />
                           <NumberButton
-                            number={100}
+                            number={10}
                             onClick={num => {
                               setScores({ ...scores, [item?.key]: num });
                             }}
