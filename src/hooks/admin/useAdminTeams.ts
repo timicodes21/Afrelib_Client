@@ -126,7 +126,7 @@ export const useAdminTeams = () => {
     if (response?.team_id) {
       const studentsStringId = data?.students?.map(id => id.toString());
       await addTeamGroupChat({
-        team_id: response?.id,
+        team_id: response?.team_id,
         participants: [...studentsStringId, data?.mentor.toString()],
       });
       queryClient.invalidateQueries([queryKeys.getTeams]);
