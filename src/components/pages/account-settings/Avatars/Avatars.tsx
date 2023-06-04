@@ -104,6 +104,7 @@ const Avatars = ({ closeModal }: iProps) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          marginBottom: "15px",
         }}
       >
         <Button

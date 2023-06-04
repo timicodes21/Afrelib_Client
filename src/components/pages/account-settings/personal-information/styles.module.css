@@ -149,3 +149,31 @@
 
   color: #353f50;
 }
+
+@media screen and (max-width: 800px) {
+  .container {
+    width: 100%;
+    padding: 25px 10px;
+    height: fit-content;
+  }
+
+  .contentsContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .informationContainer {
+    width: 100%;
+  }
+
+  .informationInnerContainer {
+    flex-direction: column;
+  }
+
+  .informationSections {
+    width: 100%;
+  }
+}
