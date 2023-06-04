@@ -72,11 +72,11 @@ const SubmissionDetails: React.FC<IProps> = ({
 
   const scoreOptions = {
     0: 0,
-    20: 20,
-    40: 40,
-    60: 60,
-    80: 80,
-    100: 100,
+    2: 2,
+    4: 4,
+    6: 6,
+    8: 8,
+    10: 10,
   };
 
   const criteria: ICriteria<
@@ -342,7 +342,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                               setScores({ ...scores, [item?.key]: num });
                             }}
                             ml
-                            active={item?.reference === 20}
+                            active={item?.reference === 2}
                           />
                           <NumberButton
                             number={40}
@@ -350,7 +350,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                               setScores({ ...scores, [item?.key]: num });
                             }}
                             ml
-                            active={item?.reference === 40}
+                            active={item?.reference === 4}
                           />
                           <NumberButton
                             number={60}
@@ -358,7 +358,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                               setScores({ ...scores, [item?.key]: num });
                             }}
                             ml
-                            active={item?.reference === 60}
+                            active={item?.reference === 6}
                           />
                           <NumberButton
                             number={80}
@@ -366,7 +366,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                               setScores({ ...scores, [item?.key]: num });
                             }}
                             ml
-                            active={item?.reference === 80}
+                            active={item?.reference === 8}
                           />
                           <NumberButton
                             number={100}
@@ -374,7 +374,7 @@ const SubmissionDetails: React.FC<IProps> = ({
                               setScores({ ...scores, [item?.key]: num });
                             }}
                             ml
-                            active={item?.reference === 100}
+                            active={item?.reference === 10}
                           />
                         </Box>
                       ))}
